@@ -1,0 +1,48 @@
+
+services:
+  # Serviço para o nosso backend NestJS
+  backend:
+    image: node:20-alpine # Usaremos uma imagem Node.js base por enquanto
+    container_name: contratamusico-backend
+    working_dir: /app
+    ports:
+      - "3000:3000" # Mapeia a porta do host para a porta do container
+    environment:
+      # Passe as variáveis de ambiente do .env para o container
+      # É mais seguro em produção usar segredos ou um ConfigMap, mas para dev, isso funciona.
+      - DATABASE_TYPE=${DATABASE_TYPE}
+      - DATABASE_HOST=db # 'db' é o nome do serviço do banco de dados no docker-compose
+      - DATABASE_PORT=${DATABASE_PORT}
+      - DATABASE_USERNAME=${DATABASE_USERNAME}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_EXPIRATION_TIME=${JWT_EXPIRATION_TIME}
+    volumes:
+      - .:/app # Monta o diretório atual do projeto no diretório /app do container
+      - /app/node_modules # Impede que a pasta node_modules do host sobrescreva a do container
+    command: npm run start:dev # Comando para iniciar a aplicação NestJS
+    depends_on:
+      - db # Garante que o serviço 'db' seja iniciado antes do 'backend'
+
+  # Serviço para o banco de dados PostgreSQL
+  db:
+    image: postgres:15-alpine # Imagem oficial do PostgreSQL. '15-alpine' para uma versão leve e específica.
+    container_name: contratamusico-db
+    ports:
+      - "5432:5432" # Opcional: mapeia a porta do DB para o host (útil para ferramentas de DB externas)
+    environment:
+      # Variáveis de ambiente para configurar o PostgreSQL
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - db_data:/var/lib/postgresql/data # Volume persistente para os dados do banco de dados
+    healthcheck: # Healthcheck para garantir que o DB esteja pronto antes que o backend se conecte
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  db_data: # Define o volume nomeado para persistência dos dados do DB

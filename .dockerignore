@@ -1,0 +1,13 @@
+# .dockerignore
+
+node_modules
+dist
+.env
+.git
+.gitignore
+Dockerfile
+docker-compose.yml # If you plan to use it
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.vscode
