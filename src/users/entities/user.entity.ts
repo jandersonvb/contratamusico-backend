@@ -12,10 +12,10 @@ export class User {
   @Column() // Coluna para a senha (armazenaremos o hash aqui)
   passwordHash: string; // Renomeado para 'passwordHash' para indicar que é a senha hasheada
 
-  @Column({ nullable: true }) // Coluna opcional para o nome completo
+  @Column({ nullable: true }) /// Este campo receberá o 'name' do formulário
   fullName: string;
 
-  @Column({ default: 'user' }) // Coluna para o tipo de usuário (e.g., 'musico', 'contratante', 'admin', 'user')
+  @Column({ default: 'user' }) // Este campo receberá o 'accountType' do formulário
   userType: string;
 
   @Column({ nullable: true }) // Coluna para o token de redefinição de senha
