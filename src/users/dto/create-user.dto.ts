@@ -1,11 +1,10 @@
-// src/users/dto/create-user.dto.ts
-import { IsEmail, IsString, MinLength, MaxLength, IsOptional, IsIn, IsNotEmpty } from 'class-validator';
+import { IsEmail, IsIn, IsNotEmpty, IsString, MinLength } from 'class-validator';
+import { AccountType } from '../entities/user.entity';
 
 export class CreateUserDto {
   @IsNotEmpty({ message: 'Nome completo é obrigatório.' })
   @IsString({ message: 'Nome completo deve ser uma string.' })
-  // O campo 'name' do frontend será mapeado para 'fullName' no backend
-  fullName?: string;
+  fullName: string; // O campo 'name' do frontend será mapeado para 'fullName' no backend
 
 
   @IsEmail({}, { message: 'E-mail inválido.' })
@@ -13,12 +12,11 @@ export class CreateUserDto {
   email: string;
 
   @IsString({ message: 'Senha deve ser uma string.' })
-  @MinLength(6, { message: 'A senha deve ter no mínimo 6 caracteres.' })
+  @MinLength(8, { message: 'A senha deve ter no mínimo 8 caracteres.' })
   password: string;
 
 
   @IsNotEmpty({ message: 'Tipo de conta é obrigatório.' })
-  @IsString({ message: 'Tipo de conta deve ser uma string.' })
-  @IsIn(['musico', 'contratante'], { message: 'Tipo de dado inválido. Deve ser "musico" ou "contratante"' }) // Valida o tipo de usuário
-  accountType: string;
+  @IsIn([AccountType.MUSICIAN, AccountType.CONTRACTOR], { message: 'Tipo de conta inválido. Deve ser "musico" ou "contratante".' })
+  accountType: AccountType; // Tipado com o enum AccountType
 }

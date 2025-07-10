@@ -1,46 +1,55 @@
-// src/users/users.controller.ts
-import { Controller, Get, Param, Post, Body, ConflictException, HttpCode, HttpStatus } from '@nestjs/common';
-import { UsersService } from './users.service'; // Importe o UsersService
-import { User } from './entities/user.entity'; // Importe a entidade User
-import { CreateUserDto } from './dto/create-user.dto'; // Iremos criar este DTO a seguir
-import * as bcrypt from 'bcrypt'; // Para hashear senhas
+import { Controller, Get, Param, Patch, Body, Delete, HttpCode, HttpStatus, UseGuards, Request, NotFoundException } from '@nestjs/common';
+import { UsersService } from './users.service';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { Public } from 'src/auth/decorators/public.decorator';
 
-@Controller('users') // Define o prefixo de rota para este controller (ex: /users)
+
+@Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) { } // Injeta o UsersService
+  constructor(private readonly usersService: UsersService) { }
 
-  // Endpoint de exemplo para buscar um usuário por email (para testes iniciais)
-  @Get(':email')
-  async findUserByEmail(@Param('email') email: string): Promise<User | undefined> {
-    return this.usersService.findOneByEmail(email);
-  }
+  // Exemplo: Obter perfil do usuário logado
+  @UseGuards(JwtAuthGuard) // Protege esta rota
+  @Get('me')
+  async getMyProfile(@Request() req: any) {
+    // req.user é populado pelo JwtAuthGuard com os dados do JWT payload
+    const user = await this.usersService.findOneById(req.user.id);
 
-  // Endpoint para criar um novo usuário (usado no Signup)
-  @Post()
-  @HttpCode(HttpStatus.CREATED) // Retorna status 201 Created para sucesso no cadastro
-  async create(@Body() createUserDto: CreateUserDto): Promise<User> {
-    const existingUser = await this.usersService.findOneByEmail(createUserDto.email);
-
-    if (existingUser) {
-      throw new ConflictException('Usuario já existe com este email'); // Lança uma exceção se o usuário já existir
+    if (!user) {
+      throw new NotFoundException('Perfil do usuário não encontrado.');
     }
 
-    // Hashear a senha antes de salvar
-    const saltRounds = 10;
-    const passwordHash = await bcrypt.hash(createUserDto.password, saltRounds);
-
-    // Cria o usuário com a senha hasheada
-    const newUser = await this.usersService.create({
-      email: createUserDto.email,
-      passwordHash: passwordHash,
-      // outros campos como fullName, userType virão aqui se o formulário de signup os tiver
-      fullName: createUserDto.fullName, // Mapeia 'fullName' do DTO para a entidade
-      userType: createUserDto.accountType, // Mapeia 'accountType' do DTO para 'userType' da entidade
-    });
-
-    // Retorna o usuário criado, mas sem a senha hasheada por segurança
-    const { passwordHash: _, ...result } = newUser;
-    // Remove o campo passwordHash do resultado para não expor a senha
-    return result as User;
+    // O service já retorna sem a senha.
+    return user;
   }
+
+  // Exemplo: Obter qualquer usuário por ID (apenas para fins demonstrativos, pode precisar de autorização)
+  @Public() // Marca esta rota como pública por enquanto (para testes sem JWT)
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
+    const user = await this.usersService.findOneById(id);
+    if (!user) {
+      throw new NotFoundException(`Usuário com ID "${id}" não encontrado.`);
+    }
+    return user; // O service já retorna sem a senha.
+  }
+
+  // Exemplo: Atualizar perfil do usuário
+  @UseGuards(JwtAuthGuard)
+  @Patch('me') // Rota para atualizar o próprio perfil
+  async updateMyProfile(@Request() req: any, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(req.user.id, updateUserDto);
+  }
+
+  // Exemplo: Excluir o próprio usuário (com cuidado em produção, preferir soft delete)
+  @UseGuards(JwtAuthGuard)
+  @Delete('me')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async removeMyProfile(@Request() req: any) {
+    await this.usersService.remove(req.user.id);
+  }
+
+  // Rotas como POST /users (criação) e GET /users (listar todos) seriam para ADMINS e protegidas
+  // ou a criação via AuthModule (signup).
 }

@@ -1,7 +1,11 @@
-// src/users/entities/user.entity.ts
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
-@Entity() // Marca a classe como uma entidade TypeORM, mapeando-a para uma tabela (nome da tabela será 'user' por padrão)
+export enum AccountType {
+  MUSICIAN = 'musico',
+  CONTRACTOR = 'contratante',
+}
+
+@Entity('users') // Marca a classe como uma entidade TypeORM, mapeando-a para uma tabela (nome da tabela será 'user' por padrão)
 export class User {
   @PrimaryGeneratedColumn('uuid') // Gera um ID único universalmente (UUID)
   id: string;
@@ -9,14 +13,14 @@ export class User {
   @Column({ unique: true }) // Coluna para o email, deve ser único no banco de dados
   email: string;
 
-  @Column() // Coluna para a senha (armazenaremos o hash aqui)
-  passwordHash: string; // Renomeado para 'passwordHash' para indicar que é a senha hasheada
+  @Column()  // Coluna para a senha (armazenaremos o hash da senha)
+  password: string;
 
   @Column({ nullable: true }) /// Este campo receberá o 'name' do formulário
   fullName: string;
 
-  @Column({ default: 'user' }) // Este campo receberá o 'accountType' do formulário
-  userType: string;
+  @Column({ type: 'enum', enum: AccountType, default: AccountType.CONTRACTOR })
+  accountType: AccountType;
 
   @Column({ nullable: true }) // Coluna para o token de redefinição de senha
   resetPasswordToken: string;
@@ -27,9 +31,9 @@ export class User {
   @Column({ default: false }) // Coluna para indicar se o e-mail foi verificado
   isEmailVerified: boolean;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' }) // Data de criação
+  @CreateDateColumn({ name: 'created_at' }) // Data de criação automática
   createdAt: Date;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' }) // Data da última atualização
+  @UpdateDateColumn({ name: 'updated_at' }) // Data da última atualização automática
   updatedAt: Date;
 }
