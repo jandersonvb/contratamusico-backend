@@ -1,12 +1,9 @@
-// src/auth/dto/auth-response.dto.ts
-import { AccountType } from '../../users/entities/user.entity';
+import type { AccountType } from "src/users/entities/user.entity";
 
 export class AuthResponseDto {
-  accessToken: string;
-  user: {
-    id: string;
-    fullName: string;
-    email: string;
-    accountType: AccountType;
-  };
+  id: string;
+  fullName: string;
+  email: string;
+  accountType: AccountType;
+  picture?: string; // Opcional: incluir URL da imagem de perfil
 }

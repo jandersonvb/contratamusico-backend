@@ -6,10 +6,6 @@ import { UsersModule } from '../users/users.module'; // Importa UsersModule para
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config'; // Para gerenciar configurações e JWT Secret
-import { JwtStrategy } from './strategies/jwt.strategy';
-import { LocalStrategy } from './strategies/local.strategy';
-import { APP_GUARD } from '@nestjs/core';
-import { JwtAuthGuard } from './guards/jwt-auth.guard'; // Importa o guard JWT padrão
 
 @Module({
   imports: [
@@ -26,13 +22,7 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard'; // Importa o guard JWT p
     ConfigModule, // Para injetar ConfigService
   ],
   providers: [
-    AuthService,
-    LocalStrategy, // Adiciona a estratégia local
-    JwtStrategy,   // Adiciona a estratégia JWT
-    {
-      provide: APP_GUARD, // Define JwtAuthGuard como um guard global
-      useClass: JwtAuthGuard,
-    },
+    AuthService
   ],
   controllers: [AuthController],
 })

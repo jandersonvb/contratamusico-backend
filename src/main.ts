@@ -3,7 +3,6 @@ import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config'; // Importe ConfigService
-import { JwtAuthGuard } from './auth/guards/jwt-auth.guard'; // Importe o guard global
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -18,10 +17,6 @@ async function bootstrap() {
     },
   }));
 
-  // Adiciona o guard JWT globalmente
-  // Excluímos rotas específicas com @Public()
-  const reflector = app.get(Reflector);
-  app.useGlobalGuards(new JwtAuthGuard(reflector));
 
   // Habilita CORS para permitir requisições do frontend
   app.enableCors({

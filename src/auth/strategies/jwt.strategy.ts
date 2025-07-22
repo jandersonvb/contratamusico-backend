@@ -9,17 +9,12 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(private configService: ConfigService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      ignoreExpiration: false, // O token deve expirar
-      secretOrKey: configService.get<string>('JWT_SECRET'),
+      ignoreExpiration: false,
+      secretOrKey: configService.get<string>('JWT_SECRET') || (() => { throw new Error('JWT_SECRET is not defined'); })(),
     });
   }
 
   async validate(payload: any) {
-    // O payload é o que foi assinado no JWT (id do usuário, email, accountType)
-    // Aqui você pode adicionar lógica para buscar o usuário no DB
-    // e retornar um objeto mais completo se necessário.
-    // Por exemplo: const user = await this.usersService.findOneById(payload.sub);
-    // Mas para este caso, o payload já contém informações suficientes.
     return { id: payload.sub, email: payload.email, accountType: payload.accountType, fullName: payload.fullName };
   }
 }

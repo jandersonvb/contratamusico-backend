@@ -3,9 +3,10 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateCol
 export enum AccountType {
   MUSICIAN = 'musico',
   CONTRACTOR = 'contratante',
+  ADMIN = 'admin', // Adicionar role de admin
 }
 
-@Entity('users') // Marca a classe como uma entidade TypeORM, mapeando-a para uma tabela (nome da tabela será 'user' por padrão)
+@Entity('users') // Marca a classe como uma entidade TypeORM, mapeando-a para uma tabela 'users'
 export class User {
   @PrimaryGeneratedColumn('uuid') // Gera um ID único universalmente (UUID)
   id: string;
@@ -21,6 +22,15 @@ export class User {
 
   @Column({ type: 'enum', enum: AccountType, default: AccountType.CONTRACTOR })
   accountType: AccountType;
+
+  @Column({ nullable: true, unique: true })
+  googleId: string;
+
+  @Column({ nullable: true, unique: true }) // ID do Facebook
+  facebookId: string;
+
+  @Column({ nullable: true }) // URL da foto de perfil
+  picture: string;
 
   @Column({ nullable: true }) // Coluna para o token de redefinição de senha
   resetPasswordToken: string;

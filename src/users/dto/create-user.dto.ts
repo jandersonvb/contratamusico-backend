@@ -19,4 +19,5 @@ export class CreateUserDto {
   @IsNotEmpty({ message: 'Tipo de conta é obrigatório.' })
   @IsIn([AccountType.MUSICIAN, AccountType.CONTRACTOR], { message: 'Tipo de conta inválido. Deve ser "musico" ou "contratante".' })
   accountType: AccountType; // Tipado com o enum AccountType
+
 }

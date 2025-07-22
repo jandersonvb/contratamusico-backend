@@ -1,5 +1,5 @@
 // src/users/users.service.ts
-import { Injectable, ConflictException, NotFoundException } from '@nestjs/common';
+import { Injectable, ConflictException, NotFoundException, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User, AccountType } from './entities/user.entity';
@@ -29,13 +29,19 @@ export class UsersService {
     const newUser = this.usersRepository.create({
       ...createUserDto,
       password: hashedPassword, // Armazena a senha hasheada
+
     });
 
-    const savedUser = await this.usersRepository.save(newUser);
+    try {
+      const savedUser = await this.usersRepository.save(newUser);
+      // Retorna o usuário sem a senha
+      const { password, ...result } = savedUser;
+      return result;
+    } catch (error) {
+      console.error('Erro ao salvar novo usuário:', error);
 
-    // Retorna o usuário sem a senha
-    const { password, ...result } = savedUser;
-    return result;
+      throw new InternalServerErrorException('Erro ao criar usuário.');
+    }
   }
 
   /**
@@ -48,53 +54,46 @@ export class UsersService {
   }
 
   /**
-   * Encontra um usuário por seu e-mail.
-   * Retorna o usuário COMPLETO, incluindo senha, para uso interno (ex: autenticação).
-   * @param email O e-mail do usuário.
-   * @returns O usuário encontrado ou null.
-   */
-  async findOneByEmailWithPassword(email: string): Promise<User | null> {
-    return this.usersRepository.findOne({ where: { email }, select: ['id', 'email', 'password', 'fullName', 'accountType'] }); // Explicitamente seleciona 'password'
+ * Encontra um usuário por seu e-mail.
+ * Retorna o usuário COMPLETO, incluindo senha e IDs sociais, para uso interno (ex: autenticação).
+ * @param email O e-mail do usuário.
+ * @returns O usuário encontrado ou null.
+ */
+  async findOneByEmailWithPasswordAndSocial(email: string): Promise<User | null> {
+    return this.usersRepository.findOne({ where: { email }, select: ['id', 'email', 'password', 'fullName', 'accountType', 'googleId', 'facebookId', 'picture'] });
   }
 
+
   /**
-   * Encontra um usuário por seu e-mail.
-   * Retorna o usuário SEM A SENHA, para exposição pública.
-   * @param email O e-mail do usuário.
-   * @returns O usuário encontrado ou null (sem a senha).
-   */
-  async findOneByEmail(email: string): Promise<Omit<User, 'password'> | null> {
+ * Encontra um usuário por seu e-mail.
+ * Retorna o usuário SEM A SENHA e IDs sociais, para exposição pública.
+ * @param email O e-mail do usuário.
+ * @returns O usuário encontrado ou null (sem a senha).
+ */
+  async findOneByEmail(email: string): Promise<Omit<User, 'password' | 'googleId' | 'facebookId'> | null> {
     const user = await this.usersRepository.findOne({ where: { email } });
     if (!user) {
       return null;
     }
-    const { password, ...result } = user;
+    const { password, googleId, facebookId, ...result } = user;
     return result;
   }
 
-
   /**
-   * Lista todos os usuários (com paginação e filtros opcionais).
-   * @returns Uma lista de usuários (sem a senha).
-   */
+ * Lista todos os usuários.
+ * @returns Uma lista de usuários (sem a senha).
+ */
   async findAll(): Promise<Omit<User, 'password'>[]> {
-    const users = await this.usersRepository.find();
-
-    return users.map(user => {
-      const { password, ...result } = user;
+    const users: User[] = await this.usersRepository.find(); // Garante que é um array de User
+    return users.map(user => { // Itera sobre cada User
+      const { password, ...result } = user; // Desestrutura de cada objeto User
       return result;
     });
   }
 
-  /**
-   * Atualiza as informações de um usuário.
-   * @param id O ID do usuário a ser atualizado.
-   * @param updateUserDto Os dados para atualização.
-   * @returns O usuário atualizado (sem a senha).
-   */
+
   async update(id: string, updateUserDto: UpdateUserDto): Promise<Omit<User, 'password'>> {
     const user = await this.usersRepository.findOne({ where: { id } });
-
     if (!user) {
       throw new NotFoundException(`Usuário com ID "${id}" não encontrado.`);
     }
@@ -107,22 +106,33 @@ export class UsersService {
     // Atualiza o objeto do usuário com os novos dados
     Object.assign(user, updateUserDto);
 
-    const updatedUser = await this.usersRepository.save(user);
-
-    const { password, ...result } = updatedUser;
-    return result;
+    try {
+      const updatedUser = await this.usersRepository.save(user);
+      const { password, ...result } = updatedUser;
+      return result;
+    } catch (error) {
+      console.error(`Erro ao atualizar usuário ${id}:`, error);
+      throw new InternalServerErrorException('Erro ao atualizar usuário.');
+    }
   }
+
 
   /**
    * Remove (soft delete ou hard delete) um usuário.
    * @param id O ID do usuário a ser removido.
    * @returns Resultado da operação.
    */
-  async remove(id: string): Promise<{ affected?: number | null }> {
-    const deleteResult = await this.usersRepository.delete(id);
-    if (deleteResult.affected === 0) {
-      throw new NotFoundException(`Usuário com ID "${id}" não encontrado.`);
+  async remove(id: string): Promise<{ affected?: number }> {
+    try {
+      const deleteResult = await this.usersRepository.delete(id);
+      if (deleteResult.affected === 0) {
+        throw new NotFoundException(`Usuário com ID "${id}" não encontrado.`);
+      }
+      return { affected: deleteResult.affected ?? undefined };
+    } catch (error) {
+      console.error(`Erro ao remover usuário ${id}:`, error);
+      throw new InternalServerErrorException('Erro ao remover usuário.');
     }
-    return deleteResult;
   }
+
 }
