@@ -24,7 +24,7 @@ import configuration from './config/configuration';
         password: configService.get<string>('DATABASE_PASSWORD'), // Senha do banco de dados, padrão é password
         database: configService.get<string>('DATABASE_NAME'), // Nome do banco de dados, padrão é mydatabase
         entities: [__dirname + '/**/*.entity{.ts,.js}'], // Localização das entidades
-        synchronize: true, // Apenas para desenvolvimento: sincroniza o schema do DB com suas entidades.
+        synchronize: false, // Apenas para desenvolvimento: sincroniza o schema do DB com suas entidades.
         // Em produção, use migrações!
 
       }),
