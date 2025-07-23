@@ -21,5 +21,5 @@ export default () => ({
     clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
     callbackUrl: process.env.FACEBOOK_CALLBACK_URL,
   },
-  frontendUrl: process.env.FRONTEND_URL || 'http://localhost:3000',
+  frontendUrl: process.env.NEXT_PUBLIC_FRONTEND_BASE_URL,
 });
