@@ -25,6 +25,7 @@ import configuration from './config/configuration';
         database: configService.get<string>('DATABASE_NAME'), // Nome do banco de dados, padrão é mydatabase
         entities: [__dirname + '/**/*.entity{.ts,.js}'], // Localização das entidades
         synchronize: false, // Apenas para desenvolvimento: sincroniza o schema do DB com suas entidades.
+        migrations: [__dirname + '/database/migrations/*{.ts,.js}'], // Localização das migrações
         // Em produção, use migrações!
 
       }),
