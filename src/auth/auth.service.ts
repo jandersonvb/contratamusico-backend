@@ -116,7 +116,10 @@ export class AuthService {
       userToReturn = finalUser; // finalUser já é Omit<User, 'password'>
 
     }
-    return userToReturn; // Apenas retorne userToReturn (já é uma Promise se veio de await)
+    return {
+      ...userToReturn,
+      accountType: userToReturn.accountType || AccountType.CONTRACTOR, // Garante que accountType esteja definido
+    }
   }
   private generateRandomPassword(): string {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+';
