@@ -25,12 +25,7 @@ services:
     image: postgres:15-alpine # Imagem oficial do PostgreSQL. '15-alpine' para uma versão leve e específica.
     container_name: contratamusico-db
     ports:
-      - "5432:5432" # Opcional: mapeia a porta do DB para o host (útil para ferramentas de DB externas)
-    environment:
-      # Variáveis de ambiente para configurar o PostgreSQL
-      POSTGRES_DB: ${DATABASE_NAME}
-      POSTGRES_USER: ${DATABASE_USERNAME}
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      - "5432:5432" # Opcional: mapeia a porta do DB para o host (útil para ferramentas de DB externas
     env_file: .env # Carrega as variáveis de ambiente do arquivo .env
     volumes:
       - db_data:/var/lib/postgresql/data # Volume persistente para os dados do banco de dados

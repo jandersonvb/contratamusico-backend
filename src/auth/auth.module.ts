@@ -6,6 +6,8 @@ import { UsersModule } from '../users/users.module'; // Importa UsersModule para
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config'; // Para gerenciar configurações e JWT Secret
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from 'src/users/entities/user.entity';
 
 @Module({
   imports: [
@@ -20,6 +22,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config'; // Para gerenciar 
       inject: [ConfigService],
     }),
     ConfigModule, // Para injetar ConfigService
+    TypeOrmModule.forFeature([User]),
   ],
   providers: [
     AuthService

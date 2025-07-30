@@ -104,7 +104,12 @@ export class UsersService {
     }
 
     // Atualiza o objeto do usuário com os novos dados
-    Object.assign(user, updateUserDto);
+    for (const key in updateUserDto) {
+      if (updateUserDto[key as keyof UpdateUserDto] !== undefined) {
+        (user as any)[key] = updateUserDto[key as keyof UpdateUserDto];
+      }
+    }
+
 
     try {
       const updatedUser = await this.usersRepository.save(user);

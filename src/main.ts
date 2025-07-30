@@ -16,7 +16,7 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
   // Pega a URL do frontend do .env (NEXT_PUBLIC_FRONTEND_BASE_URL)
-  const frontendUrl = configService.get<string>('frontendUrl');
+  const frontendUrl = configService.get<string>('NEXT_PUBLIC_FRONTEND_BASE_URL'); // Pega do .env via config
 
   app.enableCors({
     // Use a URL do frontend para produção e localhost para desenvolvimento

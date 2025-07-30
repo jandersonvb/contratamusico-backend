@@ -5,14 +5,18 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from '../users/dto/create-user.dto'; // DTO para signup
 import type { AuthResponseDto } from './dto/auth-response.dto';
-import { AccountType, type User } from 'src/users/entities/user.entity';
+import { AccountType, User } from 'src/users/entities/user.entity';
 import type { UpdateUserDto } from 'src/users/dto/update-user.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import type { Repository } from 'typeorm';
 
 
 @Injectable()
 export class AuthService {
   constructor(
     private usersService: UsersService,
+    private jwtService: JwtService,
+    @InjectRepository(User) private usersRepository: Repository<User>, // Injetar aqui para findOrCreateOAuthUser
   ) { }
 
   async validateUser(email: string, pass: string): Promise<Omit<User, 'password'> | null> {
@@ -54,15 +58,10 @@ export class AuthService {
     socialId: string,
     provider: 'google' | 'facebook',
     picture?: string,
-  ): Promise<Omit<User, 'password'>> { // <-- O retorno DEVE ser Omit<User, 'password'>
-    // 1. Tenta encontrar o usuário pelo email (com senha e IDs sociais)
-    const foundUserWithPassword: User | null = await this.usersService.findOneByEmailWithPasswordAndSocial(email);
-
-    let userToReturn: Omit<User, 'password'>; // Declaramos o tipo final que será retornado
+  ): Promise<Omit<User, 'password'>> {
+    const foundUserWithPassword = await this.usersService.findOneByEmailWithPasswordAndSocial(email);
 
     if (foundUserWithPassword) {
-      // Usuário existe. Vincular o socialId se ainda não estiver vinculado.
-      // E atualizar foto de perfil se for nova ou ausente.
       const updateData: UpdateUserDto = {};
       let needsUpdate = false;
 
@@ -73,52 +72,43 @@ export class AuthService {
         updateData.facebookId = socialId;
         needsUpdate = true;
       }
-
       if (picture && foundUserWithPassword.picture !== picture) {
         updateData.picture = picture;
         needsUpdate = true;
       }
 
       if (needsUpdate) {
-        // Se precisa atualizar, chame usersService.update
         const updatedUser = await this.usersService.update(foundUserWithPassword.id, updateData);
-        userToReturn = updatedUser; // update já retorna Omit<User, 'password'>
+        return updatedUser;
       } else {
-        // Se não precisa atualizar, desestruture a senha do usuário existente
         const { password, ...result } = foundUserWithPassword;
-        userToReturn = result;
+        return result;
       }
     } else {
-      // 2. Usuário não existe, cadastrar novo usuário
       const generatedPassword = this.generateRandomPassword();
       const hashedPassword = await bcrypt.hash(generatedPassword, 10);
 
-      // Primeiro, crie o DTO que usersService.create espera
-      const createUserDtoForSocial: CreateUserDto = {
-        email: email,
-        password: generatedPassword, // Passe a senha gerada (texto puro) para o DTO
-        fullName: fullName,
-        accountType: AccountType.CONTRACTOR,
-      };
+      // Criar a entidade User diretamente para salvar
+      const newUserEntity: User = this.usersRepository.create({
+        email,
+        fullName,
+        password: hashedPassword,
+        accountType: AccountType.CONTRACTOR, // Definindo um tipo padrão, pode ser alterado conforme necessário
+        picture,
+        ...(provider === 'google' && { googleId: socialId }),
+        ...(provider === 'facebook' && { facebookId: socialId }),
+        isEmailVerified: true, // Considerando que o OAuth já verifica o e-mail
+        // Não definimos resetPasswordToken e resetPasswordExpiresAt, pois não são necessários para OAuth
+      });
 
-      // Use usersService.create para criar o usuário base
-      // Ele vai lidar com o hash da senha e salvar.
-      const createdBaseUser = await this.usersService.create(createUserDtoForSocial);
-
-      // Agora, atualize este usuário com os dados sociais
-      const updateData: UpdateUserDto = {};
-      if (provider === 'google') updateData.googleId = socialId;
-      else if (provider === 'facebook') updateData.facebookId = socialId;
-      if (picture) updateData.picture = picture;
-
-      // Chame usersService.update para adicionar os IDs sociais e a foto
-      const finalUser = await this.usersService.update(createdBaseUser.id, updateData);
-      userToReturn = finalUser; // finalUser já é Omit<User, 'password'>
-
-    }
-    return {
-      ...userToReturn,
-      accountType: userToReturn.accountType || AccountType.CONTRACTOR, // Garante que accountType esteja definido
+      try {
+        const savedUser = await this.usersRepository.save(newUserEntity);
+        const { password, ...result } = savedUser;
+        return result;
+      } catch (error) {
+        console.error('Erro ao salvar novo usuário OAuth:', error);
+        throw new InternalServerErrorException('Erro ao criar usuário social.');
+      }
     }
   }
   private generateRandomPassword(): string {

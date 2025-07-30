@@ -18,12 +18,10 @@ export default () => {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackUrl: process.env.GOOGLE_CALLBACK_URL,
     },
     facebook: {
       clientId: process.env.FACEBOOK_CLIENT_ID,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-      callbackUrl: process.env.FACEBOOK_CALLBACK_URL,
     },
     frontendUrl: process.env.NEXT_PUBLIC_FRONTEND_BASE_URL,
   };
