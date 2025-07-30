@@ -1,5 +1,19 @@
 export default () => {
-  console.log(`Database configuration: ${process.env.DATABASE_TYPE}://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}:${process.env.DATABASE_PORT}/${process.env.DATABASE_NAME}`);
+
+
+  console.log('Carregando configurações do ambiente...');
+  console.log(`Variável de ambiente PORT: ${process.env.PORT}`);
+  console.log(`Variável de ambiente DATABASE_TYPE: ${process.env.DATABASE_TYPE}`);
+  console.log(`Variável de ambiente JWT_SECRET: ${process.env.JWT_SECRET}`);
+  console.log(`Variável de ambiente NEXT_PUBLIC_FRONTEND_BASE_URL: ${process.env.NEXT_PUBLIC_FRONTEND_BASE_URL}`);
+  console.log(`Variável de ambiente GOOGLE_CLIENT_ID: ${process.env.GOOGLE_CLIENT_ID}`);
+  console.log(`Variável de ambiente FACEBOOK_CLIENT_ID: ${process.env.FACEBOOK_CLIENT_ID}`);
+  console.log(`Variável de ambiente DATABASE_HOST: ${process.env.DATABASE_HOST}`);
+  console.log(`Variável de ambiente DATABASE_PORT: ${process.env.DATABASE_PORT}`);
+  console.log(`Variável de ambiente DATABASE_USERNAME: ${process.env.DATABASE_USERNAME}`);
+  console.log(`Variável de ambiente DATABASE_PASSWORD: ${process.env.DATABASE_PASSWORD}`);
+
+
 
   return {
     port: parseInt(process.env.PORT || '3000', 10),
