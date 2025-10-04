@@ -1,0 +1,84 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  CONTRACTOR
+  MUSICIAN
+}
+
+enum MusicianProfile {
+  SOLO
+  BAND
+}
+
+enum BillingPeriod {
+  MONTHLY
+  ANNUALLY
+}
+
+enum SubStatus {
+  ACTIVE
+  CANCELED
+  EXPIRED
+  PAST_DUE
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  name          String
+  surname       String
+  email         String   @unique
+  phone         String?
+  city          String?
+  state         String?
+  password      String
+  role          UserRole @default(CONTRACTOR)
+  acceptedTerms Boolean  @default(false)
+  googleId      String?  @unique
+  facebookId    String?  @unique
+
+  musicianProfile MusicianProfile?
+
+  plans  Plan? @relation(fields: [planId], references: [id])
+  planId Int?
+
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  Subscription Subscription[]
+}
+
+model Plan {
+  id          Int           @id @default(autoincrement())
+  name        String
+  description String?
+  price       Float         @default(0.0) // em reais
+  period      BillingPeriod @default(MONTHLY) // Mensal/Anual
+  features    Json // lista de recursos (checklist)
+  isPopular   Boolean       @default(false)
+  users       User[] // Relação com usuários: vários usuários podem assinar o mesmo plano
+
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  Subscription Subscription[]
+}
+
+model Subscription {
+  id        Int       @id @default(autoincrement())
+  user      User      @relation(fields: [userId], references: [id])
+  userId    Int
+  plan      Plan      @relation(fields: [planId], references: [id])
+  planId    Int
+  status    SubStatus @default(ACTIVE)
+  startsAt  DateTime  @default(now())
+  endsAt    DateTime?
+  renewalAt DateTime? // próxima renovação (mensal/anual)
+  isTrial   Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
