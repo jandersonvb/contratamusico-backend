@@ -16,6 +16,16 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      // Isso ajuda a resolver caminhos que estão fora do diretório src
+      "@prisma-client-lib": [
+        "lib/generated/prisma"
+      ],
+    },
+    "rootDirs": [
+      "./src",
+      "./lib" // Inclua a pasta 'lib' como um diretório raiz
+    ],
   }
 }

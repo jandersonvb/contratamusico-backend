@@ -1,0 +1,254 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator sharedClient {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// -----------------------------------------------------------
+// ENUMS
+// -----------------------------------------------------------
+
+enum UserType {
+  CLIENT // Cliente que busca contratar (app/cadastro/page.tsx)
+  MUSICIAN // Músico que oferece serviços (app/cadastro/page.tsx)
+}
+
+enum PortfolioItemType {
+  IMAGE
+  VIDEO
+  AUDIO
+}
+
+// -----------------------------------------------------------
+// CORE MODELS
+// -----------------------------------------------------------
+
+// Modelo base para clientes e músicos (app/login/page.tsx, app/cadastro/page.tsx)
+model User {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  passwordHash String
+  firstName    String
+  lastName     String
+  phone        String?
+  city         String?
+  state        String?
+  userType     UserType
+
+  // Perfil relacionado (1:1)
+  musicianProfile MusicianProfile?
+
+  // Relações com outras tabelas
+  reviewsGiven Review[]  @relation("ClientReviews")
+  bookings     Booking[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// -----------------------------------------------------------
+// MUSICIAN MODELS (app/musico/[id]/page.tsx, app/perfil/page.tsx)
+// -----------------------------------------------------------
+
+// Detalhes específicos do músico (1:1 com User)
+model MusicianProfile {
+  id     Int  @id @default(autoincrement())
+  userId Int  @unique
+  user   User @relation(fields: [userId], references: [id])
+
+  // Informações do perfil
+  category     String? // Ex: Cantora, Banda, DJ
+  bio          String? // Campo 'about' / Biografia
+  location     String? // Cidade, Estado (opcional se já estiver no User)
+  priceFrom    Int? // Preço de partida (R$ 500+)
+  experience   String? // Ex: Iniciante, Profissional
+  equipment    String? // Equipamentos Próprios
+  availability String? // Ex: "weekends,evenings" (comma-separated)
+
+  // Estatísticas e Avaliações
+  rating           Float   @default(0.0)
+  ratingCount      Int     @default(0)
+  eventsCount      Int     @default(0)
+  satisfactionRate Int? // 98% de satisfação
+  responseTime     String? // Ex: Resp. em 1h
+  isFeatured       Boolean @default(false)
+
+  // Relações
+  portfolio           PortfolioItem[]
+  reviewsReceived     Review[]             @relation("MusicianReviews")
+  musicianGenres      MusicianGenre[]
+  musicianInstruments MusicianInstrument[]
+  bookings            Booking[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Item do Portfólio (app/musico/[id]/page.tsx)
+model PortfolioItem {
+  id                Int             @id @default(autoincrement())
+  musicianProfileId Int
+  musicianProfile   MusicianProfile @relation(fields: [musicianProfileId], references: [id])
+
+  type        PortfolioItemType
+  url         String // URL da imagem/vídeo/áudio
+  title       String
+  description String?
+  date        String? // Data de realização (ex: "Julho/2025")
+  location    String?
+  genre       String? // Gênero musical do item
+
+  createdAt DateTime @default(now())
+}
+
+// -----------------------------------------------------------
+// LOOKUP / JUNCTION TABLES (para filtros)
+// -----------------------------------------------------------
+
+// Tabela de Gêneros Musicais (app/busca/components/SearchFilters.tsx, app/cadastro/page.tsx)
+model Genre {
+  id             Int             @id @default(autoincrement())
+  name           String          @unique
+  slug           String          @unique // Ex: rock, mpb, bossa-nova
+  musicianGenres MusicianGenre[]
+}
+
+// Tabela de Instrumentos (app/busca/components/SearchFilters.tsx, app/cadastro/page.tsx)
+model Instrument {
+  id                  Int                  @id @default(autoincrement())
+  name                String               @unique
+  slug                String               @unique // Ex: violao, guitarra
+  musicianInstruments MusicianInstrument[]
+}
+
+// Junction: Músico X Gênero (Tags)
+model MusicianGenre {
+  musicianProfileId Int
+  genreId           Int
+  musicianProfile   MusicianProfile @relation(fields: [musicianProfileId], references: [id])
+  genre             Genre           @relation(fields: [genreId], references: [id])
+
+  @@id([musicianProfileId, genreId])
+}
+
+// Junction: Músico X Instrumento
+model MusicianInstrument {
+  musicianProfileId Int
+  instrumentId      Int
+  musicianProfile   MusicianProfile @relation(fields: [musicianProfileId], references: [id])
+  instrument        Instrument      @relation(fields: [instrumentId], references: [id])
+
+  @@id([musicianProfileId, instrumentId])
+}
+
+// -----------------------------------------------------------
+// EVENTS, REVIEWS & BOOKINGS
+// -----------------------------------------------------------
+
+// Avaliações de clientes (app/musico/[id]/page.tsx)
+model Review {
+  id                Int @id @default(autoincrement())
+  musicianProfileId Int
+  clientId          Int // Cliente que fez a avaliação
+
+  musicianProfile MusicianProfile @relation("MusicianReviews", fields: [musicianProfileId], references: [id])
+  client          User            @relation("ClientReviews", fields: [clientId], references: [id])
+
+  rating  Int // 1 a 5
+  content String
+  date    String // Ex: "05/01/2025"
+  event   String // Tipo de evento avaliado (Ex: Casamento)
+
+  createdAt DateTime @default(now())
+}
+
+// Agendamentos/Eventos (app/dashboard/page.tsx, app/musico/[id]/page.tsx - formulário de contato)
+model Booking {
+  id                Int  @id @default(autoincrement())
+  musicianProfileId Int
+  clientId          Int? // Opcional, se o cliente estiver logado
+
+  musicianProfile MusicianProfile @relation(fields: [musicianProfileId], references: [id])
+  client          User?           @relation(fields: [clientId], references: [id])
+
+  eventDate DateTime // Data do evento
+  eventType String // Tipo de evento (Ex: Casamento, Aniversário)
+  message   String // Mensagem inicial do contato (app/musico/[id]/page.tsx)
+
+  status String // Ex: "pendente", "negociando", "confirmado", "cancelado"
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// -----------------------------------------------------------
+// PLANS & FAQ
+// -----------------------------------------------------------
+
+// Planos de assinatura (app/planos/page.tsx)
+model Plan {
+  id             Int     @id @default(autoincrement())
+  title          String  @unique
+  description    String?
+  monthlyPrice   Int // monthly
+  yearlyPrice    Int // yearly
+  badge          String? // Ex: "Mais Popular"
+  isMusicianPlan Boolean
+  isClientPlan   Boolean
+
+  features PlanFeature[]
+
+  createdAt DateTime @default(now())
+}
+
+// Detalhes/Recursos do plano (app/planos/page.tsx)
+model PlanFeature {
+  id     Int  @id @default(autoincrement())
+  planId Int
+  plan   Plan @relation(fields: [planId], references: [id])
+
+  text      String
+  available Boolean // true/false (Check/X icon)
+  highlight Boolean // true/false (Star icon)
+}
+
+// Perguntas Frequentes (app/planos/page.tsx, app/contato/page.tsx)
+model FAQItem {
+  id       Int     @id @default(autoincrement())
+  question String
+  answer   String
+  category String? // Ex: "PLANOS", "GERAL", "MUSICO"
+
+  createdAt DateTime @default(now())
+}
+
+// -----------------------------------------------------------
+// MISCELLANEOUS
+// -----------------------------------------------------------
+
+// Mensagens enviadas pelo formulário de contato (app/contato/page.tsx)
+model ContactMessage {
+  id        Int     @id @default(autoincrement())
+  firstName String
+  lastName  String
+  email     String
+  phone     String?
+  subject   String // Ex: Suporte, Dúvidas sobre Planos
+  message   String
+
+  createdAt DateTime @default(now())
+}
