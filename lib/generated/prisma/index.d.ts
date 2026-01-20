@@ -74,6 +74,36 @@ export type PlanFeature = $Result.DefaultSelection<Prisma.$PlanFeaturePayload>
  */
 export type FAQItem = $Result.DefaultSelection<Prisma.$FAQItemPayload>
 /**
+ * Model Favorite
+ * 
+ */
+export type Favorite = $Result.DefaultSelection<Prisma.$FavoritePayload>
+/**
+ * Model Conversation
+ * 
+ */
+export type Conversation = $Result.DefaultSelection<Prisma.$ConversationPayload>
+/**
+ * Model Message
+ * 
+ */
+export type Message = $Result.DefaultSelection<Prisma.$MessagePayload>
+/**
+ * Model NotificationPreference
+ * 
+ */
+export type NotificationPreference = $Result.DefaultSelection<Prisma.$NotificationPreferencePayload>
+/**
+ * Model Subscription
+ * 
+ */
+export type Subscription = $Result.DefaultSelection<Prisma.$SubscriptionPayload>
+/**
+ * Model PaymentHistory
+ * 
+ */
+export type PaymentHistory = $Result.DefaultSelection<Prisma.$PaymentHistoryPayload>
+/**
  * Model ContactMessage
  * 
  */
@@ -91,6 +121,14 @@ export namespace $Enums {
 export type UserType = (typeof UserType)[keyof typeof UserType]
 
 
+export const UserRole: {
+  USER: 'USER',
+  ADMIN: 'ADMIN'
+};
+
+export type UserRole = (typeof UserRole)[keyof typeof UserRole]
+
+
 export const PortfolioItemType: {
   IMAGE: 'IMAGE',
   VIDEO: 'VIDEO',
@@ -104,6 +142,10 @@ export type PortfolioItemType = (typeof PortfolioItemType)[keyof typeof Portfoli
 export type UserType = $Enums.UserType
 
 export const UserType: typeof $Enums.UserType
+
+export type UserRole = $Enums.UserRole
+
+export const UserRole: typeof $Enums.UserRole
 
 export type PortfolioItemType = $Enums.PortfolioItemType
 
@@ -346,6 +388,66 @@ export class PrismaClient<
     * ```
     */
   get fAQItem(): Prisma.FAQItemDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.favorite`: Exposes CRUD operations for the **Favorite** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Favorites
+    * const favorites = await prisma.favorite.findMany()
+    * ```
+    */
+  get favorite(): Prisma.FavoriteDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.conversation`: Exposes CRUD operations for the **Conversation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Conversations
+    * const conversations = await prisma.conversation.findMany()
+    * ```
+    */
+  get conversation(): Prisma.ConversationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.message`: Exposes CRUD operations for the **Message** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Messages
+    * const messages = await prisma.message.findMany()
+    * ```
+    */
+  get message(): Prisma.MessageDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.notificationPreference`: Exposes CRUD operations for the **NotificationPreference** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more NotificationPreferences
+    * const notificationPreferences = await prisma.notificationPreference.findMany()
+    * ```
+    */
+  get notificationPreference(): Prisma.NotificationPreferenceDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.subscription`: Exposes CRUD operations for the **Subscription** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Subscriptions
+    * const subscriptions = await prisma.subscription.findMany()
+    * ```
+    */
+  get subscription(): Prisma.SubscriptionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.paymentHistory`: Exposes CRUD operations for the **PaymentHistory** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PaymentHistories
+    * const paymentHistories = await prisma.paymentHistory.findMany()
+    * ```
+    */
+  get paymentHistory(): Prisma.PaymentHistoryDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.contactMessage`: Exposes CRUD operations for the **ContactMessage** model.
@@ -809,6 +911,12 @@ export namespace Prisma {
     Plan: 'Plan',
     PlanFeature: 'PlanFeature',
     FAQItem: 'FAQItem',
+    Favorite: 'Favorite',
+    Conversation: 'Conversation',
+    Message: 'Message',
+    NotificationPreference: 'NotificationPreference',
+    Subscription: 'Subscription',
+    PaymentHistory: 'PaymentHistory',
     ContactMessage: 'ContactMessage'
   };
 
@@ -828,7 +936,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "musicianProfile" | "portfolioItem" | "genre" | "instrument" | "musicianGenre" | "musicianInstrument" | "review" | "booking" | "plan" | "planFeature" | "fAQItem" | "contactMessage"
+      modelProps: "user" | "musicianProfile" | "portfolioItem" | "genre" | "instrument" | "musicianGenre" | "musicianInstrument" | "review" | "booking" | "plan" | "planFeature" | "fAQItem" | "favorite" | "conversation" | "message" | "notificationPreference" | "subscription" | "paymentHistory" | "contactMessage"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1624,6 +1732,402 @@ export namespace Prisma {
           }
         }
       }
+      Favorite: {
+        payload: Prisma.$FavoritePayload<ExtArgs>
+        fields: Prisma.FavoriteFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FavoriteFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FavoritePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FavoriteFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FavoritePayload>
+          }
+          findFirst: {
+            args: Prisma.FavoriteFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FavoritePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FavoriteFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FavoritePayload>
+          }
+          findMany: {
+            args: Prisma.FavoriteFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FavoritePayload>[]
+          }
+          create: {
+            args: Prisma.FavoriteCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FavoritePayload>
+          }
+          createMany: {
+            args: Prisma.FavoriteCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.FavoriteDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FavoritePayload>
+          }
+          update: {
+            args: Prisma.FavoriteUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FavoritePayload>
+          }
+          deleteMany: {
+            args: Prisma.FavoriteDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FavoriteUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.FavoriteUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FavoritePayload>
+          }
+          aggregate: {
+            args: Prisma.FavoriteAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFavorite>
+          }
+          groupBy: {
+            args: Prisma.FavoriteGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FavoriteGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FavoriteCountArgs<ExtArgs>
+            result: $Utils.Optional<FavoriteCountAggregateOutputType> | number
+          }
+        }
+      }
+      Conversation: {
+        payload: Prisma.$ConversationPayload<ExtArgs>
+        fields: Prisma.ConversationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ConversationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConversationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ConversationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConversationPayload>
+          }
+          findFirst: {
+            args: Prisma.ConversationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConversationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ConversationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConversationPayload>
+          }
+          findMany: {
+            args: Prisma.ConversationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConversationPayload>[]
+          }
+          create: {
+            args: Prisma.ConversationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConversationPayload>
+          }
+          createMany: {
+            args: Prisma.ConversationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.ConversationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConversationPayload>
+          }
+          update: {
+            args: Prisma.ConversationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConversationPayload>
+          }
+          deleteMany: {
+            args: Prisma.ConversationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ConversationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ConversationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConversationPayload>
+          }
+          aggregate: {
+            args: Prisma.ConversationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateConversation>
+          }
+          groupBy: {
+            args: Prisma.ConversationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ConversationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ConversationCountArgs<ExtArgs>
+            result: $Utils.Optional<ConversationCountAggregateOutputType> | number
+          }
+        }
+      }
+      Message: {
+        payload: Prisma.$MessagePayload<ExtArgs>
+        fields: Prisma.MessageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MessageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MessageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>
+          }
+          findFirst: {
+            args: Prisma.MessageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MessageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>
+          }
+          findMany: {
+            args: Prisma.MessageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>[]
+          }
+          create: {
+            args: Prisma.MessageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>
+          }
+          createMany: {
+            args: Prisma.MessageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.MessageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>
+          }
+          update: {
+            args: Prisma.MessageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>
+          }
+          deleteMany: {
+            args: Prisma.MessageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MessageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.MessageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>
+          }
+          aggregate: {
+            args: Prisma.MessageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMessage>
+          }
+          groupBy: {
+            args: Prisma.MessageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MessageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MessageCountArgs<ExtArgs>
+            result: $Utils.Optional<MessageCountAggregateOutputType> | number
+          }
+        }
+      }
+      NotificationPreference: {
+        payload: Prisma.$NotificationPreferencePayload<ExtArgs>
+        fields: Prisma.NotificationPreferenceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.NotificationPreferenceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPreferencePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.NotificationPreferenceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPreferencePayload>
+          }
+          findFirst: {
+            args: Prisma.NotificationPreferenceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPreferencePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.NotificationPreferenceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPreferencePayload>
+          }
+          findMany: {
+            args: Prisma.NotificationPreferenceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPreferencePayload>[]
+          }
+          create: {
+            args: Prisma.NotificationPreferenceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPreferencePayload>
+          }
+          createMany: {
+            args: Prisma.NotificationPreferenceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.NotificationPreferenceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPreferencePayload>
+          }
+          update: {
+            args: Prisma.NotificationPreferenceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPreferencePayload>
+          }
+          deleteMany: {
+            args: Prisma.NotificationPreferenceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.NotificationPreferenceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.NotificationPreferenceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPreferencePayload>
+          }
+          aggregate: {
+            args: Prisma.NotificationPreferenceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateNotificationPreference>
+          }
+          groupBy: {
+            args: Prisma.NotificationPreferenceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<NotificationPreferenceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.NotificationPreferenceCountArgs<ExtArgs>
+            result: $Utils.Optional<NotificationPreferenceCountAggregateOutputType> | number
+          }
+        }
+      }
+      Subscription: {
+        payload: Prisma.$SubscriptionPayload<ExtArgs>
+        fields: Prisma.SubscriptionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SubscriptionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SubscriptionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
+          }
+          findFirst: {
+            args: Prisma.SubscriptionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SubscriptionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
+          }
+          findMany: {
+            args: Prisma.SubscriptionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>[]
+          }
+          create: {
+            args: Prisma.SubscriptionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
+          }
+          createMany: {
+            args: Prisma.SubscriptionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.SubscriptionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
+          }
+          update: {
+            args: Prisma.SubscriptionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
+          }
+          deleteMany: {
+            args: Prisma.SubscriptionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SubscriptionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SubscriptionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
+          }
+          aggregate: {
+            args: Prisma.SubscriptionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSubscription>
+          }
+          groupBy: {
+            args: Prisma.SubscriptionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SubscriptionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SubscriptionCountArgs<ExtArgs>
+            result: $Utils.Optional<SubscriptionCountAggregateOutputType> | number
+          }
+        }
+      }
+      PaymentHistory: {
+        payload: Prisma.$PaymentHistoryPayload<ExtArgs>
+        fields: Prisma.PaymentHistoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PaymentHistoryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentHistoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PaymentHistoryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentHistoryPayload>
+          }
+          findFirst: {
+            args: Prisma.PaymentHistoryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentHistoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PaymentHistoryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentHistoryPayload>
+          }
+          findMany: {
+            args: Prisma.PaymentHistoryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentHistoryPayload>[]
+          }
+          create: {
+            args: Prisma.PaymentHistoryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentHistoryPayload>
+          }
+          createMany: {
+            args: Prisma.PaymentHistoryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.PaymentHistoryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentHistoryPayload>
+          }
+          update: {
+            args: Prisma.PaymentHistoryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentHistoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.PaymentHistoryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PaymentHistoryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PaymentHistoryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentHistoryPayload>
+          }
+          aggregate: {
+            args: Prisma.PaymentHistoryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePaymentHistory>
+          }
+          groupBy: {
+            args: Prisma.PaymentHistoryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PaymentHistoryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PaymentHistoryCountArgs<ExtArgs>
+            result: $Utils.Optional<PaymentHistoryCountAggregateOutputType> | number
+          }
+        }
+      }
       ContactMessage: {
         payload: Prisma.$ContactMessagePayload<ExtArgs>
         fields: Prisma.ContactMessageFieldRefs
@@ -1798,6 +2302,12 @@ export namespace Prisma {
     plan?: PlanOmit
     planFeature?: PlanFeatureOmit
     fAQItem?: FAQItemOmit
+    favorite?: FavoriteOmit
+    conversation?: ConversationOmit
+    message?: MessageOmit
+    notificationPreference?: NotificationPreferenceOmit
+    subscription?: SubscriptionOmit
+    paymentHistory?: PaymentHistoryOmit
     contactMessage?: ContactMessageOmit
   }
 
@@ -1881,11 +2391,19 @@ export namespace Prisma {
   export type UserCountOutputType = {
     reviewsGiven: number
     bookings: number
+    favorites: number
+    conversationsAsClient: number
+    messagesSent: number
+    paymentHistory: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reviewsGiven?: boolean | UserCountOutputTypeCountReviewsGivenArgs
     bookings?: boolean | UserCountOutputTypeCountBookingsArgs
+    favorites?: boolean | UserCountOutputTypeCountFavoritesArgs
+    conversationsAsClient?: boolean | UserCountOutputTypeCountConversationsAsClientArgs
+    messagesSent?: boolean | UserCountOutputTypeCountMessagesSentArgs
+    paymentHistory?: boolean | UserCountOutputTypeCountPaymentHistoryArgs
   }
 
   // Custom InputTypes
@@ -1913,6 +2431,34 @@ export namespace Prisma {
     where?: BookingWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountFavoritesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FavoriteWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountConversationsAsClientArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ConversationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMessagesSentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPaymentHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PaymentHistoryWhereInput
+  }
+
 
   /**
    * Count Type MusicianProfileCountOutputType
@@ -1924,6 +2470,8 @@ export namespace Prisma {
     musicianGenres: number
     musicianInstruments: number
     bookings: number
+    favoritedBy: number
+    conversations: number
   }
 
   export type MusicianProfileCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1932,6 +2480,8 @@ export namespace Prisma {
     musicianGenres?: boolean | MusicianProfileCountOutputTypeCountMusicianGenresArgs
     musicianInstruments?: boolean | MusicianProfileCountOutputTypeCountMusicianInstrumentsArgs
     bookings?: boolean | MusicianProfileCountOutputTypeCountBookingsArgs
+    favoritedBy?: boolean | MusicianProfileCountOutputTypeCountFavoritedByArgs
+    conversations?: boolean | MusicianProfileCountOutputTypeCountConversationsArgs
   }
 
   // Custom InputTypes
@@ -1978,6 +2528,20 @@ export namespace Prisma {
    */
   export type MusicianProfileCountOutputTypeCountBookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BookingWhereInput
+  }
+
+  /**
+   * MusicianProfileCountOutputType without action
+   */
+  export type MusicianProfileCountOutputTypeCountFavoritedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FavoriteWhereInput
+  }
+
+  /**
+   * MusicianProfileCountOutputType without action
+   */
+  export type MusicianProfileCountOutputTypeCountConversationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ConversationWhereInput
   }
 
 
@@ -2049,10 +2613,12 @@ export namespace Prisma {
 
   export type PlanCountOutputType = {
     features: number
+    subscriptions: number
   }
 
   export type PlanCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     features?: boolean | PlanCountOutputTypeCountFeaturesArgs
+    subscriptions?: boolean | PlanCountOutputTypeCountSubscriptionsArgs
   }
 
   // Custom InputTypes
@@ -2071,6 +2637,44 @@ export namespace Prisma {
    */
   export type PlanCountOutputTypeCountFeaturesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PlanFeatureWhereInput
+  }
+
+  /**
+   * PlanCountOutputType without action
+   */
+  export type PlanCountOutputTypeCountSubscriptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SubscriptionWhereInput
+  }
+
+
+  /**
+   * Count Type ConversationCountOutputType
+   */
+
+  export type ConversationCountOutputType = {
+    messages: number
+  }
+
+  export type ConversationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    messages?: boolean | ConversationCountOutputTypeCountMessagesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ConversationCountOutputType without action
+   */
+  export type ConversationCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConversationCountOutputType
+     */
+    select?: ConversationCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ConversationCountOutputType without action
+   */
+  export type ConversationCountOutputTypeCountMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageWhereInput
   }
 
 
@@ -2108,6 +2712,10 @@ export namespace Prisma {
     city: string | null
     state: string | null
     userType: $Enums.UserType | null
+    role: $Enums.UserRole | null
+    profileImageUrl: string | null
+    resetToken: string | null
+    resetTokenExpiry: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2122,6 +2730,10 @@ export namespace Prisma {
     city: string | null
     state: string | null
     userType: $Enums.UserType | null
+    role: $Enums.UserRole | null
+    profileImageUrl: string | null
+    resetToken: string | null
+    resetTokenExpiry: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2136,6 +2748,10 @@ export namespace Prisma {
     city: number
     state: number
     userType: number
+    role: number
+    profileImageUrl: number
+    resetToken: number
+    resetTokenExpiry: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -2160,6 +2776,10 @@ export namespace Prisma {
     city?: true
     state?: true
     userType?: true
+    role?: true
+    profileImageUrl?: true
+    resetToken?: true
+    resetTokenExpiry?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2174,6 +2794,10 @@ export namespace Prisma {
     city?: true
     state?: true
     userType?: true
+    role?: true
+    profileImageUrl?: true
+    resetToken?: true
+    resetTokenExpiry?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2188,6 +2812,10 @@ export namespace Prisma {
     city?: true
     state?: true
     userType?: true
+    role?: true
+    profileImageUrl?: true
+    resetToken?: true
+    resetTokenExpiry?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2289,6 +2917,10 @@ export namespace Prisma {
     city: string | null
     state: string | null
     userType: $Enums.UserType
+    role: $Enums.UserRole
+    profileImageUrl: string | null
+    resetToken: string | null
+    resetTokenExpiry: Date | null
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -2322,11 +2954,21 @@ export namespace Prisma {
     city?: boolean
     state?: boolean
     userType?: boolean
+    role?: boolean
+    profileImageUrl?: boolean
+    resetToken?: boolean
+    resetTokenExpiry?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     musicianProfile?: boolean | User$musicianProfileArgs<ExtArgs>
     reviewsGiven?: boolean | User$reviewsGivenArgs<ExtArgs>
     bookings?: boolean | User$bookingsArgs<ExtArgs>
+    favorites?: boolean | User$favoritesArgs<ExtArgs>
+    conversationsAsClient?: boolean | User$conversationsAsClientArgs<ExtArgs>
+    messagesSent?: boolean | User$messagesSentArgs<ExtArgs>
+    notificationPreferences?: boolean | User$notificationPreferencesArgs<ExtArgs>
+    subscription?: boolean | User$subscriptionArgs<ExtArgs>
+    paymentHistory?: boolean | User$paymentHistoryArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2342,15 +2984,25 @@ export namespace Prisma {
     city?: boolean
     state?: boolean
     userType?: boolean
+    role?: boolean
+    profileImageUrl?: boolean
+    resetToken?: boolean
+    resetTokenExpiry?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "passwordHash" | "firstName" | "lastName" | "phone" | "city" | "state" | "userType" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "passwordHash" | "firstName" | "lastName" | "phone" | "city" | "state" | "userType" | "role" | "profileImageUrl" | "resetToken" | "resetTokenExpiry" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     musicianProfile?: boolean | User$musicianProfileArgs<ExtArgs>
     reviewsGiven?: boolean | User$reviewsGivenArgs<ExtArgs>
     bookings?: boolean | User$bookingsArgs<ExtArgs>
+    favorites?: boolean | User$favoritesArgs<ExtArgs>
+    conversationsAsClient?: boolean | User$conversationsAsClientArgs<ExtArgs>
+    messagesSent?: boolean | User$messagesSentArgs<ExtArgs>
+    notificationPreferences?: boolean | User$notificationPreferencesArgs<ExtArgs>
+    subscription?: boolean | User$subscriptionArgs<ExtArgs>
+    paymentHistory?: boolean | User$paymentHistoryArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -2360,6 +3012,12 @@ export namespace Prisma {
       musicianProfile: Prisma.$MusicianProfilePayload<ExtArgs> | null
       reviewsGiven: Prisma.$ReviewPayload<ExtArgs>[]
       bookings: Prisma.$BookingPayload<ExtArgs>[]
+      favorites: Prisma.$FavoritePayload<ExtArgs>[]
+      conversationsAsClient: Prisma.$ConversationPayload<ExtArgs>[]
+      messagesSent: Prisma.$MessagePayload<ExtArgs>[]
+      notificationPreferences: Prisma.$NotificationPreferencePayload<ExtArgs> | null
+      subscription: Prisma.$SubscriptionPayload<ExtArgs> | null
+      paymentHistory: Prisma.$PaymentHistoryPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -2371,6 +3029,10 @@ export namespace Prisma {
       city: string | null
       state: string | null
       userType: $Enums.UserType
+      role: $Enums.UserRole
+      profileImageUrl: string | null
+      resetToken: string | null
+      resetTokenExpiry: Date | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -2716,6 +3378,12 @@ export namespace Prisma {
     musicianProfile<T extends User$musicianProfileArgs<ExtArgs> = {}>(args?: Subset<T, User$musicianProfileArgs<ExtArgs>>): Prisma__MusicianProfileClient<$Result.GetResult<Prisma.$MusicianProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     reviewsGiven<T extends User$reviewsGivenArgs<ExtArgs> = {}>(args?: Subset<T, User$reviewsGivenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     bookings<T extends User$bookingsArgs<ExtArgs> = {}>(args?: Subset<T, User$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    favorites<T extends User$favoritesArgs<ExtArgs> = {}>(args?: Subset<T, User$favoritesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    conversationsAsClient<T extends User$conversationsAsClientArgs<ExtArgs> = {}>(args?: Subset<T, User$conversationsAsClientArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    messagesSent<T extends User$messagesSentArgs<ExtArgs> = {}>(args?: Subset<T, User$messagesSentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    notificationPreferences<T extends User$notificationPreferencesArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationPreferencesArgs<ExtArgs>>): Prisma__NotificationPreferenceClient<$Result.GetResult<Prisma.$NotificationPreferencePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    subscription<T extends User$subscriptionArgs<ExtArgs> = {}>(args?: Subset<T, User$subscriptionArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    paymentHistory<T extends User$paymentHistoryArgs<ExtArgs> = {}>(args?: Subset<T, User$paymentHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2754,6 +3422,10 @@ export namespace Prisma {
     readonly city: FieldRef<"User", 'String'>
     readonly state: FieldRef<"User", 'String'>
     readonly userType: FieldRef<"User", 'UserType'>
+    readonly role: FieldRef<"User", 'UserRole'>
+    readonly profileImageUrl: FieldRef<"User", 'String'>
+    readonly resetToken: FieldRef<"User", 'String'>
+    readonly resetTokenExpiry: FieldRef<"User", 'DateTime'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -3166,6 +3838,140 @@ export namespace Prisma {
   }
 
   /**
+   * User.favorites
+   */
+  export type User$favoritesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Favorite
+     */
+    select?: FavoriteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Favorite
+     */
+    omit?: FavoriteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FavoriteInclude<ExtArgs> | null
+    where?: FavoriteWhereInput
+    orderBy?: FavoriteOrderByWithRelationInput | FavoriteOrderByWithRelationInput[]
+    cursor?: FavoriteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FavoriteScalarFieldEnum | FavoriteScalarFieldEnum[]
+  }
+
+  /**
+   * User.conversationsAsClient
+   */
+  export type User$conversationsAsClientArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conversation
+     */
+    select?: ConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conversation
+     */
+    omit?: ConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConversationInclude<ExtArgs> | null
+    where?: ConversationWhereInput
+    orderBy?: ConversationOrderByWithRelationInput | ConversationOrderByWithRelationInput[]
+    cursor?: ConversationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ConversationScalarFieldEnum | ConversationScalarFieldEnum[]
+  }
+
+  /**
+   * User.messagesSent
+   */
+  export type User$messagesSentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    where?: MessageWhereInput
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    cursor?: MessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * User.notificationPreferences
+   */
+  export type User$notificationPreferencesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationPreference
+     */
+    select?: NotificationPreferenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationPreference
+     */
+    omit?: NotificationPreferenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationPreferenceInclude<ExtArgs> | null
+    where?: NotificationPreferenceWhereInput
+  }
+
+  /**
+   * User.subscription
+   */
+  export type User$subscriptionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    where?: SubscriptionWhereInput
+  }
+
+  /**
+   * User.paymentHistory
+   */
+  export type User$paymentHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentHistory
+     */
+    select?: PaymentHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PaymentHistory
+     */
+    omit?: PaymentHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentHistoryInclude<ExtArgs> | null
+    where?: PaymentHistoryWhereInput
+    orderBy?: PaymentHistoryOrderByWithRelationInput | PaymentHistoryOrderByWithRelationInput[]
+    cursor?: PaymentHistoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PaymentHistoryScalarFieldEnum | PaymentHistoryScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3508,6 +4314,8 @@ export namespace Prisma {
     musicianGenres?: boolean | MusicianProfile$musicianGenresArgs<ExtArgs>
     musicianInstruments?: boolean | MusicianProfile$musicianInstrumentsArgs<ExtArgs>
     bookings?: boolean | MusicianProfile$bookingsArgs<ExtArgs>
+    favoritedBy?: boolean | MusicianProfile$favoritedByArgs<ExtArgs>
+    conversations?: boolean | MusicianProfile$conversationsArgs<ExtArgs>
     _count?: boolean | MusicianProfileCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["musicianProfile"]>
 
@@ -3541,6 +4349,8 @@ export namespace Prisma {
     musicianGenres?: boolean | MusicianProfile$musicianGenresArgs<ExtArgs>
     musicianInstruments?: boolean | MusicianProfile$musicianInstrumentsArgs<ExtArgs>
     bookings?: boolean | MusicianProfile$bookingsArgs<ExtArgs>
+    favoritedBy?: boolean | MusicianProfile$favoritedByArgs<ExtArgs>
+    conversations?: boolean | MusicianProfile$conversationsArgs<ExtArgs>
     _count?: boolean | MusicianProfileCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -3553,6 +4363,8 @@ export namespace Prisma {
       musicianGenres: Prisma.$MusicianGenrePayload<ExtArgs>[]
       musicianInstruments: Prisma.$MusicianInstrumentPayload<ExtArgs>[]
       bookings: Prisma.$BookingPayload<ExtArgs>[]
+      favoritedBy: Prisma.$FavoritePayload<ExtArgs>[]
+      conversations: Prisma.$ConversationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -3918,6 +4730,8 @@ export namespace Prisma {
     musicianGenres<T extends MusicianProfile$musicianGenresArgs<ExtArgs> = {}>(args?: Subset<T, MusicianProfile$musicianGenresArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MusicianGenrePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     musicianInstruments<T extends MusicianProfile$musicianInstrumentsArgs<ExtArgs> = {}>(args?: Subset<T, MusicianProfile$musicianInstrumentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MusicianInstrumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     bookings<T extends MusicianProfile$bookingsArgs<ExtArgs> = {}>(args?: Subset<T, MusicianProfile$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    favoritedBy<T extends MusicianProfile$favoritedByArgs<ExtArgs> = {}>(args?: Subset<T, MusicianProfile$favoritedByArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    conversations<T extends MusicianProfile$conversationsArgs<ExtArgs> = {}>(args?: Subset<T, MusicianProfile$conversationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4424,6 +5238,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: BookingScalarFieldEnum | BookingScalarFieldEnum[]
+  }
+
+  /**
+   * MusicianProfile.favoritedBy
+   */
+  export type MusicianProfile$favoritedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Favorite
+     */
+    select?: FavoriteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Favorite
+     */
+    omit?: FavoriteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FavoriteInclude<ExtArgs> | null
+    where?: FavoriteWhereInput
+    orderBy?: FavoriteOrderByWithRelationInput | FavoriteOrderByWithRelationInput[]
+    cursor?: FavoriteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FavoriteScalarFieldEnum | FavoriteScalarFieldEnum[]
+  }
+
+  /**
+   * MusicianProfile.conversations
+   */
+  export type MusicianProfile$conversationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conversation
+     */
+    select?: ConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conversation
+     */
+    omit?: ConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConversationInclude<ExtArgs> | null
+    where?: ConversationWhereInput
+    orderBy?: ConversationOrderByWithRelationInput | ConversationOrderByWithRelationInput[]
+    cursor?: ConversationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ConversationScalarFieldEnum | ConversationScalarFieldEnum[]
   }
 
   /**
@@ -11566,6 +12428,7 @@ export namespace Prisma {
     isClientPlan?: boolean
     createdAt?: boolean
     features?: boolean | Plan$featuresArgs<ExtArgs>
+    subscriptions?: boolean | Plan$subscriptionsArgs<ExtArgs>
     _count?: boolean | PlanCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["plan"]>
 
@@ -11586,6 +12449,7 @@ export namespace Prisma {
   export type PlanOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "monthlyPrice" | "yearlyPrice" | "badge" | "isMusicianPlan" | "isClientPlan" | "createdAt", ExtArgs["result"]["plan"]>
   export type PlanInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     features?: boolean | Plan$featuresArgs<ExtArgs>
+    subscriptions?: boolean | Plan$subscriptionsArgs<ExtArgs>
     _count?: boolean | PlanCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -11593,6 +12457,7 @@ export namespace Prisma {
     name: "Plan"
     objects: {
       features: Prisma.$PlanFeaturePayload<ExtArgs>[]
+      subscriptions: Prisma.$SubscriptionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -11945,6 +12810,7 @@ export namespace Prisma {
   export interface Prisma__PlanClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     features<T extends Plan$featuresArgs<ExtArgs> = {}>(args?: Subset<T, Plan$featuresArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlanFeaturePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    subscriptions<T extends Plan$subscriptionsArgs<ExtArgs> = {}>(args?: Subset<T, Plan$subscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -12347,6 +13213,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PlanFeatureScalarFieldEnum | PlanFeatureScalarFieldEnum[]
+  }
+
+  /**
+   * Plan.subscriptions
+   */
+  export type Plan$subscriptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    where?: SubscriptionWhereInput
+    orderBy?: SubscriptionOrderByWithRelationInput | SubscriptionOrderByWithRelationInput[]
+    cursor?: SubscriptionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SubscriptionScalarFieldEnum | SubscriptionScalarFieldEnum[]
   }
 
   /**
@@ -14252,6 +15142,6006 @@ export namespace Prisma {
 
 
   /**
+   * Model Favorite
+   */
+
+  export type AggregateFavorite = {
+    _count: FavoriteCountAggregateOutputType | null
+    _avg: FavoriteAvgAggregateOutputType | null
+    _sum: FavoriteSumAggregateOutputType | null
+    _min: FavoriteMinAggregateOutputType | null
+    _max: FavoriteMaxAggregateOutputType | null
+  }
+
+  export type FavoriteAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    musicianProfileId: number | null
+  }
+
+  export type FavoriteSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    musicianProfileId: number | null
+  }
+
+  export type FavoriteMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    musicianProfileId: number | null
+    createdAt: Date | null
+  }
+
+  export type FavoriteMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    musicianProfileId: number | null
+    createdAt: Date | null
+  }
+
+  export type FavoriteCountAggregateOutputType = {
+    id: number
+    userId: number
+    musicianProfileId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type FavoriteAvgAggregateInputType = {
+    id?: true
+    userId?: true
+    musicianProfileId?: true
+  }
+
+  export type FavoriteSumAggregateInputType = {
+    id?: true
+    userId?: true
+    musicianProfileId?: true
+  }
+
+  export type FavoriteMinAggregateInputType = {
+    id?: true
+    userId?: true
+    musicianProfileId?: true
+    createdAt?: true
+  }
+
+  export type FavoriteMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    musicianProfileId?: true
+    createdAt?: true
+  }
+
+  export type FavoriteCountAggregateInputType = {
+    id?: true
+    userId?: true
+    musicianProfileId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type FavoriteAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Favorite to aggregate.
+     */
+    where?: FavoriteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Favorites to fetch.
+     */
+    orderBy?: FavoriteOrderByWithRelationInput | FavoriteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FavoriteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Favorites from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Favorites.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Favorites
+    **/
+    _count?: true | FavoriteCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: FavoriteAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FavoriteSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FavoriteMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FavoriteMaxAggregateInputType
+  }
+
+  export type GetFavoriteAggregateType<T extends FavoriteAggregateArgs> = {
+        [P in keyof T & keyof AggregateFavorite]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFavorite[P]>
+      : GetScalarType<T[P], AggregateFavorite[P]>
+  }
+
+
+
+
+  export type FavoriteGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FavoriteWhereInput
+    orderBy?: FavoriteOrderByWithAggregationInput | FavoriteOrderByWithAggregationInput[]
+    by: FavoriteScalarFieldEnum[] | FavoriteScalarFieldEnum
+    having?: FavoriteScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FavoriteCountAggregateInputType | true
+    _avg?: FavoriteAvgAggregateInputType
+    _sum?: FavoriteSumAggregateInputType
+    _min?: FavoriteMinAggregateInputType
+    _max?: FavoriteMaxAggregateInputType
+  }
+
+  export type FavoriteGroupByOutputType = {
+    id: number
+    userId: number
+    musicianProfileId: number
+    createdAt: Date
+    _count: FavoriteCountAggregateOutputType | null
+    _avg: FavoriteAvgAggregateOutputType | null
+    _sum: FavoriteSumAggregateOutputType | null
+    _min: FavoriteMinAggregateOutputType | null
+    _max: FavoriteMaxAggregateOutputType | null
+  }
+
+  type GetFavoriteGroupByPayload<T extends FavoriteGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FavoriteGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FavoriteGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FavoriteGroupByOutputType[P]>
+            : GetScalarType<T[P], FavoriteGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FavoriteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    musicianProfileId?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    musicianProfile?: boolean | MusicianProfileDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["favorite"]>
+
+
+
+  export type FavoriteSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    musicianProfileId?: boolean
+    createdAt?: boolean
+  }
+
+  export type FavoriteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "musicianProfileId" | "createdAt", ExtArgs["result"]["favorite"]>
+  export type FavoriteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    musicianProfile?: boolean | MusicianProfileDefaultArgs<ExtArgs>
+  }
+
+  export type $FavoritePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Favorite"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      musicianProfile: Prisma.$MusicianProfilePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number
+      musicianProfileId: number
+      createdAt: Date
+    }, ExtArgs["result"]["favorite"]>
+    composites: {}
+  }
+
+  type FavoriteGetPayload<S extends boolean | null | undefined | FavoriteDefaultArgs> = $Result.GetResult<Prisma.$FavoritePayload, S>
+
+  type FavoriteCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<FavoriteFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: FavoriteCountAggregateInputType | true
+    }
+
+  export interface FavoriteDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Favorite'], meta: { name: 'Favorite' } }
+    /**
+     * Find zero or one Favorite that matches the filter.
+     * @param {FavoriteFindUniqueArgs} args - Arguments to find a Favorite
+     * @example
+     * // Get one Favorite
+     * const favorite = await prisma.favorite.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FavoriteFindUniqueArgs>(args: SelectSubset<T, FavoriteFindUniqueArgs<ExtArgs>>): Prisma__FavoriteClient<$Result.GetResult<Prisma.$FavoritePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Favorite that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {FavoriteFindUniqueOrThrowArgs} args - Arguments to find a Favorite
+     * @example
+     * // Get one Favorite
+     * const favorite = await prisma.favorite.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FavoriteFindUniqueOrThrowArgs>(args: SelectSubset<T, FavoriteFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FavoriteClient<$Result.GetResult<Prisma.$FavoritePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Favorite that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavoriteFindFirstArgs} args - Arguments to find a Favorite
+     * @example
+     * // Get one Favorite
+     * const favorite = await prisma.favorite.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FavoriteFindFirstArgs>(args?: SelectSubset<T, FavoriteFindFirstArgs<ExtArgs>>): Prisma__FavoriteClient<$Result.GetResult<Prisma.$FavoritePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Favorite that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavoriteFindFirstOrThrowArgs} args - Arguments to find a Favorite
+     * @example
+     * // Get one Favorite
+     * const favorite = await prisma.favorite.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FavoriteFindFirstOrThrowArgs>(args?: SelectSubset<T, FavoriteFindFirstOrThrowArgs<ExtArgs>>): Prisma__FavoriteClient<$Result.GetResult<Prisma.$FavoritePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Favorites that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavoriteFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Favorites
+     * const favorites = await prisma.favorite.findMany()
+     * 
+     * // Get first 10 Favorites
+     * const favorites = await prisma.favorite.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const favoriteWithIdOnly = await prisma.favorite.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends FavoriteFindManyArgs>(args?: SelectSubset<T, FavoriteFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Favorite.
+     * @param {FavoriteCreateArgs} args - Arguments to create a Favorite.
+     * @example
+     * // Create one Favorite
+     * const Favorite = await prisma.favorite.create({
+     *   data: {
+     *     // ... data to create a Favorite
+     *   }
+     * })
+     * 
+     */
+    create<T extends FavoriteCreateArgs>(args: SelectSubset<T, FavoriteCreateArgs<ExtArgs>>): Prisma__FavoriteClient<$Result.GetResult<Prisma.$FavoritePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Favorites.
+     * @param {FavoriteCreateManyArgs} args - Arguments to create many Favorites.
+     * @example
+     * // Create many Favorites
+     * const favorite = await prisma.favorite.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FavoriteCreateManyArgs>(args?: SelectSubset<T, FavoriteCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Favorite.
+     * @param {FavoriteDeleteArgs} args - Arguments to delete one Favorite.
+     * @example
+     * // Delete one Favorite
+     * const Favorite = await prisma.favorite.delete({
+     *   where: {
+     *     // ... filter to delete one Favorite
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FavoriteDeleteArgs>(args: SelectSubset<T, FavoriteDeleteArgs<ExtArgs>>): Prisma__FavoriteClient<$Result.GetResult<Prisma.$FavoritePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Favorite.
+     * @param {FavoriteUpdateArgs} args - Arguments to update one Favorite.
+     * @example
+     * // Update one Favorite
+     * const favorite = await prisma.favorite.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FavoriteUpdateArgs>(args: SelectSubset<T, FavoriteUpdateArgs<ExtArgs>>): Prisma__FavoriteClient<$Result.GetResult<Prisma.$FavoritePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Favorites.
+     * @param {FavoriteDeleteManyArgs} args - Arguments to filter Favorites to delete.
+     * @example
+     * // Delete a few Favorites
+     * const { count } = await prisma.favorite.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FavoriteDeleteManyArgs>(args?: SelectSubset<T, FavoriteDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Favorites.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavoriteUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Favorites
+     * const favorite = await prisma.favorite.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FavoriteUpdateManyArgs>(args: SelectSubset<T, FavoriteUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Favorite.
+     * @param {FavoriteUpsertArgs} args - Arguments to update or create a Favorite.
+     * @example
+     * // Update or create a Favorite
+     * const favorite = await prisma.favorite.upsert({
+     *   create: {
+     *     // ... data to create a Favorite
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Favorite we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FavoriteUpsertArgs>(args: SelectSubset<T, FavoriteUpsertArgs<ExtArgs>>): Prisma__FavoriteClient<$Result.GetResult<Prisma.$FavoritePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Favorites.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavoriteCountArgs} args - Arguments to filter Favorites to count.
+     * @example
+     * // Count the number of Favorites
+     * const count = await prisma.favorite.count({
+     *   where: {
+     *     // ... the filter for the Favorites we want to count
+     *   }
+     * })
+    **/
+    count<T extends FavoriteCountArgs>(
+      args?: Subset<T, FavoriteCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FavoriteCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Favorite.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavoriteAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FavoriteAggregateArgs>(args: Subset<T, FavoriteAggregateArgs>): Prisma.PrismaPromise<GetFavoriteAggregateType<T>>
+
+    /**
+     * Group by Favorite.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavoriteGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FavoriteGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FavoriteGroupByArgs['orderBy'] }
+        : { orderBy?: FavoriteGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FavoriteGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFavoriteGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Favorite model
+   */
+  readonly fields: FavoriteFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Favorite.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FavoriteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    musicianProfile<T extends MusicianProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MusicianProfileDefaultArgs<ExtArgs>>): Prisma__MusicianProfileClient<$Result.GetResult<Prisma.$MusicianProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Favorite model
+   */
+  interface FavoriteFieldRefs {
+    readonly id: FieldRef<"Favorite", 'Int'>
+    readonly userId: FieldRef<"Favorite", 'Int'>
+    readonly musicianProfileId: FieldRef<"Favorite", 'Int'>
+    readonly createdAt: FieldRef<"Favorite", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Favorite findUnique
+   */
+  export type FavoriteFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Favorite
+     */
+    select?: FavoriteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Favorite
+     */
+    omit?: FavoriteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FavoriteInclude<ExtArgs> | null
+    /**
+     * Filter, which Favorite to fetch.
+     */
+    where: FavoriteWhereUniqueInput
+  }
+
+  /**
+   * Favorite findUniqueOrThrow
+   */
+  export type FavoriteFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Favorite
+     */
+    select?: FavoriteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Favorite
+     */
+    omit?: FavoriteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FavoriteInclude<ExtArgs> | null
+    /**
+     * Filter, which Favorite to fetch.
+     */
+    where: FavoriteWhereUniqueInput
+  }
+
+  /**
+   * Favorite findFirst
+   */
+  export type FavoriteFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Favorite
+     */
+    select?: FavoriteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Favorite
+     */
+    omit?: FavoriteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FavoriteInclude<ExtArgs> | null
+    /**
+     * Filter, which Favorite to fetch.
+     */
+    where?: FavoriteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Favorites to fetch.
+     */
+    orderBy?: FavoriteOrderByWithRelationInput | FavoriteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Favorites.
+     */
+    cursor?: FavoriteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Favorites from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Favorites.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Favorites.
+     */
+    distinct?: FavoriteScalarFieldEnum | FavoriteScalarFieldEnum[]
+  }
+
+  /**
+   * Favorite findFirstOrThrow
+   */
+  export type FavoriteFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Favorite
+     */
+    select?: FavoriteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Favorite
+     */
+    omit?: FavoriteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FavoriteInclude<ExtArgs> | null
+    /**
+     * Filter, which Favorite to fetch.
+     */
+    where?: FavoriteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Favorites to fetch.
+     */
+    orderBy?: FavoriteOrderByWithRelationInput | FavoriteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Favorites.
+     */
+    cursor?: FavoriteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Favorites from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Favorites.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Favorites.
+     */
+    distinct?: FavoriteScalarFieldEnum | FavoriteScalarFieldEnum[]
+  }
+
+  /**
+   * Favorite findMany
+   */
+  export type FavoriteFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Favorite
+     */
+    select?: FavoriteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Favorite
+     */
+    omit?: FavoriteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FavoriteInclude<ExtArgs> | null
+    /**
+     * Filter, which Favorites to fetch.
+     */
+    where?: FavoriteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Favorites to fetch.
+     */
+    orderBy?: FavoriteOrderByWithRelationInput | FavoriteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Favorites.
+     */
+    cursor?: FavoriteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Favorites from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Favorites.
+     */
+    skip?: number
+    distinct?: FavoriteScalarFieldEnum | FavoriteScalarFieldEnum[]
+  }
+
+  /**
+   * Favorite create
+   */
+  export type FavoriteCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Favorite
+     */
+    select?: FavoriteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Favorite
+     */
+    omit?: FavoriteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FavoriteInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Favorite.
+     */
+    data: XOR<FavoriteCreateInput, FavoriteUncheckedCreateInput>
+  }
+
+  /**
+   * Favorite createMany
+   */
+  export type FavoriteCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Favorites.
+     */
+    data: FavoriteCreateManyInput | FavoriteCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Favorite update
+   */
+  export type FavoriteUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Favorite
+     */
+    select?: FavoriteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Favorite
+     */
+    omit?: FavoriteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FavoriteInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Favorite.
+     */
+    data: XOR<FavoriteUpdateInput, FavoriteUncheckedUpdateInput>
+    /**
+     * Choose, which Favorite to update.
+     */
+    where: FavoriteWhereUniqueInput
+  }
+
+  /**
+   * Favorite updateMany
+   */
+  export type FavoriteUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Favorites.
+     */
+    data: XOR<FavoriteUpdateManyMutationInput, FavoriteUncheckedUpdateManyInput>
+    /**
+     * Filter which Favorites to update
+     */
+    where?: FavoriteWhereInput
+    /**
+     * Limit how many Favorites to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Favorite upsert
+   */
+  export type FavoriteUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Favorite
+     */
+    select?: FavoriteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Favorite
+     */
+    omit?: FavoriteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FavoriteInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Favorite to update in case it exists.
+     */
+    where: FavoriteWhereUniqueInput
+    /**
+     * In case the Favorite found by the `where` argument doesn't exist, create a new Favorite with this data.
+     */
+    create: XOR<FavoriteCreateInput, FavoriteUncheckedCreateInput>
+    /**
+     * In case the Favorite was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FavoriteUpdateInput, FavoriteUncheckedUpdateInput>
+  }
+
+  /**
+   * Favorite delete
+   */
+  export type FavoriteDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Favorite
+     */
+    select?: FavoriteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Favorite
+     */
+    omit?: FavoriteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FavoriteInclude<ExtArgs> | null
+    /**
+     * Filter which Favorite to delete.
+     */
+    where: FavoriteWhereUniqueInput
+  }
+
+  /**
+   * Favorite deleteMany
+   */
+  export type FavoriteDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Favorites to delete
+     */
+    where?: FavoriteWhereInput
+    /**
+     * Limit how many Favorites to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Favorite without action
+   */
+  export type FavoriteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Favorite
+     */
+    select?: FavoriteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Favorite
+     */
+    omit?: FavoriteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FavoriteInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Conversation
+   */
+
+  export type AggregateConversation = {
+    _count: ConversationCountAggregateOutputType | null
+    _avg: ConversationAvgAggregateOutputType | null
+    _sum: ConversationSumAggregateOutputType | null
+    _min: ConversationMinAggregateOutputType | null
+    _max: ConversationMaxAggregateOutputType | null
+  }
+
+  export type ConversationAvgAggregateOutputType = {
+    id: number | null
+    clientId: number | null
+    musicianProfileId: number | null
+  }
+
+  export type ConversationSumAggregateOutputType = {
+    id: number | null
+    clientId: number | null
+    musicianProfileId: number | null
+  }
+
+  export type ConversationMinAggregateOutputType = {
+    id: number | null
+    clientId: number | null
+    musicianProfileId: number | null
+    lastMessageAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type ConversationMaxAggregateOutputType = {
+    id: number | null
+    clientId: number | null
+    musicianProfileId: number | null
+    lastMessageAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type ConversationCountAggregateOutputType = {
+    id: number
+    clientId: number
+    musicianProfileId: number
+    lastMessageAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type ConversationAvgAggregateInputType = {
+    id?: true
+    clientId?: true
+    musicianProfileId?: true
+  }
+
+  export type ConversationSumAggregateInputType = {
+    id?: true
+    clientId?: true
+    musicianProfileId?: true
+  }
+
+  export type ConversationMinAggregateInputType = {
+    id?: true
+    clientId?: true
+    musicianProfileId?: true
+    lastMessageAt?: true
+    createdAt?: true
+  }
+
+  export type ConversationMaxAggregateInputType = {
+    id?: true
+    clientId?: true
+    musicianProfileId?: true
+    lastMessageAt?: true
+    createdAt?: true
+  }
+
+  export type ConversationCountAggregateInputType = {
+    id?: true
+    clientId?: true
+    musicianProfileId?: true
+    lastMessageAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type ConversationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Conversation to aggregate.
+     */
+    where?: ConversationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Conversations to fetch.
+     */
+    orderBy?: ConversationOrderByWithRelationInput | ConversationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ConversationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Conversations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Conversations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Conversations
+    **/
+    _count?: true | ConversationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ConversationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ConversationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ConversationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ConversationMaxAggregateInputType
+  }
+
+  export type GetConversationAggregateType<T extends ConversationAggregateArgs> = {
+        [P in keyof T & keyof AggregateConversation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateConversation[P]>
+      : GetScalarType<T[P], AggregateConversation[P]>
+  }
+
+
+
+
+  export type ConversationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ConversationWhereInput
+    orderBy?: ConversationOrderByWithAggregationInput | ConversationOrderByWithAggregationInput[]
+    by: ConversationScalarFieldEnum[] | ConversationScalarFieldEnum
+    having?: ConversationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ConversationCountAggregateInputType | true
+    _avg?: ConversationAvgAggregateInputType
+    _sum?: ConversationSumAggregateInputType
+    _min?: ConversationMinAggregateInputType
+    _max?: ConversationMaxAggregateInputType
+  }
+
+  export type ConversationGroupByOutputType = {
+    id: number
+    clientId: number
+    musicianProfileId: number
+    lastMessageAt: Date
+    createdAt: Date
+    _count: ConversationCountAggregateOutputType | null
+    _avg: ConversationAvgAggregateOutputType | null
+    _sum: ConversationSumAggregateOutputType | null
+    _min: ConversationMinAggregateOutputType | null
+    _max: ConversationMaxAggregateOutputType | null
+  }
+
+  type GetConversationGroupByPayload<T extends ConversationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ConversationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ConversationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ConversationGroupByOutputType[P]>
+            : GetScalarType<T[P], ConversationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ConversationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    clientId?: boolean
+    musicianProfileId?: boolean
+    lastMessageAt?: boolean
+    createdAt?: boolean
+    client?: boolean | UserDefaultArgs<ExtArgs>
+    musicianProfile?: boolean | MusicianProfileDefaultArgs<ExtArgs>
+    messages?: boolean | Conversation$messagesArgs<ExtArgs>
+    _count?: boolean | ConversationCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["conversation"]>
+
+
+
+  export type ConversationSelectScalar = {
+    id?: boolean
+    clientId?: boolean
+    musicianProfileId?: boolean
+    lastMessageAt?: boolean
+    createdAt?: boolean
+  }
+
+  export type ConversationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clientId" | "musicianProfileId" | "lastMessageAt" | "createdAt", ExtArgs["result"]["conversation"]>
+  export type ConversationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    client?: boolean | UserDefaultArgs<ExtArgs>
+    musicianProfile?: boolean | MusicianProfileDefaultArgs<ExtArgs>
+    messages?: boolean | Conversation$messagesArgs<ExtArgs>
+    _count?: boolean | ConversationCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $ConversationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Conversation"
+    objects: {
+      client: Prisma.$UserPayload<ExtArgs>
+      musicianProfile: Prisma.$MusicianProfilePayload<ExtArgs>
+      messages: Prisma.$MessagePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      clientId: number
+      musicianProfileId: number
+      lastMessageAt: Date
+      createdAt: Date
+    }, ExtArgs["result"]["conversation"]>
+    composites: {}
+  }
+
+  type ConversationGetPayload<S extends boolean | null | undefined | ConversationDefaultArgs> = $Result.GetResult<Prisma.$ConversationPayload, S>
+
+  type ConversationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ConversationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ConversationCountAggregateInputType | true
+    }
+
+  export interface ConversationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Conversation'], meta: { name: 'Conversation' } }
+    /**
+     * Find zero or one Conversation that matches the filter.
+     * @param {ConversationFindUniqueArgs} args - Arguments to find a Conversation
+     * @example
+     * // Get one Conversation
+     * const conversation = await prisma.conversation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ConversationFindUniqueArgs>(args: SelectSubset<T, ConversationFindUniqueArgs<ExtArgs>>): Prisma__ConversationClient<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Conversation that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ConversationFindUniqueOrThrowArgs} args - Arguments to find a Conversation
+     * @example
+     * // Get one Conversation
+     * const conversation = await prisma.conversation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ConversationFindUniqueOrThrowArgs>(args: SelectSubset<T, ConversationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ConversationClient<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Conversation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConversationFindFirstArgs} args - Arguments to find a Conversation
+     * @example
+     * // Get one Conversation
+     * const conversation = await prisma.conversation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ConversationFindFirstArgs>(args?: SelectSubset<T, ConversationFindFirstArgs<ExtArgs>>): Prisma__ConversationClient<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Conversation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConversationFindFirstOrThrowArgs} args - Arguments to find a Conversation
+     * @example
+     * // Get one Conversation
+     * const conversation = await prisma.conversation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ConversationFindFirstOrThrowArgs>(args?: SelectSubset<T, ConversationFindFirstOrThrowArgs<ExtArgs>>): Prisma__ConversationClient<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Conversations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConversationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Conversations
+     * const conversations = await prisma.conversation.findMany()
+     * 
+     * // Get first 10 Conversations
+     * const conversations = await prisma.conversation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const conversationWithIdOnly = await prisma.conversation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ConversationFindManyArgs>(args?: SelectSubset<T, ConversationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Conversation.
+     * @param {ConversationCreateArgs} args - Arguments to create a Conversation.
+     * @example
+     * // Create one Conversation
+     * const Conversation = await prisma.conversation.create({
+     *   data: {
+     *     // ... data to create a Conversation
+     *   }
+     * })
+     * 
+     */
+    create<T extends ConversationCreateArgs>(args: SelectSubset<T, ConversationCreateArgs<ExtArgs>>): Prisma__ConversationClient<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Conversations.
+     * @param {ConversationCreateManyArgs} args - Arguments to create many Conversations.
+     * @example
+     * // Create many Conversations
+     * const conversation = await prisma.conversation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ConversationCreateManyArgs>(args?: SelectSubset<T, ConversationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Conversation.
+     * @param {ConversationDeleteArgs} args - Arguments to delete one Conversation.
+     * @example
+     * // Delete one Conversation
+     * const Conversation = await prisma.conversation.delete({
+     *   where: {
+     *     // ... filter to delete one Conversation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ConversationDeleteArgs>(args: SelectSubset<T, ConversationDeleteArgs<ExtArgs>>): Prisma__ConversationClient<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Conversation.
+     * @param {ConversationUpdateArgs} args - Arguments to update one Conversation.
+     * @example
+     * // Update one Conversation
+     * const conversation = await prisma.conversation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ConversationUpdateArgs>(args: SelectSubset<T, ConversationUpdateArgs<ExtArgs>>): Prisma__ConversationClient<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Conversations.
+     * @param {ConversationDeleteManyArgs} args - Arguments to filter Conversations to delete.
+     * @example
+     * // Delete a few Conversations
+     * const { count } = await prisma.conversation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ConversationDeleteManyArgs>(args?: SelectSubset<T, ConversationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Conversations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConversationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Conversations
+     * const conversation = await prisma.conversation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ConversationUpdateManyArgs>(args: SelectSubset<T, ConversationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Conversation.
+     * @param {ConversationUpsertArgs} args - Arguments to update or create a Conversation.
+     * @example
+     * // Update or create a Conversation
+     * const conversation = await prisma.conversation.upsert({
+     *   create: {
+     *     // ... data to create a Conversation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Conversation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ConversationUpsertArgs>(args: SelectSubset<T, ConversationUpsertArgs<ExtArgs>>): Prisma__ConversationClient<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Conversations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConversationCountArgs} args - Arguments to filter Conversations to count.
+     * @example
+     * // Count the number of Conversations
+     * const count = await prisma.conversation.count({
+     *   where: {
+     *     // ... the filter for the Conversations we want to count
+     *   }
+     * })
+    **/
+    count<T extends ConversationCountArgs>(
+      args?: Subset<T, ConversationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ConversationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Conversation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConversationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ConversationAggregateArgs>(args: Subset<T, ConversationAggregateArgs>): Prisma.PrismaPromise<GetConversationAggregateType<T>>
+
+    /**
+     * Group by Conversation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConversationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ConversationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ConversationGroupByArgs['orderBy'] }
+        : { orderBy?: ConversationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ConversationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetConversationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Conversation model
+   */
+  readonly fields: ConversationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Conversation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ConversationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    client<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    musicianProfile<T extends MusicianProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MusicianProfileDefaultArgs<ExtArgs>>): Prisma__MusicianProfileClient<$Result.GetResult<Prisma.$MusicianProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    messages<T extends Conversation$messagesArgs<ExtArgs> = {}>(args?: Subset<T, Conversation$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Conversation model
+   */
+  interface ConversationFieldRefs {
+    readonly id: FieldRef<"Conversation", 'Int'>
+    readonly clientId: FieldRef<"Conversation", 'Int'>
+    readonly musicianProfileId: FieldRef<"Conversation", 'Int'>
+    readonly lastMessageAt: FieldRef<"Conversation", 'DateTime'>
+    readonly createdAt: FieldRef<"Conversation", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Conversation findUnique
+   */
+  export type ConversationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conversation
+     */
+    select?: ConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conversation
+     */
+    omit?: ConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConversationInclude<ExtArgs> | null
+    /**
+     * Filter, which Conversation to fetch.
+     */
+    where: ConversationWhereUniqueInput
+  }
+
+  /**
+   * Conversation findUniqueOrThrow
+   */
+  export type ConversationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conversation
+     */
+    select?: ConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conversation
+     */
+    omit?: ConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConversationInclude<ExtArgs> | null
+    /**
+     * Filter, which Conversation to fetch.
+     */
+    where: ConversationWhereUniqueInput
+  }
+
+  /**
+   * Conversation findFirst
+   */
+  export type ConversationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conversation
+     */
+    select?: ConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conversation
+     */
+    omit?: ConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConversationInclude<ExtArgs> | null
+    /**
+     * Filter, which Conversation to fetch.
+     */
+    where?: ConversationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Conversations to fetch.
+     */
+    orderBy?: ConversationOrderByWithRelationInput | ConversationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Conversations.
+     */
+    cursor?: ConversationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Conversations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Conversations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Conversations.
+     */
+    distinct?: ConversationScalarFieldEnum | ConversationScalarFieldEnum[]
+  }
+
+  /**
+   * Conversation findFirstOrThrow
+   */
+  export type ConversationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conversation
+     */
+    select?: ConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conversation
+     */
+    omit?: ConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConversationInclude<ExtArgs> | null
+    /**
+     * Filter, which Conversation to fetch.
+     */
+    where?: ConversationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Conversations to fetch.
+     */
+    orderBy?: ConversationOrderByWithRelationInput | ConversationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Conversations.
+     */
+    cursor?: ConversationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Conversations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Conversations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Conversations.
+     */
+    distinct?: ConversationScalarFieldEnum | ConversationScalarFieldEnum[]
+  }
+
+  /**
+   * Conversation findMany
+   */
+  export type ConversationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conversation
+     */
+    select?: ConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conversation
+     */
+    omit?: ConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConversationInclude<ExtArgs> | null
+    /**
+     * Filter, which Conversations to fetch.
+     */
+    where?: ConversationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Conversations to fetch.
+     */
+    orderBy?: ConversationOrderByWithRelationInput | ConversationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Conversations.
+     */
+    cursor?: ConversationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Conversations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Conversations.
+     */
+    skip?: number
+    distinct?: ConversationScalarFieldEnum | ConversationScalarFieldEnum[]
+  }
+
+  /**
+   * Conversation create
+   */
+  export type ConversationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conversation
+     */
+    select?: ConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conversation
+     */
+    omit?: ConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConversationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Conversation.
+     */
+    data: XOR<ConversationCreateInput, ConversationUncheckedCreateInput>
+  }
+
+  /**
+   * Conversation createMany
+   */
+  export type ConversationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Conversations.
+     */
+    data: ConversationCreateManyInput | ConversationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Conversation update
+   */
+  export type ConversationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conversation
+     */
+    select?: ConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conversation
+     */
+    omit?: ConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConversationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Conversation.
+     */
+    data: XOR<ConversationUpdateInput, ConversationUncheckedUpdateInput>
+    /**
+     * Choose, which Conversation to update.
+     */
+    where: ConversationWhereUniqueInput
+  }
+
+  /**
+   * Conversation updateMany
+   */
+  export type ConversationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Conversations.
+     */
+    data: XOR<ConversationUpdateManyMutationInput, ConversationUncheckedUpdateManyInput>
+    /**
+     * Filter which Conversations to update
+     */
+    where?: ConversationWhereInput
+    /**
+     * Limit how many Conversations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Conversation upsert
+   */
+  export type ConversationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conversation
+     */
+    select?: ConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conversation
+     */
+    omit?: ConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConversationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Conversation to update in case it exists.
+     */
+    where: ConversationWhereUniqueInput
+    /**
+     * In case the Conversation found by the `where` argument doesn't exist, create a new Conversation with this data.
+     */
+    create: XOR<ConversationCreateInput, ConversationUncheckedCreateInput>
+    /**
+     * In case the Conversation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ConversationUpdateInput, ConversationUncheckedUpdateInput>
+  }
+
+  /**
+   * Conversation delete
+   */
+  export type ConversationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conversation
+     */
+    select?: ConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conversation
+     */
+    omit?: ConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConversationInclude<ExtArgs> | null
+    /**
+     * Filter which Conversation to delete.
+     */
+    where: ConversationWhereUniqueInput
+  }
+
+  /**
+   * Conversation deleteMany
+   */
+  export type ConversationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Conversations to delete
+     */
+    where?: ConversationWhereInput
+    /**
+     * Limit how many Conversations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Conversation.messages
+   */
+  export type Conversation$messagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    where?: MessageWhereInput
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    cursor?: MessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * Conversation without action
+   */
+  export type ConversationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conversation
+     */
+    select?: ConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conversation
+     */
+    omit?: ConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConversationInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Message
+   */
+
+  export type AggregateMessage = {
+    _count: MessageCountAggregateOutputType | null
+    _avg: MessageAvgAggregateOutputType | null
+    _sum: MessageSumAggregateOutputType | null
+    _min: MessageMinAggregateOutputType | null
+    _max: MessageMaxAggregateOutputType | null
+  }
+
+  export type MessageAvgAggregateOutputType = {
+    id: number | null
+    conversationId: number | null
+    senderId: number | null
+  }
+
+  export type MessageSumAggregateOutputType = {
+    id: number | null
+    conversationId: number | null
+    senderId: number | null
+  }
+
+  export type MessageMinAggregateOutputType = {
+    id: number | null
+    conversationId: number | null
+    senderId: number | null
+    content: string | null
+    isRead: boolean | null
+    createdAt: Date | null
+  }
+
+  export type MessageMaxAggregateOutputType = {
+    id: number | null
+    conversationId: number | null
+    senderId: number | null
+    content: string | null
+    isRead: boolean | null
+    createdAt: Date | null
+  }
+
+  export type MessageCountAggregateOutputType = {
+    id: number
+    conversationId: number
+    senderId: number
+    content: number
+    isRead: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type MessageAvgAggregateInputType = {
+    id?: true
+    conversationId?: true
+    senderId?: true
+  }
+
+  export type MessageSumAggregateInputType = {
+    id?: true
+    conversationId?: true
+    senderId?: true
+  }
+
+  export type MessageMinAggregateInputType = {
+    id?: true
+    conversationId?: true
+    senderId?: true
+    content?: true
+    isRead?: true
+    createdAt?: true
+  }
+
+  export type MessageMaxAggregateInputType = {
+    id?: true
+    conversationId?: true
+    senderId?: true
+    content?: true
+    isRead?: true
+    createdAt?: true
+  }
+
+  export type MessageCountAggregateInputType = {
+    id?: true
+    conversationId?: true
+    senderId?: true
+    content?: true
+    isRead?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type MessageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Message to aggregate.
+     */
+    where?: MessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Messages to fetch.
+     */
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Messages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Messages
+    **/
+    _count?: true | MessageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MessageAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MessageSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MessageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MessageMaxAggregateInputType
+  }
+
+  export type GetMessageAggregateType<T extends MessageAggregateArgs> = {
+        [P in keyof T & keyof AggregateMessage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMessage[P]>
+      : GetScalarType<T[P], AggregateMessage[P]>
+  }
+
+
+
+
+  export type MessageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageWhereInput
+    orderBy?: MessageOrderByWithAggregationInput | MessageOrderByWithAggregationInput[]
+    by: MessageScalarFieldEnum[] | MessageScalarFieldEnum
+    having?: MessageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MessageCountAggregateInputType | true
+    _avg?: MessageAvgAggregateInputType
+    _sum?: MessageSumAggregateInputType
+    _min?: MessageMinAggregateInputType
+    _max?: MessageMaxAggregateInputType
+  }
+
+  export type MessageGroupByOutputType = {
+    id: number
+    conversationId: number
+    senderId: number
+    content: string
+    isRead: boolean
+    createdAt: Date
+    _count: MessageCountAggregateOutputType | null
+    _avg: MessageAvgAggregateOutputType | null
+    _sum: MessageSumAggregateOutputType | null
+    _min: MessageMinAggregateOutputType | null
+    _max: MessageMaxAggregateOutputType | null
+  }
+
+  type GetMessageGroupByPayload<T extends MessageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MessageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MessageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MessageGroupByOutputType[P]>
+            : GetScalarType<T[P], MessageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MessageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    conversationId?: boolean
+    senderId?: boolean
+    content?: boolean
+    isRead?: boolean
+    createdAt?: boolean
+    conversation?: boolean | ConversationDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["message"]>
+
+
+
+  export type MessageSelectScalar = {
+    id?: boolean
+    conversationId?: boolean
+    senderId?: boolean
+    content?: boolean
+    isRead?: boolean
+    createdAt?: boolean
+  }
+
+  export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "conversationId" | "senderId" | "content" | "isRead" | "createdAt", ExtArgs["result"]["message"]>
+  export type MessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    conversation?: boolean | ConversationDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $MessagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Message"
+    objects: {
+      conversation: Prisma.$ConversationPayload<ExtArgs>
+      sender: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      conversationId: number
+      senderId: number
+      content: string
+      isRead: boolean
+      createdAt: Date
+    }, ExtArgs["result"]["message"]>
+    composites: {}
+  }
+
+  type MessageGetPayload<S extends boolean | null | undefined | MessageDefaultArgs> = $Result.GetResult<Prisma.$MessagePayload, S>
+
+  type MessageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MessageFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MessageCountAggregateInputType | true
+    }
+
+  export interface MessageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Message'], meta: { name: 'Message' } }
+    /**
+     * Find zero or one Message that matches the filter.
+     * @param {MessageFindUniqueArgs} args - Arguments to find a Message
+     * @example
+     * // Get one Message
+     * const message = await prisma.message.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MessageFindUniqueArgs>(args: SelectSubset<T, MessageFindUniqueArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Message that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MessageFindUniqueOrThrowArgs} args - Arguments to find a Message
+     * @example
+     * // Get one Message
+     * const message = await prisma.message.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MessageFindUniqueOrThrowArgs>(args: SelectSubset<T, MessageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Message that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageFindFirstArgs} args - Arguments to find a Message
+     * @example
+     * // Get one Message
+     * const message = await prisma.message.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MessageFindFirstArgs>(args?: SelectSubset<T, MessageFindFirstArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Message that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageFindFirstOrThrowArgs} args - Arguments to find a Message
+     * @example
+     * // Get one Message
+     * const message = await prisma.message.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MessageFindFirstOrThrowArgs>(args?: SelectSubset<T, MessageFindFirstOrThrowArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Messages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Messages
+     * const messages = await prisma.message.findMany()
+     * 
+     * // Get first 10 Messages
+     * const messages = await prisma.message.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const messageWithIdOnly = await prisma.message.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MessageFindManyArgs>(args?: SelectSubset<T, MessageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Message.
+     * @param {MessageCreateArgs} args - Arguments to create a Message.
+     * @example
+     * // Create one Message
+     * const Message = await prisma.message.create({
+     *   data: {
+     *     // ... data to create a Message
+     *   }
+     * })
+     * 
+     */
+    create<T extends MessageCreateArgs>(args: SelectSubset<T, MessageCreateArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Messages.
+     * @param {MessageCreateManyArgs} args - Arguments to create many Messages.
+     * @example
+     * // Create many Messages
+     * const message = await prisma.message.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MessageCreateManyArgs>(args?: SelectSubset<T, MessageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Message.
+     * @param {MessageDeleteArgs} args - Arguments to delete one Message.
+     * @example
+     * // Delete one Message
+     * const Message = await prisma.message.delete({
+     *   where: {
+     *     // ... filter to delete one Message
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MessageDeleteArgs>(args: SelectSubset<T, MessageDeleteArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Message.
+     * @param {MessageUpdateArgs} args - Arguments to update one Message.
+     * @example
+     * // Update one Message
+     * const message = await prisma.message.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MessageUpdateArgs>(args: SelectSubset<T, MessageUpdateArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Messages.
+     * @param {MessageDeleteManyArgs} args - Arguments to filter Messages to delete.
+     * @example
+     * // Delete a few Messages
+     * const { count } = await prisma.message.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MessageDeleteManyArgs>(args?: SelectSubset<T, MessageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Messages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Messages
+     * const message = await prisma.message.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MessageUpdateManyArgs>(args: SelectSubset<T, MessageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Message.
+     * @param {MessageUpsertArgs} args - Arguments to update or create a Message.
+     * @example
+     * // Update or create a Message
+     * const message = await prisma.message.upsert({
+     *   create: {
+     *     // ... data to create a Message
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Message we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MessageUpsertArgs>(args: SelectSubset<T, MessageUpsertArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Messages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageCountArgs} args - Arguments to filter Messages to count.
+     * @example
+     * // Count the number of Messages
+     * const count = await prisma.message.count({
+     *   where: {
+     *     // ... the filter for the Messages we want to count
+     *   }
+     * })
+    **/
+    count<T extends MessageCountArgs>(
+      args?: Subset<T, MessageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MessageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Message.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MessageAggregateArgs>(args: Subset<T, MessageAggregateArgs>): Prisma.PrismaPromise<GetMessageAggregateType<T>>
+
+    /**
+     * Group by Message.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MessageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MessageGroupByArgs['orderBy'] }
+        : { orderBy?: MessageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MessageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMessageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Message model
+   */
+  readonly fields: MessageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Message.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MessageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    conversation<T extends ConversationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ConversationDefaultArgs<ExtArgs>>): Prisma__ConversationClient<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    sender<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Message model
+   */
+  interface MessageFieldRefs {
+    readonly id: FieldRef<"Message", 'Int'>
+    readonly conversationId: FieldRef<"Message", 'Int'>
+    readonly senderId: FieldRef<"Message", 'Int'>
+    readonly content: FieldRef<"Message", 'String'>
+    readonly isRead: FieldRef<"Message", 'Boolean'>
+    readonly createdAt: FieldRef<"Message", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Message findUnique
+   */
+  export type MessageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * Filter, which Message to fetch.
+     */
+    where: MessageWhereUniqueInput
+  }
+
+  /**
+   * Message findUniqueOrThrow
+   */
+  export type MessageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * Filter, which Message to fetch.
+     */
+    where: MessageWhereUniqueInput
+  }
+
+  /**
+   * Message findFirst
+   */
+  export type MessageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * Filter, which Message to fetch.
+     */
+    where?: MessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Messages to fetch.
+     */
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Messages.
+     */
+    cursor?: MessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Messages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Messages.
+     */
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * Message findFirstOrThrow
+   */
+  export type MessageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * Filter, which Message to fetch.
+     */
+    where?: MessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Messages to fetch.
+     */
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Messages.
+     */
+    cursor?: MessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Messages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Messages.
+     */
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * Message findMany
+   */
+  export type MessageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * Filter, which Messages to fetch.
+     */
+    where?: MessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Messages to fetch.
+     */
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Messages.
+     */
+    cursor?: MessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Messages.
+     */
+    skip?: number
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * Message create
+   */
+  export type MessageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Message.
+     */
+    data: XOR<MessageCreateInput, MessageUncheckedCreateInput>
+  }
+
+  /**
+   * Message createMany
+   */
+  export type MessageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Messages.
+     */
+    data: MessageCreateManyInput | MessageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Message update
+   */
+  export type MessageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Message.
+     */
+    data: XOR<MessageUpdateInput, MessageUncheckedUpdateInput>
+    /**
+     * Choose, which Message to update.
+     */
+    where: MessageWhereUniqueInput
+  }
+
+  /**
+   * Message updateMany
+   */
+  export type MessageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Messages.
+     */
+    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyInput>
+    /**
+     * Filter which Messages to update
+     */
+    where?: MessageWhereInput
+    /**
+     * Limit how many Messages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Message upsert
+   */
+  export type MessageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Message to update in case it exists.
+     */
+    where: MessageWhereUniqueInput
+    /**
+     * In case the Message found by the `where` argument doesn't exist, create a new Message with this data.
+     */
+    create: XOR<MessageCreateInput, MessageUncheckedCreateInput>
+    /**
+     * In case the Message was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MessageUpdateInput, MessageUncheckedUpdateInput>
+  }
+
+  /**
+   * Message delete
+   */
+  export type MessageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * Filter which Message to delete.
+     */
+    where: MessageWhereUniqueInput
+  }
+
+  /**
+   * Message deleteMany
+   */
+  export type MessageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Messages to delete
+     */
+    where?: MessageWhereInput
+    /**
+     * Limit how many Messages to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Message without action
+   */
+  export type MessageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model NotificationPreference
+   */
+
+  export type AggregateNotificationPreference = {
+    _count: NotificationPreferenceCountAggregateOutputType | null
+    _avg: NotificationPreferenceAvgAggregateOutputType | null
+    _sum: NotificationPreferenceSumAggregateOutputType | null
+    _min: NotificationPreferenceMinAggregateOutputType | null
+    _max: NotificationPreferenceMaxAggregateOutputType | null
+  }
+
+  export type NotificationPreferenceAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+  }
+
+  export type NotificationPreferenceSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+  }
+
+  export type NotificationPreferenceMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    emailBookings: boolean | null
+    emailMessages: boolean | null
+    emailReviews: boolean | null
+    emailNews: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type NotificationPreferenceMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    emailBookings: boolean | null
+    emailMessages: boolean | null
+    emailReviews: boolean | null
+    emailNews: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type NotificationPreferenceCountAggregateOutputType = {
+    id: number
+    userId: number
+    emailBookings: number
+    emailMessages: number
+    emailReviews: number
+    emailNews: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type NotificationPreferenceAvgAggregateInputType = {
+    id?: true
+    userId?: true
+  }
+
+  export type NotificationPreferenceSumAggregateInputType = {
+    id?: true
+    userId?: true
+  }
+
+  export type NotificationPreferenceMinAggregateInputType = {
+    id?: true
+    userId?: true
+    emailBookings?: true
+    emailMessages?: true
+    emailReviews?: true
+    emailNews?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type NotificationPreferenceMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    emailBookings?: true
+    emailMessages?: true
+    emailReviews?: true
+    emailNews?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type NotificationPreferenceCountAggregateInputType = {
+    id?: true
+    userId?: true
+    emailBookings?: true
+    emailMessages?: true
+    emailReviews?: true
+    emailNews?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type NotificationPreferenceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NotificationPreference to aggregate.
+     */
+    where?: NotificationPreferenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NotificationPreferences to fetch.
+     */
+    orderBy?: NotificationPreferenceOrderByWithRelationInput | NotificationPreferenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: NotificationPreferenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NotificationPreferences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NotificationPreferences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned NotificationPreferences
+    **/
+    _count?: true | NotificationPreferenceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: NotificationPreferenceAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: NotificationPreferenceSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: NotificationPreferenceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: NotificationPreferenceMaxAggregateInputType
+  }
+
+  export type GetNotificationPreferenceAggregateType<T extends NotificationPreferenceAggregateArgs> = {
+        [P in keyof T & keyof AggregateNotificationPreference]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNotificationPreference[P]>
+      : GetScalarType<T[P], AggregateNotificationPreference[P]>
+  }
+
+
+
+
+  export type NotificationPreferenceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationPreferenceWhereInput
+    orderBy?: NotificationPreferenceOrderByWithAggregationInput | NotificationPreferenceOrderByWithAggregationInput[]
+    by: NotificationPreferenceScalarFieldEnum[] | NotificationPreferenceScalarFieldEnum
+    having?: NotificationPreferenceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: NotificationPreferenceCountAggregateInputType | true
+    _avg?: NotificationPreferenceAvgAggregateInputType
+    _sum?: NotificationPreferenceSumAggregateInputType
+    _min?: NotificationPreferenceMinAggregateInputType
+    _max?: NotificationPreferenceMaxAggregateInputType
+  }
+
+  export type NotificationPreferenceGroupByOutputType = {
+    id: number
+    userId: number
+    emailBookings: boolean
+    emailMessages: boolean
+    emailReviews: boolean
+    emailNews: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: NotificationPreferenceCountAggregateOutputType | null
+    _avg: NotificationPreferenceAvgAggregateOutputType | null
+    _sum: NotificationPreferenceSumAggregateOutputType | null
+    _min: NotificationPreferenceMinAggregateOutputType | null
+    _max: NotificationPreferenceMaxAggregateOutputType | null
+  }
+
+  type GetNotificationPreferenceGroupByPayload<T extends NotificationPreferenceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<NotificationPreferenceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof NotificationPreferenceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], NotificationPreferenceGroupByOutputType[P]>
+            : GetScalarType<T[P], NotificationPreferenceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type NotificationPreferenceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    emailBookings?: boolean
+    emailMessages?: boolean
+    emailReviews?: boolean
+    emailNews?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notificationPreference"]>
+
+
+
+  export type NotificationPreferenceSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    emailBookings?: boolean
+    emailMessages?: boolean
+    emailReviews?: boolean
+    emailNews?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type NotificationPreferenceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "emailBookings" | "emailMessages" | "emailReviews" | "emailNews" | "createdAt" | "updatedAt", ExtArgs["result"]["notificationPreference"]>
+  export type NotificationPreferenceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $NotificationPreferencePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "NotificationPreference"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number
+      emailBookings: boolean
+      emailMessages: boolean
+      emailReviews: boolean
+      emailNews: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["notificationPreference"]>
+    composites: {}
+  }
+
+  type NotificationPreferenceGetPayload<S extends boolean | null | undefined | NotificationPreferenceDefaultArgs> = $Result.GetResult<Prisma.$NotificationPreferencePayload, S>
+
+  type NotificationPreferenceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<NotificationPreferenceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: NotificationPreferenceCountAggregateInputType | true
+    }
+
+  export interface NotificationPreferenceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['NotificationPreference'], meta: { name: 'NotificationPreference' } }
+    /**
+     * Find zero or one NotificationPreference that matches the filter.
+     * @param {NotificationPreferenceFindUniqueArgs} args - Arguments to find a NotificationPreference
+     * @example
+     * // Get one NotificationPreference
+     * const notificationPreference = await prisma.notificationPreference.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends NotificationPreferenceFindUniqueArgs>(args: SelectSubset<T, NotificationPreferenceFindUniqueArgs<ExtArgs>>): Prisma__NotificationPreferenceClient<$Result.GetResult<Prisma.$NotificationPreferencePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one NotificationPreference that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {NotificationPreferenceFindUniqueOrThrowArgs} args - Arguments to find a NotificationPreference
+     * @example
+     * // Get one NotificationPreference
+     * const notificationPreference = await prisma.notificationPreference.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends NotificationPreferenceFindUniqueOrThrowArgs>(args: SelectSubset<T, NotificationPreferenceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__NotificationPreferenceClient<$Result.GetResult<Prisma.$NotificationPreferencePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first NotificationPreference that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationPreferenceFindFirstArgs} args - Arguments to find a NotificationPreference
+     * @example
+     * // Get one NotificationPreference
+     * const notificationPreference = await prisma.notificationPreference.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends NotificationPreferenceFindFirstArgs>(args?: SelectSubset<T, NotificationPreferenceFindFirstArgs<ExtArgs>>): Prisma__NotificationPreferenceClient<$Result.GetResult<Prisma.$NotificationPreferencePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first NotificationPreference that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationPreferenceFindFirstOrThrowArgs} args - Arguments to find a NotificationPreference
+     * @example
+     * // Get one NotificationPreference
+     * const notificationPreference = await prisma.notificationPreference.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends NotificationPreferenceFindFirstOrThrowArgs>(args?: SelectSubset<T, NotificationPreferenceFindFirstOrThrowArgs<ExtArgs>>): Prisma__NotificationPreferenceClient<$Result.GetResult<Prisma.$NotificationPreferencePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more NotificationPreferences that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationPreferenceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all NotificationPreferences
+     * const notificationPreferences = await prisma.notificationPreference.findMany()
+     * 
+     * // Get first 10 NotificationPreferences
+     * const notificationPreferences = await prisma.notificationPreference.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const notificationPreferenceWithIdOnly = await prisma.notificationPreference.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends NotificationPreferenceFindManyArgs>(args?: SelectSubset<T, NotificationPreferenceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPreferencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a NotificationPreference.
+     * @param {NotificationPreferenceCreateArgs} args - Arguments to create a NotificationPreference.
+     * @example
+     * // Create one NotificationPreference
+     * const NotificationPreference = await prisma.notificationPreference.create({
+     *   data: {
+     *     // ... data to create a NotificationPreference
+     *   }
+     * })
+     * 
+     */
+    create<T extends NotificationPreferenceCreateArgs>(args: SelectSubset<T, NotificationPreferenceCreateArgs<ExtArgs>>): Prisma__NotificationPreferenceClient<$Result.GetResult<Prisma.$NotificationPreferencePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many NotificationPreferences.
+     * @param {NotificationPreferenceCreateManyArgs} args - Arguments to create many NotificationPreferences.
+     * @example
+     * // Create many NotificationPreferences
+     * const notificationPreference = await prisma.notificationPreference.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends NotificationPreferenceCreateManyArgs>(args?: SelectSubset<T, NotificationPreferenceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a NotificationPreference.
+     * @param {NotificationPreferenceDeleteArgs} args - Arguments to delete one NotificationPreference.
+     * @example
+     * // Delete one NotificationPreference
+     * const NotificationPreference = await prisma.notificationPreference.delete({
+     *   where: {
+     *     // ... filter to delete one NotificationPreference
+     *   }
+     * })
+     * 
+     */
+    delete<T extends NotificationPreferenceDeleteArgs>(args: SelectSubset<T, NotificationPreferenceDeleteArgs<ExtArgs>>): Prisma__NotificationPreferenceClient<$Result.GetResult<Prisma.$NotificationPreferencePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one NotificationPreference.
+     * @param {NotificationPreferenceUpdateArgs} args - Arguments to update one NotificationPreference.
+     * @example
+     * // Update one NotificationPreference
+     * const notificationPreference = await prisma.notificationPreference.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends NotificationPreferenceUpdateArgs>(args: SelectSubset<T, NotificationPreferenceUpdateArgs<ExtArgs>>): Prisma__NotificationPreferenceClient<$Result.GetResult<Prisma.$NotificationPreferencePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more NotificationPreferences.
+     * @param {NotificationPreferenceDeleteManyArgs} args - Arguments to filter NotificationPreferences to delete.
+     * @example
+     * // Delete a few NotificationPreferences
+     * const { count } = await prisma.notificationPreference.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends NotificationPreferenceDeleteManyArgs>(args?: SelectSubset<T, NotificationPreferenceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more NotificationPreferences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationPreferenceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many NotificationPreferences
+     * const notificationPreference = await prisma.notificationPreference.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends NotificationPreferenceUpdateManyArgs>(args: SelectSubset<T, NotificationPreferenceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one NotificationPreference.
+     * @param {NotificationPreferenceUpsertArgs} args - Arguments to update or create a NotificationPreference.
+     * @example
+     * // Update or create a NotificationPreference
+     * const notificationPreference = await prisma.notificationPreference.upsert({
+     *   create: {
+     *     // ... data to create a NotificationPreference
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the NotificationPreference we want to update
+     *   }
+     * })
+     */
+    upsert<T extends NotificationPreferenceUpsertArgs>(args: SelectSubset<T, NotificationPreferenceUpsertArgs<ExtArgs>>): Prisma__NotificationPreferenceClient<$Result.GetResult<Prisma.$NotificationPreferencePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of NotificationPreferences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationPreferenceCountArgs} args - Arguments to filter NotificationPreferences to count.
+     * @example
+     * // Count the number of NotificationPreferences
+     * const count = await prisma.notificationPreference.count({
+     *   where: {
+     *     // ... the filter for the NotificationPreferences we want to count
+     *   }
+     * })
+    **/
+    count<T extends NotificationPreferenceCountArgs>(
+      args?: Subset<T, NotificationPreferenceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], NotificationPreferenceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a NotificationPreference.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationPreferenceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends NotificationPreferenceAggregateArgs>(args: Subset<T, NotificationPreferenceAggregateArgs>): Prisma.PrismaPromise<GetNotificationPreferenceAggregateType<T>>
+
+    /**
+     * Group by NotificationPreference.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationPreferenceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends NotificationPreferenceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: NotificationPreferenceGroupByArgs['orderBy'] }
+        : { orderBy?: NotificationPreferenceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, NotificationPreferenceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNotificationPreferenceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the NotificationPreference model
+   */
+  readonly fields: NotificationPreferenceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for NotificationPreference.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__NotificationPreferenceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the NotificationPreference model
+   */
+  interface NotificationPreferenceFieldRefs {
+    readonly id: FieldRef<"NotificationPreference", 'Int'>
+    readonly userId: FieldRef<"NotificationPreference", 'Int'>
+    readonly emailBookings: FieldRef<"NotificationPreference", 'Boolean'>
+    readonly emailMessages: FieldRef<"NotificationPreference", 'Boolean'>
+    readonly emailReviews: FieldRef<"NotificationPreference", 'Boolean'>
+    readonly emailNews: FieldRef<"NotificationPreference", 'Boolean'>
+    readonly createdAt: FieldRef<"NotificationPreference", 'DateTime'>
+    readonly updatedAt: FieldRef<"NotificationPreference", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * NotificationPreference findUnique
+   */
+  export type NotificationPreferenceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationPreference
+     */
+    select?: NotificationPreferenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationPreference
+     */
+    omit?: NotificationPreferenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationPreferenceInclude<ExtArgs> | null
+    /**
+     * Filter, which NotificationPreference to fetch.
+     */
+    where: NotificationPreferenceWhereUniqueInput
+  }
+
+  /**
+   * NotificationPreference findUniqueOrThrow
+   */
+  export type NotificationPreferenceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationPreference
+     */
+    select?: NotificationPreferenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationPreference
+     */
+    omit?: NotificationPreferenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationPreferenceInclude<ExtArgs> | null
+    /**
+     * Filter, which NotificationPreference to fetch.
+     */
+    where: NotificationPreferenceWhereUniqueInput
+  }
+
+  /**
+   * NotificationPreference findFirst
+   */
+  export type NotificationPreferenceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationPreference
+     */
+    select?: NotificationPreferenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationPreference
+     */
+    omit?: NotificationPreferenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationPreferenceInclude<ExtArgs> | null
+    /**
+     * Filter, which NotificationPreference to fetch.
+     */
+    where?: NotificationPreferenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NotificationPreferences to fetch.
+     */
+    orderBy?: NotificationPreferenceOrderByWithRelationInput | NotificationPreferenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NotificationPreferences.
+     */
+    cursor?: NotificationPreferenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NotificationPreferences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NotificationPreferences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NotificationPreferences.
+     */
+    distinct?: NotificationPreferenceScalarFieldEnum | NotificationPreferenceScalarFieldEnum[]
+  }
+
+  /**
+   * NotificationPreference findFirstOrThrow
+   */
+  export type NotificationPreferenceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationPreference
+     */
+    select?: NotificationPreferenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationPreference
+     */
+    omit?: NotificationPreferenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationPreferenceInclude<ExtArgs> | null
+    /**
+     * Filter, which NotificationPreference to fetch.
+     */
+    where?: NotificationPreferenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NotificationPreferences to fetch.
+     */
+    orderBy?: NotificationPreferenceOrderByWithRelationInput | NotificationPreferenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NotificationPreferences.
+     */
+    cursor?: NotificationPreferenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NotificationPreferences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NotificationPreferences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NotificationPreferences.
+     */
+    distinct?: NotificationPreferenceScalarFieldEnum | NotificationPreferenceScalarFieldEnum[]
+  }
+
+  /**
+   * NotificationPreference findMany
+   */
+  export type NotificationPreferenceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationPreference
+     */
+    select?: NotificationPreferenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationPreference
+     */
+    omit?: NotificationPreferenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationPreferenceInclude<ExtArgs> | null
+    /**
+     * Filter, which NotificationPreferences to fetch.
+     */
+    where?: NotificationPreferenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NotificationPreferences to fetch.
+     */
+    orderBy?: NotificationPreferenceOrderByWithRelationInput | NotificationPreferenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing NotificationPreferences.
+     */
+    cursor?: NotificationPreferenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NotificationPreferences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NotificationPreferences.
+     */
+    skip?: number
+    distinct?: NotificationPreferenceScalarFieldEnum | NotificationPreferenceScalarFieldEnum[]
+  }
+
+  /**
+   * NotificationPreference create
+   */
+  export type NotificationPreferenceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationPreference
+     */
+    select?: NotificationPreferenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationPreference
+     */
+    omit?: NotificationPreferenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationPreferenceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a NotificationPreference.
+     */
+    data: XOR<NotificationPreferenceCreateInput, NotificationPreferenceUncheckedCreateInput>
+  }
+
+  /**
+   * NotificationPreference createMany
+   */
+  export type NotificationPreferenceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many NotificationPreferences.
+     */
+    data: NotificationPreferenceCreateManyInput | NotificationPreferenceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * NotificationPreference update
+   */
+  export type NotificationPreferenceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationPreference
+     */
+    select?: NotificationPreferenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationPreference
+     */
+    omit?: NotificationPreferenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationPreferenceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a NotificationPreference.
+     */
+    data: XOR<NotificationPreferenceUpdateInput, NotificationPreferenceUncheckedUpdateInput>
+    /**
+     * Choose, which NotificationPreference to update.
+     */
+    where: NotificationPreferenceWhereUniqueInput
+  }
+
+  /**
+   * NotificationPreference updateMany
+   */
+  export type NotificationPreferenceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update NotificationPreferences.
+     */
+    data: XOR<NotificationPreferenceUpdateManyMutationInput, NotificationPreferenceUncheckedUpdateManyInput>
+    /**
+     * Filter which NotificationPreferences to update
+     */
+    where?: NotificationPreferenceWhereInput
+    /**
+     * Limit how many NotificationPreferences to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * NotificationPreference upsert
+   */
+  export type NotificationPreferenceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationPreference
+     */
+    select?: NotificationPreferenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationPreference
+     */
+    omit?: NotificationPreferenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationPreferenceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the NotificationPreference to update in case it exists.
+     */
+    where: NotificationPreferenceWhereUniqueInput
+    /**
+     * In case the NotificationPreference found by the `where` argument doesn't exist, create a new NotificationPreference with this data.
+     */
+    create: XOR<NotificationPreferenceCreateInput, NotificationPreferenceUncheckedCreateInput>
+    /**
+     * In case the NotificationPreference was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<NotificationPreferenceUpdateInput, NotificationPreferenceUncheckedUpdateInput>
+  }
+
+  /**
+   * NotificationPreference delete
+   */
+  export type NotificationPreferenceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationPreference
+     */
+    select?: NotificationPreferenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationPreference
+     */
+    omit?: NotificationPreferenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationPreferenceInclude<ExtArgs> | null
+    /**
+     * Filter which NotificationPreference to delete.
+     */
+    where: NotificationPreferenceWhereUniqueInput
+  }
+
+  /**
+   * NotificationPreference deleteMany
+   */
+  export type NotificationPreferenceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NotificationPreferences to delete
+     */
+    where?: NotificationPreferenceWhereInput
+    /**
+     * Limit how many NotificationPreferences to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * NotificationPreference without action
+   */
+  export type NotificationPreferenceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationPreference
+     */
+    select?: NotificationPreferenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationPreference
+     */
+    omit?: NotificationPreferenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationPreferenceInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Subscription
+   */
+
+  export type AggregateSubscription = {
+    _count: SubscriptionCountAggregateOutputType | null
+    _avg: SubscriptionAvgAggregateOutputType | null
+    _sum: SubscriptionSumAggregateOutputType | null
+    _min: SubscriptionMinAggregateOutputType | null
+    _max: SubscriptionMaxAggregateOutputType | null
+  }
+
+  export type SubscriptionAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    planId: number | null
+  }
+
+  export type SubscriptionSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    planId: number | null
+  }
+
+  export type SubscriptionMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    planId: number | null
+    stripeSubscriptionId: string | null
+    stripeCustomerId: string | null
+    status: string | null
+    currentPeriodStart: Date | null
+    currentPeriodEnd: Date | null
+    cancelAtPeriodEnd: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SubscriptionMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    planId: number | null
+    stripeSubscriptionId: string | null
+    stripeCustomerId: string | null
+    status: string | null
+    currentPeriodStart: Date | null
+    currentPeriodEnd: Date | null
+    cancelAtPeriodEnd: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SubscriptionCountAggregateOutputType = {
+    id: number
+    userId: number
+    planId: number
+    stripeSubscriptionId: number
+    stripeCustomerId: number
+    status: number
+    currentPeriodStart: number
+    currentPeriodEnd: number
+    cancelAtPeriodEnd: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SubscriptionAvgAggregateInputType = {
+    id?: true
+    userId?: true
+    planId?: true
+  }
+
+  export type SubscriptionSumAggregateInputType = {
+    id?: true
+    userId?: true
+    planId?: true
+  }
+
+  export type SubscriptionMinAggregateInputType = {
+    id?: true
+    userId?: true
+    planId?: true
+    stripeSubscriptionId?: true
+    stripeCustomerId?: true
+    status?: true
+    currentPeriodStart?: true
+    currentPeriodEnd?: true
+    cancelAtPeriodEnd?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SubscriptionMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    planId?: true
+    stripeSubscriptionId?: true
+    stripeCustomerId?: true
+    status?: true
+    currentPeriodStart?: true
+    currentPeriodEnd?: true
+    cancelAtPeriodEnd?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SubscriptionCountAggregateInputType = {
+    id?: true
+    userId?: true
+    planId?: true
+    stripeSubscriptionId?: true
+    stripeCustomerId?: true
+    status?: true
+    currentPeriodStart?: true
+    currentPeriodEnd?: true
+    cancelAtPeriodEnd?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SubscriptionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Subscription to aggregate.
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Subscriptions to fetch.
+     */
+    orderBy?: SubscriptionOrderByWithRelationInput | SubscriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SubscriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Subscriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Subscriptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Subscriptions
+    **/
+    _count?: true | SubscriptionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SubscriptionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SubscriptionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SubscriptionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SubscriptionMaxAggregateInputType
+  }
+
+  export type GetSubscriptionAggregateType<T extends SubscriptionAggregateArgs> = {
+        [P in keyof T & keyof AggregateSubscription]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSubscription[P]>
+      : GetScalarType<T[P], AggregateSubscription[P]>
+  }
+
+
+
+
+  export type SubscriptionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SubscriptionWhereInput
+    orderBy?: SubscriptionOrderByWithAggregationInput | SubscriptionOrderByWithAggregationInput[]
+    by: SubscriptionScalarFieldEnum[] | SubscriptionScalarFieldEnum
+    having?: SubscriptionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SubscriptionCountAggregateInputType | true
+    _avg?: SubscriptionAvgAggregateInputType
+    _sum?: SubscriptionSumAggregateInputType
+    _min?: SubscriptionMinAggregateInputType
+    _max?: SubscriptionMaxAggregateInputType
+  }
+
+  export type SubscriptionGroupByOutputType = {
+    id: number
+    userId: number
+    planId: number
+    stripeSubscriptionId: string | null
+    stripeCustomerId: string | null
+    status: string
+    currentPeriodStart: Date
+    currentPeriodEnd: Date
+    cancelAtPeriodEnd: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: SubscriptionCountAggregateOutputType | null
+    _avg: SubscriptionAvgAggregateOutputType | null
+    _sum: SubscriptionSumAggregateOutputType | null
+    _min: SubscriptionMinAggregateOutputType | null
+    _max: SubscriptionMaxAggregateOutputType | null
+  }
+
+  type GetSubscriptionGroupByPayload<T extends SubscriptionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SubscriptionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SubscriptionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SubscriptionGroupByOutputType[P]>
+            : GetScalarType<T[P], SubscriptionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SubscriptionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    planId?: boolean
+    stripeSubscriptionId?: boolean
+    stripeCustomerId?: boolean
+    status?: boolean
+    currentPeriodStart?: boolean
+    currentPeriodEnd?: boolean
+    cancelAtPeriodEnd?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    plan?: boolean | PlanDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["subscription"]>
+
+
+
+  export type SubscriptionSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    planId?: boolean
+    stripeSubscriptionId?: boolean
+    stripeCustomerId?: boolean
+    status?: boolean
+    currentPeriodStart?: boolean
+    currentPeriodEnd?: boolean
+    cancelAtPeriodEnd?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SubscriptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "planId" | "stripeSubscriptionId" | "stripeCustomerId" | "status" | "currentPeriodStart" | "currentPeriodEnd" | "cancelAtPeriodEnd" | "createdAt" | "updatedAt", ExtArgs["result"]["subscription"]>
+  export type SubscriptionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    plan?: boolean | PlanDefaultArgs<ExtArgs>
+  }
+
+  export type $SubscriptionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Subscription"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      plan: Prisma.$PlanPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number
+      planId: number
+      stripeSubscriptionId: string | null
+      stripeCustomerId: string | null
+      status: string
+      currentPeriodStart: Date
+      currentPeriodEnd: Date
+      cancelAtPeriodEnd: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["subscription"]>
+    composites: {}
+  }
+
+  type SubscriptionGetPayload<S extends boolean | null | undefined | SubscriptionDefaultArgs> = $Result.GetResult<Prisma.$SubscriptionPayload, S>
+
+  type SubscriptionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SubscriptionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SubscriptionCountAggregateInputType | true
+    }
+
+  export interface SubscriptionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Subscription'], meta: { name: 'Subscription' } }
+    /**
+     * Find zero or one Subscription that matches the filter.
+     * @param {SubscriptionFindUniqueArgs} args - Arguments to find a Subscription
+     * @example
+     * // Get one Subscription
+     * const subscription = await prisma.subscription.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SubscriptionFindUniqueArgs>(args: SelectSubset<T, SubscriptionFindUniqueArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Subscription that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SubscriptionFindUniqueOrThrowArgs} args - Arguments to find a Subscription
+     * @example
+     * // Get one Subscription
+     * const subscription = await prisma.subscription.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SubscriptionFindUniqueOrThrowArgs>(args: SelectSubset<T, SubscriptionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Subscription that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionFindFirstArgs} args - Arguments to find a Subscription
+     * @example
+     * // Get one Subscription
+     * const subscription = await prisma.subscription.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SubscriptionFindFirstArgs>(args?: SelectSubset<T, SubscriptionFindFirstArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Subscription that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionFindFirstOrThrowArgs} args - Arguments to find a Subscription
+     * @example
+     * // Get one Subscription
+     * const subscription = await prisma.subscription.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SubscriptionFindFirstOrThrowArgs>(args?: SelectSubset<T, SubscriptionFindFirstOrThrowArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Subscriptions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Subscriptions
+     * const subscriptions = await prisma.subscription.findMany()
+     * 
+     * // Get first 10 Subscriptions
+     * const subscriptions = await prisma.subscription.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const subscriptionWithIdOnly = await prisma.subscription.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SubscriptionFindManyArgs>(args?: SelectSubset<T, SubscriptionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Subscription.
+     * @param {SubscriptionCreateArgs} args - Arguments to create a Subscription.
+     * @example
+     * // Create one Subscription
+     * const Subscription = await prisma.subscription.create({
+     *   data: {
+     *     // ... data to create a Subscription
+     *   }
+     * })
+     * 
+     */
+    create<T extends SubscriptionCreateArgs>(args: SelectSubset<T, SubscriptionCreateArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Subscriptions.
+     * @param {SubscriptionCreateManyArgs} args - Arguments to create many Subscriptions.
+     * @example
+     * // Create many Subscriptions
+     * const subscription = await prisma.subscription.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SubscriptionCreateManyArgs>(args?: SelectSubset<T, SubscriptionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Subscription.
+     * @param {SubscriptionDeleteArgs} args - Arguments to delete one Subscription.
+     * @example
+     * // Delete one Subscription
+     * const Subscription = await prisma.subscription.delete({
+     *   where: {
+     *     // ... filter to delete one Subscription
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SubscriptionDeleteArgs>(args: SelectSubset<T, SubscriptionDeleteArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Subscription.
+     * @param {SubscriptionUpdateArgs} args - Arguments to update one Subscription.
+     * @example
+     * // Update one Subscription
+     * const subscription = await prisma.subscription.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SubscriptionUpdateArgs>(args: SelectSubset<T, SubscriptionUpdateArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Subscriptions.
+     * @param {SubscriptionDeleteManyArgs} args - Arguments to filter Subscriptions to delete.
+     * @example
+     * // Delete a few Subscriptions
+     * const { count } = await prisma.subscription.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SubscriptionDeleteManyArgs>(args?: SelectSubset<T, SubscriptionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Subscriptions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Subscriptions
+     * const subscription = await prisma.subscription.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SubscriptionUpdateManyArgs>(args: SelectSubset<T, SubscriptionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Subscription.
+     * @param {SubscriptionUpsertArgs} args - Arguments to update or create a Subscription.
+     * @example
+     * // Update or create a Subscription
+     * const subscription = await prisma.subscription.upsert({
+     *   create: {
+     *     // ... data to create a Subscription
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Subscription we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SubscriptionUpsertArgs>(args: SelectSubset<T, SubscriptionUpsertArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Subscriptions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionCountArgs} args - Arguments to filter Subscriptions to count.
+     * @example
+     * // Count the number of Subscriptions
+     * const count = await prisma.subscription.count({
+     *   where: {
+     *     // ... the filter for the Subscriptions we want to count
+     *   }
+     * })
+    **/
+    count<T extends SubscriptionCountArgs>(
+      args?: Subset<T, SubscriptionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SubscriptionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Subscription.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SubscriptionAggregateArgs>(args: Subset<T, SubscriptionAggregateArgs>): Prisma.PrismaPromise<GetSubscriptionAggregateType<T>>
+
+    /**
+     * Group by Subscription.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SubscriptionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SubscriptionGroupByArgs['orderBy'] }
+        : { orderBy?: SubscriptionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SubscriptionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSubscriptionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Subscription model
+   */
+  readonly fields: SubscriptionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Subscription.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SubscriptionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    plan<T extends PlanDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PlanDefaultArgs<ExtArgs>>): Prisma__PlanClient<$Result.GetResult<Prisma.$PlanPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Subscription model
+   */
+  interface SubscriptionFieldRefs {
+    readonly id: FieldRef<"Subscription", 'Int'>
+    readonly userId: FieldRef<"Subscription", 'Int'>
+    readonly planId: FieldRef<"Subscription", 'Int'>
+    readonly stripeSubscriptionId: FieldRef<"Subscription", 'String'>
+    readonly stripeCustomerId: FieldRef<"Subscription", 'String'>
+    readonly status: FieldRef<"Subscription", 'String'>
+    readonly currentPeriodStart: FieldRef<"Subscription", 'DateTime'>
+    readonly currentPeriodEnd: FieldRef<"Subscription", 'DateTime'>
+    readonly cancelAtPeriodEnd: FieldRef<"Subscription", 'Boolean'>
+    readonly createdAt: FieldRef<"Subscription", 'DateTime'>
+    readonly updatedAt: FieldRef<"Subscription", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Subscription findUnique
+   */
+  export type SubscriptionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which Subscription to fetch.
+     */
+    where: SubscriptionWhereUniqueInput
+  }
+
+  /**
+   * Subscription findUniqueOrThrow
+   */
+  export type SubscriptionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which Subscription to fetch.
+     */
+    where: SubscriptionWhereUniqueInput
+  }
+
+  /**
+   * Subscription findFirst
+   */
+  export type SubscriptionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which Subscription to fetch.
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Subscriptions to fetch.
+     */
+    orderBy?: SubscriptionOrderByWithRelationInput | SubscriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Subscriptions.
+     */
+    cursor?: SubscriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Subscriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Subscriptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Subscriptions.
+     */
+    distinct?: SubscriptionScalarFieldEnum | SubscriptionScalarFieldEnum[]
+  }
+
+  /**
+   * Subscription findFirstOrThrow
+   */
+  export type SubscriptionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which Subscription to fetch.
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Subscriptions to fetch.
+     */
+    orderBy?: SubscriptionOrderByWithRelationInput | SubscriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Subscriptions.
+     */
+    cursor?: SubscriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Subscriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Subscriptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Subscriptions.
+     */
+    distinct?: SubscriptionScalarFieldEnum | SubscriptionScalarFieldEnum[]
+  }
+
+  /**
+   * Subscription findMany
+   */
+  export type SubscriptionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which Subscriptions to fetch.
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Subscriptions to fetch.
+     */
+    orderBy?: SubscriptionOrderByWithRelationInput | SubscriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Subscriptions.
+     */
+    cursor?: SubscriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Subscriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Subscriptions.
+     */
+    skip?: number
+    distinct?: SubscriptionScalarFieldEnum | SubscriptionScalarFieldEnum[]
+  }
+
+  /**
+   * Subscription create
+   */
+  export type SubscriptionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Subscription.
+     */
+    data: XOR<SubscriptionCreateInput, SubscriptionUncheckedCreateInput>
+  }
+
+  /**
+   * Subscription createMany
+   */
+  export type SubscriptionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Subscriptions.
+     */
+    data: SubscriptionCreateManyInput | SubscriptionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Subscription update
+   */
+  export type SubscriptionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Subscription.
+     */
+    data: XOR<SubscriptionUpdateInput, SubscriptionUncheckedUpdateInput>
+    /**
+     * Choose, which Subscription to update.
+     */
+    where: SubscriptionWhereUniqueInput
+  }
+
+  /**
+   * Subscription updateMany
+   */
+  export type SubscriptionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Subscriptions.
+     */
+    data: XOR<SubscriptionUpdateManyMutationInput, SubscriptionUncheckedUpdateManyInput>
+    /**
+     * Filter which Subscriptions to update
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * Limit how many Subscriptions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Subscription upsert
+   */
+  export type SubscriptionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Subscription to update in case it exists.
+     */
+    where: SubscriptionWhereUniqueInput
+    /**
+     * In case the Subscription found by the `where` argument doesn't exist, create a new Subscription with this data.
+     */
+    create: XOR<SubscriptionCreateInput, SubscriptionUncheckedCreateInput>
+    /**
+     * In case the Subscription was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SubscriptionUpdateInput, SubscriptionUncheckedUpdateInput>
+  }
+
+  /**
+   * Subscription delete
+   */
+  export type SubscriptionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter which Subscription to delete.
+     */
+    where: SubscriptionWhereUniqueInput
+  }
+
+  /**
+   * Subscription deleteMany
+   */
+  export type SubscriptionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Subscriptions to delete
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * Limit how many Subscriptions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Subscription without action
+   */
+  export type SubscriptionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PaymentHistory
+   */
+
+  export type AggregatePaymentHistory = {
+    _count: PaymentHistoryCountAggregateOutputType | null
+    _avg: PaymentHistoryAvgAggregateOutputType | null
+    _sum: PaymentHistorySumAggregateOutputType | null
+    _min: PaymentHistoryMinAggregateOutputType | null
+    _max: PaymentHistoryMaxAggregateOutputType | null
+  }
+
+  export type PaymentHistoryAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    amount: number | null
+  }
+
+  export type PaymentHistorySumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    amount: number | null
+  }
+
+  export type PaymentHistoryMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    amount: number | null
+    currency: string | null
+    status: string | null
+    stripePaymentId: string | null
+    description: string | null
+    createdAt: Date | null
+  }
+
+  export type PaymentHistoryMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    amount: number | null
+    currency: string | null
+    status: string | null
+    stripePaymentId: string | null
+    description: string | null
+    createdAt: Date | null
+  }
+
+  export type PaymentHistoryCountAggregateOutputType = {
+    id: number
+    userId: number
+    amount: number
+    currency: number
+    status: number
+    stripePaymentId: number
+    description: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type PaymentHistoryAvgAggregateInputType = {
+    id?: true
+    userId?: true
+    amount?: true
+  }
+
+  export type PaymentHistorySumAggregateInputType = {
+    id?: true
+    userId?: true
+    amount?: true
+  }
+
+  export type PaymentHistoryMinAggregateInputType = {
+    id?: true
+    userId?: true
+    amount?: true
+    currency?: true
+    status?: true
+    stripePaymentId?: true
+    description?: true
+    createdAt?: true
+  }
+
+  export type PaymentHistoryMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    amount?: true
+    currency?: true
+    status?: true
+    stripePaymentId?: true
+    description?: true
+    createdAt?: true
+  }
+
+  export type PaymentHistoryCountAggregateInputType = {
+    id?: true
+    userId?: true
+    amount?: true
+    currency?: true
+    status?: true
+    stripePaymentId?: true
+    description?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type PaymentHistoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PaymentHistory to aggregate.
+     */
+    where?: PaymentHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PaymentHistories to fetch.
+     */
+    orderBy?: PaymentHistoryOrderByWithRelationInput | PaymentHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PaymentHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PaymentHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PaymentHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PaymentHistories
+    **/
+    _count?: true | PaymentHistoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PaymentHistoryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PaymentHistorySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PaymentHistoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PaymentHistoryMaxAggregateInputType
+  }
+
+  export type GetPaymentHistoryAggregateType<T extends PaymentHistoryAggregateArgs> = {
+        [P in keyof T & keyof AggregatePaymentHistory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePaymentHistory[P]>
+      : GetScalarType<T[P], AggregatePaymentHistory[P]>
+  }
+
+
+
+
+  export type PaymentHistoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PaymentHistoryWhereInput
+    orderBy?: PaymentHistoryOrderByWithAggregationInput | PaymentHistoryOrderByWithAggregationInput[]
+    by: PaymentHistoryScalarFieldEnum[] | PaymentHistoryScalarFieldEnum
+    having?: PaymentHistoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PaymentHistoryCountAggregateInputType | true
+    _avg?: PaymentHistoryAvgAggregateInputType
+    _sum?: PaymentHistorySumAggregateInputType
+    _min?: PaymentHistoryMinAggregateInputType
+    _max?: PaymentHistoryMaxAggregateInputType
+  }
+
+  export type PaymentHistoryGroupByOutputType = {
+    id: number
+    userId: number
+    amount: number
+    currency: string
+    status: string
+    stripePaymentId: string | null
+    description: string | null
+    createdAt: Date
+    _count: PaymentHistoryCountAggregateOutputType | null
+    _avg: PaymentHistoryAvgAggregateOutputType | null
+    _sum: PaymentHistorySumAggregateOutputType | null
+    _min: PaymentHistoryMinAggregateOutputType | null
+    _max: PaymentHistoryMaxAggregateOutputType | null
+  }
+
+  type GetPaymentHistoryGroupByPayload<T extends PaymentHistoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PaymentHistoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PaymentHistoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PaymentHistoryGroupByOutputType[P]>
+            : GetScalarType<T[P], PaymentHistoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PaymentHistorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    amount?: boolean
+    currency?: boolean
+    status?: boolean
+    stripePaymentId?: boolean
+    description?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["paymentHistory"]>
+
+
+
+  export type PaymentHistorySelectScalar = {
+    id?: boolean
+    userId?: boolean
+    amount?: boolean
+    currency?: boolean
+    status?: boolean
+    stripePaymentId?: boolean
+    description?: boolean
+    createdAt?: boolean
+  }
+
+  export type PaymentHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "amount" | "currency" | "status" | "stripePaymentId" | "description" | "createdAt", ExtArgs["result"]["paymentHistory"]>
+  export type PaymentHistoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $PaymentHistoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PaymentHistory"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number
+      amount: number
+      currency: string
+      status: string
+      stripePaymentId: string | null
+      description: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["paymentHistory"]>
+    composites: {}
+  }
+
+  type PaymentHistoryGetPayload<S extends boolean | null | undefined | PaymentHistoryDefaultArgs> = $Result.GetResult<Prisma.$PaymentHistoryPayload, S>
+
+  type PaymentHistoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PaymentHistoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PaymentHistoryCountAggregateInputType | true
+    }
+
+  export interface PaymentHistoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PaymentHistory'], meta: { name: 'PaymentHistory' } }
+    /**
+     * Find zero or one PaymentHistory that matches the filter.
+     * @param {PaymentHistoryFindUniqueArgs} args - Arguments to find a PaymentHistory
+     * @example
+     * // Get one PaymentHistory
+     * const paymentHistory = await prisma.paymentHistory.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PaymentHistoryFindUniqueArgs>(args: SelectSubset<T, PaymentHistoryFindUniqueArgs<ExtArgs>>): Prisma__PaymentHistoryClient<$Result.GetResult<Prisma.$PaymentHistoryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PaymentHistory that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PaymentHistoryFindUniqueOrThrowArgs} args - Arguments to find a PaymentHistory
+     * @example
+     * // Get one PaymentHistory
+     * const paymentHistory = await prisma.paymentHistory.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PaymentHistoryFindUniqueOrThrowArgs>(args: SelectSubset<T, PaymentHistoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PaymentHistoryClient<$Result.GetResult<Prisma.$PaymentHistoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PaymentHistory that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentHistoryFindFirstArgs} args - Arguments to find a PaymentHistory
+     * @example
+     * // Get one PaymentHistory
+     * const paymentHistory = await prisma.paymentHistory.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PaymentHistoryFindFirstArgs>(args?: SelectSubset<T, PaymentHistoryFindFirstArgs<ExtArgs>>): Prisma__PaymentHistoryClient<$Result.GetResult<Prisma.$PaymentHistoryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PaymentHistory that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentHistoryFindFirstOrThrowArgs} args - Arguments to find a PaymentHistory
+     * @example
+     * // Get one PaymentHistory
+     * const paymentHistory = await prisma.paymentHistory.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PaymentHistoryFindFirstOrThrowArgs>(args?: SelectSubset<T, PaymentHistoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__PaymentHistoryClient<$Result.GetResult<Prisma.$PaymentHistoryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PaymentHistories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentHistoryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PaymentHistories
+     * const paymentHistories = await prisma.paymentHistory.findMany()
+     * 
+     * // Get first 10 PaymentHistories
+     * const paymentHistories = await prisma.paymentHistory.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const paymentHistoryWithIdOnly = await prisma.paymentHistory.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PaymentHistoryFindManyArgs>(args?: SelectSubset<T, PaymentHistoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PaymentHistory.
+     * @param {PaymentHistoryCreateArgs} args - Arguments to create a PaymentHistory.
+     * @example
+     * // Create one PaymentHistory
+     * const PaymentHistory = await prisma.paymentHistory.create({
+     *   data: {
+     *     // ... data to create a PaymentHistory
+     *   }
+     * })
+     * 
+     */
+    create<T extends PaymentHistoryCreateArgs>(args: SelectSubset<T, PaymentHistoryCreateArgs<ExtArgs>>): Prisma__PaymentHistoryClient<$Result.GetResult<Prisma.$PaymentHistoryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PaymentHistories.
+     * @param {PaymentHistoryCreateManyArgs} args - Arguments to create many PaymentHistories.
+     * @example
+     * // Create many PaymentHistories
+     * const paymentHistory = await prisma.paymentHistory.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PaymentHistoryCreateManyArgs>(args?: SelectSubset<T, PaymentHistoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a PaymentHistory.
+     * @param {PaymentHistoryDeleteArgs} args - Arguments to delete one PaymentHistory.
+     * @example
+     * // Delete one PaymentHistory
+     * const PaymentHistory = await prisma.paymentHistory.delete({
+     *   where: {
+     *     // ... filter to delete one PaymentHistory
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PaymentHistoryDeleteArgs>(args: SelectSubset<T, PaymentHistoryDeleteArgs<ExtArgs>>): Prisma__PaymentHistoryClient<$Result.GetResult<Prisma.$PaymentHistoryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PaymentHistory.
+     * @param {PaymentHistoryUpdateArgs} args - Arguments to update one PaymentHistory.
+     * @example
+     * // Update one PaymentHistory
+     * const paymentHistory = await prisma.paymentHistory.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PaymentHistoryUpdateArgs>(args: SelectSubset<T, PaymentHistoryUpdateArgs<ExtArgs>>): Prisma__PaymentHistoryClient<$Result.GetResult<Prisma.$PaymentHistoryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PaymentHistories.
+     * @param {PaymentHistoryDeleteManyArgs} args - Arguments to filter PaymentHistories to delete.
+     * @example
+     * // Delete a few PaymentHistories
+     * const { count } = await prisma.paymentHistory.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PaymentHistoryDeleteManyArgs>(args?: SelectSubset<T, PaymentHistoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PaymentHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentHistoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PaymentHistories
+     * const paymentHistory = await prisma.paymentHistory.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PaymentHistoryUpdateManyArgs>(args: SelectSubset<T, PaymentHistoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PaymentHistory.
+     * @param {PaymentHistoryUpsertArgs} args - Arguments to update or create a PaymentHistory.
+     * @example
+     * // Update or create a PaymentHistory
+     * const paymentHistory = await prisma.paymentHistory.upsert({
+     *   create: {
+     *     // ... data to create a PaymentHistory
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PaymentHistory we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PaymentHistoryUpsertArgs>(args: SelectSubset<T, PaymentHistoryUpsertArgs<ExtArgs>>): Prisma__PaymentHistoryClient<$Result.GetResult<Prisma.$PaymentHistoryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PaymentHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentHistoryCountArgs} args - Arguments to filter PaymentHistories to count.
+     * @example
+     * // Count the number of PaymentHistories
+     * const count = await prisma.paymentHistory.count({
+     *   where: {
+     *     // ... the filter for the PaymentHistories we want to count
+     *   }
+     * })
+    **/
+    count<T extends PaymentHistoryCountArgs>(
+      args?: Subset<T, PaymentHistoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PaymentHistoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PaymentHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentHistoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PaymentHistoryAggregateArgs>(args: Subset<T, PaymentHistoryAggregateArgs>): Prisma.PrismaPromise<GetPaymentHistoryAggregateType<T>>
+
+    /**
+     * Group by PaymentHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentHistoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PaymentHistoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PaymentHistoryGroupByArgs['orderBy'] }
+        : { orderBy?: PaymentHistoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PaymentHistoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPaymentHistoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PaymentHistory model
+   */
+  readonly fields: PaymentHistoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PaymentHistory.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PaymentHistoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PaymentHistory model
+   */
+  interface PaymentHistoryFieldRefs {
+    readonly id: FieldRef<"PaymentHistory", 'Int'>
+    readonly userId: FieldRef<"PaymentHistory", 'Int'>
+    readonly amount: FieldRef<"PaymentHistory", 'Int'>
+    readonly currency: FieldRef<"PaymentHistory", 'String'>
+    readonly status: FieldRef<"PaymentHistory", 'String'>
+    readonly stripePaymentId: FieldRef<"PaymentHistory", 'String'>
+    readonly description: FieldRef<"PaymentHistory", 'String'>
+    readonly createdAt: FieldRef<"PaymentHistory", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PaymentHistory findUnique
+   */
+  export type PaymentHistoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentHistory
+     */
+    select?: PaymentHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PaymentHistory
+     */
+    omit?: PaymentHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which PaymentHistory to fetch.
+     */
+    where: PaymentHistoryWhereUniqueInput
+  }
+
+  /**
+   * PaymentHistory findUniqueOrThrow
+   */
+  export type PaymentHistoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentHistory
+     */
+    select?: PaymentHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PaymentHistory
+     */
+    omit?: PaymentHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which PaymentHistory to fetch.
+     */
+    where: PaymentHistoryWhereUniqueInput
+  }
+
+  /**
+   * PaymentHistory findFirst
+   */
+  export type PaymentHistoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentHistory
+     */
+    select?: PaymentHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PaymentHistory
+     */
+    omit?: PaymentHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which PaymentHistory to fetch.
+     */
+    where?: PaymentHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PaymentHistories to fetch.
+     */
+    orderBy?: PaymentHistoryOrderByWithRelationInput | PaymentHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PaymentHistories.
+     */
+    cursor?: PaymentHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PaymentHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PaymentHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PaymentHistories.
+     */
+    distinct?: PaymentHistoryScalarFieldEnum | PaymentHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * PaymentHistory findFirstOrThrow
+   */
+  export type PaymentHistoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentHistory
+     */
+    select?: PaymentHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PaymentHistory
+     */
+    omit?: PaymentHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which PaymentHistory to fetch.
+     */
+    where?: PaymentHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PaymentHistories to fetch.
+     */
+    orderBy?: PaymentHistoryOrderByWithRelationInput | PaymentHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PaymentHistories.
+     */
+    cursor?: PaymentHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PaymentHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PaymentHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PaymentHistories.
+     */
+    distinct?: PaymentHistoryScalarFieldEnum | PaymentHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * PaymentHistory findMany
+   */
+  export type PaymentHistoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentHistory
+     */
+    select?: PaymentHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PaymentHistory
+     */
+    omit?: PaymentHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which PaymentHistories to fetch.
+     */
+    where?: PaymentHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PaymentHistories to fetch.
+     */
+    orderBy?: PaymentHistoryOrderByWithRelationInput | PaymentHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PaymentHistories.
+     */
+    cursor?: PaymentHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PaymentHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PaymentHistories.
+     */
+    skip?: number
+    distinct?: PaymentHistoryScalarFieldEnum | PaymentHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * PaymentHistory create
+   */
+  export type PaymentHistoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentHistory
+     */
+    select?: PaymentHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PaymentHistory
+     */
+    omit?: PaymentHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentHistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PaymentHistory.
+     */
+    data: XOR<PaymentHistoryCreateInput, PaymentHistoryUncheckedCreateInput>
+  }
+
+  /**
+   * PaymentHistory createMany
+   */
+  export type PaymentHistoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PaymentHistories.
+     */
+    data: PaymentHistoryCreateManyInput | PaymentHistoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PaymentHistory update
+   */
+  export type PaymentHistoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentHistory
+     */
+    select?: PaymentHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PaymentHistory
+     */
+    omit?: PaymentHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentHistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PaymentHistory.
+     */
+    data: XOR<PaymentHistoryUpdateInput, PaymentHistoryUncheckedUpdateInput>
+    /**
+     * Choose, which PaymentHistory to update.
+     */
+    where: PaymentHistoryWhereUniqueInput
+  }
+
+  /**
+   * PaymentHistory updateMany
+   */
+  export type PaymentHistoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PaymentHistories.
+     */
+    data: XOR<PaymentHistoryUpdateManyMutationInput, PaymentHistoryUncheckedUpdateManyInput>
+    /**
+     * Filter which PaymentHistories to update
+     */
+    where?: PaymentHistoryWhereInput
+    /**
+     * Limit how many PaymentHistories to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PaymentHistory upsert
+   */
+  export type PaymentHistoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentHistory
+     */
+    select?: PaymentHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PaymentHistory
+     */
+    omit?: PaymentHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentHistoryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PaymentHistory to update in case it exists.
+     */
+    where: PaymentHistoryWhereUniqueInput
+    /**
+     * In case the PaymentHistory found by the `where` argument doesn't exist, create a new PaymentHistory with this data.
+     */
+    create: XOR<PaymentHistoryCreateInput, PaymentHistoryUncheckedCreateInput>
+    /**
+     * In case the PaymentHistory was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PaymentHistoryUpdateInput, PaymentHistoryUncheckedUpdateInput>
+  }
+
+  /**
+   * PaymentHistory delete
+   */
+  export type PaymentHistoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentHistory
+     */
+    select?: PaymentHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PaymentHistory
+     */
+    omit?: PaymentHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentHistoryInclude<ExtArgs> | null
+    /**
+     * Filter which PaymentHistory to delete.
+     */
+    where: PaymentHistoryWhereUniqueInput
+  }
+
+  /**
+   * PaymentHistory deleteMany
+   */
+  export type PaymentHistoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PaymentHistories to delete
+     */
+    where?: PaymentHistoryWhereInput
+    /**
+     * Limit how many PaymentHistories to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PaymentHistory without action
+   */
+  export type PaymentHistoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentHistory
+     */
+    select?: PaymentHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PaymentHistory
+     */
+    omit?: PaymentHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentHistoryInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model ContactMessage
    */
 
@@ -15224,6 +22114,10 @@ export namespace Prisma {
     city: 'city',
     state: 'state',
     userType: 'userType',
+    role: 'role',
+    profileImageUrl: 'profileImageUrl',
+    resetToken: 'resetToken',
+    resetTokenExpiry: 'resetTokenExpiry',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -15370,6 +22264,84 @@ export namespace Prisma {
   export type FAQItemScalarFieldEnum = (typeof FAQItemScalarFieldEnum)[keyof typeof FAQItemScalarFieldEnum]
 
 
+  export const FavoriteScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    musicianProfileId: 'musicianProfileId',
+    createdAt: 'createdAt'
+  };
+
+  export type FavoriteScalarFieldEnum = (typeof FavoriteScalarFieldEnum)[keyof typeof FavoriteScalarFieldEnum]
+
+
+  export const ConversationScalarFieldEnum: {
+    id: 'id',
+    clientId: 'clientId',
+    musicianProfileId: 'musicianProfileId',
+    lastMessageAt: 'lastMessageAt',
+    createdAt: 'createdAt'
+  };
+
+  export type ConversationScalarFieldEnum = (typeof ConversationScalarFieldEnum)[keyof typeof ConversationScalarFieldEnum]
+
+
+  export const MessageScalarFieldEnum: {
+    id: 'id',
+    conversationId: 'conversationId',
+    senderId: 'senderId',
+    content: 'content',
+    isRead: 'isRead',
+    createdAt: 'createdAt'
+  };
+
+  export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
+
+
+  export const NotificationPreferenceScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    emailBookings: 'emailBookings',
+    emailMessages: 'emailMessages',
+    emailReviews: 'emailReviews',
+    emailNews: 'emailNews',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type NotificationPreferenceScalarFieldEnum = (typeof NotificationPreferenceScalarFieldEnum)[keyof typeof NotificationPreferenceScalarFieldEnum]
+
+
+  export const SubscriptionScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    planId: 'planId',
+    stripeSubscriptionId: 'stripeSubscriptionId',
+    stripeCustomerId: 'stripeCustomerId',
+    status: 'status',
+    currentPeriodStart: 'currentPeriodStart',
+    currentPeriodEnd: 'currentPeriodEnd',
+    cancelAtPeriodEnd: 'cancelAtPeriodEnd',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SubscriptionScalarFieldEnum = (typeof SubscriptionScalarFieldEnum)[keyof typeof SubscriptionScalarFieldEnum]
+
+
+  export const PaymentHistoryScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    amount: 'amount',
+    currency: 'currency',
+    status: 'status',
+    stripePaymentId: 'stripePaymentId',
+    description: 'description',
+    createdAt: 'createdAt'
+  };
+
+  export type PaymentHistoryScalarFieldEnum = (typeof PaymentHistoryScalarFieldEnum)[keyof typeof PaymentHistoryScalarFieldEnum]
+
+
   export const ContactMessageScalarFieldEnum: {
     id: 'id',
     firstName: 'firstName',
@@ -15407,7 +22379,9 @@ export namespace Prisma {
     lastName: 'lastName',
     phone: 'phone',
     city: 'city',
-    state: 'state'
+    state: 'state',
+    profileImageUrl: 'profileImageUrl',
+    resetToken: 'resetToken'
   };
 
   export type UserOrderByRelevanceFieldEnum = (typeof UserOrderByRelevanceFieldEnum)[keyof typeof UserOrderByRelevanceFieldEnum]
@@ -15497,6 +22471,32 @@ export namespace Prisma {
   export type FAQItemOrderByRelevanceFieldEnum = (typeof FAQItemOrderByRelevanceFieldEnum)[keyof typeof FAQItemOrderByRelevanceFieldEnum]
 
 
+  export const MessageOrderByRelevanceFieldEnum: {
+    content: 'content'
+  };
+
+  export type MessageOrderByRelevanceFieldEnum = (typeof MessageOrderByRelevanceFieldEnum)[keyof typeof MessageOrderByRelevanceFieldEnum]
+
+
+  export const SubscriptionOrderByRelevanceFieldEnum: {
+    stripeSubscriptionId: 'stripeSubscriptionId',
+    stripeCustomerId: 'stripeCustomerId',
+    status: 'status'
+  };
+
+  export type SubscriptionOrderByRelevanceFieldEnum = (typeof SubscriptionOrderByRelevanceFieldEnum)[keyof typeof SubscriptionOrderByRelevanceFieldEnum]
+
+
+  export const PaymentHistoryOrderByRelevanceFieldEnum: {
+    currency: 'currency',
+    status: 'status',
+    stripePaymentId: 'stripePaymentId',
+    description: 'description'
+  };
+
+  export type PaymentHistoryOrderByRelevanceFieldEnum = (typeof PaymentHistoryOrderByRelevanceFieldEnum)[keyof typeof PaymentHistoryOrderByRelevanceFieldEnum]
+
+
   export const ContactMessageOrderByRelevanceFieldEnum: {
     firstName: 'firstName',
     lastName: 'lastName',
@@ -15532,6 +22532,13 @@ export namespace Prisma {
    * Reference to a field of type 'UserType'
    */
   export type EnumUserTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserType'>
+    
+
+
+  /**
+   * Reference to a field of type 'UserRole'
+   */
+  export type EnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole'>
     
 
 
@@ -15579,11 +22586,21 @@ export namespace Prisma {
     city?: StringNullableFilter<"User"> | string | null
     state?: StringNullableFilter<"User"> | string | null
     userType?: EnumUserTypeFilter<"User"> | $Enums.UserType
+    role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
+    profileImageUrl?: StringNullableFilter<"User"> | string | null
+    resetToken?: StringNullableFilter<"User"> | string | null
+    resetTokenExpiry?: DateTimeNullableFilter<"User"> | Date | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     musicianProfile?: XOR<MusicianProfileNullableScalarRelationFilter, MusicianProfileWhereInput> | null
     reviewsGiven?: ReviewListRelationFilter
     bookings?: BookingListRelationFilter
+    favorites?: FavoriteListRelationFilter
+    conversationsAsClient?: ConversationListRelationFilter
+    messagesSent?: MessageListRelationFilter
+    notificationPreferences?: XOR<NotificationPreferenceNullableScalarRelationFilter, NotificationPreferenceWhereInput> | null
+    subscription?: XOR<SubscriptionNullableScalarRelationFilter, SubscriptionWhereInput> | null
+    paymentHistory?: PaymentHistoryListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -15596,17 +22613,28 @@ export namespace Prisma {
     city?: SortOrderInput | SortOrder
     state?: SortOrderInput | SortOrder
     userType?: SortOrder
+    role?: SortOrder
+    profileImageUrl?: SortOrderInput | SortOrder
+    resetToken?: SortOrderInput | SortOrder
+    resetTokenExpiry?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     musicianProfile?: MusicianProfileOrderByWithRelationInput
     reviewsGiven?: ReviewOrderByRelationAggregateInput
     bookings?: BookingOrderByRelationAggregateInput
+    favorites?: FavoriteOrderByRelationAggregateInput
+    conversationsAsClient?: ConversationOrderByRelationAggregateInput
+    messagesSent?: MessageOrderByRelationAggregateInput
+    notificationPreferences?: NotificationPreferenceOrderByWithRelationInput
+    subscription?: SubscriptionOrderByWithRelationInput
+    paymentHistory?: PaymentHistoryOrderByRelationAggregateInput
     _relevance?: UserOrderByRelevanceInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: number
     email?: string
+    resetToken?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
@@ -15617,12 +22645,21 @@ export namespace Prisma {
     city?: StringNullableFilter<"User"> | string | null
     state?: StringNullableFilter<"User"> | string | null
     userType?: EnumUserTypeFilter<"User"> | $Enums.UserType
+    role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
+    profileImageUrl?: StringNullableFilter<"User"> | string | null
+    resetTokenExpiry?: DateTimeNullableFilter<"User"> | Date | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     musicianProfile?: XOR<MusicianProfileNullableScalarRelationFilter, MusicianProfileWhereInput> | null
     reviewsGiven?: ReviewListRelationFilter
     bookings?: BookingListRelationFilter
-  }, "id" | "email">
+    favorites?: FavoriteListRelationFilter
+    conversationsAsClient?: ConversationListRelationFilter
+    messagesSent?: MessageListRelationFilter
+    notificationPreferences?: XOR<NotificationPreferenceNullableScalarRelationFilter, NotificationPreferenceWhereInput> | null
+    subscription?: XOR<SubscriptionNullableScalarRelationFilter, SubscriptionWhereInput> | null
+    paymentHistory?: PaymentHistoryListRelationFilter
+  }, "id" | "email" | "resetToken">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
@@ -15634,6 +22671,10 @@ export namespace Prisma {
     city?: SortOrderInput | SortOrder
     state?: SortOrderInput | SortOrder
     userType?: SortOrder
+    role?: SortOrder
+    profileImageUrl?: SortOrderInput | SortOrder
+    resetToken?: SortOrderInput | SortOrder
+    resetTokenExpiry?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -15656,6 +22697,10 @@ export namespace Prisma {
     city?: StringNullableWithAggregatesFilter<"User"> | string | null
     state?: StringNullableWithAggregatesFilter<"User"> | string | null
     userType?: EnumUserTypeWithAggregatesFilter<"User"> | $Enums.UserType
+    role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
+    profileImageUrl?: StringNullableWithAggregatesFilter<"User"> | string | null
+    resetToken?: StringNullableWithAggregatesFilter<"User"> | string | null
+    resetTokenExpiry?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -15687,6 +22732,8 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreListRelationFilter
     musicianInstruments?: MusicianInstrumentListRelationFilter
     bookings?: BookingListRelationFilter
+    favoritedBy?: FavoriteListRelationFilter
+    conversations?: ConversationListRelationFilter
   }
 
   export type MusicianProfileOrderByWithRelationInput = {
@@ -15713,6 +22760,8 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreOrderByRelationAggregateInput
     musicianInstruments?: MusicianInstrumentOrderByRelationAggregateInput
     bookings?: BookingOrderByRelationAggregateInput
+    favoritedBy?: FavoriteOrderByRelationAggregateInput
+    conversations?: ConversationOrderByRelationAggregateInput
     _relevance?: MusicianProfileOrderByRelevanceInput
   }
 
@@ -15743,6 +22792,8 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreListRelationFilter
     musicianInstruments?: MusicianInstrumentListRelationFilter
     bookings?: BookingListRelationFilter
+    favoritedBy?: FavoriteListRelationFilter
+    conversations?: ConversationListRelationFilter
   }, "id" | "userId">
 
   export type MusicianProfileOrderByWithAggregationInput = {
@@ -16235,6 +23286,7 @@ export namespace Prisma {
     isClientPlan?: BoolFilter<"Plan"> | boolean
     createdAt?: DateTimeFilter<"Plan"> | Date | string
     features?: PlanFeatureListRelationFilter
+    subscriptions?: SubscriptionListRelationFilter
   }
 
   export type PlanOrderByWithRelationInput = {
@@ -16248,6 +23300,7 @@ export namespace Prisma {
     isClientPlan?: SortOrder
     createdAt?: SortOrder
     features?: PlanFeatureOrderByRelationAggregateInput
+    subscriptions?: SubscriptionOrderByRelationAggregateInput
     _relevance?: PlanOrderByRelevanceInput
   }
 
@@ -16265,6 +23318,7 @@ export namespace Prisma {
     isClientPlan?: BoolFilter<"Plan"> | boolean
     createdAt?: DateTimeFilter<"Plan"> | Date | string
     features?: PlanFeatureListRelationFilter
+    subscriptions?: SubscriptionListRelationFilter
   }, "id" | "title">
 
   export type PlanOrderByWithAggregationInput = {
@@ -16412,6 +23466,428 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"FAQItem"> | Date | string
   }
 
+  export type FavoriteWhereInput = {
+    AND?: FavoriteWhereInput | FavoriteWhereInput[]
+    OR?: FavoriteWhereInput[]
+    NOT?: FavoriteWhereInput | FavoriteWhereInput[]
+    id?: IntFilter<"Favorite"> | number
+    userId?: IntFilter<"Favorite"> | number
+    musicianProfileId?: IntFilter<"Favorite"> | number
+    createdAt?: DateTimeFilter<"Favorite"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    musicianProfile?: XOR<MusicianProfileScalarRelationFilter, MusicianProfileWhereInput>
+  }
+
+  export type FavoriteOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    musicianProfileId?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    musicianProfile?: MusicianProfileOrderByWithRelationInput
+  }
+
+  export type FavoriteWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    userId_musicianProfileId?: FavoriteUserIdMusicianProfileIdCompoundUniqueInput
+    AND?: FavoriteWhereInput | FavoriteWhereInput[]
+    OR?: FavoriteWhereInput[]
+    NOT?: FavoriteWhereInput | FavoriteWhereInput[]
+    userId?: IntFilter<"Favorite"> | number
+    musicianProfileId?: IntFilter<"Favorite"> | number
+    createdAt?: DateTimeFilter<"Favorite"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    musicianProfile?: XOR<MusicianProfileScalarRelationFilter, MusicianProfileWhereInput>
+  }, "id" | "userId_musicianProfileId">
+
+  export type FavoriteOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    musicianProfileId?: SortOrder
+    createdAt?: SortOrder
+    _count?: FavoriteCountOrderByAggregateInput
+    _avg?: FavoriteAvgOrderByAggregateInput
+    _max?: FavoriteMaxOrderByAggregateInput
+    _min?: FavoriteMinOrderByAggregateInput
+    _sum?: FavoriteSumOrderByAggregateInput
+  }
+
+  export type FavoriteScalarWhereWithAggregatesInput = {
+    AND?: FavoriteScalarWhereWithAggregatesInput | FavoriteScalarWhereWithAggregatesInput[]
+    OR?: FavoriteScalarWhereWithAggregatesInput[]
+    NOT?: FavoriteScalarWhereWithAggregatesInput | FavoriteScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Favorite"> | number
+    userId?: IntWithAggregatesFilter<"Favorite"> | number
+    musicianProfileId?: IntWithAggregatesFilter<"Favorite"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"Favorite"> | Date | string
+  }
+
+  export type ConversationWhereInput = {
+    AND?: ConversationWhereInput | ConversationWhereInput[]
+    OR?: ConversationWhereInput[]
+    NOT?: ConversationWhereInput | ConversationWhereInput[]
+    id?: IntFilter<"Conversation"> | number
+    clientId?: IntFilter<"Conversation"> | number
+    musicianProfileId?: IntFilter<"Conversation"> | number
+    lastMessageAt?: DateTimeFilter<"Conversation"> | Date | string
+    createdAt?: DateTimeFilter<"Conversation"> | Date | string
+    client?: XOR<UserScalarRelationFilter, UserWhereInput>
+    musicianProfile?: XOR<MusicianProfileScalarRelationFilter, MusicianProfileWhereInput>
+    messages?: MessageListRelationFilter
+  }
+
+  export type ConversationOrderByWithRelationInput = {
+    id?: SortOrder
+    clientId?: SortOrder
+    musicianProfileId?: SortOrder
+    lastMessageAt?: SortOrder
+    createdAt?: SortOrder
+    client?: UserOrderByWithRelationInput
+    musicianProfile?: MusicianProfileOrderByWithRelationInput
+    messages?: MessageOrderByRelationAggregateInput
+  }
+
+  export type ConversationWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    clientId_musicianProfileId?: ConversationClientIdMusicianProfileIdCompoundUniqueInput
+    AND?: ConversationWhereInput | ConversationWhereInput[]
+    OR?: ConversationWhereInput[]
+    NOT?: ConversationWhereInput | ConversationWhereInput[]
+    clientId?: IntFilter<"Conversation"> | number
+    musicianProfileId?: IntFilter<"Conversation"> | number
+    lastMessageAt?: DateTimeFilter<"Conversation"> | Date | string
+    createdAt?: DateTimeFilter<"Conversation"> | Date | string
+    client?: XOR<UserScalarRelationFilter, UserWhereInput>
+    musicianProfile?: XOR<MusicianProfileScalarRelationFilter, MusicianProfileWhereInput>
+    messages?: MessageListRelationFilter
+  }, "id" | "clientId_musicianProfileId">
+
+  export type ConversationOrderByWithAggregationInput = {
+    id?: SortOrder
+    clientId?: SortOrder
+    musicianProfileId?: SortOrder
+    lastMessageAt?: SortOrder
+    createdAt?: SortOrder
+    _count?: ConversationCountOrderByAggregateInput
+    _avg?: ConversationAvgOrderByAggregateInput
+    _max?: ConversationMaxOrderByAggregateInput
+    _min?: ConversationMinOrderByAggregateInput
+    _sum?: ConversationSumOrderByAggregateInput
+  }
+
+  export type ConversationScalarWhereWithAggregatesInput = {
+    AND?: ConversationScalarWhereWithAggregatesInput | ConversationScalarWhereWithAggregatesInput[]
+    OR?: ConversationScalarWhereWithAggregatesInput[]
+    NOT?: ConversationScalarWhereWithAggregatesInput | ConversationScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Conversation"> | number
+    clientId?: IntWithAggregatesFilter<"Conversation"> | number
+    musicianProfileId?: IntWithAggregatesFilter<"Conversation"> | number
+    lastMessageAt?: DateTimeWithAggregatesFilter<"Conversation"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"Conversation"> | Date | string
+  }
+
+  export type MessageWhereInput = {
+    AND?: MessageWhereInput | MessageWhereInput[]
+    OR?: MessageWhereInput[]
+    NOT?: MessageWhereInput | MessageWhereInput[]
+    id?: IntFilter<"Message"> | number
+    conversationId?: IntFilter<"Message"> | number
+    senderId?: IntFilter<"Message"> | number
+    content?: StringFilter<"Message"> | string
+    isRead?: BoolFilter<"Message"> | boolean
+    createdAt?: DateTimeFilter<"Message"> | Date | string
+    conversation?: XOR<ConversationScalarRelationFilter, ConversationWhereInput>
+    sender?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type MessageOrderByWithRelationInput = {
+    id?: SortOrder
+    conversationId?: SortOrder
+    senderId?: SortOrder
+    content?: SortOrder
+    isRead?: SortOrder
+    createdAt?: SortOrder
+    conversation?: ConversationOrderByWithRelationInput
+    sender?: UserOrderByWithRelationInput
+    _relevance?: MessageOrderByRelevanceInput
+  }
+
+  export type MessageWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: MessageWhereInput | MessageWhereInput[]
+    OR?: MessageWhereInput[]
+    NOT?: MessageWhereInput | MessageWhereInput[]
+    conversationId?: IntFilter<"Message"> | number
+    senderId?: IntFilter<"Message"> | number
+    content?: StringFilter<"Message"> | string
+    isRead?: BoolFilter<"Message"> | boolean
+    createdAt?: DateTimeFilter<"Message"> | Date | string
+    conversation?: XOR<ConversationScalarRelationFilter, ConversationWhereInput>
+    sender?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type MessageOrderByWithAggregationInput = {
+    id?: SortOrder
+    conversationId?: SortOrder
+    senderId?: SortOrder
+    content?: SortOrder
+    isRead?: SortOrder
+    createdAt?: SortOrder
+    _count?: MessageCountOrderByAggregateInput
+    _avg?: MessageAvgOrderByAggregateInput
+    _max?: MessageMaxOrderByAggregateInput
+    _min?: MessageMinOrderByAggregateInput
+    _sum?: MessageSumOrderByAggregateInput
+  }
+
+  export type MessageScalarWhereWithAggregatesInput = {
+    AND?: MessageScalarWhereWithAggregatesInput | MessageScalarWhereWithAggregatesInput[]
+    OR?: MessageScalarWhereWithAggregatesInput[]
+    NOT?: MessageScalarWhereWithAggregatesInput | MessageScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Message"> | number
+    conversationId?: IntWithAggregatesFilter<"Message"> | number
+    senderId?: IntWithAggregatesFilter<"Message"> | number
+    content?: StringWithAggregatesFilter<"Message"> | string
+    isRead?: BoolWithAggregatesFilter<"Message"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Message"> | Date | string
+  }
+
+  export type NotificationPreferenceWhereInput = {
+    AND?: NotificationPreferenceWhereInput | NotificationPreferenceWhereInput[]
+    OR?: NotificationPreferenceWhereInput[]
+    NOT?: NotificationPreferenceWhereInput | NotificationPreferenceWhereInput[]
+    id?: IntFilter<"NotificationPreference"> | number
+    userId?: IntFilter<"NotificationPreference"> | number
+    emailBookings?: BoolFilter<"NotificationPreference"> | boolean
+    emailMessages?: BoolFilter<"NotificationPreference"> | boolean
+    emailReviews?: BoolFilter<"NotificationPreference"> | boolean
+    emailNews?: BoolFilter<"NotificationPreference"> | boolean
+    createdAt?: DateTimeFilter<"NotificationPreference"> | Date | string
+    updatedAt?: DateTimeFilter<"NotificationPreference"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type NotificationPreferenceOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    emailBookings?: SortOrder
+    emailMessages?: SortOrder
+    emailReviews?: SortOrder
+    emailNews?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type NotificationPreferenceWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    userId?: number
+    AND?: NotificationPreferenceWhereInput | NotificationPreferenceWhereInput[]
+    OR?: NotificationPreferenceWhereInput[]
+    NOT?: NotificationPreferenceWhereInput | NotificationPreferenceWhereInput[]
+    emailBookings?: BoolFilter<"NotificationPreference"> | boolean
+    emailMessages?: BoolFilter<"NotificationPreference"> | boolean
+    emailReviews?: BoolFilter<"NotificationPreference"> | boolean
+    emailNews?: BoolFilter<"NotificationPreference"> | boolean
+    createdAt?: DateTimeFilter<"NotificationPreference"> | Date | string
+    updatedAt?: DateTimeFilter<"NotificationPreference"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId">
+
+  export type NotificationPreferenceOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    emailBookings?: SortOrder
+    emailMessages?: SortOrder
+    emailReviews?: SortOrder
+    emailNews?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: NotificationPreferenceCountOrderByAggregateInput
+    _avg?: NotificationPreferenceAvgOrderByAggregateInput
+    _max?: NotificationPreferenceMaxOrderByAggregateInput
+    _min?: NotificationPreferenceMinOrderByAggregateInput
+    _sum?: NotificationPreferenceSumOrderByAggregateInput
+  }
+
+  export type NotificationPreferenceScalarWhereWithAggregatesInput = {
+    AND?: NotificationPreferenceScalarWhereWithAggregatesInput | NotificationPreferenceScalarWhereWithAggregatesInput[]
+    OR?: NotificationPreferenceScalarWhereWithAggregatesInput[]
+    NOT?: NotificationPreferenceScalarWhereWithAggregatesInput | NotificationPreferenceScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"NotificationPreference"> | number
+    userId?: IntWithAggregatesFilter<"NotificationPreference"> | number
+    emailBookings?: BoolWithAggregatesFilter<"NotificationPreference"> | boolean
+    emailMessages?: BoolWithAggregatesFilter<"NotificationPreference"> | boolean
+    emailReviews?: BoolWithAggregatesFilter<"NotificationPreference"> | boolean
+    emailNews?: BoolWithAggregatesFilter<"NotificationPreference"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"NotificationPreference"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"NotificationPreference"> | Date | string
+  }
+
+  export type SubscriptionWhereInput = {
+    AND?: SubscriptionWhereInput | SubscriptionWhereInput[]
+    OR?: SubscriptionWhereInput[]
+    NOT?: SubscriptionWhereInput | SubscriptionWhereInput[]
+    id?: IntFilter<"Subscription"> | number
+    userId?: IntFilter<"Subscription"> | number
+    planId?: IntFilter<"Subscription"> | number
+    stripeSubscriptionId?: StringNullableFilter<"Subscription"> | string | null
+    stripeCustomerId?: StringNullableFilter<"Subscription"> | string | null
+    status?: StringFilter<"Subscription"> | string
+    currentPeriodStart?: DateTimeFilter<"Subscription"> | Date | string
+    currentPeriodEnd?: DateTimeFilter<"Subscription"> | Date | string
+    cancelAtPeriodEnd?: BoolFilter<"Subscription"> | boolean
+    createdAt?: DateTimeFilter<"Subscription"> | Date | string
+    updatedAt?: DateTimeFilter<"Subscription"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    plan?: XOR<PlanScalarRelationFilter, PlanWhereInput>
+  }
+
+  export type SubscriptionOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    planId?: SortOrder
+    stripeSubscriptionId?: SortOrderInput | SortOrder
+    stripeCustomerId?: SortOrderInput | SortOrder
+    status?: SortOrder
+    currentPeriodStart?: SortOrder
+    currentPeriodEnd?: SortOrder
+    cancelAtPeriodEnd?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    plan?: PlanOrderByWithRelationInput
+    _relevance?: SubscriptionOrderByRelevanceInput
+  }
+
+  export type SubscriptionWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    userId?: number
+    stripeSubscriptionId?: string
+    AND?: SubscriptionWhereInput | SubscriptionWhereInput[]
+    OR?: SubscriptionWhereInput[]
+    NOT?: SubscriptionWhereInput | SubscriptionWhereInput[]
+    planId?: IntFilter<"Subscription"> | number
+    stripeCustomerId?: StringNullableFilter<"Subscription"> | string | null
+    status?: StringFilter<"Subscription"> | string
+    currentPeriodStart?: DateTimeFilter<"Subscription"> | Date | string
+    currentPeriodEnd?: DateTimeFilter<"Subscription"> | Date | string
+    cancelAtPeriodEnd?: BoolFilter<"Subscription"> | boolean
+    createdAt?: DateTimeFilter<"Subscription"> | Date | string
+    updatedAt?: DateTimeFilter<"Subscription"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    plan?: XOR<PlanScalarRelationFilter, PlanWhereInput>
+  }, "id" | "userId" | "stripeSubscriptionId">
+
+  export type SubscriptionOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    planId?: SortOrder
+    stripeSubscriptionId?: SortOrderInput | SortOrder
+    stripeCustomerId?: SortOrderInput | SortOrder
+    status?: SortOrder
+    currentPeriodStart?: SortOrder
+    currentPeriodEnd?: SortOrder
+    cancelAtPeriodEnd?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SubscriptionCountOrderByAggregateInput
+    _avg?: SubscriptionAvgOrderByAggregateInput
+    _max?: SubscriptionMaxOrderByAggregateInput
+    _min?: SubscriptionMinOrderByAggregateInput
+    _sum?: SubscriptionSumOrderByAggregateInput
+  }
+
+  export type SubscriptionScalarWhereWithAggregatesInput = {
+    AND?: SubscriptionScalarWhereWithAggregatesInput | SubscriptionScalarWhereWithAggregatesInput[]
+    OR?: SubscriptionScalarWhereWithAggregatesInput[]
+    NOT?: SubscriptionScalarWhereWithAggregatesInput | SubscriptionScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Subscription"> | number
+    userId?: IntWithAggregatesFilter<"Subscription"> | number
+    planId?: IntWithAggregatesFilter<"Subscription"> | number
+    stripeSubscriptionId?: StringNullableWithAggregatesFilter<"Subscription"> | string | null
+    stripeCustomerId?: StringNullableWithAggregatesFilter<"Subscription"> | string | null
+    status?: StringWithAggregatesFilter<"Subscription"> | string
+    currentPeriodStart?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
+    currentPeriodEnd?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
+    cancelAtPeriodEnd?: BoolWithAggregatesFilter<"Subscription"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
+  }
+
+  export type PaymentHistoryWhereInput = {
+    AND?: PaymentHistoryWhereInput | PaymentHistoryWhereInput[]
+    OR?: PaymentHistoryWhereInput[]
+    NOT?: PaymentHistoryWhereInput | PaymentHistoryWhereInput[]
+    id?: IntFilter<"PaymentHistory"> | number
+    userId?: IntFilter<"PaymentHistory"> | number
+    amount?: IntFilter<"PaymentHistory"> | number
+    currency?: StringFilter<"PaymentHistory"> | string
+    status?: StringFilter<"PaymentHistory"> | string
+    stripePaymentId?: StringNullableFilter<"PaymentHistory"> | string | null
+    description?: StringNullableFilter<"PaymentHistory"> | string | null
+    createdAt?: DateTimeFilter<"PaymentHistory"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type PaymentHistoryOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    status?: SortOrder
+    stripePaymentId?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    _relevance?: PaymentHistoryOrderByRelevanceInput
+  }
+
+  export type PaymentHistoryWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    stripePaymentId?: string
+    AND?: PaymentHistoryWhereInput | PaymentHistoryWhereInput[]
+    OR?: PaymentHistoryWhereInput[]
+    NOT?: PaymentHistoryWhereInput | PaymentHistoryWhereInput[]
+    userId?: IntFilter<"PaymentHistory"> | number
+    amount?: IntFilter<"PaymentHistory"> | number
+    currency?: StringFilter<"PaymentHistory"> | string
+    status?: StringFilter<"PaymentHistory"> | string
+    description?: StringNullableFilter<"PaymentHistory"> | string | null
+    createdAt?: DateTimeFilter<"PaymentHistory"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "stripePaymentId">
+
+  export type PaymentHistoryOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    status?: SortOrder
+    stripePaymentId?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: PaymentHistoryCountOrderByAggregateInput
+    _avg?: PaymentHistoryAvgOrderByAggregateInput
+    _max?: PaymentHistoryMaxOrderByAggregateInput
+    _min?: PaymentHistoryMinOrderByAggregateInput
+    _sum?: PaymentHistorySumOrderByAggregateInput
+  }
+
+  export type PaymentHistoryScalarWhereWithAggregatesInput = {
+    AND?: PaymentHistoryScalarWhereWithAggregatesInput | PaymentHistoryScalarWhereWithAggregatesInput[]
+    OR?: PaymentHistoryScalarWhereWithAggregatesInput[]
+    NOT?: PaymentHistoryScalarWhereWithAggregatesInput | PaymentHistoryScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"PaymentHistory"> | number
+    userId?: IntWithAggregatesFilter<"PaymentHistory"> | number
+    amount?: IntWithAggregatesFilter<"PaymentHistory"> | number
+    currency?: StringWithAggregatesFilter<"PaymentHistory"> | string
+    status?: StringWithAggregatesFilter<"PaymentHistory"> | string
+    stripePaymentId?: StringNullableWithAggregatesFilter<"PaymentHistory"> | string | null
+    description?: StringNullableWithAggregatesFilter<"PaymentHistory"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"PaymentHistory"> | Date | string
+  }
+
   export type ContactMessageWhereInput = {
     AND?: ContactMessageWhereInput | ContactMessageWhereInput[]
     OR?: ContactMessageWhereInput[]
@@ -16491,11 +23967,21 @@ export namespace Prisma {
     city?: string | null
     state?: string | null
     userType: $Enums.UserType
+    role?: $Enums.UserRole
+    profileImageUrl?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     musicianProfile?: MusicianProfileCreateNestedOneWithoutUserInput
     reviewsGiven?: ReviewCreateNestedManyWithoutClientInput
     bookings?: BookingCreateNestedManyWithoutClientInput
+    favorites?: FavoriteCreateNestedManyWithoutUserInput
+    conversationsAsClient?: ConversationCreateNestedManyWithoutClientInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    notificationPreferences?: NotificationPreferenceCreateNestedOneWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    paymentHistory?: PaymentHistoryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -16508,11 +23994,21 @@ export namespace Prisma {
     city?: string | null
     state?: string | null
     userType: $Enums.UserType
+    role?: $Enums.UserRole
+    profileImageUrl?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     musicianProfile?: MusicianProfileUncheckedCreateNestedOneWithoutUserInput
     reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutClientInput
     bookings?: BookingUncheckedCreateNestedManyWithoutClientInput
+    favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
+    conversationsAsClient?: ConversationUncheckedCreateNestedManyWithoutClientInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    notificationPreferences?: NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    paymentHistory?: PaymentHistoryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -16524,11 +24020,21 @@ export namespace Prisma {
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     musicianProfile?: MusicianProfileUpdateOneWithoutUserNestedInput
     reviewsGiven?: ReviewUpdateManyWithoutClientNestedInput
     bookings?: BookingUpdateManyWithoutClientNestedInput
+    favorites?: FavoriteUpdateManyWithoutUserNestedInput
+    conversationsAsClient?: ConversationUpdateManyWithoutClientNestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    notificationPreferences?: NotificationPreferenceUpdateOneWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    paymentHistory?: PaymentHistoryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -16541,11 +24047,21 @@ export namespace Prisma {
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     musicianProfile?: MusicianProfileUncheckedUpdateOneWithoutUserNestedInput
     reviewsGiven?: ReviewUncheckedUpdateManyWithoutClientNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutClientNestedInput
+    favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
+    conversationsAsClient?: ConversationUncheckedUpdateManyWithoutClientNestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    notificationPreferences?: NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    paymentHistory?: PaymentHistoryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -16558,6 +24074,10 @@ export namespace Prisma {
     city?: string | null
     state?: string | null
     userType: $Enums.UserType
+    role?: $Enums.UserRole
+    profileImageUrl?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -16571,6 +24091,10 @@ export namespace Prisma {
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16585,6 +24109,10 @@ export namespace Prisma {
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16611,6 +24139,8 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreCreateNestedManyWithoutMusicianProfileInput
     musicianInstruments?: MusicianInstrumentCreateNestedManyWithoutMusicianProfileInput
     bookings?: BookingCreateNestedManyWithoutMusicianProfileInput
+    favoritedBy?: FavoriteCreateNestedManyWithoutMusicianProfileInput
+    conversations?: ConversationCreateNestedManyWithoutMusicianProfileInput
   }
 
   export type MusicianProfileUncheckedCreateInput = {
@@ -16636,6 +24166,8 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreUncheckedCreateNestedManyWithoutMusicianProfileInput
     musicianInstruments?: MusicianInstrumentUncheckedCreateNestedManyWithoutMusicianProfileInput
     bookings?: BookingUncheckedCreateNestedManyWithoutMusicianProfileInput
+    favoritedBy?: FavoriteUncheckedCreateNestedManyWithoutMusicianProfileInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutMusicianProfileInput
   }
 
   export type MusicianProfileUpdateInput = {
@@ -16660,6 +24192,8 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreUpdateManyWithoutMusicianProfileNestedInput
     musicianInstruments?: MusicianInstrumentUpdateManyWithoutMusicianProfileNestedInput
     bookings?: BookingUpdateManyWithoutMusicianProfileNestedInput
+    favoritedBy?: FavoriteUpdateManyWithoutMusicianProfileNestedInput
+    conversations?: ConversationUpdateManyWithoutMusicianProfileNestedInput
   }
 
   export type MusicianProfileUncheckedUpdateInput = {
@@ -16685,6 +24219,8 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreUncheckedUpdateManyWithoutMusicianProfileNestedInput
     musicianInstruments?: MusicianInstrumentUncheckedUpdateManyWithoutMusicianProfileNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutMusicianProfileNestedInput
+    favoritedBy?: FavoriteUncheckedUpdateManyWithoutMusicianProfileNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutMusicianProfileNestedInput
   }
 
   export type MusicianProfileCreateManyInput = {
@@ -17147,6 +24683,7 @@ export namespace Prisma {
     isClientPlan: boolean
     createdAt?: Date | string
     features?: PlanFeatureCreateNestedManyWithoutPlanInput
+    subscriptions?: SubscriptionCreateNestedManyWithoutPlanInput
   }
 
   export type PlanUncheckedCreateInput = {
@@ -17160,6 +24697,7 @@ export namespace Prisma {
     isClientPlan: boolean
     createdAt?: Date | string
     features?: PlanFeatureUncheckedCreateNestedManyWithoutPlanInput
+    subscriptions?: SubscriptionUncheckedCreateNestedManyWithoutPlanInput
   }
 
   export type PlanUpdateInput = {
@@ -17172,6 +24710,7 @@ export namespace Prisma {
     isClientPlan?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     features?: PlanFeatureUpdateManyWithoutPlanNestedInput
+    subscriptions?: SubscriptionUpdateManyWithoutPlanNestedInput
   }
 
   export type PlanUncheckedUpdateInput = {
@@ -17185,6 +24724,7 @@ export namespace Prisma {
     isClientPlan?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     features?: PlanFeatureUncheckedUpdateManyWithoutPlanNestedInput
+    subscriptions?: SubscriptionUncheckedUpdateManyWithoutPlanNestedInput
   }
 
   export type PlanCreateManyInput = {
@@ -17327,6 +24867,402 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type FavoriteCreateInput = {
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutFavoritesInput
+    musicianProfile: MusicianProfileCreateNestedOneWithoutFavoritedByInput
+  }
+
+  export type FavoriteUncheckedCreateInput = {
+    id?: number
+    userId: number
+    musicianProfileId: number
+    createdAt?: Date | string
+  }
+
+  export type FavoriteUpdateInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutFavoritesNestedInput
+    musicianProfile?: MusicianProfileUpdateOneRequiredWithoutFavoritedByNestedInput
+  }
+
+  export type FavoriteUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    musicianProfileId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FavoriteCreateManyInput = {
+    id?: number
+    userId: number
+    musicianProfileId: number
+    createdAt?: Date | string
+  }
+
+  export type FavoriteUpdateManyMutationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FavoriteUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    musicianProfileId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConversationCreateInput = {
+    lastMessageAt?: Date | string
+    createdAt?: Date | string
+    client: UserCreateNestedOneWithoutConversationsAsClientInput
+    musicianProfile: MusicianProfileCreateNestedOneWithoutConversationsInput
+    messages?: MessageCreateNestedManyWithoutConversationInput
+  }
+
+  export type ConversationUncheckedCreateInput = {
+    id?: number
+    clientId: number
+    musicianProfileId: number
+    lastMessageAt?: Date | string
+    createdAt?: Date | string
+    messages?: MessageUncheckedCreateNestedManyWithoutConversationInput
+  }
+
+  export type ConversationUpdateInput = {
+    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    client?: UserUpdateOneRequiredWithoutConversationsAsClientNestedInput
+    musicianProfile?: MusicianProfileUpdateOneRequiredWithoutConversationsNestedInput
+    messages?: MessageUpdateManyWithoutConversationNestedInput
+  }
+
+  export type ConversationUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    clientId?: IntFieldUpdateOperationsInput | number
+    musicianProfileId?: IntFieldUpdateOperationsInput | number
+    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: MessageUncheckedUpdateManyWithoutConversationNestedInput
+  }
+
+  export type ConversationCreateManyInput = {
+    id?: number
+    clientId: number
+    musicianProfileId: number
+    lastMessageAt?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type ConversationUpdateManyMutationInput = {
+    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConversationUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    clientId?: IntFieldUpdateOperationsInput | number
+    musicianProfileId?: IntFieldUpdateOperationsInput | number
+    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageCreateInput = {
+    content: string
+    isRead?: boolean
+    createdAt?: Date | string
+    conversation: ConversationCreateNestedOneWithoutMessagesInput
+    sender: UserCreateNestedOneWithoutMessagesSentInput
+  }
+
+  export type MessageUncheckedCreateInput = {
+    id?: number
+    conversationId: number
+    senderId: number
+    content: string
+    isRead?: boolean
+    createdAt?: Date | string
+  }
+
+  export type MessageUpdateInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    conversation?: ConversationUpdateOneRequiredWithoutMessagesNestedInput
+    sender?: UserUpdateOneRequiredWithoutMessagesSentNestedInput
+  }
+
+  export type MessageUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    conversationId?: IntFieldUpdateOperationsInput | number
+    senderId?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageCreateManyInput = {
+    id?: number
+    conversationId: number
+    senderId: number
+    content: string
+    isRead?: boolean
+    createdAt?: Date | string
+  }
+
+  export type MessageUpdateManyMutationInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    conversationId?: IntFieldUpdateOperationsInput | number
+    senderId?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationPreferenceCreateInput = {
+    emailBookings?: boolean
+    emailMessages?: boolean
+    emailReviews?: boolean
+    emailNews?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutNotificationPreferencesInput
+  }
+
+  export type NotificationPreferenceUncheckedCreateInput = {
+    id?: number
+    userId: number
+    emailBookings?: boolean
+    emailMessages?: boolean
+    emailReviews?: boolean
+    emailNews?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NotificationPreferenceUpdateInput = {
+    emailBookings?: BoolFieldUpdateOperationsInput | boolean
+    emailMessages?: BoolFieldUpdateOperationsInput | boolean
+    emailReviews?: BoolFieldUpdateOperationsInput | boolean
+    emailNews?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutNotificationPreferencesNestedInput
+  }
+
+  export type NotificationPreferenceUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    emailBookings?: BoolFieldUpdateOperationsInput | boolean
+    emailMessages?: BoolFieldUpdateOperationsInput | boolean
+    emailReviews?: BoolFieldUpdateOperationsInput | boolean
+    emailNews?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationPreferenceCreateManyInput = {
+    id?: number
+    userId: number
+    emailBookings?: boolean
+    emailMessages?: boolean
+    emailReviews?: boolean
+    emailNews?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NotificationPreferenceUpdateManyMutationInput = {
+    emailBookings?: BoolFieldUpdateOperationsInput | boolean
+    emailMessages?: BoolFieldUpdateOperationsInput | boolean
+    emailReviews?: BoolFieldUpdateOperationsInput | boolean
+    emailNews?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationPreferenceUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    emailBookings?: BoolFieldUpdateOperationsInput | boolean
+    emailMessages?: BoolFieldUpdateOperationsInput | boolean
+    emailReviews?: BoolFieldUpdateOperationsInput | boolean
+    emailNews?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubscriptionCreateInput = {
+    stripeSubscriptionId?: string | null
+    stripeCustomerId?: string | null
+    status: string
+    currentPeriodStart: Date | string
+    currentPeriodEnd: Date | string
+    cancelAtPeriodEnd?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutSubscriptionInput
+    plan: PlanCreateNestedOneWithoutSubscriptionsInput
+  }
+
+  export type SubscriptionUncheckedCreateInput = {
+    id?: number
+    userId: number
+    planId: number
+    stripeSubscriptionId?: string | null
+    stripeCustomerId?: string | null
+    status: string
+    currentPeriodStart: Date | string
+    currentPeriodEnd: Date | string
+    cancelAtPeriodEnd?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SubscriptionUpdateInput = {
+    stripeSubscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    currentPeriodStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    currentPeriodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    cancelAtPeriodEnd?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutSubscriptionNestedInput
+    plan?: PlanUpdateOneRequiredWithoutSubscriptionsNestedInput
+  }
+
+  export type SubscriptionUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    planId?: IntFieldUpdateOperationsInput | number
+    stripeSubscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    currentPeriodStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    currentPeriodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    cancelAtPeriodEnd?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubscriptionCreateManyInput = {
+    id?: number
+    userId: number
+    planId: number
+    stripeSubscriptionId?: string | null
+    stripeCustomerId?: string | null
+    status: string
+    currentPeriodStart: Date | string
+    currentPeriodEnd: Date | string
+    cancelAtPeriodEnd?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SubscriptionUpdateManyMutationInput = {
+    stripeSubscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    currentPeriodStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    currentPeriodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    cancelAtPeriodEnd?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubscriptionUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    planId?: IntFieldUpdateOperationsInput | number
+    stripeSubscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    currentPeriodStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    currentPeriodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    cancelAtPeriodEnd?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PaymentHistoryCreateInput = {
+    amount: number
+    currency?: string
+    status: string
+    stripePaymentId?: string | null
+    description?: string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutPaymentHistoryInput
+  }
+
+  export type PaymentHistoryUncheckedCreateInput = {
+    id?: number
+    userId: number
+    amount: number
+    currency?: string
+    status: string
+    stripePaymentId?: string | null
+    description?: string | null
+    createdAt?: Date | string
+  }
+
+  export type PaymentHistoryUpdateInput = {
+    amount?: IntFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    stripePaymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutPaymentHistoryNestedInput
+  }
+
+  export type PaymentHistoryUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    amount?: IntFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    stripePaymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PaymentHistoryCreateManyInput = {
+    id?: number
+    userId: number
+    amount: number
+    currency?: string
+    status: string
+    stripePaymentId?: string | null
+    description?: string | null
+    createdAt?: Date | string
+  }
+
+  export type PaymentHistoryUpdateManyMutationInput = {
+    amount?: IntFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    stripePaymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PaymentHistoryUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    amount?: IntFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    stripePaymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ContactMessageCreateInput = {
     firstName: string
     lastName: string
@@ -17449,6 +25385,24 @@ export namespace Prisma {
     not?: NestedEnumUserTypeFilter<$PrismaModel> | $Enums.UserType
   }
 
+  export type EnumUserRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[]
+    notIn?: $Enums.UserRole[]
+    not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[]
@@ -17477,6 +25431,40 @@ export namespace Prisma {
     none?: BookingWhereInput
   }
 
+  export type FavoriteListRelationFilter = {
+    every?: FavoriteWhereInput
+    some?: FavoriteWhereInput
+    none?: FavoriteWhereInput
+  }
+
+  export type ConversationListRelationFilter = {
+    every?: ConversationWhereInput
+    some?: ConversationWhereInput
+    none?: ConversationWhereInput
+  }
+
+  export type MessageListRelationFilter = {
+    every?: MessageWhereInput
+    some?: MessageWhereInput
+    none?: MessageWhereInput
+  }
+
+  export type NotificationPreferenceNullableScalarRelationFilter = {
+    is?: NotificationPreferenceWhereInput | null
+    isNot?: NotificationPreferenceWhereInput | null
+  }
+
+  export type SubscriptionNullableScalarRelationFilter = {
+    is?: SubscriptionWhereInput | null
+    isNot?: SubscriptionWhereInput | null
+  }
+
+  export type PaymentHistoryListRelationFilter = {
+    every?: PaymentHistoryWhereInput
+    some?: PaymentHistoryWhereInput
+    none?: PaymentHistoryWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -17487,6 +25475,22 @@ export namespace Prisma {
   }
 
   export type BookingOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type FavoriteOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ConversationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MessageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PaymentHistoryOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -17506,6 +25510,10 @@ export namespace Prisma {
     city?: SortOrder
     state?: SortOrder
     userType?: SortOrder
+    role?: SortOrder
+    profileImageUrl?: SortOrder
+    resetToken?: SortOrder
+    resetTokenExpiry?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -17524,6 +25532,10 @@ export namespace Prisma {
     city?: SortOrder
     state?: SortOrder
     userType?: SortOrder
+    role?: SortOrder
+    profileImageUrl?: SortOrder
+    resetToken?: SortOrder
+    resetTokenExpiry?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -17538,6 +25550,10 @@ export namespace Prisma {
     city?: SortOrder
     state?: SortOrder
     userType?: SortOrder
+    role?: SortOrder
+    profileImageUrl?: SortOrder
+    resetToken?: SortOrder
+    resetTokenExpiry?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -17606,6 +25622,30 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumUserTypeFilter<$PrismaModel>
     _max?: NestedEnumUserTypeFilter<$PrismaModel>
+  }
+
+  export type EnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[]
+    notIn?: $Enums.UserRole[]
+    not?: NestedEnumUserRoleWithAggregatesFilter<$PrismaModel> | $Enums.UserRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserRoleFilter<$PrismaModel>
+    _max?: NestedEnumUserRoleFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -18139,7 +26179,17 @@ export namespace Prisma {
     none?: PlanFeatureWhereInput
   }
 
+  export type SubscriptionListRelationFilter = {
+    every?: SubscriptionWhereInput
+    some?: SubscriptionWhereInput
+    none?: SubscriptionWhereInput
+  }
+
   export type PlanFeatureOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SubscriptionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -18280,6 +26330,289 @@ export namespace Prisma {
     id?: SortOrder
   }
 
+  export type FavoriteUserIdMusicianProfileIdCompoundUniqueInput = {
+    userId: number
+    musicianProfileId: number
+  }
+
+  export type FavoriteCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    musicianProfileId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type FavoriteAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    musicianProfileId?: SortOrder
+  }
+
+  export type FavoriteMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    musicianProfileId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type FavoriteMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    musicianProfileId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type FavoriteSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    musicianProfileId?: SortOrder
+  }
+
+  export type ConversationClientIdMusicianProfileIdCompoundUniqueInput = {
+    clientId: number
+    musicianProfileId: number
+  }
+
+  export type ConversationCountOrderByAggregateInput = {
+    id?: SortOrder
+    clientId?: SortOrder
+    musicianProfileId?: SortOrder
+    lastMessageAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ConversationAvgOrderByAggregateInput = {
+    id?: SortOrder
+    clientId?: SortOrder
+    musicianProfileId?: SortOrder
+  }
+
+  export type ConversationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    clientId?: SortOrder
+    musicianProfileId?: SortOrder
+    lastMessageAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ConversationMinOrderByAggregateInput = {
+    id?: SortOrder
+    clientId?: SortOrder
+    musicianProfileId?: SortOrder
+    lastMessageAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ConversationSumOrderByAggregateInput = {
+    id?: SortOrder
+    clientId?: SortOrder
+    musicianProfileId?: SortOrder
+  }
+
+  export type ConversationScalarRelationFilter = {
+    is?: ConversationWhereInput
+    isNot?: ConversationWhereInput
+  }
+
+  export type MessageOrderByRelevanceInput = {
+    fields: MessageOrderByRelevanceFieldEnum | MessageOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type MessageCountOrderByAggregateInput = {
+    id?: SortOrder
+    conversationId?: SortOrder
+    senderId?: SortOrder
+    content?: SortOrder
+    isRead?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MessageAvgOrderByAggregateInput = {
+    id?: SortOrder
+    conversationId?: SortOrder
+    senderId?: SortOrder
+  }
+
+  export type MessageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    conversationId?: SortOrder
+    senderId?: SortOrder
+    content?: SortOrder
+    isRead?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MessageMinOrderByAggregateInput = {
+    id?: SortOrder
+    conversationId?: SortOrder
+    senderId?: SortOrder
+    content?: SortOrder
+    isRead?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MessageSumOrderByAggregateInput = {
+    id?: SortOrder
+    conversationId?: SortOrder
+    senderId?: SortOrder
+  }
+
+  export type NotificationPreferenceCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    emailBookings?: SortOrder
+    emailMessages?: SortOrder
+    emailReviews?: SortOrder
+    emailNews?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type NotificationPreferenceAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type NotificationPreferenceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    emailBookings?: SortOrder
+    emailMessages?: SortOrder
+    emailReviews?: SortOrder
+    emailNews?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type NotificationPreferenceMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    emailBookings?: SortOrder
+    emailMessages?: SortOrder
+    emailReviews?: SortOrder
+    emailNews?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type NotificationPreferenceSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type SubscriptionOrderByRelevanceInput = {
+    fields: SubscriptionOrderByRelevanceFieldEnum | SubscriptionOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type SubscriptionCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    planId?: SortOrder
+    stripeSubscriptionId?: SortOrder
+    stripeCustomerId?: SortOrder
+    status?: SortOrder
+    currentPeriodStart?: SortOrder
+    currentPeriodEnd?: SortOrder
+    cancelAtPeriodEnd?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SubscriptionAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    planId?: SortOrder
+  }
+
+  export type SubscriptionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    planId?: SortOrder
+    stripeSubscriptionId?: SortOrder
+    stripeCustomerId?: SortOrder
+    status?: SortOrder
+    currentPeriodStart?: SortOrder
+    currentPeriodEnd?: SortOrder
+    cancelAtPeriodEnd?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SubscriptionMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    planId?: SortOrder
+    stripeSubscriptionId?: SortOrder
+    stripeCustomerId?: SortOrder
+    status?: SortOrder
+    currentPeriodStart?: SortOrder
+    currentPeriodEnd?: SortOrder
+    cancelAtPeriodEnd?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SubscriptionSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    planId?: SortOrder
+  }
+
+  export type PaymentHistoryOrderByRelevanceInput = {
+    fields: PaymentHistoryOrderByRelevanceFieldEnum | PaymentHistoryOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type PaymentHistoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    status?: SortOrder
+    stripePaymentId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PaymentHistoryAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    amount?: SortOrder
+  }
+
+  export type PaymentHistoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    status?: SortOrder
+    stripePaymentId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PaymentHistoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    status?: SortOrder
+    stripePaymentId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PaymentHistorySumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    amount?: SortOrder
+  }
+
   export type ContactMessageOrderByRelevanceInput = {
     fields: ContactMessageOrderByRelevanceFieldEnum | ContactMessageOrderByRelevanceFieldEnum[]
     sort: SortOrder
@@ -18347,6 +26680,46 @@ export namespace Prisma {
     connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
   }
 
+  export type FavoriteCreateNestedManyWithoutUserInput = {
+    create?: XOR<FavoriteCreateWithoutUserInput, FavoriteUncheckedCreateWithoutUserInput> | FavoriteCreateWithoutUserInput[] | FavoriteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FavoriteCreateOrConnectWithoutUserInput | FavoriteCreateOrConnectWithoutUserInput[]
+    createMany?: FavoriteCreateManyUserInputEnvelope
+    connect?: FavoriteWhereUniqueInput | FavoriteWhereUniqueInput[]
+  }
+
+  export type ConversationCreateNestedManyWithoutClientInput = {
+    create?: XOR<ConversationCreateWithoutClientInput, ConversationUncheckedCreateWithoutClientInput> | ConversationCreateWithoutClientInput[] | ConversationUncheckedCreateWithoutClientInput[]
+    connectOrCreate?: ConversationCreateOrConnectWithoutClientInput | ConversationCreateOrConnectWithoutClientInput[]
+    createMany?: ConversationCreateManyClientInputEnvelope
+    connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+  }
+
+  export type MessageCreateNestedManyWithoutSenderInput = {
+    create?: XOR<MessageCreateWithoutSenderInput, MessageUncheckedCreateWithoutSenderInput> | MessageCreateWithoutSenderInput[] | MessageUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutSenderInput | MessageCreateOrConnectWithoutSenderInput[]
+    createMany?: MessageCreateManySenderInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type NotificationPreferenceCreateNestedOneWithoutUserInput = {
+    create?: XOR<NotificationPreferenceCreateWithoutUserInput, NotificationPreferenceUncheckedCreateWithoutUserInput>
+    connectOrCreate?: NotificationPreferenceCreateOrConnectWithoutUserInput
+    connect?: NotificationPreferenceWhereUniqueInput
+  }
+
+  export type SubscriptionCreateNestedOneWithoutUserInput = {
+    create?: XOR<SubscriptionCreateWithoutUserInput, SubscriptionUncheckedCreateWithoutUserInput>
+    connectOrCreate?: SubscriptionCreateOrConnectWithoutUserInput
+    connect?: SubscriptionWhereUniqueInput
+  }
+
+  export type PaymentHistoryCreateNestedManyWithoutUserInput = {
+    create?: XOR<PaymentHistoryCreateWithoutUserInput, PaymentHistoryUncheckedCreateWithoutUserInput> | PaymentHistoryCreateWithoutUserInput[] | PaymentHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PaymentHistoryCreateOrConnectWithoutUserInput | PaymentHistoryCreateOrConnectWithoutUserInput[]
+    createMany?: PaymentHistoryCreateManyUserInputEnvelope
+    connect?: PaymentHistoryWhereUniqueInput | PaymentHistoryWhereUniqueInput[]
+  }
+
   export type MusicianProfileUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<MusicianProfileCreateWithoutUserInput, MusicianProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: MusicianProfileCreateOrConnectWithoutUserInput
@@ -18367,6 +26740,46 @@ export namespace Prisma {
     connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
   }
 
+  export type FavoriteUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<FavoriteCreateWithoutUserInput, FavoriteUncheckedCreateWithoutUserInput> | FavoriteCreateWithoutUserInput[] | FavoriteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FavoriteCreateOrConnectWithoutUserInput | FavoriteCreateOrConnectWithoutUserInput[]
+    createMany?: FavoriteCreateManyUserInputEnvelope
+    connect?: FavoriteWhereUniqueInput | FavoriteWhereUniqueInput[]
+  }
+
+  export type ConversationUncheckedCreateNestedManyWithoutClientInput = {
+    create?: XOR<ConversationCreateWithoutClientInput, ConversationUncheckedCreateWithoutClientInput> | ConversationCreateWithoutClientInput[] | ConversationUncheckedCreateWithoutClientInput[]
+    connectOrCreate?: ConversationCreateOrConnectWithoutClientInput | ConversationCreateOrConnectWithoutClientInput[]
+    createMany?: ConversationCreateManyClientInputEnvelope
+    connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+  }
+
+  export type MessageUncheckedCreateNestedManyWithoutSenderInput = {
+    create?: XOR<MessageCreateWithoutSenderInput, MessageUncheckedCreateWithoutSenderInput> | MessageCreateWithoutSenderInput[] | MessageUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutSenderInput | MessageCreateOrConnectWithoutSenderInput[]
+    createMany?: MessageCreateManySenderInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<NotificationPreferenceCreateWithoutUserInput, NotificationPreferenceUncheckedCreateWithoutUserInput>
+    connectOrCreate?: NotificationPreferenceCreateOrConnectWithoutUserInput
+    connect?: NotificationPreferenceWhereUniqueInput
+  }
+
+  export type SubscriptionUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<SubscriptionCreateWithoutUserInput, SubscriptionUncheckedCreateWithoutUserInput>
+    connectOrCreate?: SubscriptionCreateOrConnectWithoutUserInput
+    connect?: SubscriptionWhereUniqueInput
+  }
+
+  export type PaymentHistoryUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<PaymentHistoryCreateWithoutUserInput, PaymentHistoryUncheckedCreateWithoutUserInput> | PaymentHistoryCreateWithoutUserInput[] | PaymentHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PaymentHistoryCreateOrConnectWithoutUserInput | PaymentHistoryCreateOrConnectWithoutUserInput[]
+    createMany?: PaymentHistoryCreateManyUserInputEnvelope
+    connect?: PaymentHistoryWhereUniqueInput | PaymentHistoryWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -18377,6 +26790,14 @@ export namespace Prisma {
 
   export type EnumUserTypeFieldUpdateOperationsInput = {
     set?: $Enums.UserType
+  }
+
+  export type EnumUserRoleFieldUpdateOperationsInput = {
+    set?: $Enums.UserRole
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -18419,6 +26840,82 @@ export namespace Prisma {
     update?: BookingUpdateWithWhereUniqueWithoutClientInput | BookingUpdateWithWhereUniqueWithoutClientInput[]
     updateMany?: BookingUpdateManyWithWhereWithoutClientInput | BookingUpdateManyWithWhereWithoutClientInput[]
     deleteMany?: BookingScalarWhereInput | BookingScalarWhereInput[]
+  }
+
+  export type FavoriteUpdateManyWithoutUserNestedInput = {
+    create?: XOR<FavoriteCreateWithoutUserInput, FavoriteUncheckedCreateWithoutUserInput> | FavoriteCreateWithoutUserInput[] | FavoriteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FavoriteCreateOrConnectWithoutUserInput | FavoriteCreateOrConnectWithoutUserInput[]
+    upsert?: FavoriteUpsertWithWhereUniqueWithoutUserInput | FavoriteUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: FavoriteCreateManyUserInputEnvelope
+    set?: FavoriteWhereUniqueInput | FavoriteWhereUniqueInput[]
+    disconnect?: FavoriteWhereUniqueInput | FavoriteWhereUniqueInput[]
+    delete?: FavoriteWhereUniqueInput | FavoriteWhereUniqueInput[]
+    connect?: FavoriteWhereUniqueInput | FavoriteWhereUniqueInput[]
+    update?: FavoriteUpdateWithWhereUniqueWithoutUserInput | FavoriteUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: FavoriteUpdateManyWithWhereWithoutUserInput | FavoriteUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: FavoriteScalarWhereInput | FavoriteScalarWhereInput[]
+  }
+
+  export type ConversationUpdateManyWithoutClientNestedInput = {
+    create?: XOR<ConversationCreateWithoutClientInput, ConversationUncheckedCreateWithoutClientInput> | ConversationCreateWithoutClientInput[] | ConversationUncheckedCreateWithoutClientInput[]
+    connectOrCreate?: ConversationCreateOrConnectWithoutClientInput | ConversationCreateOrConnectWithoutClientInput[]
+    upsert?: ConversationUpsertWithWhereUniqueWithoutClientInput | ConversationUpsertWithWhereUniqueWithoutClientInput[]
+    createMany?: ConversationCreateManyClientInputEnvelope
+    set?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    disconnect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    delete?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    update?: ConversationUpdateWithWhereUniqueWithoutClientInput | ConversationUpdateWithWhereUniqueWithoutClientInput[]
+    updateMany?: ConversationUpdateManyWithWhereWithoutClientInput | ConversationUpdateManyWithWhereWithoutClientInput[]
+    deleteMany?: ConversationScalarWhereInput | ConversationScalarWhereInput[]
+  }
+
+  export type MessageUpdateManyWithoutSenderNestedInput = {
+    create?: XOR<MessageCreateWithoutSenderInput, MessageUncheckedCreateWithoutSenderInput> | MessageCreateWithoutSenderInput[] | MessageUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutSenderInput | MessageCreateOrConnectWithoutSenderInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutSenderInput | MessageUpsertWithWhereUniqueWithoutSenderInput[]
+    createMany?: MessageCreateManySenderInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutSenderInput | MessageUpdateWithWhereUniqueWithoutSenderInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutSenderInput | MessageUpdateManyWithWhereWithoutSenderInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type NotificationPreferenceUpdateOneWithoutUserNestedInput = {
+    create?: XOR<NotificationPreferenceCreateWithoutUserInput, NotificationPreferenceUncheckedCreateWithoutUserInput>
+    connectOrCreate?: NotificationPreferenceCreateOrConnectWithoutUserInput
+    upsert?: NotificationPreferenceUpsertWithoutUserInput
+    disconnect?: NotificationPreferenceWhereInput | boolean
+    delete?: NotificationPreferenceWhereInput | boolean
+    connect?: NotificationPreferenceWhereUniqueInput
+    update?: XOR<XOR<NotificationPreferenceUpdateToOneWithWhereWithoutUserInput, NotificationPreferenceUpdateWithoutUserInput>, NotificationPreferenceUncheckedUpdateWithoutUserInput>
+  }
+
+  export type SubscriptionUpdateOneWithoutUserNestedInput = {
+    create?: XOR<SubscriptionCreateWithoutUserInput, SubscriptionUncheckedCreateWithoutUserInput>
+    connectOrCreate?: SubscriptionCreateOrConnectWithoutUserInput
+    upsert?: SubscriptionUpsertWithoutUserInput
+    disconnect?: SubscriptionWhereInput | boolean
+    delete?: SubscriptionWhereInput | boolean
+    connect?: SubscriptionWhereUniqueInput
+    update?: XOR<XOR<SubscriptionUpdateToOneWithWhereWithoutUserInput, SubscriptionUpdateWithoutUserInput>, SubscriptionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PaymentHistoryUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PaymentHistoryCreateWithoutUserInput, PaymentHistoryUncheckedCreateWithoutUserInput> | PaymentHistoryCreateWithoutUserInput[] | PaymentHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PaymentHistoryCreateOrConnectWithoutUserInput | PaymentHistoryCreateOrConnectWithoutUserInput[]
+    upsert?: PaymentHistoryUpsertWithWhereUniqueWithoutUserInput | PaymentHistoryUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PaymentHistoryCreateManyUserInputEnvelope
+    set?: PaymentHistoryWhereUniqueInput | PaymentHistoryWhereUniqueInput[]
+    disconnect?: PaymentHistoryWhereUniqueInput | PaymentHistoryWhereUniqueInput[]
+    delete?: PaymentHistoryWhereUniqueInput | PaymentHistoryWhereUniqueInput[]
+    connect?: PaymentHistoryWhereUniqueInput | PaymentHistoryWhereUniqueInput[]
+    update?: PaymentHistoryUpdateWithWhereUniqueWithoutUserInput | PaymentHistoryUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PaymentHistoryUpdateManyWithWhereWithoutUserInput | PaymentHistoryUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PaymentHistoryScalarWhereInput | PaymentHistoryScalarWhereInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -18467,6 +26964,82 @@ export namespace Prisma {
     deleteMany?: BookingScalarWhereInput | BookingScalarWhereInput[]
   }
 
+  export type FavoriteUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<FavoriteCreateWithoutUserInput, FavoriteUncheckedCreateWithoutUserInput> | FavoriteCreateWithoutUserInput[] | FavoriteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FavoriteCreateOrConnectWithoutUserInput | FavoriteCreateOrConnectWithoutUserInput[]
+    upsert?: FavoriteUpsertWithWhereUniqueWithoutUserInput | FavoriteUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: FavoriteCreateManyUserInputEnvelope
+    set?: FavoriteWhereUniqueInput | FavoriteWhereUniqueInput[]
+    disconnect?: FavoriteWhereUniqueInput | FavoriteWhereUniqueInput[]
+    delete?: FavoriteWhereUniqueInput | FavoriteWhereUniqueInput[]
+    connect?: FavoriteWhereUniqueInput | FavoriteWhereUniqueInput[]
+    update?: FavoriteUpdateWithWhereUniqueWithoutUserInput | FavoriteUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: FavoriteUpdateManyWithWhereWithoutUserInput | FavoriteUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: FavoriteScalarWhereInput | FavoriteScalarWhereInput[]
+  }
+
+  export type ConversationUncheckedUpdateManyWithoutClientNestedInput = {
+    create?: XOR<ConversationCreateWithoutClientInput, ConversationUncheckedCreateWithoutClientInput> | ConversationCreateWithoutClientInput[] | ConversationUncheckedCreateWithoutClientInput[]
+    connectOrCreate?: ConversationCreateOrConnectWithoutClientInput | ConversationCreateOrConnectWithoutClientInput[]
+    upsert?: ConversationUpsertWithWhereUniqueWithoutClientInput | ConversationUpsertWithWhereUniqueWithoutClientInput[]
+    createMany?: ConversationCreateManyClientInputEnvelope
+    set?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    disconnect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    delete?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    update?: ConversationUpdateWithWhereUniqueWithoutClientInput | ConversationUpdateWithWhereUniqueWithoutClientInput[]
+    updateMany?: ConversationUpdateManyWithWhereWithoutClientInput | ConversationUpdateManyWithWhereWithoutClientInput[]
+    deleteMany?: ConversationScalarWhereInput | ConversationScalarWhereInput[]
+  }
+
+  export type MessageUncheckedUpdateManyWithoutSenderNestedInput = {
+    create?: XOR<MessageCreateWithoutSenderInput, MessageUncheckedCreateWithoutSenderInput> | MessageCreateWithoutSenderInput[] | MessageUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutSenderInput | MessageCreateOrConnectWithoutSenderInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutSenderInput | MessageUpsertWithWhereUniqueWithoutSenderInput[]
+    createMany?: MessageCreateManySenderInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutSenderInput | MessageUpdateWithWhereUniqueWithoutSenderInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutSenderInput | MessageUpdateManyWithWhereWithoutSenderInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<NotificationPreferenceCreateWithoutUserInput, NotificationPreferenceUncheckedCreateWithoutUserInput>
+    connectOrCreate?: NotificationPreferenceCreateOrConnectWithoutUserInput
+    upsert?: NotificationPreferenceUpsertWithoutUserInput
+    disconnect?: NotificationPreferenceWhereInput | boolean
+    delete?: NotificationPreferenceWhereInput | boolean
+    connect?: NotificationPreferenceWhereUniqueInput
+    update?: XOR<XOR<NotificationPreferenceUpdateToOneWithWhereWithoutUserInput, NotificationPreferenceUpdateWithoutUserInput>, NotificationPreferenceUncheckedUpdateWithoutUserInput>
+  }
+
+  export type SubscriptionUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<SubscriptionCreateWithoutUserInput, SubscriptionUncheckedCreateWithoutUserInput>
+    connectOrCreate?: SubscriptionCreateOrConnectWithoutUserInput
+    upsert?: SubscriptionUpsertWithoutUserInput
+    disconnect?: SubscriptionWhereInput | boolean
+    delete?: SubscriptionWhereInput | boolean
+    connect?: SubscriptionWhereUniqueInput
+    update?: XOR<XOR<SubscriptionUpdateToOneWithWhereWithoutUserInput, SubscriptionUpdateWithoutUserInput>, SubscriptionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PaymentHistoryUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PaymentHistoryCreateWithoutUserInput, PaymentHistoryUncheckedCreateWithoutUserInput> | PaymentHistoryCreateWithoutUserInput[] | PaymentHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PaymentHistoryCreateOrConnectWithoutUserInput | PaymentHistoryCreateOrConnectWithoutUserInput[]
+    upsert?: PaymentHistoryUpsertWithWhereUniqueWithoutUserInput | PaymentHistoryUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PaymentHistoryCreateManyUserInputEnvelope
+    set?: PaymentHistoryWhereUniqueInput | PaymentHistoryWhereUniqueInput[]
+    disconnect?: PaymentHistoryWhereUniqueInput | PaymentHistoryWhereUniqueInput[]
+    delete?: PaymentHistoryWhereUniqueInput | PaymentHistoryWhereUniqueInput[]
+    connect?: PaymentHistoryWhereUniqueInput | PaymentHistoryWhereUniqueInput[]
+    update?: PaymentHistoryUpdateWithWhereUniqueWithoutUserInput | PaymentHistoryUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PaymentHistoryUpdateManyWithWhereWithoutUserInput | PaymentHistoryUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PaymentHistoryScalarWhereInput | PaymentHistoryScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutMusicianProfileInput = {
     create?: XOR<UserCreateWithoutMusicianProfileInput, UserUncheckedCreateWithoutMusicianProfileInput>
     connectOrCreate?: UserCreateOrConnectWithoutMusicianProfileInput
@@ -18508,6 +27081,20 @@ export namespace Prisma {
     connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
   }
 
+  export type FavoriteCreateNestedManyWithoutMusicianProfileInput = {
+    create?: XOR<FavoriteCreateWithoutMusicianProfileInput, FavoriteUncheckedCreateWithoutMusicianProfileInput> | FavoriteCreateWithoutMusicianProfileInput[] | FavoriteUncheckedCreateWithoutMusicianProfileInput[]
+    connectOrCreate?: FavoriteCreateOrConnectWithoutMusicianProfileInput | FavoriteCreateOrConnectWithoutMusicianProfileInput[]
+    createMany?: FavoriteCreateManyMusicianProfileInputEnvelope
+    connect?: FavoriteWhereUniqueInput | FavoriteWhereUniqueInput[]
+  }
+
+  export type ConversationCreateNestedManyWithoutMusicianProfileInput = {
+    create?: XOR<ConversationCreateWithoutMusicianProfileInput, ConversationUncheckedCreateWithoutMusicianProfileInput> | ConversationCreateWithoutMusicianProfileInput[] | ConversationUncheckedCreateWithoutMusicianProfileInput[]
+    connectOrCreate?: ConversationCreateOrConnectWithoutMusicianProfileInput | ConversationCreateOrConnectWithoutMusicianProfileInput[]
+    createMany?: ConversationCreateManyMusicianProfileInputEnvelope
+    connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+  }
+
   export type PortfolioItemUncheckedCreateNestedManyWithoutMusicianProfileInput = {
     create?: XOR<PortfolioItemCreateWithoutMusicianProfileInput, PortfolioItemUncheckedCreateWithoutMusicianProfileInput> | PortfolioItemCreateWithoutMusicianProfileInput[] | PortfolioItemUncheckedCreateWithoutMusicianProfileInput[]
     connectOrCreate?: PortfolioItemCreateOrConnectWithoutMusicianProfileInput | PortfolioItemCreateOrConnectWithoutMusicianProfileInput[]
@@ -18541,6 +27128,20 @@ export namespace Prisma {
     connectOrCreate?: BookingCreateOrConnectWithoutMusicianProfileInput | BookingCreateOrConnectWithoutMusicianProfileInput[]
     createMany?: BookingCreateManyMusicianProfileInputEnvelope
     connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+  }
+
+  export type FavoriteUncheckedCreateNestedManyWithoutMusicianProfileInput = {
+    create?: XOR<FavoriteCreateWithoutMusicianProfileInput, FavoriteUncheckedCreateWithoutMusicianProfileInput> | FavoriteCreateWithoutMusicianProfileInput[] | FavoriteUncheckedCreateWithoutMusicianProfileInput[]
+    connectOrCreate?: FavoriteCreateOrConnectWithoutMusicianProfileInput | FavoriteCreateOrConnectWithoutMusicianProfileInput[]
+    createMany?: FavoriteCreateManyMusicianProfileInputEnvelope
+    connect?: FavoriteWhereUniqueInput | FavoriteWhereUniqueInput[]
+  }
+
+  export type ConversationUncheckedCreateNestedManyWithoutMusicianProfileInput = {
+    create?: XOR<ConversationCreateWithoutMusicianProfileInput, ConversationUncheckedCreateWithoutMusicianProfileInput> | ConversationCreateWithoutMusicianProfileInput[] | ConversationUncheckedCreateWithoutMusicianProfileInput[]
+    connectOrCreate?: ConversationCreateOrConnectWithoutMusicianProfileInput | ConversationCreateOrConnectWithoutMusicianProfileInput[]
+    createMany?: ConversationCreateManyMusicianProfileInputEnvelope
+    connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -18641,6 +27242,34 @@ export namespace Prisma {
     deleteMany?: BookingScalarWhereInput | BookingScalarWhereInput[]
   }
 
+  export type FavoriteUpdateManyWithoutMusicianProfileNestedInput = {
+    create?: XOR<FavoriteCreateWithoutMusicianProfileInput, FavoriteUncheckedCreateWithoutMusicianProfileInput> | FavoriteCreateWithoutMusicianProfileInput[] | FavoriteUncheckedCreateWithoutMusicianProfileInput[]
+    connectOrCreate?: FavoriteCreateOrConnectWithoutMusicianProfileInput | FavoriteCreateOrConnectWithoutMusicianProfileInput[]
+    upsert?: FavoriteUpsertWithWhereUniqueWithoutMusicianProfileInput | FavoriteUpsertWithWhereUniqueWithoutMusicianProfileInput[]
+    createMany?: FavoriteCreateManyMusicianProfileInputEnvelope
+    set?: FavoriteWhereUniqueInput | FavoriteWhereUniqueInput[]
+    disconnect?: FavoriteWhereUniqueInput | FavoriteWhereUniqueInput[]
+    delete?: FavoriteWhereUniqueInput | FavoriteWhereUniqueInput[]
+    connect?: FavoriteWhereUniqueInput | FavoriteWhereUniqueInput[]
+    update?: FavoriteUpdateWithWhereUniqueWithoutMusicianProfileInput | FavoriteUpdateWithWhereUniqueWithoutMusicianProfileInput[]
+    updateMany?: FavoriteUpdateManyWithWhereWithoutMusicianProfileInput | FavoriteUpdateManyWithWhereWithoutMusicianProfileInput[]
+    deleteMany?: FavoriteScalarWhereInput | FavoriteScalarWhereInput[]
+  }
+
+  export type ConversationUpdateManyWithoutMusicianProfileNestedInput = {
+    create?: XOR<ConversationCreateWithoutMusicianProfileInput, ConversationUncheckedCreateWithoutMusicianProfileInput> | ConversationCreateWithoutMusicianProfileInput[] | ConversationUncheckedCreateWithoutMusicianProfileInput[]
+    connectOrCreate?: ConversationCreateOrConnectWithoutMusicianProfileInput | ConversationCreateOrConnectWithoutMusicianProfileInput[]
+    upsert?: ConversationUpsertWithWhereUniqueWithoutMusicianProfileInput | ConversationUpsertWithWhereUniqueWithoutMusicianProfileInput[]
+    createMany?: ConversationCreateManyMusicianProfileInputEnvelope
+    set?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    disconnect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    delete?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    update?: ConversationUpdateWithWhereUniqueWithoutMusicianProfileInput | ConversationUpdateWithWhereUniqueWithoutMusicianProfileInput[]
+    updateMany?: ConversationUpdateManyWithWhereWithoutMusicianProfileInput | ConversationUpdateManyWithWhereWithoutMusicianProfileInput[]
+    deleteMany?: ConversationScalarWhereInput | ConversationScalarWhereInput[]
+  }
+
   export type PortfolioItemUncheckedUpdateManyWithoutMusicianProfileNestedInput = {
     create?: XOR<PortfolioItemCreateWithoutMusicianProfileInput, PortfolioItemUncheckedCreateWithoutMusicianProfileInput> | PortfolioItemCreateWithoutMusicianProfileInput[] | PortfolioItemUncheckedCreateWithoutMusicianProfileInput[]
     connectOrCreate?: PortfolioItemCreateOrConnectWithoutMusicianProfileInput | PortfolioItemCreateOrConnectWithoutMusicianProfileInput[]
@@ -18709,6 +27338,34 @@ export namespace Prisma {
     update?: BookingUpdateWithWhereUniqueWithoutMusicianProfileInput | BookingUpdateWithWhereUniqueWithoutMusicianProfileInput[]
     updateMany?: BookingUpdateManyWithWhereWithoutMusicianProfileInput | BookingUpdateManyWithWhereWithoutMusicianProfileInput[]
     deleteMany?: BookingScalarWhereInput | BookingScalarWhereInput[]
+  }
+
+  export type FavoriteUncheckedUpdateManyWithoutMusicianProfileNestedInput = {
+    create?: XOR<FavoriteCreateWithoutMusicianProfileInput, FavoriteUncheckedCreateWithoutMusicianProfileInput> | FavoriteCreateWithoutMusicianProfileInput[] | FavoriteUncheckedCreateWithoutMusicianProfileInput[]
+    connectOrCreate?: FavoriteCreateOrConnectWithoutMusicianProfileInput | FavoriteCreateOrConnectWithoutMusicianProfileInput[]
+    upsert?: FavoriteUpsertWithWhereUniqueWithoutMusicianProfileInput | FavoriteUpsertWithWhereUniqueWithoutMusicianProfileInput[]
+    createMany?: FavoriteCreateManyMusicianProfileInputEnvelope
+    set?: FavoriteWhereUniqueInput | FavoriteWhereUniqueInput[]
+    disconnect?: FavoriteWhereUniqueInput | FavoriteWhereUniqueInput[]
+    delete?: FavoriteWhereUniqueInput | FavoriteWhereUniqueInput[]
+    connect?: FavoriteWhereUniqueInput | FavoriteWhereUniqueInput[]
+    update?: FavoriteUpdateWithWhereUniqueWithoutMusicianProfileInput | FavoriteUpdateWithWhereUniqueWithoutMusicianProfileInput[]
+    updateMany?: FavoriteUpdateManyWithWhereWithoutMusicianProfileInput | FavoriteUpdateManyWithWhereWithoutMusicianProfileInput[]
+    deleteMany?: FavoriteScalarWhereInput | FavoriteScalarWhereInput[]
+  }
+
+  export type ConversationUncheckedUpdateManyWithoutMusicianProfileNestedInput = {
+    create?: XOR<ConversationCreateWithoutMusicianProfileInput, ConversationUncheckedCreateWithoutMusicianProfileInput> | ConversationCreateWithoutMusicianProfileInput[] | ConversationUncheckedCreateWithoutMusicianProfileInput[]
+    connectOrCreate?: ConversationCreateOrConnectWithoutMusicianProfileInput | ConversationCreateOrConnectWithoutMusicianProfileInput[]
+    upsert?: ConversationUpsertWithWhereUniqueWithoutMusicianProfileInput | ConversationUpsertWithWhereUniqueWithoutMusicianProfileInput[]
+    createMany?: ConversationCreateManyMusicianProfileInputEnvelope
+    set?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    disconnect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    delete?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    update?: ConversationUpdateWithWhereUniqueWithoutMusicianProfileInput | ConversationUpdateWithWhereUniqueWithoutMusicianProfileInput[]
+    updateMany?: ConversationUpdateManyWithWhereWithoutMusicianProfileInput | ConversationUpdateManyWithWhereWithoutMusicianProfileInput[]
+    deleteMany?: ConversationScalarWhereInput | ConversationScalarWhereInput[]
   }
 
   export type MusicianProfileCreateNestedOneWithoutPortfolioInput = {
@@ -18934,11 +27591,25 @@ export namespace Prisma {
     connect?: PlanFeatureWhereUniqueInput | PlanFeatureWhereUniqueInput[]
   }
 
+  export type SubscriptionCreateNestedManyWithoutPlanInput = {
+    create?: XOR<SubscriptionCreateWithoutPlanInput, SubscriptionUncheckedCreateWithoutPlanInput> | SubscriptionCreateWithoutPlanInput[] | SubscriptionUncheckedCreateWithoutPlanInput[]
+    connectOrCreate?: SubscriptionCreateOrConnectWithoutPlanInput | SubscriptionCreateOrConnectWithoutPlanInput[]
+    createMany?: SubscriptionCreateManyPlanInputEnvelope
+    connect?: SubscriptionWhereUniqueInput | SubscriptionWhereUniqueInput[]
+  }
+
   export type PlanFeatureUncheckedCreateNestedManyWithoutPlanInput = {
     create?: XOR<PlanFeatureCreateWithoutPlanInput, PlanFeatureUncheckedCreateWithoutPlanInput> | PlanFeatureCreateWithoutPlanInput[] | PlanFeatureUncheckedCreateWithoutPlanInput[]
     connectOrCreate?: PlanFeatureCreateOrConnectWithoutPlanInput | PlanFeatureCreateOrConnectWithoutPlanInput[]
     createMany?: PlanFeatureCreateManyPlanInputEnvelope
     connect?: PlanFeatureWhereUniqueInput | PlanFeatureWhereUniqueInput[]
+  }
+
+  export type SubscriptionUncheckedCreateNestedManyWithoutPlanInput = {
+    create?: XOR<SubscriptionCreateWithoutPlanInput, SubscriptionUncheckedCreateWithoutPlanInput> | SubscriptionCreateWithoutPlanInput[] | SubscriptionUncheckedCreateWithoutPlanInput[]
+    connectOrCreate?: SubscriptionCreateOrConnectWithoutPlanInput | SubscriptionCreateOrConnectWithoutPlanInput[]
+    createMany?: SubscriptionCreateManyPlanInputEnvelope
+    connect?: SubscriptionWhereUniqueInput | SubscriptionWhereUniqueInput[]
   }
 
   export type PlanFeatureUpdateManyWithoutPlanNestedInput = {
@@ -18955,6 +27626,20 @@ export namespace Prisma {
     deleteMany?: PlanFeatureScalarWhereInput | PlanFeatureScalarWhereInput[]
   }
 
+  export type SubscriptionUpdateManyWithoutPlanNestedInput = {
+    create?: XOR<SubscriptionCreateWithoutPlanInput, SubscriptionUncheckedCreateWithoutPlanInput> | SubscriptionCreateWithoutPlanInput[] | SubscriptionUncheckedCreateWithoutPlanInput[]
+    connectOrCreate?: SubscriptionCreateOrConnectWithoutPlanInput | SubscriptionCreateOrConnectWithoutPlanInput[]
+    upsert?: SubscriptionUpsertWithWhereUniqueWithoutPlanInput | SubscriptionUpsertWithWhereUniqueWithoutPlanInput[]
+    createMany?: SubscriptionCreateManyPlanInputEnvelope
+    set?: SubscriptionWhereUniqueInput | SubscriptionWhereUniqueInput[]
+    disconnect?: SubscriptionWhereUniqueInput | SubscriptionWhereUniqueInput[]
+    delete?: SubscriptionWhereUniqueInput | SubscriptionWhereUniqueInput[]
+    connect?: SubscriptionWhereUniqueInput | SubscriptionWhereUniqueInput[]
+    update?: SubscriptionUpdateWithWhereUniqueWithoutPlanInput | SubscriptionUpdateWithWhereUniqueWithoutPlanInput[]
+    updateMany?: SubscriptionUpdateManyWithWhereWithoutPlanInput | SubscriptionUpdateManyWithWhereWithoutPlanInput[]
+    deleteMany?: SubscriptionScalarWhereInput | SubscriptionScalarWhereInput[]
+  }
+
   export type PlanFeatureUncheckedUpdateManyWithoutPlanNestedInput = {
     create?: XOR<PlanFeatureCreateWithoutPlanInput, PlanFeatureUncheckedCreateWithoutPlanInput> | PlanFeatureCreateWithoutPlanInput[] | PlanFeatureUncheckedCreateWithoutPlanInput[]
     connectOrCreate?: PlanFeatureCreateOrConnectWithoutPlanInput | PlanFeatureCreateOrConnectWithoutPlanInput[]
@@ -18969,6 +27654,20 @@ export namespace Prisma {
     deleteMany?: PlanFeatureScalarWhereInput | PlanFeatureScalarWhereInput[]
   }
 
+  export type SubscriptionUncheckedUpdateManyWithoutPlanNestedInput = {
+    create?: XOR<SubscriptionCreateWithoutPlanInput, SubscriptionUncheckedCreateWithoutPlanInput> | SubscriptionCreateWithoutPlanInput[] | SubscriptionUncheckedCreateWithoutPlanInput[]
+    connectOrCreate?: SubscriptionCreateOrConnectWithoutPlanInput | SubscriptionCreateOrConnectWithoutPlanInput[]
+    upsert?: SubscriptionUpsertWithWhereUniqueWithoutPlanInput | SubscriptionUpsertWithWhereUniqueWithoutPlanInput[]
+    createMany?: SubscriptionCreateManyPlanInputEnvelope
+    set?: SubscriptionWhereUniqueInput | SubscriptionWhereUniqueInput[]
+    disconnect?: SubscriptionWhereUniqueInput | SubscriptionWhereUniqueInput[]
+    delete?: SubscriptionWhereUniqueInput | SubscriptionWhereUniqueInput[]
+    connect?: SubscriptionWhereUniqueInput | SubscriptionWhereUniqueInput[]
+    update?: SubscriptionUpdateWithWhereUniqueWithoutPlanInput | SubscriptionUpdateWithWhereUniqueWithoutPlanInput[]
+    updateMany?: SubscriptionUpdateManyWithWhereWithoutPlanInput | SubscriptionUpdateManyWithWhereWithoutPlanInput[]
+    deleteMany?: SubscriptionScalarWhereInput | SubscriptionScalarWhereInput[]
+  }
+
   export type PlanCreateNestedOneWithoutFeaturesInput = {
     create?: XOR<PlanCreateWithoutFeaturesInput, PlanUncheckedCreateWithoutFeaturesInput>
     connectOrCreate?: PlanCreateOrConnectWithoutFeaturesInput
@@ -18981,6 +27680,188 @@ export namespace Prisma {
     upsert?: PlanUpsertWithoutFeaturesInput
     connect?: PlanWhereUniqueInput
     update?: XOR<XOR<PlanUpdateToOneWithWhereWithoutFeaturesInput, PlanUpdateWithoutFeaturesInput>, PlanUncheckedUpdateWithoutFeaturesInput>
+  }
+
+  export type UserCreateNestedOneWithoutFavoritesInput = {
+    create?: XOR<UserCreateWithoutFavoritesInput, UserUncheckedCreateWithoutFavoritesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutFavoritesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type MusicianProfileCreateNestedOneWithoutFavoritedByInput = {
+    create?: XOR<MusicianProfileCreateWithoutFavoritedByInput, MusicianProfileUncheckedCreateWithoutFavoritedByInput>
+    connectOrCreate?: MusicianProfileCreateOrConnectWithoutFavoritedByInput
+    connect?: MusicianProfileWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutFavoritesNestedInput = {
+    create?: XOR<UserCreateWithoutFavoritesInput, UserUncheckedCreateWithoutFavoritesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutFavoritesInput
+    upsert?: UserUpsertWithoutFavoritesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutFavoritesInput, UserUpdateWithoutFavoritesInput>, UserUncheckedUpdateWithoutFavoritesInput>
+  }
+
+  export type MusicianProfileUpdateOneRequiredWithoutFavoritedByNestedInput = {
+    create?: XOR<MusicianProfileCreateWithoutFavoritedByInput, MusicianProfileUncheckedCreateWithoutFavoritedByInput>
+    connectOrCreate?: MusicianProfileCreateOrConnectWithoutFavoritedByInput
+    upsert?: MusicianProfileUpsertWithoutFavoritedByInput
+    connect?: MusicianProfileWhereUniqueInput
+    update?: XOR<XOR<MusicianProfileUpdateToOneWithWhereWithoutFavoritedByInput, MusicianProfileUpdateWithoutFavoritedByInput>, MusicianProfileUncheckedUpdateWithoutFavoritedByInput>
+  }
+
+  export type UserCreateNestedOneWithoutConversationsAsClientInput = {
+    create?: XOR<UserCreateWithoutConversationsAsClientInput, UserUncheckedCreateWithoutConversationsAsClientInput>
+    connectOrCreate?: UserCreateOrConnectWithoutConversationsAsClientInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type MusicianProfileCreateNestedOneWithoutConversationsInput = {
+    create?: XOR<MusicianProfileCreateWithoutConversationsInput, MusicianProfileUncheckedCreateWithoutConversationsInput>
+    connectOrCreate?: MusicianProfileCreateOrConnectWithoutConversationsInput
+    connect?: MusicianProfileWhereUniqueInput
+  }
+
+  export type MessageCreateNestedManyWithoutConversationInput = {
+    create?: XOR<MessageCreateWithoutConversationInput, MessageUncheckedCreateWithoutConversationInput> | MessageCreateWithoutConversationInput[] | MessageUncheckedCreateWithoutConversationInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutConversationInput | MessageCreateOrConnectWithoutConversationInput[]
+    createMany?: MessageCreateManyConversationInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type MessageUncheckedCreateNestedManyWithoutConversationInput = {
+    create?: XOR<MessageCreateWithoutConversationInput, MessageUncheckedCreateWithoutConversationInput> | MessageCreateWithoutConversationInput[] | MessageUncheckedCreateWithoutConversationInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutConversationInput | MessageCreateOrConnectWithoutConversationInput[]
+    createMany?: MessageCreateManyConversationInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutConversationsAsClientNestedInput = {
+    create?: XOR<UserCreateWithoutConversationsAsClientInput, UserUncheckedCreateWithoutConversationsAsClientInput>
+    connectOrCreate?: UserCreateOrConnectWithoutConversationsAsClientInput
+    upsert?: UserUpsertWithoutConversationsAsClientInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutConversationsAsClientInput, UserUpdateWithoutConversationsAsClientInput>, UserUncheckedUpdateWithoutConversationsAsClientInput>
+  }
+
+  export type MusicianProfileUpdateOneRequiredWithoutConversationsNestedInput = {
+    create?: XOR<MusicianProfileCreateWithoutConversationsInput, MusicianProfileUncheckedCreateWithoutConversationsInput>
+    connectOrCreate?: MusicianProfileCreateOrConnectWithoutConversationsInput
+    upsert?: MusicianProfileUpsertWithoutConversationsInput
+    connect?: MusicianProfileWhereUniqueInput
+    update?: XOR<XOR<MusicianProfileUpdateToOneWithWhereWithoutConversationsInput, MusicianProfileUpdateWithoutConversationsInput>, MusicianProfileUncheckedUpdateWithoutConversationsInput>
+  }
+
+  export type MessageUpdateManyWithoutConversationNestedInput = {
+    create?: XOR<MessageCreateWithoutConversationInput, MessageUncheckedCreateWithoutConversationInput> | MessageCreateWithoutConversationInput[] | MessageUncheckedCreateWithoutConversationInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutConversationInput | MessageCreateOrConnectWithoutConversationInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutConversationInput | MessageUpsertWithWhereUniqueWithoutConversationInput[]
+    createMany?: MessageCreateManyConversationInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutConversationInput | MessageUpdateWithWhereUniqueWithoutConversationInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutConversationInput | MessageUpdateManyWithWhereWithoutConversationInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type MessageUncheckedUpdateManyWithoutConversationNestedInput = {
+    create?: XOR<MessageCreateWithoutConversationInput, MessageUncheckedCreateWithoutConversationInput> | MessageCreateWithoutConversationInput[] | MessageUncheckedCreateWithoutConversationInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutConversationInput | MessageCreateOrConnectWithoutConversationInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutConversationInput | MessageUpsertWithWhereUniqueWithoutConversationInput[]
+    createMany?: MessageCreateManyConversationInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutConversationInput | MessageUpdateWithWhereUniqueWithoutConversationInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutConversationInput | MessageUpdateManyWithWhereWithoutConversationInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type ConversationCreateNestedOneWithoutMessagesInput = {
+    create?: XOR<ConversationCreateWithoutMessagesInput, ConversationUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: ConversationCreateOrConnectWithoutMessagesInput
+    connect?: ConversationWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutMessagesSentInput = {
+    create?: XOR<UserCreateWithoutMessagesSentInput, UserUncheckedCreateWithoutMessagesSentInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMessagesSentInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type ConversationUpdateOneRequiredWithoutMessagesNestedInput = {
+    create?: XOR<ConversationCreateWithoutMessagesInput, ConversationUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: ConversationCreateOrConnectWithoutMessagesInput
+    upsert?: ConversationUpsertWithoutMessagesInput
+    connect?: ConversationWhereUniqueInput
+    update?: XOR<XOR<ConversationUpdateToOneWithWhereWithoutMessagesInput, ConversationUpdateWithoutMessagesInput>, ConversationUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutMessagesSentNestedInput = {
+    create?: XOR<UserCreateWithoutMessagesSentInput, UserUncheckedCreateWithoutMessagesSentInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMessagesSentInput
+    upsert?: UserUpsertWithoutMessagesSentInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMessagesSentInput, UserUpdateWithoutMessagesSentInput>, UserUncheckedUpdateWithoutMessagesSentInput>
+  }
+
+  export type UserCreateNestedOneWithoutNotificationPreferencesInput = {
+    create?: XOR<UserCreateWithoutNotificationPreferencesInput, UserUncheckedCreateWithoutNotificationPreferencesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNotificationPreferencesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutNotificationPreferencesNestedInput = {
+    create?: XOR<UserCreateWithoutNotificationPreferencesInput, UserUncheckedCreateWithoutNotificationPreferencesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNotificationPreferencesInput
+    upsert?: UserUpsertWithoutNotificationPreferencesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNotificationPreferencesInput, UserUpdateWithoutNotificationPreferencesInput>, UserUncheckedUpdateWithoutNotificationPreferencesInput>
+  }
+
+  export type UserCreateNestedOneWithoutSubscriptionInput = {
+    create?: XOR<UserCreateWithoutSubscriptionInput, UserUncheckedCreateWithoutSubscriptionInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSubscriptionInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type PlanCreateNestedOneWithoutSubscriptionsInput = {
+    create?: XOR<PlanCreateWithoutSubscriptionsInput, PlanUncheckedCreateWithoutSubscriptionsInput>
+    connectOrCreate?: PlanCreateOrConnectWithoutSubscriptionsInput
+    connect?: PlanWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutSubscriptionNestedInput = {
+    create?: XOR<UserCreateWithoutSubscriptionInput, UserUncheckedCreateWithoutSubscriptionInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSubscriptionInput
+    upsert?: UserUpsertWithoutSubscriptionInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSubscriptionInput, UserUpdateWithoutSubscriptionInput>, UserUncheckedUpdateWithoutSubscriptionInput>
+  }
+
+  export type PlanUpdateOneRequiredWithoutSubscriptionsNestedInput = {
+    create?: XOR<PlanCreateWithoutSubscriptionsInput, PlanUncheckedCreateWithoutSubscriptionsInput>
+    connectOrCreate?: PlanCreateOrConnectWithoutSubscriptionsInput
+    upsert?: PlanUpsertWithoutSubscriptionsInput
+    connect?: PlanWhereUniqueInput
+    update?: XOR<XOR<PlanUpdateToOneWithWhereWithoutSubscriptionsInput, PlanUpdateWithoutSubscriptionsInput>, PlanUncheckedUpdateWithoutSubscriptionsInput>
+  }
+
+  export type UserCreateNestedOneWithoutPaymentHistoryInput = {
+    create?: XOR<UserCreateWithoutPaymentHistoryInput, UserUncheckedCreateWithoutPaymentHistoryInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPaymentHistoryInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutPaymentHistoryNestedInput = {
+    create?: XOR<UserCreateWithoutPaymentHistoryInput, UserUncheckedCreateWithoutPaymentHistoryInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPaymentHistoryInput
+    upsert?: UserUpsertWithoutPaymentHistoryInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPaymentHistoryInput, UserUpdateWithoutPaymentHistoryInput>, UserUncheckedUpdateWithoutPaymentHistoryInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -19029,6 +27910,24 @@ export namespace Prisma {
     in?: $Enums.UserType[]
     notIn?: $Enums.UserType[]
     not?: NestedEnumUserTypeFilter<$PrismaModel> | $Enums.UserType
+  }
+
+  export type NestedEnumUserRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[]
+    notIn?: $Enums.UserRole[]
+    not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -19124,6 +28023,30 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumUserTypeFilter<$PrismaModel>
     _max?: NestedEnumUserTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[]
+    notIn?: $Enums.UserRole[]
+    not?: NestedEnumUserRoleWithAggregatesFilter<$PrismaModel> | $Enums.UserRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserRoleFilter<$PrismaModel>
+    _max?: NestedEnumUserRoleFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -19234,6 +28157,8 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreCreateNestedManyWithoutMusicianProfileInput
     musicianInstruments?: MusicianInstrumentCreateNestedManyWithoutMusicianProfileInput
     bookings?: BookingCreateNestedManyWithoutMusicianProfileInput
+    favoritedBy?: FavoriteCreateNestedManyWithoutMusicianProfileInput
+    conversations?: ConversationCreateNestedManyWithoutMusicianProfileInput
   }
 
   export type MusicianProfileUncheckedCreateWithoutUserInput = {
@@ -19258,6 +28183,8 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreUncheckedCreateNestedManyWithoutMusicianProfileInput
     musicianInstruments?: MusicianInstrumentUncheckedCreateNestedManyWithoutMusicianProfileInput
     bookings?: BookingUncheckedCreateNestedManyWithoutMusicianProfileInput
+    favoritedBy?: FavoriteUncheckedCreateNestedManyWithoutMusicianProfileInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutMusicianProfileInput
   }
 
   export type MusicianProfileCreateOrConnectWithoutUserInput = {
@@ -19325,6 +28252,160 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type FavoriteCreateWithoutUserInput = {
+    createdAt?: Date | string
+    musicianProfile: MusicianProfileCreateNestedOneWithoutFavoritedByInput
+  }
+
+  export type FavoriteUncheckedCreateWithoutUserInput = {
+    id?: number
+    musicianProfileId: number
+    createdAt?: Date | string
+  }
+
+  export type FavoriteCreateOrConnectWithoutUserInput = {
+    where: FavoriteWhereUniqueInput
+    create: XOR<FavoriteCreateWithoutUserInput, FavoriteUncheckedCreateWithoutUserInput>
+  }
+
+  export type FavoriteCreateManyUserInputEnvelope = {
+    data: FavoriteCreateManyUserInput | FavoriteCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ConversationCreateWithoutClientInput = {
+    lastMessageAt?: Date | string
+    createdAt?: Date | string
+    musicianProfile: MusicianProfileCreateNestedOneWithoutConversationsInput
+    messages?: MessageCreateNestedManyWithoutConversationInput
+  }
+
+  export type ConversationUncheckedCreateWithoutClientInput = {
+    id?: number
+    musicianProfileId: number
+    lastMessageAt?: Date | string
+    createdAt?: Date | string
+    messages?: MessageUncheckedCreateNestedManyWithoutConversationInput
+  }
+
+  export type ConversationCreateOrConnectWithoutClientInput = {
+    where: ConversationWhereUniqueInput
+    create: XOR<ConversationCreateWithoutClientInput, ConversationUncheckedCreateWithoutClientInput>
+  }
+
+  export type ConversationCreateManyClientInputEnvelope = {
+    data: ConversationCreateManyClientInput | ConversationCreateManyClientInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MessageCreateWithoutSenderInput = {
+    content: string
+    isRead?: boolean
+    createdAt?: Date | string
+    conversation: ConversationCreateNestedOneWithoutMessagesInput
+  }
+
+  export type MessageUncheckedCreateWithoutSenderInput = {
+    id?: number
+    conversationId: number
+    content: string
+    isRead?: boolean
+    createdAt?: Date | string
+  }
+
+  export type MessageCreateOrConnectWithoutSenderInput = {
+    where: MessageWhereUniqueInput
+    create: XOR<MessageCreateWithoutSenderInput, MessageUncheckedCreateWithoutSenderInput>
+  }
+
+  export type MessageCreateManySenderInputEnvelope = {
+    data: MessageCreateManySenderInput | MessageCreateManySenderInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type NotificationPreferenceCreateWithoutUserInput = {
+    emailBookings?: boolean
+    emailMessages?: boolean
+    emailReviews?: boolean
+    emailNews?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NotificationPreferenceUncheckedCreateWithoutUserInput = {
+    id?: number
+    emailBookings?: boolean
+    emailMessages?: boolean
+    emailReviews?: boolean
+    emailNews?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NotificationPreferenceCreateOrConnectWithoutUserInput = {
+    where: NotificationPreferenceWhereUniqueInput
+    create: XOR<NotificationPreferenceCreateWithoutUserInput, NotificationPreferenceUncheckedCreateWithoutUserInput>
+  }
+
+  export type SubscriptionCreateWithoutUserInput = {
+    stripeSubscriptionId?: string | null
+    stripeCustomerId?: string | null
+    status: string
+    currentPeriodStart: Date | string
+    currentPeriodEnd: Date | string
+    cancelAtPeriodEnd?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    plan: PlanCreateNestedOneWithoutSubscriptionsInput
+  }
+
+  export type SubscriptionUncheckedCreateWithoutUserInput = {
+    id?: number
+    planId: number
+    stripeSubscriptionId?: string | null
+    stripeCustomerId?: string | null
+    status: string
+    currentPeriodStart: Date | string
+    currentPeriodEnd: Date | string
+    cancelAtPeriodEnd?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SubscriptionCreateOrConnectWithoutUserInput = {
+    where: SubscriptionWhereUniqueInput
+    create: XOR<SubscriptionCreateWithoutUserInput, SubscriptionUncheckedCreateWithoutUserInput>
+  }
+
+  export type PaymentHistoryCreateWithoutUserInput = {
+    amount: number
+    currency?: string
+    status: string
+    stripePaymentId?: string | null
+    description?: string | null
+    createdAt?: Date | string
+  }
+
+  export type PaymentHistoryUncheckedCreateWithoutUserInput = {
+    id?: number
+    amount: number
+    currency?: string
+    status: string
+    stripePaymentId?: string | null
+    description?: string | null
+    createdAt?: Date | string
+  }
+
+  export type PaymentHistoryCreateOrConnectWithoutUserInput = {
+    where: PaymentHistoryWhereUniqueInput
+    create: XOR<PaymentHistoryCreateWithoutUserInput, PaymentHistoryUncheckedCreateWithoutUserInput>
+  }
+
+  export type PaymentHistoryCreateManyUserInputEnvelope = {
+    data: PaymentHistoryCreateManyUserInput | PaymentHistoryCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type MusicianProfileUpsertWithoutUserInput = {
     update: XOR<MusicianProfileUpdateWithoutUserInput, MusicianProfileUncheckedUpdateWithoutUserInput>
     create: XOR<MusicianProfileCreateWithoutUserInput, MusicianProfileUncheckedCreateWithoutUserInput>
@@ -19357,6 +28438,8 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreUpdateManyWithoutMusicianProfileNestedInput
     musicianInstruments?: MusicianInstrumentUpdateManyWithoutMusicianProfileNestedInput
     bookings?: BookingUpdateManyWithoutMusicianProfileNestedInput
+    favoritedBy?: FavoriteUpdateManyWithoutMusicianProfileNestedInput
+    conversations?: ConversationUpdateManyWithoutMusicianProfileNestedInput
   }
 
   export type MusicianProfileUncheckedUpdateWithoutUserInput = {
@@ -19381,6 +28464,8 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreUncheckedUpdateManyWithoutMusicianProfileNestedInput
     musicianInstruments?: MusicianInstrumentUncheckedUpdateManyWithoutMusicianProfileNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutMusicianProfileNestedInput
+    favoritedBy?: FavoriteUncheckedUpdateManyWithoutMusicianProfileNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutMusicianProfileNestedInput
   }
 
   export type ReviewUpsertWithWhereUniqueWithoutClientInput = {
@@ -19444,6 +28529,183 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Booking"> | Date | string
   }
 
+  export type FavoriteUpsertWithWhereUniqueWithoutUserInput = {
+    where: FavoriteWhereUniqueInput
+    update: XOR<FavoriteUpdateWithoutUserInput, FavoriteUncheckedUpdateWithoutUserInput>
+    create: XOR<FavoriteCreateWithoutUserInput, FavoriteUncheckedCreateWithoutUserInput>
+  }
+
+  export type FavoriteUpdateWithWhereUniqueWithoutUserInput = {
+    where: FavoriteWhereUniqueInput
+    data: XOR<FavoriteUpdateWithoutUserInput, FavoriteUncheckedUpdateWithoutUserInput>
+  }
+
+  export type FavoriteUpdateManyWithWhereWithoutUserInput = {
+    where: FavoriteScalarWhereInput
+    data: XOR<FavoriteUpdateManyMutationInput, FavoriteUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type FavoriteScalarWhereInput = {
+    AND?: FavoriteScalarWhereInput | FavoriteScalarWhereInput[]
+    OR?: FavoriteScalarWhereInput[]
+    NOT?: FavoriteScalarWhereInput | FavoriteScalarWhereInput[]
+    id?: IntFilter<"Favorite"> | number
+    userId?: IntFilter<"Favorite"> | number
+    musicianProfileId?: IntFilter<"Favorite"> | number
+    createdAt?: DateTimeFilter<"Favorite"> | Date | string
+  }
+
+  export type ConversationUpsertWithWhereUniqueWithoutClientInput = {
+    where: ConversationWhereUniqueInput
+    update: XOR<ConversationUpdateWithoutClientInput, ConversationUncheckedUpdateWithoutClientInput>
+    create: XOR<ConversationCreateWithoutClientInput, ConversationUncheckedCreateWithoutClientInput>
+  }
+
+  export type ConversationUpdateWithWhereUniqueWithoutClientInput = {
+    where: ConversationWhereUniqueInput
+    data: XOR<ConversationUpdateWithoutClientInput, ConversationUncheckedUpdateWithoutClientInput>
+  }
+
+  export type ConversationUpdateManyWithWhereWithoutClientInput = {
+    where: ConversationScalarWhereInput
+    data: XOR<ConversationUpdateManyMutationInput, ConversationUncheckedUpdateManyWithoutClientInput>
+  }
+
+  export type ConversationScalarWhereInput = {
+    AND?: ConversationScalarWhereInput | ConversationScalarWhereInput[]
+    OR?: ConversationScalarWhereInput[]
+    NOT?: ConversationScalarWhereInput | ConversationScalarWhereInput[]
+    id?: IntFilter<"Conversation"> | number
+    clientId?: IntFilter<"Conversation"> | number
+    musicianProfileId?: IntFilter<"Conversation"> | number
+    lastMessageAt?: DateTimeFilter<"Conversation"> | Date | string
+    createdAt?: DateTimeFilter<"Conversation"> | Date | string
+  }
+
+  export type MessageUpsertWithWhereUniqueWithoutSenderInput = {
+    where: MessageWhereUniqueInput
+    update: XOR<MessageUpdateWithoutSenderInput, MessageUncheckedUpdateWithoutSenderInput>
+    create: XOR<MessageCreateWithoutSenderInput, MessageUncheckedCreateWithoutSenderInput>
+  }
+
+  export type MessageUpdateWithWhereUniqueWithoutSenderInput = {
+    where: MessageWhereUniqueInput
+    data: XOR<MessageUpdateWithoutSenderInput, MessageUncheckedUpdateWithoutSenderInput>
+  }
+
+  export type MessageUpdateManyWithWhereWithoutSenderInput = {
+    where: MessageScalarWhereInput
+    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyWithoutSenderInput>
+  }
+
+  export type MessageScalarWhereInput = {
+    AND?: MessageScalarWhereInput | MessageScalarWhereInput[]
+    OR?: MessageScalarWhereInput[]
+    NOT?: MessageScalarWhereInput | MessageScalarWhereInput[]
+    id?: IntFilter<"Message"> | number
+    conversationId?: IntFilter<"Message"> | number
+    senderId?: IntFilter<"Message"> | number
+    content?: StringFilter<"Message"> | string
+    isRead?: BoolFilter<"Message"> | boolean
+    createdAt?: DateTimeFilter<"Message"> | Date | string
+  }
+
+  export type NotificationPreferenceUpsertWithoutUserInput = {
+    update: XOR<NotificationPreferenceUpdateWithoutUserInput, NotificationPreferenceUncheckedUpdateWithoutUserInput>
+    create: XOR<NotificationPreferenceCreateWithoutUserInput, NotificationPreferenceUncheckedCreateWithoutUserInput>
+    where?: NotificationPreferenceWhereInput
+  }
+
+  export type NotificationPreferenceUpdateToOneWithWhereWithoutUserInput = {
+    where?: NotificationPreferenceWhereInput
+    data: XOR<NotificationPreferenceUpdateWithoutUserInput, NotificationPreferenceUncheckedUpdateWithoutUserInput>
+  }
+
+  export type NotificationPreferenceUpdateWithoutUserInput = {
+    emailBookings?: BoolFieldUpdateOperationsInput | boolean
+    emailMessages?: BoolFieldUpdateOperationsInput | boolean
+    emailReviews?: BoolFieldUpdateOperationsInput | boolean
+    emailNews?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationPreferenceUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    emailBookings?: BoolFieldUpdateOperationsInput | boolean
+    emailMessages?: BoolFieldUpdateOperationsInput | boolean
+    emailReviews?: BoolFieldUpdateOperationsInput | boolean
+    emailNews?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubscriptionUpsertWithoutUserInput = {
+    update: XOR<SubscriptionUpdateWithoutUserInput, SubscriptionUncheckedUpdateWithoutUserInput>
+    create: XOR<SubscriptionCreateWithoutUserInput, SubscriptionUncheckedCreateWithoutUserInput>
+    where?: SubscriptionWhereInput
+  }
+
+  export type SubscriptionUpdateToOneWithWhereWithoutUserInput = {
+    where?: SubscriptionWhereInput
+    data: XOR<SubscriptionUpdateWithoutUserInput, SubscriptionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type SubscriptionUpdateWithoutUserInput = {
+    stripeSubscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    currentPeriodStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    currentPeriodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    cancelAtPeriodEnd?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    plan?: PlanUpdateOneRequiredWithoutSubscriptionsNestedInput
+  }
+
+  export type SubscriptionUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    planId?: IntFieldUpdateOperationsInput | number
+    stripeSubscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    currentPeriodStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    currentPeriodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    cancelAtPeriodEnd?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PaymentHistoryUpsertWithWhereUniqueWithoutUserInput = {
+    where: PaymentHistoryWhereUniqueInput
+    update: XOR<PaymentHistoryUpdateWithoutUserInput, PaymentHistoryUncheckedUpdateWithoutUserInput>
+    create: XOR<PaymentHistoryCreateWithoutUserInput, PaymentHistoryUncheckedCreateWithoutUserInput>
+  }
+
+  export type PaymentHistoryUpdateWithWhereUniqueWithoutUserInput = {
+    where: PaymentHistoryWhereUniqueInput
+    data: XOR<PaymentHistoryUpdateWithoutUserInput, PaymentHistoryUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PaymentHistoryUpdateManyWithWhereWithoutUserInput = {
+    where: PaymentHistoryScalarWhereInput
+    data: XOR<PaymentHistoryUpdateManyMutationInput, PaymentHistoryUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type PaymentHistoryScalarWhereInput = {
+    AND?: PaymentHistoryScalarWhereInput | PaymentHistoryScalarWhereInput[]
+    OR?: PaymentHistoryScalarWhereInput[]
+    NOT?: PaymentHistoryScalarWhereInput | PaymentHistoryScalarWhereInput[]
+    id?: IntFilter<"PaymentHistory"> | number
+    userId?: IntFilter<"PaymentHistory"> | number
+    amount?: IntFilter<"PaymentHistory"> | number
+    currency?: StringFilter<"PaymentHistory"> | string
+    status?: StringFilter<"PaymentHistory"> | string
+    stripePaymentId?: StringNullableFilter<"PaymentHistory"> | string | null
+    description?: StringNullableFilter<"PaymentHistory"> | string | null
+    createdAt?: DateTimeFilter<"PaymentHistory"> | Date | string
+  }
+
   export type UserCreateWithoutMusicianProfileInput = {
     email: string
     passwordHash: string
@@ -19453,10 +28715,20 @@ export namespace Prisma {
     city?: string | null
     state?: string | null
     userType: $Enums.UserType
+    role?: $Enums.UserRole
+    profileImageUrl?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     reviewsGiven?: ReviewCreateNestedManyWithoutClientInput
     bookings?: BookingCreateNestedManyWithoutClientInput
+    favorites?: FavoriteCreateNestedManyWithoutUserInput
+    conversationsAsClient?: ConversationCreateNestedManyWithoutClientInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    notificationPreferences?: NotificationPreferenceCreateNestedOneWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    paymentHistory?: PaymentHistoryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMusicianProfileInput = {
@@ -19469,10 +28741,20 @@ export namespace Prisma {
     city?: string | null
     state?: string | null
     userType: $Enums.UserType
+    role?: $Enums.UserRole
+    profileImageUrl?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutClientInput
     bookings?: BookingUncheckedCreateNestedManyWithoutClientInput
+    favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
+    conversationsAsClient?: ConversationUncheckedCreateNestedManyWithoutClientInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    notificationPreferences?: NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    paymentHistory?: PaymentHistoryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMusicianProfileInput = {
@@ -19609,6 +28891,52 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type FavoriteCreateWithoutMusicianProfileInput = {
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutFavoritesInput
+  }
+
+  export type FavoriteUncheckedCreateWithoutMusicianProfileInput = {
+    id?: number
+    userId: number
+    createdAt?: Date | string
+  }
+
+  export type FavoriteCreateOrConnectWithoutMusicianProfileInput = {
+    where: FavoriteWhereUniqueInput
+    create: XOR<FavoriteCreateWithoutMusicianProfileInput, FavoriteUncheckedCreateWithoutMusicianProfileInput>
+  }
+
+  export type FavoriteCreateManyMusicianProfileInputEnvelope = {
+    data: FavoriteCreateManyMusicianProfileInput | FavoriteCreateManyMusicianProfileInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ConversationCreateWithoutMusicianProfileInput = {
+    lastMessageAt?: Date | string
+    createdAt?: Date | string
+    client: UserCreateNestedOneWithoutConversationsAsClientInput
+    messages?: MessageCreateNestedManyWithoutConversationInput
+  }
+
+  export type ConversationUncheckedCreateWithoutMusicianProfileInput = {
+    id?: number
+    clientId: number
+    lastMessageAt?: Date | string
+    createdAt?: Date | string
+    messages?: MessageUncheckedCreateNestedManyWithoutConversationInput
+  }
+
+  export type ConversationCreateOrConnectWithoutMusicianProfileInput = {
+    where: ConversationWhereUniqueInput
+    create: XOR<ConversationCreateWithoutMusicianProfileInput, ConversationUncheckedCreateWithoutMusicianProfileInput>
+  }
+
+  export type ConversationCreateManyMusicianProfileInputEnvelope = {
+    data: ConversationCreateManyMusicianProfileInput | ConversationCreateManyMusicianProfileInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutMusicianProfileInput = {
     update: XOR<UserUpdateWithoutMusicianProfileInput, UserUncheckedUpdateWithoutMusicianProfileInput>
     create: XOR<UserCreateWithoutMusicianProfileInput, UserUncheckedCreateWithoutMusicianProfileInput>
@@ -19629,10 +28957,20 @@ export namespace Prisma {
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviewsGiven?: ReviewUpdateManyWithoutClientNestedInput
     bookings?: BookingUpdateManyWithoutClientNestedInput
+    favorites?: FavoriteUpdateManyWithoutUserNestedInput
+    conversationsAsClient?: ConversationUpdateManyWithoutClientNestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    notificationPreferences?: NotificationPreferenceUpdateOneWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    paymentHistory?: PaymentHistoryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMusicianProfileInput = {
@@ -19645,10 +28983,20 @@ export namespace Prisma {
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviewsGiven?: ReviewUncheckedUpdateManyWithoutClientNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutClientNestedInput
+    favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
+    conversationsAsClient?: ConversationUncheckedUpdateManyWithoutClientNestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    notificationPreferences?: NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    paymentHistory?: PaymentHistoryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PortfolioItemUpsertWithWhereUniqueWithoutMusicianProfileInput = {
@@ -19763,6 +29111,38 @@ export namespace Prisma {
     data: XOR<BookingUpdateManyMutationInput, BookingUncheckedUpdateManyWithoutMusicianProfileInput>
   }
 
+  export type FavoriteUpsertWithWhereUniqueWithoutMusicianProfileInput = {
+    where: FavoriteWhereUniqueInput
+    update: XOR<FavoriteUpdateWithoutMusicianProfileInput, FavoriteUncheckedUpdateWithoutMusicianProfileInput>
+    create: XOR<FavoriteCreateWithoutMusicianProfileInput, FavoriteUncheckedCreateWithoutMusicianProfileInput>
+  }
+
+  export type FavoriteUpdateWithWhereUniqueWithoutMusicianProfileInput = {
+    where: FavoriteWhereUniqueInput
+    data: XOR<FavoriteUpdateWithoutMusicianProfileInput, FavoriteUncheckedUpdateWithoutMusicianProfileInput>
+  }
+
+  export type FavoriteUpdateManyWithWhereWithoutMusicianProfileInput = {
+    where: FavoriteScalarWhereInput
+    data: XOR<FavoriteUpdateManyMutationInput, FavoriteUncheckedUpdateManyWithoutMusicianProfileInput>
+  }
+
+  export type ConversationUpsertWithWhereUniqueWithoutMusicianProfileInput = {
+    where: ConversationWhereUniqueInput
+    update: XOR<ConversationUpdateWithoutMusicianProfileInput, ConversationUncheckedUpdateWithoutMusicianProfileInput>
+    create: XOR<ConversationCreateWithoutMusicianProfileInput, ConversationUncheckedCreateWithoutMusicianProfileInput>
+  }
+
+  export type ConversationUpdateWithWhereUniqueWithoutMusicianProfileInput = {
+    where: ConversationWhereUniqueInput
+    data: XOR<ConversationUpdateWithoutMusicianProfileInput, ConversationUncheckedUpdateWithoutMusicianProfileInput>
+  }
+
+  export type ConversationUpdateManyWithWhereWithoutMusicianProfileInput = {
+    where: ConversationScalarWhereInput
+    data: XOR<ConversationUpdateManyMutationInput, ConversationUncheckedUpdateManyWithoutMusicianProfileInput>
+  }
+
   export type MusicianProfileCreateWithoutPortfolioInput = {
     category?: string | null
     bio?: string | null
@@ -19784,6 +29164,8 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreCreateNestedManyWithoutMusicianProfileInput
     musicianInstruments?: MusicianInstrumentCreateNestedManyWithoutMusicianProfileInput
     bookings?: BookingCreateNestedManyWithoutMusicianProfileInput
+    favoritedBy?: FavoriteCreateNestedManyWithoutMusicianProfileInput
+    conversations?: ConversationCreateNestedManyWithoutMusicianProfileInput
   }
 
   export type MusicianProfileUncheckedCreateWithoutPortfolioInput = {
@@ -19808,6 +29190,8 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreUncheckedCreateNestedManyWithoutMusicianProfileInput
     musicianInstruments?: MusicianInstrumentUncheckedCreateNestedManyWithoutMusicianProfileInput
     bookings?: BookingUncheckedCreateNestedManyWithoutMusicianProfileInput
+    favoritedBy?: FavoriteUncheckedCreateNestedManyWithoutMusicianProfileInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutMusicianProfileInput
   }
 
   export type MusicianProfileCreateOrConnectWithoutPortfolioInput = {
@@ -19847,6 +29231,8 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreUpdateManyWithoutMusicianProfileNestedInput
     musicianInstruments?: MusicianInstrumentUpdateManyWithoutMusicianProfileNestedInput
     bookings?: BookingUpdateManyWithoutMusicianProfileNestedInput
+    favoritedBy?: FavoriteUpdateManyWithoutMusicianProfileNestedInput
+    conversations?: ConversationUpdateManyWithoutMusicianProfileNestedInput
   }
 
   export type MusicianProfileUncheckedUpdateWithoutPortfolioInput = {
@@ -19871,6 +29257,8 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreUncheckedUpdateManyWithoutMusicianProfileNestedInput
     musicianInstruments?: MusicianInstrumentUncheckedUpdateManyWithoutMusicianProfileNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutMusicianProfileNestedInput
+    favoritedBy?: FavoriteUncheckedUpdateManyWithoutMusicianProfileNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutMusicianProfileNestedInput
   }
 
   export type MusicianGenreCreateWithoutGenreInput = {
@@ -19962,6 +29350,8 @@ export namespace Prisma {
     reviewsReceived?: ReviewCreateNestedManyWithoutMusicianProfileInput
     musicianInstruments?: MusicianInstrumentCreateNestedManyWithoutMusicianProfileInput
     bookings?: BookingCreateNestedManyWithoutMusicianProfileInput
+    favoritedBy?: FavoriteCreateNestedManyWithoutMusicianProfileInput
+    conversations?: ConversationCreateNestedManyWithoutMusicianProfileInput
   }
 
   export type MusicianProfileUncheckedCreateWithoutMusicianGenresInput = {
@@ -19986,6 +29376,8 @@ export namespace Prisma {
     reviewsReceived?: ReviewUncheckedCreateNestedManyWithoutMusicianProfileInput
     musicianInstruments?: MusicianInstrumentUncheckedCreateNestedManyWithoutMusicianProfileInput
     bookings?: BookingUncheckedCreateNestedManyWithoutMusicianProfileInput
+    favoritedBy?: FavoriteUncheckedCreateNestedManyWithoutMusicianProfileInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutMusicianProfileInput
   }
 
   export type MusicianProfileCreateOrConnectWithoutMusicianGenresInput = {
@@ -20041,6 +29433,8 @@ export namespace Prisma {
     reviewsReceived?: ReviewUpdateManyWithoutMusicianProfileNestedInput
     musicianInstruments?: MusicianInstrumentUpdateManyWithoutMusicianProfileNestedInput
     bookings?: BookingUpdateManyWithoutMusicianProfileNestedInput
+    favoritedBy?: FavoriteUpdateManyWithoutMusicianProfileNestedInput
+    conversations?: ConversationUpdateManyWithoutMusicianProfileNestedInput
   }
 
   export type MusicianProfileUncheckedUpdateWithoutMusicianGenresInput = {
@@ -20065,6 +29459,8 @@ export namespace Prisma {
     reviewsReceived?: ReviewUncheckedUpdateManyWithoutMusicianProfileNestedInput
     musicianInstruments?: MusicianInstrumentUncheckedUpdateManyWithoutMusicianProfileNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutMusicianProfileNestedInput
+    favoritedBy?: FavoriteUncheckedUpdateManyWithoutMusicianProfileNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutMusicianProfileNestedInput
   }
 
   export type GenreUpsertWithoutMusicianGenresInput = {
@@ -20110,6 +29506,8 @@ export namespace Prisma {
     reviewsReceived?: ReviewCreateNestedManyWithoutMusicianProfileInput
     musicianGenres?: MusicianGenreCreateNestedManyWithoutMusicianProfileInput
     bookings?: BookingCreateNestedManyWithoutMusicianProfileInput
+    favoritedBy?: FavoriteCreateNestedManyWithoutMusicianProfileInput
+    conversations?: ConversationCreateNestedManyWithoutMusicianProfileInput
   }
 
   export type MusicianProfileUncheckedCreateWithoutMusicianInstrumentsInput = {
@@ -20134,6 +29532,8 @@ export namespace Prisma {
     reviewsReceived?: ReviewUncheckedCreateNestedManyWithoutMusicianProfileInput
     musicianGenres?: MusicianGenreUncheckedCreateNestedManyWithoutMusicianProfileInput
     bookings?: BookingUncheckedCreateNestedManyWithoutMusicianProfileInput
+    favoritedBy?: FavoriteUncheckedCreateNestedManyWithoutMusicianProfileInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutMusicianProfileInput
   }
 
   export type MusicianProfileCreateOrConnectWithoutMusicianInstrumentsInput = {
@@ -20189,6 +29589,8 @@ export namespace Prisma {
     reviewsReceived?: ReviewUpdateManyWithoutMusicianProfileNestedInput
     musicianGenres?: MusicianGenreUpdateManyWithoutMusicianProfileNestedInput
     bookings?: BookingUpdateManyWithoutMusicianProfileNestedInput
+    favoritedBy?: FavoriteUpdateManyWithoutMusicianProfileNestedInput
+    conversations?: ConversationUpdateManyWithoutMusicianProfileNestedInput
   }
 
   export type MusicianProfileUncheckedUpdateWithoutMusicianInstrumentsInput = {
@@ -20213,6 +29615,8 @@ export namespace Prisma {
     reviewsReceived?: ReviewUncheckedUpdateManyWithoutMusicianProfileNestedInput
     musicianGenres?: MusicianGenreUncheckedUpdateManyWithoutMusicianProfileNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutMusicianProfileNestedInput
+    favoritedBy?: FavoriteUncheckedUpdateManyWithoutMusicianProfileNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutMusicianProfileNestedInput
   }
 
   export type InstrumentUpsertWithoutMusicianInstrumentsInput = {
@@ -20258,6 +29662,8 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreCreateNestedManyWithoutMusicianProfileInput
     musicianInstruments?: MusicianInstrumentCreateNestedManyWithoutMusicianProfileInput
     bookings?: BookingCreateNestedManyWithoutMusicianProfileInput
+    favoritedBy?: FavoriteCreateNestedManyWithoutMusicianProfileInput
+    conversations?: ConversationCreateNestedManyWithoutMusicianProfileInput
   }
 
   export type MusicianProfileUncheckedCreateWithoutReviewsReceivedInput = {
@@ -20282,6 +29688,8 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreUncheckedCreateNestedManyWithoutMusicianProfileInput
     musicianInstruments?: MusicianInstrumentUncheckedCreateNestedManyWithoutMusicianProfileInput
     bookings?: BookingUncheckedCreateNestedManyWithoutMusicianProfileInput
+    favoritedBy?: FavoriteUncheckedCreateNestedManyWithoutMusicianProfileInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutMusicianProfileInput
   }
 
   export type MusicianProfileCreateOrConnectWithoutReviewsReceivedInput = {
@@ -20298,10 +29706,20 @@ export namespace Prisma {
     city?: string | null
     state?: string | null
     userType: $Enums.UserType
+    role?: $Enums.UserRole
+    profileImageUrl?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     musicianProfile?: MusicianProfileCreateNestedOneWithoutUserInput
     bookings?: BookingCreateNestedManyWithoutClientInput
+    favorites?: FavoriteCreateNestedManyWithoutUserInput
+    conversationsAsClient?: ConversationCreateNestedManyWithoutClientInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    notificationPreferences?: NotificationPreferenceCreateNestedOneWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    paymentHistory?: PaymentHistoryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReviewsGivenInput = {
@@ -20314,10 +29732,20 @@ export namespace Prisma {
     city?: string | null
     state?: string | null
     userType: $Enums.UserType
+    role?: $Enums.UserRole
+    profileImageUrl?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     musicianProfile?: MusicianProfileUncheckedCreateNestedOneWithoutUserInput
     bookings?: BookingUncheckedCreateNestedManyWithoutClientInput
+    favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
+    conversationsAsClient?: ConversationUncheckedCreateNestedManyWithoutClientInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    notificationPreferences?: NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    paymentHistory?: PaymentHistoryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReviewsGivenInput = {
@@ -20357,6 +29785,8 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreUpdateManyWithoutMusicianProfileNestedInput
     musicianInstruments?: MusicianInstrumentUpdateManyWithoutMusicianProfileNestedInput
     bookings?: BookingUpdateManyWithoutMusicianProfileNestedInput
+    favoritedBy?: FavoriteUpdateManyWithoutMusicianProfileNestedInput
+    conversations?: ConversationUpdateManyWithoutMusicianProfileNestedInput
   }
 
   export type MusicianProfileUncheckedUpdateWithoutReviewsReceivedInput = {
@@ -20381,6 +29811,8 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreUncheckedUpdateManyWithoutMusicianProfileNestedInput
     musicianInstruments?: MusicianInstrumentUncheckedUpdateManyWithoutMusicianProfileNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutMusicianProfileNestedInput
+    favoritedBy?: FavoriteUncheckedUpdateManyWithoutMusicianProfileNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutMusicianProfileNestedInput
   }
 
   export type UserUpsertWithoutReviewsGivenInput = {
@@ -20403,10 +29835,20 @@ export namespace Prisma {
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     musicianProfile?: MusicianProfileUpdateOneWithoutUserNestedInput
     bookings?: BookingUpdateManyWithoutClientNestedInput
+    favorites?: FavoriteUpdateManyWithoutUserNestedInput
+    conversationsAsClient?: ConversationUpdateManyWithoutClientNestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    notificationPreferences?: NotificationPreferenceUpdateOneWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    paymentHistory?: PaymentHistoryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReviewsGivenInput = {
@@ -20419,10 +29861,20 @@ export namespace Prisma {
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     musicianProfile?: MusicianProfileUncheckedUpdateOneWithoutUserNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutClientNestedInput
+    favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
+    conversationsAsClient?: ConversationUncheckedUpdateManyWithoutClientNestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    notificationPreferences?: NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    paymentHistory?: PaymentHistoryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type MusicianProfileCreateWithoutBookingsInput = {
@@ -20446,6 +29898,8 @@ export namespace Prisma {
     reviewsReceived?: ReviewCreateNestedManyWithoutMusicianProfileInput
     musicianGenres?: MusicianGenreCreateNestedManyWithoutMusicianProfileInput
     musicianInstruments?: MusicianInstrumentCreateNestedManyWithoutMusicianProfileInput
+    favoritedBy?: FavoriteCreateNestedManyWithoutMusicianProfileInput
+    conversations?: ConversationCreateNestedManyWithoutMusicianProfileInput
   }
 
   export type MusicianProfileUncheckedCreateWithoutBookingsInput = {
@@ -20470,6 +29924,8 @@ export namespace Prisma {
     reviewsReceived?: ReviewUncheckedCreateNestedManyWithoutMusicianProfileInput
     musicianGenres?: MusicianGenreUncheckedCreateNestedManyWithoutMusicianProfileInput
     musicianInstruments?: MusicianInstrumentUncheckedCreateNestedManyWithoutMusicianProfileInput
+    favoritedBy?: FavoriteUncheckedCreateNestedManyWithoutMusicianProfileInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutMusicianProfileInput
   }
 
   export type MusicianProfileCreateOrConnectWithoutBookingsInput = {
@@ -20486,10 +29942,20 @@ export namespace Prisma {
     city?: string | null
     state?: string | null
     userType: $Enums.UserType
+    role?: $Enums.UserRole
+    profileImageUrl?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     musicianProfile?: MusicianProfileCreateNestedOneWithoutUserInput
     reviewsGiven?: ReviewCreateNestedManyWithoutClientInput
+    favorites?: FavoriteCreateNestedManyWithoutUserInput
+    conversationsAsClient?: ConversationCreateNestedManyWithoutClientInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    notificationPreferences?: NotificationPreferenceCreateNestedOneWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    paymentHistory?: PaymentHistoryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBookingsInput = {
@@ -20502,10 +29968,20 @@ export namespace Prisma {
     city?: string | null
     state?: string | null
     userType: $Enums.UserType
+    role?: $Enums.UserRole
+    profileImageUrl?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     musicianProfile?: MusicianProfileUncheckedCreateNestedOneWithoutUserInput
     reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutClientInput
+    favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
+    conversationsAsClient?: ConversationUncheckedCreateNestedManyWithoutClientInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    notificationPreferences?: NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    paymentHistory?: PaymentHistoryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBookingsInput = {
@@ -20545,6 +30021,8 @@ export namespace Prisma {
     reviewsReceived?: ReviewUpdateManyWithoutMusicianProfileNestedInput
     musicianGenres?: MusicianGenreUpdateManyWithoutMusicianProfileNestedInput
     musicianInstruments?: MusicianInstrumentUpdateManyWithoutMusicianProfileNestedInput
+    favoritedBy?: FavoriteUpdateManyWithoutMusicianProfileNestedInput
+    conversations?: ConversationUpdateManyWithoutMusicianProfileNestedInput
   }
 
   export type MusicianProfileUncheckedUpdateWithoutBookingsInput = {
@@ -20569,6 +30047,8 @@ export namespace Prisma {
     reviewsReceived?: ReviewUncheckedUpdateManyWithoutMusicianProfileNestedInput
     musicianGenres?: MusicianGenreUncheckedUpdateManyWithoutMusicianProfileNestedInput
     musicianInstruments?: MusicianInstrumentUncheckedUpdateManyWithoutMusicianProfileNestedInput
+    favoritedBy?: FavoriteUncheckedUpdateManyWithoutMusicianProfileNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutMusicianProfileNestedInput
   }
 
   export type UserUpsertWithoutBookingsInput = {
@@ -20591,10 +30071,20 @@ export namespace Prisma {
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     musicianProfile?: MusicianProfileUpdateOneWithoutUserNestedInput
     reviewsGiven?: ReviewUpdateManyWithoutClientNestedInput
+    favorites?: FavoriteUpdateManyWithoutUserNestedInput
+    conversationsAsClient?: ConversationUpdateManyWithoutClientNestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    notificationPreferences?: NotificationPreferenceUpdateOneWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    paymentHistory?: PaymentHistoryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBookingsInput = {
@@ -20607,10 +30097,20 @@ export namespace Prisma {
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     musicianProfile?: MusicianProfileUncheckedUpdateOneWithoutUserNestedInput
     reviewsGiven?: ReviewUncheckedUpdateManyWithoutClientNestedInput
+    favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
+    conversationsAsClient?: ConversationUncheckedUpdateManyWithoutClientNestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    notificationPreferences?: NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    paymentHistory?: PaymentHistoryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PlanFeatureCreateWithoutPlanInput = {
@@ -20633,6 +30133,41 @@ export namespace Prisma {
 
   export type PlanFeatureCreateManyPlanInputEnvelope = {
     data: PlanFeatureCreateManyPlanInput | PlanFeatureCreateManyPlanInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SubscriptionCreateWithoutPlanInput = {
+    stripeSubscriptionId?: string | null
+    stripeCustomerId?: string | null
+    status: string
+    currentPeriodStart: Date | string
+    currentPeriodEnd: Date | string
+    cancelAtPeriodEnd?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutSubscriptionInput
+  }
+
+  export type SubscriptionUncheckedCreateWithoutPlanInput = {
+    id?: number
+    userId: number
+    stripeSubscriptionId?: string | null
+    stripeCustomerId?: string | null
+    status: string
+    currentPeriodStart: Date | string
+    currentPeriodEnd: Date | string
+    cancelAtPeriodEnd?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SubscriptionCreateOrConnectWithoutPlanInput = {
+    where: SubscriptionWhereUniqueInput
+    create: XOR<SubscriptionCreateWithoutPlanInput, SubscriptionUncheckedCreateWithoutPlanInput>
+  }
+
+  export type SubscriptionCreateManyPlanInputEnvelope = {
+    data: SubscriptionCreateManyPlanInput | SubscriptionCreateManyPlanInput[]
     skipDuplicates?: boolean
   }
 
@@ -20663,6 +30198,39 @@ export namespace Prisma {
     highlight?: BoolFilter<"PlanFeature"> | boolean
   }
 
+  export type SubscriptionUpsertWithWhereUniqueWithoutPlanInput = {
+    where: SubscriptionWhereUniqueInput
+    update: XOR<SubscriptionUpdateWithoutPlanInput, SubscriptionUncheckedUpdateWithoutPlanInput>
+    create: XOR<SubscriptionCreateWithoutPlanInput, SubscriptionUncheckedCreateWithoutPlanInput>
+  }
+
+  export type SubscriptionUpdateWithWhereUniqueWithoutPlanInput = {
+    where: SubscriptionWhereUniqueInput
+    data: XOR<SubscriptionUpdateWithoutPlanInput, SubscriptionUncheckedUpdateWithoutPlanInput>
+  }
+
+  export type SubscriptionUpdateManyWithWhereWithoutPlanInput = {
+    where: SubscriptionScalarWhereInput
+    data: XOR<SubscriptionUpdateManyMutationInput, SubscriptionUncheckedUpdateManyWithoutPlanInput>
+  }
+
+  export type SubscriptionScalarWhereInput = {
+    AND?: SubscriptionScalarWhereInput | SubscriptionScalarWhereInput[]
+    OR?: SubscriptionScalarWhereInput[]
+    NOT?: SubscriptionScalarWhereInput | SubscriptionScalarWhereInput[]
+    id?: IntFilter<"Subscription"> | number
+    userId?: IntFilter<"Subscription"> | number
+    planId?: IntFilter<"Subscription"> | number
+    stripeSubscriptionId?: StringNullableFilter<"Subscription"> | string | null
+    stripeCustomerId?: StringNullableFilter<"Subscription"> | string | null
+    status?: StringFilter<"Subscription"> | string
+    currentPeriodStart?: DateTimeFilter<"Subscription"> | Date | string
+    currentPeriodEnd?: DateTimeFilter<"Subscription"> | Date | string
+    cancelAtPeriodEnd?: BoolFilter<"Subscription"> | boolean
+    createdAt?: DateTimeFilter<"Subscription"> | Date | string
+    updatedAt?: DateTimeFilter<"Subscription"> | Date | string
+  }
+
   export type PlanCreateWithoutFeaturesInput = {
     title: string
     description?: string | null
@@ -20672,6 +30240,7 @@ export namespace Prisma {
     isMusicianPlan: boolean
     isClientPlan: boolean
     createdAt?: Date | string
+    subscriptions?: SubscriptionCreateNestedManyWithoutPlanInput
   }
 
   export type PlanUncheckedCreateWithoutFeaturesInput = {
@@ -20684,6 +30253,7 @@ export namespace Prisma {
     isMusicianPlan: boolean
     isClientPlan: boolean
     createdAt?: Date | string
+    subscriptions?: SubscriptionUncheckedCreateNestedManyWithoutPlanInput
   }
 
   export type PlanCreateOrConnectWithoutFeaturesInput = {
@@ -20711,6 +30281,7 @@ export namespace Prisma {
     isMusicianPlan?: BoolFieldUpdateOperationsInput | boolean
     isClientPlan?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subscriptions?: SubscriptionUpdateManyWithoutPlanNestedInput
   }
 
   export type PlanUncheckedUpdateWithoutFeaturesInput = {
@@ -20723,6 +30294,1104 @@ export namespace Prisma {
     isMusicianPlan?: BoolFieldUpdateOperationsInput | boolean
     isClientPlan?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subscriptions?: SubscriptionUncheckedUpdateManyWithoutPlanNestedInput
+  }
+
+  export type UserCreateWithoutFavoritesInput = {
+    email: string
+    passwordHash: string
+    firstName: string
+    lastName: string
+    phone?: string | null
+    city?: string | null
+    state?: string | null
+    userType: $Enums.UserType
+    role?: $Enums.UserRole
+    profileImageUrl?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    musicianProfile?: MusicianProfileCreateNestedOneWithoutUserInput
+    reviewsGiven?: ReviewCreateNestedManyWithoutClientInput
+    bookings?: BookingCreateNestedManyWithoutClientInput
+    conversationsAsClient?: ConversationCreateNestedManyWithoutClientInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    notificationPreferences?: NotificationPreferenceCreateNestedOneWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    paymentHistory?: PaymentHistoryCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutFavoritesInput = {
+    id?: number
+    email: string
+    passwordHash: string
+    firstName: string
+    lastName: string
+    phone?: string | null
+    city?: string | null
+    state?: string | null
+    userType: $Enums.UserType
+    role?: $Enums.UserRole
+    profileImageUrl?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    musicianProfile?: MusicianProfileUncheckedCreateNestedOneWithoutUserInput
+    reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutClientInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutClientInput
+    conversationsAsClient?: ConversationUncheckedCreateNestedManyWithoutClientInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    notificationPreferences?: NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    paymentHistory?: PaymentHistoryUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutFavoritesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutFavoritesInput, UserUncheckedCreateWithoutFavoritesInput>
+  }
+
+  export type MusicianProfileCreateWithoutFavoritedByInput = {
+    category?: string | null
+    bio?: string | null
+    location?: string | null
+    priceFrom?: number | null
+    experience?: string | null
+    equipment?: string | null
+    availability?: string | null
+    rating?: number
+    ratingCount?: number
+    eventsCount?: number
+    satisfactionRate?: number | null
+    responseTime?: string | null
+    isFeatured?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutMusicianProfileInput
+    portfolio?: PortfolioItemCreateNestedManyWithoutMusicianProfileInput
+    reviewsReceived?: ReviewCreateNestedManyWithoutMusicianProfileInput
+    musicianGenres?: MusicianGenreCreateNestedManyWithoutMusicianProfileInput
+    musicianInstruments?: MusicianInstrumentCreateNestedManyWithoutMusicianProfileInput
+    bookings?: BookingCreateNestedManyWithoutMusicianProfileInput
+    conversations?: ConversationCreateNestedManyWithoutMusicianProfileInput
+  }
+
+  export type MusicianProfileUncheckedCreateWithoutFavoritedByInput = {
+    id?: number
+    userId: number
+    category?: string | null
+    bio?: string | null
+    location?: string | null
+    priceFrom?: number | null
+    experience?: string | null
+    equipment?: string | null
+    availability?: string | null
+    rating?: number
+    ratingCount?: number
+    eventsCount?: number
+    satisfactionRate?: number | null
+    responseTime?: string | null
+    isFeatured?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    portfolio?: PortfolioItemUncheckedCreateNestedManyWithoutMusicianProfileInput
+    reviewsReceived?: ReviewUncheckedCreateNestedManyWithoutMusicianProfileInput
+    musicianGenres?: MusicianGenreUncheckedCreateNestedManyWithoutMusicianProfileInput
+    musicianInstruments?: MusicianInstrumentUncheckedCreateNestedManyWithoutMusicianProfileInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutMusicianProfileInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutMusicianProfileInput
+  }
+
+  export type MusicianProfileCreateOrConnectWithoutFavoritedByInput = {
+    where: MusicianProfileWhereUniqueInput
+    create: XOR<MusicianProfileCreateWithoutFavoritedByInput, MusicianProfileUncheckedCreateWithoutFavoritedByInput>
+  }
+
+  export type UserUpsertWithoutFavoritesInput = {
+    update: XOR<UserUpdateWithoutFavoritesInput, UserUncheckedUpdateWithoutFavoritesInput>
+    create: XOR<UserCreateWithoutFavoritesInput, UserUncheckedCreateWithoutFavoritesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutFavoritesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutFavoritesInput, UserUncheckedUpdateWithoutFavoritesInput>
+  }
+
+  export type UserUpdateWithoutFavoritesInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    musicianProfile?: MusicianProfileUpdateOneWithoutUserNestedInput
+    reviewsGiven?: ReviewUpdateManyWithoutClientNestedInput
+    bookings?: BookingUpdateManyWithoutClientNestedInput
+    conversationsAsClient?: ConversationUpdateManyWithoutClientNestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    notificationPreferences?: NotificationPreferenceUpdateOneWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    paymentHistory?: PaymentHistoryUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutFavoritesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    musicianProfile?: MusicianProfileUncheckedUpdateOneWithoutUserNestedInput
+    reviewsGiven?: ReviewUncheckedUpdateManyWithoutClientNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutClientNestedInput
+    conversationsAsClient?: ConversationUncheckedUpdateManyWithoutClientNestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    notificationPreferences?: NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    paymentHistory?: PaymentHistoryUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type MusicianProfileUpsertWithoutFavoritedByInput = {
+    update: XOR<MusicianProfileUpdateWithoutFavoritedByInput, MusicianProfileUncheckedUpdateWithoutFavoritedByInput>
+    create: XOR<MusicianProfileCreateWithoutFavoritedByInput, MusicianProfileUncheckedCreateWithoutFavoritedByInput>
+    where?: MusicianProfileWhereInput
+  }
+
+  export type MusicianProfileUpdateToOneWithWhereWithoutFavoritedByInput = {
+    where?: MusicianProfileWhereInput
+    data: XOR<MusicianProfileUpdateWithoutFavoritedByInput, MusicianProfileUncheckedUpdateWithoutFavoritedByInput>
+  }
+
+  export type MusicianProfileUpdateWithoutFavoritedByInput = {
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    priceFrom?: NullableIntFieldUpdateOperationsInput | number | null
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    equipment?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    ratingCount?: IntFieldUpdateOperationsInput | number
+    eventsCount?: IntFieldUpdateOperationsInput | number
+    satisfactionRate?: NullableIntFieldUpdateOperationsInput | number | null
+    responseTime?: NullableStringFieldUpdateOperationsInput | string | null
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutMusicianProfileNestedInput
+    portfolio?: PortfolioItemUpdateManyWithoutMusicianProfileNestedInput
+    reviewsReceived?: ReviewUpdateManyWithoutMusicianProfileNestedInput
+    musicianGenres?: MusicianGenreUpdateManyWithoutMusicianProfileNestedInput
+    musicianInstruments?: MusicianInstrumentUpdateManyWithoutMusicianProfileNestedInput
+    bookings?: BookingUpdateManyWithoutMusicianProfileNestedInput
+    conversations?: ConversationUpdateManyWithoutMusicianProfileNestedInput
+  }
+
+  export type MusicianProfileUncheckedUpdateWithoutFavoritedByInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    priceFrom?: NullableIntFieldUpdateOperationsInput | number | null
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    equipment?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    ratingCount?: IntFieldUpdateOperationsInput | number
+    eventsCount?: IntFieldUpdateOperationsInput | number
+    satisfactionRate?: NullableIntFieldUpdateOperationsInput | number | null
+    responseTime?: NullableStringFieldUpdateOperationsInput | string | null
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    portfolio?: PortfolioItemUncheckedUpdateManyWithoutMusicianProfileNestedInput
+    reviewsReceived?: ReviewUncheckedUpdateManyWithoutMusicianProfileNestedInput
+    musicianGenres?: MusicianGenreUncheckedUpdateManyWithoutMusicianProfileNestedInput
+    musicianInstruments?: MusicianInstrumentUncheckedUpdateManyWithoutMusicianProfileNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutMusicianProfileNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutMusicianProfileNestedInput
+  }
+
+  export type UserCreateWithoutConversationsAsClientInput = {
+    email: string
+    passwordHash: string
+    firstName: string
+    lastName: string
+    phone?: string | null
+    city?: string | null
+    state?: string | null
+    userType: $Enums.UserType
+    role?: $Enums.UserRole
+    profileImageUrl?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    musicianProfile?: MusicianProfileCreateNestedOneWithoutUserInput
+    reviewsGiven?: ReviewCreateNestedManyWithoutClientInput
+    bookings?: BookingCreateNestedManyWithoutClientInput
+    favorites?: FavoriteCreateNestedManyWithoutUserInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    notificationPreferences?: NotificationPreferenceCreateNestedOneWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    paymentHistory?: PaymentHistoryCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutConversationsAsClientInput = {
+    id?: number
+    email: string
+    passwordHash: string
+    firstName: string
+    lastName: string
+    phone?: string | null
+    city?: string | null
+    state?: string | null
+    userType: $Enums.UserType
+    role?: $Enums.UserRole
+    profileImageUrl?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    musicianProfile?: MusicianProfileUncheckedCreateNestedOneWithoutUserInput
+    reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutClientInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutClientInput
+    favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    notificationPreferences?: NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    paymentHistory?: PaymentHistoryUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutConversationsAsClientInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutConversationsAsClientInput, UserUncheckedCreateWithoutConversationsAsClientInput>
+  }
+
+  export type MusicianProfileCreateWithoutConversationsInput = {
+    category?: string | null
+    bio?: string | null
+    location?: string | null
+    priceFrom?: number | null
+    experience?: string | null
+    equipment?: string | null
+    availability?: string | null
+    rating?: number
+    ratingCount?: number
+    eventsCount?: number
+    satisfactionRate?: number | null
+    responseTime?: string | null
+    isFeatured?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutMusicianProfileInput
+    portfolio?: PortfolioItemCreateNestedManyWithoutMusicianProfileInput
+    reviewsReceived?: ReviewCreateNestedManyWithoutMusicianProfileInput
+    musicianGenres?: MusicianGenreCreateNestedManyWithoutMusicianProfileInput
+    musicianInstruments?: MusicianInstrumentCreateNestedManyWithoutMusicianProfileInput
+    bookings?: BookingCreateNestedManyWithoutMusicianProfileInput
+    favoritedBy?: FavoriteCreateNestedManyWithoutMusicianProfileInput
+  }
+
+  export type MusicianProfileUncheckedCreateWithoutConversationsInput = {
+    id?: number
+    userId: number
+    category?: string | null
+    bio?: string | null
+    location?: string | null
+    priceFrom?: number | null
+    experience?: string | null
+    equipment?: string | null
+    availability?: string | null
+    rating?: number
+    ratingCount?: number
+    eventsCount?: number
+    satisfactionRate?: number | null
+    responseTime?: string | null
+    isFeatured?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    portfolio?: PortfolioItemUncheckedCreateNestedManyWithoutMusicianProfileInput
+    reviewsReceived?: ReviewUncheckedCreateNestedManyWithoutMusicianProfileInput
+    musicianGenres?: MusicianGenreUncheckedCreateNestedManyWithoutMusicianProfileInput
+    musicianInstruments?: MusicianInstrumentUncheckedCreateNestedManyWithoutMusicianProfileInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutMusicianProfileInput
+    favoritedBy?: FavoriteUncheckedCreateNestedManyWithoutMusicianProfileInput
+  }
+
+  export type MusicianProfileCreateOrConnectWithoutConversationsInput = {
+    where: MusicianProfileWhereUniqueInput
+    create: XOR<MusicianProfileCreateWithoutConversationsInput, MusicianProfileUncheckedCreateWithoutConversationsInput>
+  }
+
+  export type MessageCreateWithoutConversationInput = {
+    content: string
+    isRead?: boolean
+    createdAt?: Date | string
+    sender: UserCreateNestedOneWithoutMessagesSentInput
+  }
+
+  export type MessageUncheckedCreateWithoutConversationInput = {
+    id?: number
+    senderId: number
+    content: string
+    isRead?: boolean
+    createdAt?: Date | string
+  }
+
+  export type MessageCreateOrConnectWithoutConversationInput = {
+    where: MessageWhereUniqueInput
+    create: XOR<MessageCreateWithoutConversationInput, MessageUncheckedCreateWithoutConversationInput>
+  }
+
+  export type MessageCreateManyConversationInputEnvelope = {
+    data: MessageCreateManyConversationInput | MessageCreateManyConversationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutConversationsAsClientInput = {
+    update: XOR<UserUpdateWithoutConversationsAsClientInput, UserUncheckedUpdateWithoutConversationsAsClientInput>
+    create: XOR<UserCreateWithoutConversationsAsClientInput, UserUncheckedCreateWithoutConversationsAsClientInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutConversationsAsClientInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutConversationsAsClientInput, UserUncheckedUpdateWithoutConversationsAsClientInput>
+  }
+
+  export type UserUpdateWithoutConversationsAsClientInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    musicianProfile?: MusicianProfileUpdateOneWithoutUserNestedInput
+    reviewsGiven?: ReviewUpdateManyWithoutClientNestedInput
+    bookings?: BookingUpdateManyWithoutClientNestedInput
+    favorites?: FavoriteUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    notificationPreferences?: NotificationPreferenceUpdateOneWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    paymentHistory?: PaymentHistoryUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutConversationsAsClientInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    musicianProfile?: MusicianProfileUncheckedUpdateOneWithoutUserNestedInput
+    reviewsGiven?: ReviewUncheckedUpdateManyWithoutClientNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutClientNestedInput
+    favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    notificationPreferences?: NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    paymentHistory?: PaymentHistoryUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type MusicianProfileUpsertWithoutConversationsInput = {
+    update: XOR<MusicianProfileUpdateWithoutConversationsInput, MusicianProfileUncheckedUpdateWithoutConversationsInput>
+    create: XOR<MusicianProfileCreateWithoutConversationsInput, MusicianProfileUncheckedCreateWithoutConversationsInput>
+    where?: MusicianProfileWhereInput
+  }
+
+  export type MusicianProfileUpdateToOneWithWhereWithoutConversationsInput = {
+    where?: MusicianProfileWhereInput
+    data: XOR<MusicianProfileUpdateWithoutConversationsInput, MusicianProfileUncheckedUpdateWithoutConversationsInput>
+  }
+
+  export type MusicianProfileUpdateWithoutConversationsInput = {
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    priceFrom?: NullableIntFieldUpdateOperationsInput | number | null
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    equipment?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    ratingCount?: IntFieldUpdateOperationsInput | number
+    eventsCount?: IntFieldUpdateOperationsInput | number
+    satisfactionRate?: NullableIntFieldUpdateOperationsInput | number | null
+    responseTime?: NullableStringFieldUpdateOperationsInput | string | null
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutMusicianProfileNestedInput
+    portfolio?: PortfolioItemUpdateManyWithoutMusicianProfileNestedInput
+    reviewsReceived?: ReviewUpdateManyWithoutMusicianProfileNestedInput
+    musicianGenres?: MusicianGenreUpdateManyWithoutMusicianProfileNestedInput
+    musicianInstruments?: MusicianInstrumentUpdateManyWithoutMusicianProfileNestedInput
+    bookings?: BookingUpdateManyWithoutMusicianProfileNestedInput
+    favoritedBy?: FavoriteUpdateManyWithoutMusicianProfileNestedInput
+  }
+
+  export type MusicianProfileUncheckedUpdateWithoutConversationsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    priceFrom?: NullableIntFieldUpdateOperationsInput | number | null
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    equipment?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    ratingCount?: IntFieldUpdateOperationsInput | number
+    eventsCount?: IntFieldUpdateOperationsInput | number
+    satisfactionRate?: NullableIntFieldUpdateOperationsInput | number | null
+    responseTime?: NullableStringFieldUpdateOperationsInput | string | null
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    portfolio?: PortfolioItemUncheckedUpdateManyWithoutMusicianProfileNestedInput
+    reviewsReceived?: ReviewUncheckedUpdateManyWithoutMusicianProfileNestedInput
+    musicianGenres?: MusicianGenreUncheckedUpdateManyWithoutMusicianProfileNestedInput
+    musicianInstruments?: MusicianInstrumentUncheckedUpdateManyWithoutMusicianProfileNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutMusicianProfileNestedInput
+    favoritedBy?: FavoriteUncheckedUpdateManyWithoutMusicianProfileNestedInput
+  }
+
+  export type MessageUpsertWithWhereUniqueWithoutConversationInput = {
+    where: MessageWhereUniqueInput
+    update: XOR<MessageUpdateWithoutConversationInput, MessageUncheckedUpdateWithoutConversationInput>
+    create: XOR<MessageCreateWithoutConversationInput, MessageUncheckedCreateWithoutConversationInput>
+  }
+
+  export type MessageUpdateWithWhereUniqueWithoutConversationInput = {
+    where: MessageWhereUniqueInput
+    data: XOR<MessageUpdateWithoutConversationInput, MessageUncheckedUpdateWithoutConversationInput>
+  }
+
+  export type MessageUpdateManyWithWhereWithoutConversationInput = {
+    where: MessageScalarWhereInput
+    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyWithoutConversationInput>
+  }
+
+  export type ConversationCreateWithoutMessagesInput = {
+    lastMessageAt?: Date | string
+    createdAt?: Date | string
+    client: UserCreateNestedOneWithoutConversationsAsClientInput
+    musicianProfile: MusicianProfileCreateNestedOneWithoutConversationsInput
+  }
+
+  export type ConversationUncheckedCreateWithoutMessagesInput = {
+    id?: number
+    clientId: number
+    musicianProfileId: number
+    lastMessageAt?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type ConversationCreateOrConnectWithoutMessagesInput = {
+    where: ConversationWhereUniqueInput
+    create: XOR<ConversationCreateWithoutMessagesInput, ConversationUncheckedCreateWithoutMessagesInput>
+  }
+
+  export type UserCreateWithoutMessagesSentInput = {
+    email: string
+    passwordHash: string
+    firstName: string
+    lastName: string
+    phone?: string | null
+    city?: string | null
+    state?: string | null
+    userType: $Enums.UserType
+    role?: $Enums.UserRole
+    profileImageUrl?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    musicianProfile?: MusicianProfileCreateNestedOneWithoutUserInput
+    reviewsGiven?: ReviewCreateNestedManyWithoutClientInput
+    bookings?: BookingCreateNestedManyWithoutClientInput
+    favorites?: FavoriteCreateNestedManyWithoutUserInput
+    conversationsAsClient?: ConversationCreateNestedManyWithoutClientInput
+    notificationPreferences?: NotificationPreferenceCreateNestedOneWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    paymentHistory?: PaymentHistoryCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutMessagesSentInput = {
+    id?: number
+    email: string
+    passwordHash: string
+    firstName: string
+    lastName: string
+    phone?: string | null
+    city?: string | null
+    state?: string | null
+    userType: $Enums.UserType
+    role?: $Enums.UserRole
+    profileImageUrl?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    musicianProfile?: MusicianProfileUncheckedCreateNestedOneWithoutUserInput
+    reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutClientInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutClientInput
+    favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
+    conversationsAsClient?: ConversationUncheckedCreateNestedManyWithoutClientInput
+    notificationPreferences?: NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    paymentHistory?: PaymentHistoryUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutMessagesSentInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMessagesSentInput, UserUncheckedCreateWithoutMessagesSentInput>
+  }
+
+  export type ConversationUpsertWithoutMessagesInput = {
+    update: XOR<ConversationUpdateWithoutMessagesInput, ConversationUncheckedUpdateWithoutMessagesInput>
+    create: XOR<ConversationCreateWithoutMessagesInput, ConversationUncheckedCreateWithoutMessagesInput>
+    where?: ConversationWhereInput
+  }
+
+  export type ConversationUpdateToOneWithWhereWithoutMessagesInput = {
+    where?: ConversationWhereInput
+    data: XOR<ConversationUpdateWithoutMessagesInput, ConversationUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type ConversationUpdateWithoutMessagesInput = {
+    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    client?: UserUpdateOneRequiredWithoutConversationsAsClientNestedInput
+    musicianProfile?: MusicianProfileUpdateOneRequiredWithoutConversationsNestedInput
+  }
+
+  export type ConversationUncheckedUpdateWithoutMessagesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    clientId?: IntFieldUpdateOperationsInput | number
+    musicianProfileId?: IntFieldUpdateOperationsInput | number
+    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutMessagesSentInput = {
+    update: XOR<UserUpdateWithoutMessagesSentInput, UserUncheckedUpdateWithoutMessagesSentInput>
+    create: XOR<UserCreateWithoutMessagesSentInput, UserUncheckedCreateWithoutMessagesSentInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMessagesSentInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMessagesSentInput, UserUncheckedUpdateWithoutMessagesSentInput>
+  }
+
+  export type UserUpdateWithoutMessagesSentInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    musicianProfile?: MusicianProfileUpdateOneWithoutUserNestedInput
+    reviewsGiven?: ReviewUpdateManyWithoutClientNestedInput
+    bookings?: BookingUpdateManyWithoutClientNestedInput
+    favorites?: FavoriteUpdateManyWithoutUserNestedInput
+    conversationsAsClient?: ConversationUpdateManyWithoutClientNestedInput
+    notificationPreferences?: NotificationPreferenceUpdateOneWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    paymentHistory?: PaymentHistoryUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMessagesSentInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    musicianProfile?: MusicianProfileUncheckedUpdateOneWithoutUserNestedInput
+    reviewsGiven?: ReviewUncheckedUpdateManyWithoutClientNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutClientNestedInput
+    favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
+    conversationsAsClient?: ConversationUncheckedUpdateManyWithoutClientNestedInput
+    notificationPreferences?: NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    paymentHistory?: PaymentHistoryUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutNotificationPreferencesInput = {
+    email: string
+    passwordHash: string
+    firstName: string
+    lastName: string
+    phone?: string | null
+    city?: string | null
+    state?: string | null
+    userType: $Enums.UserType
+    role?: $Enums.UserRole
+    profileImageUrl?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    musicianProfile?: MusicianProfileCreateNestedOneWithoutUserInput
+    reviewsGiven?: ReviewCreateNestedManyWithoutClientInput
+    bookings?: BookingCreateNestedManyWithoutClientInput
+    favorites?: FavoriteCreateNestedManyWithoutUserInput
+    conversationsAsClient?: ConversationCreateNestedManyWithoutClientInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    paymentHistory?: PaymentHistoryCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutNotificationPreferencesInput = {
+    id?: number
+    email: string
+    passwordHash: string
+    firstName: string
+    lastName: string
+    phone?: string | null
+    city?: string | null
+    state?: string | null
+    userType: $Enums.UserType
+    role?: $Enums.UserRole
+    profileImageUrl?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    musicianProfile?: MusicianProfileUncheckedCreateNestedOneWithoutUserInput
+    reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutClientInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutClientInput
+    favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
+    conversationsAsClient?: ConversationUncheckedCreateNestedManyWithoutClientInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    paymentHistory?: PaymentHistoryUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutNotificationPreferencesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutNotificationPreferencesInput, UserUncheckedCreateWithoutNotificationPreferencesInput>
+  }
+
+  export type UserUpsertWithoutNotificationPreferencesInput = {
+    update: XOR<UserUpdateWithoutNotificationPreferencesInput, UserUncheckedUpdateWithoutNotificationPreferencesInput>
+    create: XOR<UserCreateWithoutNotificationPreferencesInput, UserUncheckedCreateWithoutNotificationPreferencesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutNotificationPreferencesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutNotificationPreferencesInput, UserUncheckedUpdateWithoutNotificationPreferencesInput>
+  }
+
+  export type UserUpdateWithoutNotificationPreferencesInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    musicianProfile?: MusicianProfileUpdateOneWithoutUserNestedInput
+    reviewsGiven?: ReviewUpdateManyWithoutClientNestedInput
+    bookings?: BookingUpdateManyWithoutClientNestedInput
+    favorites?: FavoriteUpdateManyWithoutUserNestedInput
+    conversationsAsClient?: ConversationUpdateManyWithoutClientNestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    paymentHistory?: PaymentHistoryUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutNotificationPreferencesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    musicianProfile?: MusicianProfileUncheckedUpdateOneWithoutUserNestedInput
+    reviewsGiven?: ReviewUncheckedUpdateManyWithoutClientNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutClientNestedInput
+    favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
+    conversationsAsClient?: ConversationUncheckedUpdateManyWithoutClientNestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    paymentHistory?: PaymentHistoryUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutSubscriptionInput = {
+    email: string
+    passwordHash: string
+    firstName: string
+    lastName: string
+    phone?: string | null
+    city?: string | null
+    state?: string | null
+    userType: $Enums.UserType
+    role?: $Enums.UserRole
+    profileImageUrl?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    musicianProfile?: MusicianProfileCreateNestedOneWithoutUserInput
+    reviewsGiven?: ReviewCreateNestedManyWithoutClientInput
+    bookings?: BookingCreateNestedManyWithoutClientInput
+    favorites?: FavoriteCreateNestedManyWithoutUserInput
+    conversationsAsClient?: ConversationCreateNestedManyWithoutClientInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    notificationPreferences?: NotificationPreferenceCreateNestedOneWithoutUserInput
+    paymentHistory?: PaymentHistoryCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutSubscriptionInput = {
+    id?: number
+    email: string
+    passwordHash: string
+    firstName: string
+    lastName: string
+    phone?: string | null
+    city?: string | null
+    state?: string | null
+    userType: $Enums.UserType
+    role?: $Enums.UserRole
+    profileImageUrl?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    musicianProfile?: MusicianProfileUncheckedCreateNestedOneWithoutUserInput
+    reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutClientInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutClientInput
+    favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
+    conversationsAsClient?: ConversationUncheckedCreateNestedManyWithoutClientInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    notificationPreferences?: NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+    paymentHistory?: PaymentHistoryUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutSubscriptionInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSubscriptionInput, UserUncheckedCreateWithoutSubscriptionInput>
+  }
+
+  export type PlanCreateWithoutSubscriptionsInput = {
+    title: string
+    description?: string | null
+    monthlyPrice: number
+    yearlyPrice: number
+    badge?: string | null
+    isMusicianPlan: boolean
+    isClientPlan: boolean
+    createdAt?: Date | string
+    features?: PlanFeatureCreateNestedManyWithoutPlanInput
+  }
+
+  export type PlanUncheckedCreateWithoutSubscriptionsInput = {
+    id?: number
+    title: string
+    description?: string | null
+    monthlyPrice: number
+    yearlyPrice: number
+    badge?: string | null
+    isMusicianPlan: boolean
+    isClientPlan: boolean
+    createdAt?: Date | string
+    features?: PlanFeatureUncheckedCreateNestedManyWithoutPlanInput
+  }
+
+  export type PlanCreateOrConnectWithoutSubscriptionsInput = {
+    where: PlanWhereUniqueInput
+    create: XOR<PlanCreateWithoutSubscriptionsInput, PlanUncheckedCreateWithoutSubscriptionsInput>
+  }
+
+  export type UserUpsertWithoutSubscriptionInput = {
+    update: XOR<UserUpdateWithoutSubscriptionInput, UserUncheckedUpdateWithoutSubscriptionInput>
+    create: XOR<UserCreateWithoutSubscriptionInput, UserUncheckedCreateWithoutSubscriptionInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSubscriptionInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSubscriptionInput, UserUncheckedUpdateWithoutSubscriptionInput>
+  }
+
+  export type UserUpdateWithoutSubscriptionInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    musicianProfile?: MusicianProfileUpdateOneWithoutUserNestedInput
+    reviewsGiven?: ReviewUpdateManyWithoutClientNestedInput
+    bookings?: BookingUpdateManyWithoutClientNestedInput
+    favorites?: FavoriteUpdateManyWithoutUserNestedInput
+    conversationsAsClient?: ConversationUpdateManyWithoutClientNestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    notificationPreferences?: NotificationPreferenceUpdateOneWithoutUserNestedInput
+    paymentHistory?: PaymentHistoryUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSubscriptionInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    musicianProfile?: MusicianProfileUncheckedUpdateOneWithoutUserNestedInput
+    reviewsGiven?: ReviewUncheckedUpdateManyWithoutClientNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutClientNestedInput
+    favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
+    conversationsAsClient?: ConversationUncheckedUpdateManyWithoutClientNestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    notificationPreferences?: NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+    paymentHistory?: PaymentHistoryUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type PlanUpsertWithoutSubscriptionsInput = {
+    update: XOR<PlanUpdateWithoutSubscriptionsInput, PlanUncheckedUpdateWithoutSubscriptionsInput>
+    create: XOR<PlanCreateWithoutSubscriptionsInput, PlanUncheckedCreateWithoutSubscriptionsInput>
+    where?: PlanWhereInput
+  }
+
+  export type PlanUpdateToOneWithWhereWithoutSubscriptionsInput = {
+    where?: PlanWhereInput
+    data: XOR<PlanUpdateWithoutSubscriptionsInput, PlanUncheckedUpdateWithoutSubscriptionsInput>
+  }
+
+  export type PlanUpdateWithoutSubscriptionsInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    monthlyPrice?: IntFieldUpdateOperationsInput | number
+    yearlyPrice?: IntFieldUpdateOperationsInput | number
+    badge?: NullableStringFieldUpdateOperationsInput | string | null
+    isMusicianPlan?: BoolFieldUpdateOperationsInput | boolean
+    isClientPlan?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    features?: PlanFeatureUpdateManyWithoutPlanNestedInput
+  }
+
+  export type PlanUncheckedUpdateWithoutSubscriptionsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    monthlyPrice?: IntFieldUpdateOperationsInput | number
+    yearlyPrice?: IntFieldUpdateOperationsInput | number
+    badge?: NullableStringFieldUpdateOperationsInput | string | null
+    isMusicianPlan?: BoolFieldUpdateOperationsInput | boolean
+    isClientPlan?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    features?: PlanFeatureUncheckedUpdateManyWithoutPlanNestedInput
+  }
+
+  export type UserCreateWithoutPaymentHistoryInput = {
+    email: string
+    passwordHash: string
+    firstName: string
+    lastName: string
+    phone?: string | null
+    city?: string | null
+    state?: string | null
+    userType: $Enums.UserType
+    role?: $Enums.UserRole
+    profileImageUrl?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    musicianProfile?: MusicianProfileCreateNestedOneWithoutUserInput
+    reviewsGiven?: ReviewCreateNestedManyWithoutClientInput
+    bookings?: BookingCreateNestedManyWithoutClientInput
+    favorites?: FavoriteCreateNestedManyWithoutUserInput
+    conversationsAsClient?: ConversationCreateNestedManyWithoutClientInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    notificationPreferences?: NotificationPreferenceCreateNestedOneWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutPaymentHistoryInput = {
+    id?: number
+    email: string
+    passwordHash: string
+    firstName: string
+    lastName: string
+    phone?: string | null
+    city?: string | null
+    state?: string | null
+    userType: $Enums.UserType
+    role?: $Enums.UserRole
+    profileImageUrl?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    musicianProfile?: MusicianProfileUncheckedCreateNestedOneWithoutUserInput
+    reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutClientInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutClientInput
+    favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
+    conversationsAsClient?: ConversationUncheckedCreateNestedManyWithoutClientInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    notificationPreferences?: NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutPaymentHistoryInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPaymentHistoryInput, UserUncheckedCreateWithoutPaymentHistoryInput>
+  }
+
+  export type UserUpsertWithoutPaymentHistoryInput = {
+    update: XOR<UserUpdateWithoutPaymentHistoryInput, UserUncheckedUpdateWithoutPaymentHistoryInput>
+    create: XOR<UserCreateWithoutPaymentHistoryInput, UserUncheckedCreateWithoutPaymentHistoryInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPaymentHistoryInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPaymentHistoryInput, UserUncheckedUpdateWithoutPaymentHistoryInput>
+  }
+
+  export type UserUpdateWithoutPaymentHistoryInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    musicianProfile?: MusicianProfileUpdateOneWithoutUserNestedInput
+    reviewsGiven?: ReviewUpdateManyWithoutClientNestedInput
+    bookings?: BookingUpdateManyWithoutClientNestedInput
+    favorites?: FavoriteUpdateManyWithoutUserNestedInput
+    conversationsAsClient?: ConversationUpdateManyWithoutClientNestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    notificationPreferences?: NotificationPreferenceUpdateOneWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPaymentHistoryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    musicianProfile?: MusicianProfileUncheckedUpdateOneWithoutUserNestedInput
+    reviewsGiven?: ReviewUncheckedUpdateManyWithoutClientNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutClientNestedInput
+    favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
+    conversationsAsClient?: ConversationUncheckedUpdateManyWithoutClientNestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    notificationPreferences?: NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type ReviewCreateManyClientInput = {
@@ -20744,6 +31413,37 @@ export namespace Prisma {
     status: string
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type FavoriteCreateManyUserInput = {
+    id?: number
+    musicianProfileId: number
+    createdAt?: Date | string
+  }
+
+  export type ConversationCreateManyClientInput = {
+    id?: number
+    musicianProfileId: number
+    lastMessageAt?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type MessageCreateManySenderInput = {
+    id?: number
+    conversationId: number
+    content: string
+    isRead?: boolean
+    createdAt?: Date | string
+  }
+
+  export type PaymentHistoryCreateManyUserInput = {
+    id?: number
+    amount: number
+    currency?: string
+    status: string
+    stripePaymentId?: string | null
+    description?: string | null
+    createdAt?: Date | string
   }
 
   export type ReviewUpdateWithoutClientInput = {
@@ -20807,6 +31507,97 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type FavoriteUpdateWithoutUserInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    musicianProfile?: MusicianProfileUpdateOneRequiredWithoutFavoritedByNestedInput
+  }
+
+  export type FavoriteUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    musicianProfileId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FavoriteUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    musicianProfileId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConversationUpdateWithoutClientInput = {
+    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    musicianProfile?: MusicianProfileUpdateOneRequiredWithoutConversationsNestedInput
+    messages?: MessageUpdateManyWithoutConversationNestedInput
+  }
+
+  export type ConversationUncheckedUpdateWithoutClientInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    musicianProfileId?: IntFieldUpdateOperationsInput | number
+    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: MessageUncheckedUpdateManyWithoutConversationNestedInput
+  }
+
+  export type ConversationUncheckedUpdateManyWithoutClientInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    musicianProfileId?: IntFieldUpdateOperationsInput | number
+    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageUpdateWithoutSenderInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    conversation?: ConversationUpdateOneRequiredWithoutMessagesNestedInput
+  }
+
+  export type MessageUncheckedUpdateWithoutSenderInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    conversationId?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageUncheckedUpdateManyWithoutSenderInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    conversationId?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PaymentHistoryUpdateWithoutUserInput = {
+    amount?: IntFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    stripePaymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PaymentHistoryUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    amount?: IntFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    stripePaymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PaymentHistoryUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    amount?: IntFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    stripePaymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type PortfolioItemCreateManyMusicianProfileInput = {
     id?: number
     type: $Enums.PortfolioItemType
@@ -20846,6 +31637,19 @@ export namespace Prisma {
     status: string
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type FavoriteCreateManyMusicianProfileInput = {
+    id?: number
+    userId: number
+    createdAt?: Date | string
+  }
+
+  export type ConversationCreateManyMusicianProfileInput = {
+    id?: number
+    clientId: number
+    lastMessageAt?: Date | string
+    createdAt?: Date | string
   }
 
   export type PortfolioItemUpdateWithoutMusicianProfileInput = {
@@ -20968,6 +31772,45 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type FavoriteUpdateWithoutMusicianProfileInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutFavoritesNestedInput
+  }
+
+  export type FavoriteUncheckedUpdateWithoutMusicianProfileInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FavoriteUncheckedUpdateManyWithoutMusicianProfileInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConversationUpdateWithoutMusicianProfileInput = {
+    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    client?: UserUpdateOneRequiredWithoutConversationsAsClientNestedInput
+    messages?: MessageUpdateManyWithoutConversationNestedInput
+  }
+
+  export type ConversationUncheckedUpdateWithoutMusicianProfileInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    clientId?: IntFieldUpdateOperationsInput | number
+    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: MessageUncheckedUpdateManyWithoutConversationNestedInput
+  }
+
+  export type ConversationUncheckedUpdateManyWithoutMusicianProfileInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    clientId?: IntFieldUpdateOperationsInput | number
+    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type MusicianGenreCreateManyGenreInput = {
     musicianProfileId: number
   }
@@ -21007,6 +31850,19 @@ export namespace Prisma {
     highlight: boolean
   }
 
+  export type SubscriptionCreateManyPlanInput = {
+    id?: number
+    userId: number
+    stripeSubscriptionId?: string | null
+    stripeCustomerId?: string | null
+    status: string
+    currentPeriodStart: Date | string
+    currentPeriodEnd: Date | string
+    cancelAtPeriodEnd?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type PlanFeatureUpdateWithoutPlanInput = {
     text?: StringFieldUpdateOperationsInput | string
     available?: BoolFieldUpdateOperationsInput | boolean
@@ -21025,6 +31881,75 @@ export namespace Prisma {
     text?: StringFieldUpdateOperationsInput | string
     available?: BoolFieldUpdateOperationsInput | boolean
     highlight?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type SubscriptionUpdateWithoutPlanInput = {
+    stripeSubscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    currentPeriodStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    currentPeriodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    cancelAtPeriodEnd?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutSubscriptionNestedInput
+  }
+
+  export type SubscriptionUncheckedUpdateWithoutPlanInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    stripeSubscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    currentPeriodStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    currentPeriodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    cancelAtPeriodEnd?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubscriptionUncheckedUpdateManyWithoutPlanInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    stripeSubscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    currentPeriodStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    currentPeriodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    cancelAtPeriodEnd?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageCreateManyConversationInput = {
+    id?: number
+    senderId: number
+    content: string
+    isRead?: boolean
+    createdAt?: Date | string
+  }
+
+  export type MessageUpdateWithoutConversationInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sender?: UserUpdateOneRequiredWithoutMessagesSentNestedInput
+  }
+
+  export type MessageUncheckedUpdateWithoutConversationInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    senderId?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageUncheckedUpdateManyWithoutConversationInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    senderId?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

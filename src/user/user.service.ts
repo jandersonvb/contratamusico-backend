@@ -1,11 +1,30 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma, User, UserType } from '@prisma/client';
 import { RegisterDto } from './dto/register.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import * as bcrypt from 'bcrypt';
 
 export type UserWithProfile = Prisma.UserGetPayload<{ include: { musicianProfile: true } }>;
+
+// Include para retornar dados do usuário com perfil de músico
+const userWithProfileInclude = {
+  musicianProfile: {
+    include: {
+      musicianGenres: {
+        include: {
+          genre: true,
+        },
+      },
+      musicianInstruments: {
+        include: {
+          instrument: true,
+        },
+      },
+    },
+  },
+} satisfies Prisma.UserInclude;
 
 @Injectable()
 export class UserService {
@@ -127,6 +146,128 @@ export class UserService {
     // Extract first number from formats like "100-300", "500-800", "1200+"
     const match = priceRange.match(/\d+/);
     return match ? parseInt(match[0], 10) : null;
+  }
+
+  /**
+   * Buscar usuário por ID com dados completos
+   */
+  async findById(id: number): Promise<Omit<User, 'passwordHash'> & { musicianProfile?: any }> {
+    const user = await this.prismaService.user.findUnique({
+      where: { id },
+      include: userWithProfileInclude,
+    });
+
+    if (!user) {
+      throw new NotFoundException('Usuário não encontrado.');
+    }
+
+    return this.formatUserResponse(user);
+  }
+
+  /**
+   * Atualizar dados pessoais do usuário
+   */
+  async update(id: number, data: UpdateUserDto): Promise<Omit<User, 'passwordHash'> & { musicianProfile?: any }> {
+    // Verificar se o usuário existe
+    const existing = await this.prismaService.user.findUnique({
+      where: { id },
+    });
+
+    if (!existing) {
+      throw new NotFoundException('Usuário não encontrado.');
+    }
+
+    const updated = await this.prismaService.user.update({
+      where: { id },
+      data: {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        phone: data.phone,
+        city: data.city,
+        state: data.state,
+      },
+      include: userWithProfileInclude,
+    });
+
+    return this.formatUserResponse(updated);
+  }
+
+  /**
+   * Atualizar URL da imagem de perfil do usuário
+   */
+  async updateProfileImage(id: number, profileImageUrl: string): Promise<Omit<User, 'passwordHash'> & { musicianProfile?: any }> {
+    const existing = await this.prismaService.user.findUnique({
+      where: { id },
+    });
+
+    if (!existing) {
+      throw new NotFoundException('Usuário não encontrado.');
+    }
+
+    const updated = await this.prismaService.user.update({
+      where: { id },
+      data: { profileImageUrl },
+      include: userWithProfileInclude,
+    });
+
+    return this.formatUserResponse(updated);
+  }
+
+  /**
+   * Obter URL da imagem de perfil atual do usuário
+   */
+  async getProfileImageUrl(id: number): Promise<string | null> {
+    const user = await this.prismaService.user.findUnique({
+      where: { id },
+      select: { profileImageUrl: true },
+    });
+
+    return user?.profileImageUrl || null;
+  }
+
+  /**
+   * Formatar resposta do usuário (remove passwordHash e formata dados)
+   */
+  private formatUserResponse(user: any): Omit<User, 'passwordHash'> & { musicianProfile?: any } {
+    const { passwordHash: _passwordHash, musicianProfile, ...safeUser } = user;
+
+    // Se não tem perfil de músico, retorna apenas dados do usuário
+    if (!musicianProfile) {
+      return safeUser;
+    }
+
+    // Formatar perfil de músico com gêneros e instrumentos
+    return {
+      ...safeUser,
+      musicianProfile: {
+        id: musicianProfile.id,
+        category: musicianProfile.category,
+        bio: musicianProfile.bio,
+        location: musicianProfile.location,
+        priceFrom: musicianProfile.priceFrom,
+        experience: musicianProfile.experience,
+        equipment: musicianProfile.equipment,
+        availability: musicianProfile.availability,
+        rating: musicianProfile.rating,
+        ratingCount: musicianProfile.ratingCount,
+        eventsCount: musicianProfile.eventsCount,
+        satisfactionRate: musicianProfile.satisfactionRate,
+        responseTime: musicianProfile.responseTime,
+        isFeatured: musicianProfile.isFeatured,
+        genres: musicianProfile.musicianGenres?.map((mg: any) => ({
+          id: mg.genre.id,
+          name: mg.genre.name,
+          slug: mg.genre.slug,
+        })) || [],
+        instruments: musicianProfile.musicianInstruments?.map((mi: any) => ({
+          id: mi.instrument.id,
+          name: mi.instrument.name,
+          slug: mi.instrument.slug,
+        })) || [],
+        createdAt: musicianProfile.createdAt,
+        updatedAt: musicianProfile.updatedAt,
+      },
+    };
   }
 
 }

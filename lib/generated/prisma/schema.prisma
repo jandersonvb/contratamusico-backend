@@ -27,6 +27,11 @@ enum UserType {
   MUSICIAN // Músico que oferece serviços (app/cadastro/page.tsx)
 }
 
+enum UserRole {
+  USER
+  ADMIN
+}
+
 enum PortfolioItemType {
   IMAGE
   VIDEO
@@ -39,22 +44,34 @@ enum PortfolioItemType {
 
 // Modelo base para clientes e músicos (app/login/page.tsx, app/cadastro/page.tsx)
 model User {
-  id           Int      @id @default(autoincrement())
-  email        String   @unique
-  passwordHash String
-  firstName    String
-  lastName     String
-  phone        String?
-  city         String?
-  state        String?
-  userType     UserType
+  id              Int      @id @default(autoincrement())
+  email           String   @unique
+  passwordHash    String
+  firstName       String
+  lastName        String
+  phone           String?
+  city            String?
+  state           String?
+  userType        UserType
+  role            UserRole @default(USER)
+  profileImageUrl String? // URL da imagem de perfil no S3
+
+  // Recuperação de senha
+  resetToken       String?   @unique
+  resetTokenExpiry DateTime?
 
   // Perfil relacionado (1:1)
   musicianProfile MusicianProfile?
 
   // Relações com outras tabelas
-  reviewsGiven Review[]  @relation("ClientReviews")
-  bookings     Booking[]
+  reviewsGiven            Review[]                @relation("ClientReviews")
+  bookings                Booking[]
+  favorites               Favorite[]
+  conversationsAsClient   Conversation[]          @relation("ClientConversations")
+  messagesSent            Message[]
+  notificationPreferences NotificationPreference?
+  subscription            Subscription?
+  paymentHistory          PaymentHistory[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -93,6 +110,8 @@ model MusicianProfile {
   musicianGenres      MusicianGenre[]
   musicianInstruments MusicianInstrument[]
   bookings            Booking[]
+  favoritedBy         Favorite[]
+  conversations       Conversation[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -210,7 +229,8 @@ model Plan {
   isMusicianPlan Boolean
   isClientPlan   Boolean
 
-  features PlanFeature[]
+  features      PlanFeature[]
+  subscriptions Subscription[]
 
   createdAt DateTime @default(now())
 }
@@ -239,6 +259,103 @@ model FAQItem {
 // -----------------------------------------------------------
 // MISCELLANEOUS
 // -----------------------------------------------------------
+
+// Favoritos de usuários
+model Favorite {
+  id                Int             @id @default(autoincrement())
+  userId            Int
+  musicianProfileId Int
+  user              User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  musicianProfile   MusicianProfile @relation(fields: [musicianProfileId], references: [id], onDelete: Cascade)
+  createdAt         DateTime        @default(now())
+
+  @@unique([userId, musicianProfileId])
+  @@index([userId])
+  @@index([musicianProfileId])
+}
+
+// Conversas entre clientes e músicos
+model Conversation {
+  id                Int             @id @default(autoincrement())
+  clientId          Int
+  musicianProfileId Int
+  client            User            @relation("ClientConversations", fields: [clientId], references: [id], onDelete: Cascade)
+  musicianProfile   MusicianProfile @relation(fields: [musicianProfileId], references: [id], onDelete: Cascade)
+  messages          Message[]
+  lastMessageAt     DateTime        @default(now())
+  createdAt         DateTime        @default(now())
+
+  @@unique([clientId, musicianProfileId])
+  @@index([clientId])
+  @@index([musicianProfileId])
+  @@index([lastMessageAt])
+}
+
+// Mensagens dentro de conversas
+model Message {
+  id             Int          @id @default(autoincrement())
+  conversationId Int
+  senderId       Int
+  content        String       @db.Text
+  isRead         Boolean      @default(false)
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender         User         @relation(fields: [senderId], references: [id])
+  createdAt      DateTime     @default(now())
+
+  @@index([conversationId])
+  @@index([senderId])
+  @@index([isRead])
+}
+
+// Preferências de notificação por email
+model NotificationPreference {
+  id            Int      @id @default(autoincrement())
+  userId        Int      @unique
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  emailBookings Boolean  @default(true)
+  emailMessages Boolean  @default(true)
+  emailReviews  Boolean  @default(true)
+  emailNews     Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+// Assinatura de plano
+model Subscription {
+  id                   Int      @id @default(autoincrement())
+  userId               Int      @unique
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  planId               Int
+  plan                 Plan     @relation(fields: [planId], references: [id])
+  stripeSubscriptionId String?  @unique
+  stripeCustomerId     String?
+  status               String // active, canceled, past_due, incomplete
+  currentPeriodStart   DateTime
+  currentPeriodEnd     DateTime
+  cancelAtPeriodEnd    Boolean  @default(false)
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  @@index([userId])
+  @@index([planId])
+  @@index([status])
+}
+
+// Histórico de pagamentos
+model PaymentHistory {
+  id              Int      @id @default(autoincrement())
+  userId          Int
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  amount          Int // em centavos
+  currency        String   @default("BRL")
+  status          String // succeeded, failed, pending, refunded
+  stripePaymentId String?  @unique
+  description     String?
+  createdAt       DateTime @default(now())
+
+  @@index([userId])
+  @@index([status])
+}
 
 // Mensagens enviadas pelo formulário de contato (app/contato/page.tsx)
 model ContactMessage {

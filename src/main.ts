@@ -1,10 +1,13 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    rawBody: true, // Necessário para webhooks do Stripe validarem a assinatura
+  });
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -16,8 +19,9 @@ async function bootstrap() {
       },
     }),
   );
+
   app.enableCors({
-    origin: 'http://localhost:3001', // Ou '*' para permitir qualquer origem em dev
+    origin: process.env.FRONTEND_URL || 'http://localhost:3001',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
