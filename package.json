@@ -6,7 +6,12 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+<<<<<<< Updated upstream
     "build": "nest build",
+=======
+    "seed": "ts-node prisma/seed.ts",
+    "build": "npx prisma generate && nest build",
+>>>>>>> Stashed changes
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
