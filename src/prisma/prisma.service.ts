@@ -5,10 +5,15 @@ import {
   type INestApplication,
 } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
+import { PrismaMariaDb } from '@prisma/adapter-mariadb';
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
-
+  constructor() {
+    const adapter = new PrismaMariaDb(process.env.DATABASE_URL!);
+    
+    super({ adapter });
+  }
 
   async onModuleInit() { // Conecta ao banco de dados quando o módulo é inicializado
     await this.$connect();
