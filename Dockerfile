@@ -6,6 +6,7 @@ WORKDIR /app
 # Copiar package files
 COPY package*.json ./
 COPY prisma ./prisma/
+COPY prisma.config.ts ./
 COPY tsconfig*.json ./
 COPY nest-cli.json ./
 
@@ -29,6 +30,7 @@ WORKDIR /app
 # Copiar package files
 COPY package*.json ./
 COPY prisma ./prisma/
+COPY prisma.config.ts ./
 
 # Instalar apenas dependências de produção
 RUN npm ci --only=production

@@ -15,6 +15,7 @@ generator sharedClient {
 
 datasource db {
   provider = "mysql"
+
 }
 
 // -----------------------------------------------------------
