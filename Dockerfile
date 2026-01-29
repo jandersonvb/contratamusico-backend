@@ -16,10 +16,7 @@ RUN npm ci
 # Copiar código fonte
 COPY src ./src
 
-# Gerar Prisma Client
-RUN npx prisma generate
-
-# Fazer build do NestJS
+# Fazer build do NestJS (sem gerar Prisma Client aqui)
 RUN npm run build
 
 # Stage 2: Production
@@ -35,15 +32,11 @@ COPY prisma.config.ts ./
 # Instalar apenas dependências de produção
 RUN npm ci --only=production
 
-# Copiar Prisma Client gerado do stage anterior
-COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
-COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
-
 # Copiar o código compilado do stage anterior
 COPY --from=builder /app/dist ./dist
 
 # Expor a porta (ajuste se necessário)
 EXPOSE 3000
 
-# Comando de start com migrations
-CMD ["sh", "-c", "npx prisma migrate deploy && node dist/main"]
+# Comando de start: gerar Prisma Client, executar migrations e iniciar aplicação
+CMD ["sh", "-c", "npx prisma generate && npx prisma migrate deploy && node dist/main"]
