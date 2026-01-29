@@ -26,7 +26,7 @@ export class PortfolioService {
       data: {
         musicianProfileId: profile.id,
         type: data.type,
-        url: data.url,
+        fileKey: data.url, // Salvar como fileKey (nome mantido para compatibilidade de DTO)
         title: data.title,
         description: data.description,
         date: data.date,
@@ -35,7 +35,9 @@ export class PortfolioService {
       },
     });
 
-    return item;
+    // Gerar URL assinada para retorno
+    const url = await this.uploadService.getSignedUrl(item.fileKey);
+    return { ...item, url };
   }
 
   /**
@@ -51,10 +53,18 @@ export class PortfolioService {
       throw new NotFoundException('Músico não encontrado.');
     }
 
-    return this.prisma.portfolioItem.findMany({
+    const items = await this.prisma.portfolioItem.findMany({
       where: { musicianProfileId },
       orderBy: { createdAt: 'desc' },
     });
+
+    // Gerar URLs assinadas para todos os itens
+    return Promise.all(
+      items.map(async (item) => {
+        const url = await this.uploadService.getSignedUrl(item.fileKey);
+        return { ...item, url };
+      })
+    );
   }
 
   /**
@@ -63,10 +73,18 @@ export class PortfolioService {
   async findByUserId(userId: number) {
     const profile = await this.getMusicianProfile(userId);
 
-    return this.prisma.portfolioItem.findMany({
+    const items = await this.prisma.portfolioItem.findMany({
       where: { musicianProfileId: profile.id },
       orderBy: { createdAt: 'desc' },
     });
+
+    // Gerar URLs assinadas para todos os itens
+    return Promise.all(
+      items.map(async (item) => {
+        const url = await this.uploadService.getSignedUrl(item.fileKey);
+        return { ...item, url };
+      })
+    );
   }
 
   /**
@@ -90,11 +108,11 @@ export class PortfolioService {
       );
     }
 
-    return this.prisma.portfolioItem.update({
+    const updated = await this.prisma.portfolioItem.update({
       where: { id: itemId },
       data: {
         type: data.type,
-        url: data.url,
+        fileKey: data.url, // Salvar como fileKey (nome mantido para compatibilidade de DTO)
         title: data.title,
         description: data.description,
         date: data.date,
@@ -102,6 +120,10 @@ export class PortfolioService {
         genre: data.genre,
       },
     });
+
+    // Gerar URL assinada para retorno
+    const url = await this.uploadService.getSignedUrl(updated.fileKey);
+    return { ...updated, url };
   }
 
   /**
@@ -125,17 +147,17 @@ export class PortfolioService {
     const profile = await this.getMusicianProfile(userId);
 
     // Fazer upload do arquivo para S3
-    const { url, type } = await this.uploadService.uploadPortfolioFile(
+    const { key, type } = await this.uploadService.uploadPortfolioFile(
       file,
       profile.id,
     );
 
-    // Criar item no portfólio
+    // Criar item no portfólio (salvando a key)
     const item = await this.prisma.portfolioItem.create({
       data: {
         musicianProfileId: profile.id,
         type: type,
-        url: url,
+        fileKey: key,
         title: metadata.title,
         description: metadata.description,
         date: metadata.date,
@@ -144,9 +166,12 @@ export class PortfolioService {
       },
     });
 
+    // Gerar URL assinada para retorno
+    const url = await this.uploadService.getSignedUrl(item.fileKey);
+
     return {
       message: 'Arquivo enviado e item criado com sucesso!',
-      item,
+      item: { ...item, url },
     };
   }
 

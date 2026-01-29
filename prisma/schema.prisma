@@ -124,7 +124,7 @@ model PortfolioItem {
   musicianProfile   MusicianProfile @relation(fields: [musicianProfileId], references: [id])
 
   type        PortfolioItemType
-  url         String // URL da imagem/vídeo/áudio
+  fileKey     String // Chave do arquivo no S3 (ex: portfolio/1/image/uuid.jpg)
   title       String
   description String?
   date        String? // Data de realização (ex: "Julho/2025")

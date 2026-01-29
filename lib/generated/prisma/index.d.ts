@@ -5136,7 +5136,7 @@ export namespace Prisma {
     id: number | null
     musicianProfileId: number | null
     type: $Enums.PortfolioItemType | null
-    url: string | null
+    fileKey: string | null
     title: string | null
     description: string | null
     date: string | null
@@ -5149,7 +5149,7 @@ export namespace Prisma {
     id: number | null
     musicianProfileId: number | null
     type: $Enums.PortfolioItemType | null
-    url: string | null
+    fileKey: string | null
     title: string | null
     description: string | null
     date: string | null
@@ -5162,7 +5162,7 @@ export namespace Prisma {
     id: number
     musicianProfileId: number
     type: number
-    url: number
+    fileKey: number
     title: number
     description: number
     date: number
@@ -5187,7 +5187,7 @@ export namespace Prisma {
     id?: true
     musicianProfileId?: true
     type?: true
-    url?: true
+    fileKey?: true
     title?: true
     description?: true
     date?: true
@@ -5200,7 +5200,7 @@ export namespace Prisma {
     id?: true
     musicianProfileId?: true
     type?: true
-    url?: true
+    fileKey?: true
     title?: true
     description?: true
     date?: true
@@ -5213,7 +5213,7 @@ export namespace Prisma {
     id?: true
     musicianProfileId?: true
     type?: true
-    url?: true
+    fileKey?: true
     title?: true
     description?: true
     date?: true
@@ -5313,7 +5313,7 @@ export namespace Prisma {
     id: number
     musicianProfileId: number
     type: $Enums.PortfolioItemType
-    url: string
+    fileKey: string
     title: string
     description: string | null
     date: string | null
@@ -5345,7 +5345,7 @@ export namespace Prisma {
     id?: boolean
     musicianProfileId?: boolean
     type?: boolean
-    url?: boolean
+    fileKey?: boolean
     title?: boolean
     description?: boolean
     date?: boolean
@@ -5360,7 +5360,7 @@ export namespace Prisma {
     id?: boolean
     musicianProfileId?: boolean
     type?: boolean
-    url?: boolean
+    fileKey?: boolean
     title?: boolean
     description?: boolean
     date?: boolean
@@ -5382,7 +5382,7 @@ export namespace Prisma {
       id: number
       musicianProfileId: number
       type: $Enums.PortfolioItemType
-      url: string
+      fileKey: string
       title: string
       description: string | null
       date: string | null
@@ -5762,7 +5762,7 @@ export namespace Prisma {
     readonly id: FieldRef<"PortfolioItem", 'Int'>
     readonly musicianProfileId: FieldRef<"PortfolioItem", 'Int'>
     readonly type: FieldRef<"PortfolioItem", 'PortfolioItemType'>
-    readonly url: FieldRef<"PortfolioItem", 'String'>
+    readonly fileKey: FieldRef<"PortfolioItem", 'String'>
     readonly title: FieldRef<"PortfolioItem", 'String'>
     readonly description: FieldRef<"PortfolioItem", 'String'>
     readonly date: FieldRef<"PortfolioItem", 'String'>
@@ -21081,7 +21081,7 @@ export namespace Prisma {
     id: 'id',
     musicianProfileId: 'musicianProfileId',
     type: 'type',
-    url: 'url',
+    fileKey: 'fileKey',
     title: 'title',
     description: 'description',
     date: 'date',
@@ -21330,7 +21330,7 @@ export namespace Prisma {
 
 
   export const PortfolioItemOrderByRelevanceFieldEnum: {
-    url: 'url',
+    fileKey: 'fileKey',
     title: 'title',
     description: 'description',
     date: 'date',
@@ -21780,7 +21780,7 @@ export namespace Prisma {
     id?: IntFilter<"PortfolioItem"> | number
     musicianProfileId?: IntFilter<"PortfolioItem"> | number
     type?: EnumPortfolioItemTypeFilter<"PortfolioItem"> | $Enums.PortfolioItemType
-    url?: StringFilter<"PortfolioItem"> | string
+    fileKey?: StringFilter<"PortfolioItem"> | string
     title?: StringFilter<"PortfolioItem"> | string
     description?: StringNullableFilter<"PortfolioItem"> | string | null
     date?: StringNullableFilter<"PortfolioItem"> | string | null
@@ -21794,7 +21794,7 @@ export namespace Prisma {
     id?: SortOrder
     musicianProfileId?: SortOrder
     type?: SortOrder
-    url?: SortOrder
+    fileKey?: SortOrder
     title?: SortOrder
     description?: SortOrderInput | SortOrder
     date?: SortOrderInput | SortOrder
@@ -21812,7 +21812,7 @@ export namespace Prisma {
     NOT?: PortfolioItemWhereInput | PortfolioItemWhereInput[]
     musicianProfileId?: IntFilter<"PortfolioItem"> | number
     type?: EnumPortfolioItemTypeFilter<"PortfolioItem"> | $Enums.PortfolioItemType
-    url?: StringFilter<"PortfolioItem"> | string
+    fileKey?: StringFilter<"PortfolioItem"> | string
     title?: StringFilter<"PortfolioItem"> | string
     description?: StringNullableFilter<"PortfolioItem"> | string | null
     date?: StringNullableFilter<"PortfolioItem"> | string | null
@@ -21826,7 +21826,7 @@ export namespace Prisma {
     id?: SortOrder
     musicianProfileId?: SortOrder
     type?: SortOrder
-    url?: SortOrder
+    fileKey?: SortOrder
     title?: SortOrder
     description?: SortOrderInput | SortOrder
     date?: SortOrderInput | SortOrder
@@ -21847,7 +21847,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"PortfolioItem"> | number
     musicianProfileId?: IntWithAggregatesFilter<"PortfolioItem"> | number
     type?: EnumPortfolioItemTypeWithAggregatesFilter<"PortfolioItem"> | $Enums.PortfolioItemType
-    url?: StringWithAggregatesFilter<"PortfolioItem"> | string
+    fileKey?: StringWithAggregatesFilter<"PortfolioItem"> | string
     title?: StringWithAggregatesFilter<"PortfolioItem"> | string
     description?: StringNullableWithAggregatesFilter<"PortfolioItem"> | string | null
     date?: StringNullableWithAggregatesFilter<"PortfolioItem"> | string | null
@@ -23212,7 +23212,7 @@ export namespace Prisma {
 
   export type PortfolioItemCreateInput = {
     type: $Enums.PortfolioItemType
-    url: string
+    fileKey: string
     title: string
     description?: string | null
     date?: string | null
@@ -23226,7 +23226,7 @@ export namespace Prisma {
     id?: number
     musicianProfileId: number
     type: $Enums.PortfolioItemType
-    url: string
+    fileKey: string
     title: string
     description?: string | null
     date?: string | null
@@ -23237,7 +23237,7 @@ export namespace Prisma {
 
   export type PortfolioItemUpdateInput = {
     type?: EnumPortfolioItemTypeFieldUpdateOperationsInput | $Enums.PortfolioItemType
-    url?: StringFieldUpdateOperationsInput | string
+    fileKey?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     date?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23251,7 +23251,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     musicianProfileId?: IntFieldUpdateOperationsInput | number
     type?: EnumPortfolioItemTypeFieldUpdateOperationsInput | $Enums.PortfolioItemType
-    url?: StringFieldUpdateOperationsInput | string
+    fileKey?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     date?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23264,7 +23264,7 @@ export namespace Prisma {
     id?: number
     musicianProfileId: number
     type: $Enums.PortfolioItemType
-    url: string
+    fileKey: string
     title: string
     description?: string | null
     date?: string | null
@@ -23275,7 +23275,7 @@ export namespace Prisma {
 
   export type PortfolioItemUpdateManyMutationInput = {
     type?: EnumPortfolioItemTypeFieldUpdateOperationsInput | $Enums.PortfolioItemType
-    url?: StringFieldUpdateOperationsInput | string
+    fileKey?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     date?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23288,7 +23288,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     musicianProfileId?: IntFieldUpdateOperationsInput | number
     type?: EnumPortfolioItemTypeFieldUpdateOperationsInput | $Enums.PortfolioItemType
-    url?: StringFieldUpdateOperationsInput | string
+    fileKey?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     date?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24801,7 +24801,7 @@ export namespace Prisma {
     id?: SortOrder
     musicianProfileId?: SortOrder
     type?: SortOrder
-    url?: SortOrder
+    fileKey?: SortOrder
     title?: SortOrder
     description?: SortOrder
     date?: SortOrder
@@ -24819,7 +24819,7 @@ export namespace Prisma {
     id?: SortOrder
     musicianProfileId?: SortOrder
     type?: SortOrder
-    url?: SortOrder
+    fileKey?: SortOrder
     title?: SortOrder
     description?: SortOrder
     date?: SortOrder
@@ -24832,7 +24832,7 @@ export namespace Prisma {
     id?: SortOrder
     musicianProfileId?: SortOrder
     type?: SortOrder
-    url?: SortOrder
+    fileKey?: SortOrder
     title?: SortOrder
     description?: SortOrder
     date?: SortOrder
@@ -27693,7 +27693,7 @@ export namespace Prisma {
 
   export type PortfolioItemCreateWithoutMusicianProfileInput = {
     type: $Enums.PortfolioItemType
-    url: string
+    fileKey: string
     title: string
     description?: string | null
     date?: string | null
@@ -27705,7 +27705,7 @@ export namespace Prisma {
   export type PortfolioItemUncheckedCreateWithoutMusicianProfileInput = {
     id?: number
     type: $Enums.PortfolioItemType
-    url: string
+    fileKey: string
     title: string
     description?: string | null
     date?: string | null
@@ -27951,7 +27951,7 @@ export namespace Prisma {
     id?: IntFilter<"PortfolioItem"> | number
     musicianProfileId?: IntFilter<"PortfolioItem"> | number
     type?: EnumPortfolioItemTypeFilter<"PortfolioItem"> | $Enums.PortfolioItemType
-    url?: StringFilter<"PortfolioItem"> | string
+    fileKey?: StringFilter<"PortfolioItem"> | string
     title?: StringFilter<"PortfolioItem"> | string
     description?: StringNullableFilter<"PortfolioItem"> | string | null
     date?: StringNullableFilter<"PortfolioItem"> | string | null
@@ -30530,7 +30530,7 @@ export namespace Prisma {
   export type PortfolioItemCreateManyMusicianProfileInput = {
     id?: number
     type: $Enums.PortfolioItemType
-    url: string
+    fileKey: string
     title: string
     description?: string | null
     date?: string | null
@@ -30583,7 +30583,7 @@ export namespace Prisma {
 
   export type PortfolioItemUpdateWithoutMusicianProfileInput = {
     type?: EnumPortfolioItemTypeFieldUpdateOperationsInput | $Enums.PortfolioItemType
-    url?: StringFieldUpdateOperationsInput | string
+    fileKey?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     date?: NullableStringFieldUpdateOperationsInput | string | null
@@ -30595,7 +30595,7 @@ export namespace Prisma {
   export type PortfolioItemUncheckedUpdateWithoutMusicianProfileInput = {
     id?: IntFieldUpdateOperationsInput | number
     type?: EnumPortfolioItemTypeFieldUpdateOperationsInput | $Enums.PortfolioItemType
-    url?: StringFieldUpdateOperationsInput | string
+    fileKey?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     date?: NullableStringFieldUpdateOperationsInput | string | null
@@ -30607,7 +30607,7 @@ export namespace Prisma {
   export type PortfolioItemUncheckedUpdateManyWithoutMusicianProfileInput = {
     id?: IntFieldUpdateOperationsInput | number
     type?: EnumPortfolioItemTypeFieldUpdateOperationsInput | $Enums.PortfolioItemType
-    url?: StringFieldUpdateOperationsInput | string
+    fileKey?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     date?: NullableStringFieldUpdateOperationsInput | string | null
