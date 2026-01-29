@@ -16,8 +16,15 @@ RUN npm ci
 # Copiar código fonte
 COPY src ./src
 
-# Fazer build do NestJS (sem gerar Prisma Client aqui)
+# Gerar Prisma Client com URL dummy para o build
+ENV DATABASE_URL="mysql://dummy:dummy@localhost:3306/dummy"
+RUN npx prisma generate
+
+# Fazer build do NestJS
 RUN npm run build
+
+# Limpar a variável de ambiente dummy
+ENV DATABASE_URL=""
 
 # Stage 2: Production
 FROM node:22-alpine
