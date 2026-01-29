@@ -1,0 +1,8 @@
+{
+  "[prisma]": {
+    "editor.formatOnSave": true
+  },
+  "prisma.schemaPath": "prisma/schema.prisma",
+  "prisma.showPrismaDataPlatformNotification": false,
+  "prisma.trace.server": "off"
+}

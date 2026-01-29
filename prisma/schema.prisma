@@ -15,7 +15,7 @@ generator sharedClient {
 
 datasource db {
   provider = "mysql"
-
+  url      = env("DATABASE_URL")
 }
 
 // -----------------------------------------------------------
@@ -64,14 +64,14 @@ model User {
   musicianProfile MusicianProfile?
 
   // Relações com outras tabelas
-  reviewsGiven              Review[]                 @relation("ClientReviews")
-  bookings                  Booking[]
-  favorites                 Favorite[]
-  conversationsAsClient     Conversation[]           @relation("ClientConversations")
-  messagesSent              Message[]
-  notificationPreferences   NotificationPreference?
-  subscription              Subscription?
-  paymentHistory            PaymentHistory[]
+  reviewsGiven            Review[]                @relation("ClientReviews")
+  bookings                Booking[]
+  favorites               Favorite[]
+  conversationsAsClient   Conversation[]          @relation("ClientConversations")
+  messagesSent            Message[]
+  notificationPreferences NotificationPreference?
+  subscription            Subscription?
+  paymentHistory          PaymentHistory[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -309,13 +309,13 @@ model Message {
 
 // Preferências de notificação por email
 model NotificationPreference {
-  id            Int     @id @default(autoincrement())
-  userId        Int     @unique
-  user          User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  emailBookings Boolean @default(true)
-  emailMessages Boolean @default(true)
-  emailReviews  Boolean @default(true)
-  emailNews     Boolean @default(true)
+  id            Int      @id @default(autoincrement())
+  userId        Int      @unique
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  emailBookings Boolean  @default(true)
+  emailMessages Boolean  @default(true)
+  emailReviews  Boolean  @default(true)
+  emailNews     Boolean  @default(true)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
@@ -329,7 +329,7 @@ model Subscription {
   plan                 Plan     @relation(fields: [planId], references: [id])
   stripeSubscriptionId String?  @unique
   stripeCustomerId     String?
-  status               String   // active, canceled, past_due, incomplete
+  status               String // active, canceled, past_due, incomplete
   currentPeriodStart   DateTime
   currentPeriodEnd     DateTime
   cancelAtPeriodEnd    Boolean  @default(false)
@@ -346,9 +346,9 @@ model PaymentHistory {
   id              Int      @id @default(autoincrement())
   userId          Int
   user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  amount          Int      // em centavos
+  amount          Int // em centavos
   currency        String   @default("BRL")
-  status          String   // succeeded, failed, pending, refunded
+  status          String // succeeded, failed, pending, refunded
   stripePaymentId String?  @unique
   description     String?
   createdAt       DateTime @default(now())
