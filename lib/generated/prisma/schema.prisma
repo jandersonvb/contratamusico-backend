@@ -54,7 +54,7 @@ model User {
   state           String?
   userType        UserType
   role            UserRole @default(USER)
-  profileImageUrl String? // URL da imagem de perfil no S3
+  profileImageKey String? // Chave da imagem de perfil no S3 (ex: avatars/1/uuid.jpg)
 
   // Recuperação de senha
   resetToken       String?   @unique

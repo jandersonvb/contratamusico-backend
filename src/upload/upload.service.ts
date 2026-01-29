@@ -1,5 +1,6 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
-import { S3Client, PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
+import { S3Client, PutObjectCommand, DeleteObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { randomUUID } from 'crypto';
 
 export interface UploadedFileResult {
@@ -23,16 +24,25 @@ export class UploadService {
   private readonly maxAudioSize = 10 * 1024 * 1024; // 10MB
 
   constructor() {
-    this.region = process.env.AWS_REGION || 'us-east-1';
+    this.region = process.env.AWS_REGION || 'auto';
     this.bucketName = process.env.AWS_S3_BUCKET || '';
+    const endpoint = process.env.AWS_ENDPOINT;
 
-    this.s3Client = new S3Client({
+    const clientConfig: any = {
       region: this.region,
       credentials: {
         accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || '',
       },
-    });
+    };
+
+    // Railway requer endpoint customizado e path-style URLs
+    if (endpoint) {
+      clientConfig.endpoint = endpoint;
+      clientConfig.forcePathStyle = true;
+    }
+
+    this.s3Client = new S3Client(clientConfig);
   }
 
   /**
@@ -102,14 +112,12 @@ export class UploadService {
       Key: key,
       Body: file.buffer,
       ContentType: file.mimetype,
-      // ACL público para que a imagem seja acessível via URL
-      ACL: 'public-read',
     });
 
     await this.s3Client.send(command);
 
-    // Construir URL pública do arquivo
-    const url = `https://${this.bucketName}.s3.${this.region}.amazonaws.com/${key}`;
+    // Gerar URL assinada válida por 7 dias
+    const url = await this.getSignedUrl(key);
 
     return { url, key };
   }
@@ -143,14 +151,12 @@ export class UploadService {
       Key: key,
       Body: file.buffer,
       ContentType: file.mimetype,
-      // ACL público para que o arquivo seja acessível via URL
-      ACL: 'public-read',
     });
 
     await this.s3Client.send(command);
 
-    // Construir URL pública do arquivo
-    const url = `https://${this.bucketName}.s3.${this.region}.amazonaws.com/${key}`;
+    // Gerar URL assinada válida por 7 dias
+    const url = await this.getSignedUrl(key);
 
     return { url, key, type: fileType };
   }
@@ -177,11 +183,62 @@ export class UploadService {
 
     try {
       const urlObj = new URL(url);
-      // Remove a barra inicial do pathname
-      return urlObj.pathname.substring(1);
+      const pathname = urlObj.pathname;
+      
+      // Railway URLs: https://storage.railway.app/bucket-name/key
+      // Remover a barra inicial e o nome do bucket
+      const parts = pathname.substring(1).split('/');
+      if (parts.length > 1 && parts[0] === this.bucketName) {
+        return parts.slice(1).join('/');
+      }
+      
+      // Fallback para formato AWS padrão
+      return pathname.substring(1);
     } catch {
       return null;
     }
+  }
+
+  /**
+   * Gera uma URL assinada (signed URL) para acesso temporário ao arquivo
+   * @param key - Chave do arquivo no bucket
+   * @param expiresIn - Tempo de expiração em segundos (padrão: 7 dias)
+   * @returns URL assinada válida temporariamente
+   */
+  async getSignedUrl(key: string, expiresIn: number = 604800): Promise<string> {
+    if (!key) {
+      throw new BadRequestException('Chave do arquivo não fornecida.');
+    }
+
+    const command = new GetObjectCommand({
+      Bucket: this.bucketName,
+      Key: key,
+    });
+
+    try {
+      const signedUrl = await getSignedUrl(this.s3Client, command, { expiresIn });
+      return signedUrl;
+    } catch (error) {
+      throw new BadRequestException('Erro ao gerar URL assinada: ' + error.message);
+    }
+  }
+
+  /**
+   * Gera URLs assinadas para múltiplos arquivos
+   * @param keys - Array de chaves dos arquivos
+   * @param expiresIn - Tempo de expiração em segundos (padrão: 7 dias)
+   * @returns Array de objetos com key e url assinada
+   */
+  async getSignedUrls(
+    keys: string[],
+    expiresIn: number = 604800,
+  ): Promise<Array<{ key: string; url: string }>> {
+    const urlPromises = keys.map(async (key) => ({
+      key,
+      url: await this.getSignedUrl(key, expiresIn),
+    }));
+
+    return Promise.all(urlPromises);
   }
 }
 

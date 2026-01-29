@@ -2,10 +2,14 @@ import { Injectable, NotFoundException, ForbiddenException, BadRequestException 
 import { PrismaService } from '../prisma/prisma.service';
 import { UserType } from '@prisma/client';
 import { SendMessageDto } from './dto/send-message.dto';
+import { UploadService } from '../upload/upload.service';
 
 @Injectable()
 export class ChatService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly uploadService: UploadService,
+  ) {}
 
   /**
    * Listar conversas do usuário logado
@@ -23,7 +27,7 @@ export class ChatService {
             id: true,
             firstName: true,
             lastName: true,
-            profileImageUrl: true,
+            profileImageKey: true,
           },
         },
         musicianProfile: {
@@ -33,7 +37,7 @@ export class ChatService {
                 id: true,
                 firstName: true,
                 lastName: true,
-                profileImageUrl: true,
+                profileImageKey: true,
               },
             },
           },
@@ -46,7 +50,7 @@ export class ChatService {
       orderBy: { lastMessageAt: 'desc' },
     });
 
-    return conversations.map(conv => this.formatConversation(conv, userId));
+    return Promise.all(conversations.map(conv => this.formatConversation(conv, userId)));
   }
 
   /**
@@ -61,7 +65,7 @@ export class ChatService {
             id: true,
             firstName: true,
             lastName: true,
-            profileImageUrl: true,
+            profileImageKey: true,
           },
         },
         musicianProfile: {
@@ -71,7 +75,7 @@ export class ChatService {
                 id: true,
                 firstName: true,
                 lastName: true,
-                profileImageUrl: true,
+                profileImageKey: true,
               },
             },
           },
@@ -83,7 +87,7 @@ export class ChatService {
                 id: true,
                 firstName: true,
                 lastName: true,
-                profileImageUrl: true,
+                profileImageKey: true,
               },
             },
           },
@@ -105,7 +109,7 @@ export class ChatService {
       throw new ForbiddenException('Você não tem acesso a esta conversa.');
     }
 
-    return this.formatConversationWithMessages(conversation, userId);
+    return await this.formatConversationWithMessages(conversation, userId);
   }
 
   /**
@@ -163,7 +167,7 @@ export class ChatService {
             id: true,
             firstName: true,
             lastName: true,
-            profileImageUrl: true,
+            profileImageKey: true,
           },
         },
       },
@@ -240,19 +244,35 @@ export class ChatService {
   /**
    * Formatar conversa para resposta
    */
-  private formatConversation(conversation: any, currentUserId: number) {
+  private async formatConversation(conversation: any, currentUserId: number) {
     const lastMessage = conversation.messages[0];
-    const otherParty = conversation.clientId === currentUserId
+    
+    // Determinar a outra parte da conversa e gerar URL assinada
+    const isClient = conversation.clientId === currentUserId;
+    const otherUserKey = isClient 
+      ? conversation.musicianProfile.user.profileImageKey
+      : conversation.client.profileImageKey;
+    
+    let profileImageUrl: string | undefined;
+    if (otherUserKey) {
+      try {
+        profileImageUrl = await this.uploadService.getSignedUrl(otherUserKey);
+      } catch (error) {
+        profileImageUrl = undefined;
+      }
+    }
+    
+    const otherParty = isClient
       ? {
           id: conversation.musicianProfile.user.id,
           name: `${conversation.musicianProfile.user.firstName} ${conversation.musicianProfile.user.lastName}`,
-          profileImageUrl: conversation.musicianProfile.user.profileImageUrl,
+          profileImageUrl,
           type: 'musician',
         }
       : {
           id: conversation.client.id,
           name: `${conversation.client.firstName} ${conversation.client.lastName}`,
-          profileImageUrl: conversation.client.profileImageUrl,
+          profileImageUrl,
           type: 'client',
         };
 
@@ -272,37 +292,68 @@ export class ChatService {
   /**
    * Formatar conversa com mensagens para resposta
    */
-  private formatConversationWithMessages(conversation: any, currentUserId: number) {
-    const otherParty = conversation.clientId === currentUserId
+  private async formatConversationWithMessages(conversation: any, currentUserId: number) {
+    // Gerar URL assinada para a outra parte
+    const isClient = conversation.clientId === currentUserId;
+    const otherUserKey = isClient 
+      ? conversation.musicianProfile.user.profileImageKey
+      : conversation.client.profileImageKey;
+    
+    let profileImageUrl: string | undefined;
+    if (otherUserKey) {
+      try {
+        profileImageUrl = await this.uploadService.getSignedUrl(otherUserKey);
+      } catch (error) {
+        profileImageUrl = undefined;
+      }
+    }
+    
+    const otherParty = isClient
       ? {
           id: conversation.musicianProfile.user.id,
           name: `${conversation.musicianProfile.user.firstName} ${conversation.musicianProfile.user.lastName}`,
-          profileImageUrl: conversation.musicianProfile.user.profileImageUrl,
+          profileImageUrl,
           type: 'musician',
         }
       : {
           id: conversation.client.id,
           name: `${conversation.client.firstName} ${conversation.client.lastName}`,
-          profileImageUrl: conversation.client.profileImageUrl,
+          profileImageUrl,
           type: 'client',
         };
+
+    // Gerar URLs assinadas para todos os senders das mensagens
+    const messages = await Promise.all(
+      conversation.messages.map(async (msg: any) => {
+        let senderImageUrl: string | undefined;
+        if (msg.sender.profileImageKey) {
+          try {
+            senderImageUrl = await this.uploadService.getSignedUrl(msg.sender.profileImageKey);
+          } catch (error) {
+            senderImageUrl = undefined;
+          }
+        }
+        
+        return {
+          id: msg.id,
+          content: msg.content,
+          senderId: msg.senderId,
+          sender: {
+            id: msg.sender.id,
+            name: `${msg.sender.firstName} ${msg.sender.lastName}`,
+            profileImageUrl: senderImageUrl,
+          },
+          isRead: msg.isRead,
+          isMine: msg.senderId === currentUserId,
+          createdAt: msg.createdAt,
+        };
+      })
+    );
 
     return {
       id: conversation.id,
       otherParty,
-      messages: conversation.messages.map((msg: any) => ({
-        id: msg.id,
-        content: msg.content,
-        senderId: msg.senderId,
-        sender: {
-          id: msg.sender.id,
-          name: `${msg.sender.firstName} ${msg.sender.lastName}`,
-          profileImageUrl: msg.sender.profileImageUrl,
-        },
-        isRead: msg.isRead,
-        isMine: msg.senderId === currentUserId,
-        createdAt: msg.createdAt,
-      })),
+      messages,
       createdAt: conversation.createdAt,
     };
   }

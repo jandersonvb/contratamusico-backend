@@ -4,6 +4,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma, User, UserType } from '@prisma/client';
 import { RegisterDto } from './dto/register.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UploadService } from '../upload/upload.service';
 import * as bcrypt from 'bcrypt';
 
 export type UserWithProfile = Prisma.UserGetPayload<{ include: { musicianProfile: true } }>;
@@ -30,7 +31,10 @@ const userWithProfileInclude = {
 export class UserService {
   private readonly saltRounds = 10;
 
-  constructor(private readonly prismaService: PrismaService) { }
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly uploadService: UploadService,
+  ) { }
 
   async findByEmail(email: string): Promise<UserWithProfile | null> {
     return this.prismaService.user.findUnique({
@@ -151,7 +155,7 @@ export class UserService {
   /**
    * Buscar usuário por ID com dados completos
    */
-  async findById(id: number): Promise<Omit<User, 'passwordHash'> & { musicianProfile?: any }> {
+  async findById(id: number): Promise<Omit<User, 'passwordHash'> & { musicianProfile?: any; profileImageUrl?: string }> {
     const user = await this.prismaService.user.findUnique({
       where: { id },
       include: userWithProfileInclude,
@@ -161,13 +165,13 @@ export class UserService {
       throw new NotFoundException('Usuário não encontrado.');
     }
 
-    return this.formatUserResponse(user);
+    return await this.formatUserResponse(user);
   }
 
   /**
    * Atualizar dados pessoais do usuário
    */
-  async update(id: number, data: UpdateUserDto): Promise<Omit<User, 'passwordHash'> & { musicianProfile?: any }> {
+  async update(id: number, data: UpdateUserDto): Promise<Omit<User, 'passwordHash'> & { musicianProfile?: any; profileImageUrl?: string }> {
     // Verificar se o usuário existe
     const existing = await this.prismaService.user.findUnique({
       where: { id },
@@ -189,13 +193,13 @@ export class UserService {
       include: userWithProfileInclude,
     });
 
-    return this.formatUserResponse(updated);
+    return await this.formatUserResponse(updated);
   }
 
   /**
-   * Atualizar URL da imagem de perfil do usuário
+   * Atualizar key da imagem de perfil do usuário
    */
-  async updateProfileImage(id: number, profileImageUrl: string): Promise<Omit<User, 'passwordHash'> & { musicianProfile?: any }> {
+  async updateProfileImage(id: number, profileImageKey: string): Promise<Omit<User, 'passwordHash'> & { musicianProfile?: any; profileImageUrl?: string }> {
     const existing = await this.prismaService.user.findUnique({
       where: { id },
     });
@@ -206,39 +210,54 @@ export class UserService {
 
     const updated = await this.prismaService.user.update({
       where: { id },
-      data: { profileImageUrl },
+      data: { profileImageKey },
       include: userWithProfileInclude,
     });
 
-    return this.formatUserResponse(updated);
+    return await this.formatUserResponse(updated);
   }
 
   /**
-   * Obter URL da imagem de perfil atual do usuário
+   * Obter key da imagem de perfil atual do usuário
    */
-  async getProfileImageUrl(id: number): Promise<string | null> {
+  async getProfileImageKey(id: number): Promise<string | null> {
     const user = await this.prismaService.user.findUnique({
       where: { id },
-      select: { profileImageUrl: true },
+      select: { profileImageKey: true },
     });
 
-    return user?.profileImageUrl || null;
+    return user?.profileImageKey || null;
   }
 
   /**
    * Formatar resposta do usuário (remove passwordHash e formata dados)
    */
-  private formatUserResponse(user: any): Omit<User, 'passwordHash'> & { musicianProfile?: any } {
-    const { passwordHash: _passwordHash, musicianProfile, ...safeUser } = user;
+  private async formatUserResponse(user: any): Promise<Omit<User, 'passwordHash'> & { musicianProfile?: any; profileImageUrl?: string }> {
+    const { passwordHash: _passwordHash, profileImageKey, musicianProfile, ...safeUser } = user;
+
+    // Gerar URL assinada se houver profileImageKey
+    let profileImageUrl: string | undefined;
+    if (profileImageKey) {
+      try {
+        profileImageUrl = await this.uploadService.getSignedUrl(profileImageKey);
+      } catch (error) {
+        // Se falhar ao gerar URL, ignora (pode ser que a key seja inválida)
+        profileImageUrl = undefined;
+      }
+    }
 
     // Se não tem perfil de músico, retorna apenas dados do usuário
     if (!musicianProfile) {
-      return safeUser;
+      return {
+        ...safeUser,
+        profileImageUrl,
+      };
     }
 
     // Formatar perfil de músico com gêneros e instrumentos
     return {
       ...safeUser,
+      profileImageUrl,
       musicianProfile: {
         id: musicianProfile.id,
         category: musicianProfile.category,

@@ -2680,7 +2680,7 @@ export namespace Prisma {
     state: string | null
     userType: $Enums.UserType | null
     role: $Enums.UserRole | null
-    profileImageUrl: string | null
+    profileImageKey: string | null
     resetToken: string | null
     resetTokenExpiry: Date | null
     createdAt: Date | null
@@ -2698,7 +2698,7 @@ export namespace Prisma {
     state: string | null
     userType: $Enums.UserType | null
     role: $Enums.UserRole | null
-    profileImageUrl: string | null
+    profileImageKey: string | null
     resetToken: string | null
     resetTokenExpiry: Date | null
     createdAt: Date | null
@@ -2716,7 +2716,7 @@ export namespace Prisma {
     state: number
     userType: number
     role: number
-    profileImageUrl: number
+    profileImageKey: number
     resetToken: number
     resetTokenExpiry: number
     createdAt: number
@@ -2744,7 +2744,7 @@ export namespace Prisma {
     state?: true
     userType?: true
     role?: true
-    profileImageUrl?: true
+    profileImageKey?: true
     resetToken?: true
     resetTokenExpiry?: true
     createdAt?: true
@@ -2762,7 +2762,7 @@ export namespace Prisma {
     state?: true
     userType?: true
     role?: true
-    profileImageUrl?: true
+    profileImageKey?: true
     resetToken?: true
     resetTokenExpiry?: true
     createdAt?: true
@@ -2780,7 +2780,7 @@ export namespace Prisma {
     state?: true
     userType?: true
     role?: true
-    profileImageUrl?: true
+    profileImageKey?: true
     resetToken?: true
     resetTokenExpiry?: true
     createdAt?: true
@@ -2885,7 +2885,7 @@ export namespace Prisma {
     state: string | null
     userType: $Enums.UserType
     role: $Enums.UserRole
-    profileImageUrl: string | null
+    profileImageKey: string | null
     resetToken: string | null
     resetTokenExpiry: Date | null
     createdAt: Date
@@ -2922,7 +2922,7 @@ export namespace Prisma {
     state?: boolean
     userType?: boolean
     role?: boolean
-    profileImageUrl?: boolean
+    profileImageKey?: boolean
     resetToken?: boolean
     resetTokenExpiry?: boolean
     createdAt?: boolean
@@ -2951,7 +2951,7 @@ export namespace Prisma {
     state?: boolean
     userType?: boolean
     role?: boolean
-    profileImageUrl?: boolean
+    profileImageKey?: boolean
     resetToken?: boolean
     resetTokenExpiry?: boolean
     createdAt?: boolean
@@ -2995,7 +2995,7 @@ export namespace Prisma {
       state: string | null
       userType: $Enums.UserType
       role: $Enums.UserRole
-      profileImageUrl: string | null
+      profileImageKey: string | null
       resetToken: string | null
       resetTokenExpiry: Date | null
       createdAt: Date
@@ -3388,7 +3388,7 @@ export namespace Prisma {
     readonly state: FieldRef<"User", 'String'>
     readonly userType: FieldRef<"User", 'UserType'>
     readonly role: FieldRef<"User", 'UserRole'>
-    readonly profileImageUrl: FieldRef<"User", 'String'>
+    readonly profileImageKey: FieldRef<"User", 'String'>
     readonly resetToken: FieldRef<"User", 'String'>
     readonly resetTokenExpiry: FieldRef<"User", 'DateTime'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
@@ -21044,7 +21044,7 @@ export namespace Prisma {
     state: 'state',
     userType: 'userType',
     role: 'role',
-    profileImageUrl: 'profileImageUrl',
+    profileImageKey: 'profileImageKey',
     resetToken: 'resetToken',
     resetTokenExpiry: 'resetTokenExpiry',
     createdAt: 'createdAt',
@@ -21309,7 +21309,7 @@ export namespace Prisma {
     phone: 'phone',
     city: 'city',
     state: 'state',
-    profileImageUrl: 'profileImageUrl',
+    profileImageKey: 'profileImageKey',
     resetToken: 'resetToken'
   };
 
@@ -21516,7 +21516,7 @@ export namespace Prisma {
     state?: StringNullableFilter<"User"> | string | null
     userType?: EnumUserTypeFilter<"User"> | $Enums.UserType
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
-    profileImageUrl?: StringNullableFilter<"User"> | string | null
+    profileImageKey?: StringNullableFilter<"User"> | string | null
     resetToken?: StringNullableFilter<"User"> | string | null
     resetTokenExpiry?: DateTimeNullableFilter<"User"> | Date | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
@@ -21543,7 +21543,7 @@ export namespace Prisma {
     state?: SortOrderInput | SortOrder
     userType?: SortOrder
     role?: SortOrder
-    profileImageUrl?: SortOrderInput | SortOrder
+    profileImageKey?: SortOrderInput | SortOrder
     resetToken?: SortOrderInput | SortOrder
     resetTokenExpiry?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -21575,7 +21575,7 @@ export namespace Prisma {
     state?: StringNullableFilter<"User"> | string | null
     userType?: EnumUserTypeFilter<"User"> | $Enums.UserType
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
-    profileImageUrl?: StringNullableFilter<"User"> | string | null
+    profileImageKey?: StringNullableFilter<"User"> | string | null
     resetTokenExpiry?: DateTimeNullableFilter<"User"> | Date | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
@@ -21601,7 +21601,7 @@ export namespace Prisma {
     state?: SortOrderInput | SortOrder
     userType?: SortOrder
     role?: SortOrder
-    profileImageUrl?: SortOrderInput | SortOrder
+    profileImageKey?: SortOrderInput | SortOrder
     resetToken?: SortOrderInput | SortOrder
     resetTokenExpiry?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -21627,7 +21627,7 @@ export namespace Prisma {
     state?: StringNullableWithAggregatesFilter<"User"> | string | null
     userType?: EnumUserTypeWithAggregatesFilter<"User"> | $Enums.UserType
     role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
-    profileImageUrl?: StringNullableWithAggregatesFilter<"User"> | string | null
+    profileImageKey?: StringNullableWithAggregatesFilter<"User"> | string | null
     resetToken?: StringNullableWithAggregatesFilter<"User"> | string | null
     resetTokenExpiry?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -22897,7 +22897,7 @@ export namespace Prisma {
     state?: string | null
     userType: $Enums.UserType
     role?: $Enums.UserRole
-    profileImageUrl?: string | null
+    profileImageKey?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
@@ -22924,7 +22924,7 @@ export namespace Prisma {
     state?: string | null
     userType: $Enums.UserType
     role?: $Enums.UserRole
-    profileImageUrl?: string | null
+    profileImageKey?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
@@ -22950,7 +22950,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageKey?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22977,7 +22977,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageKey?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23004,7 +23004,7 @@ export namespace Prisma {
     state?: string | null
     userType: $Enums.UserType
     role?: $Enums.UserRole
-    profileImageUrl?: string | null
+    profileImageKey?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
@@ -23021,7 +23021,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageKey?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23039,7 +23039,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageKey?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24440,7 +24440,7 @@ export namespace Prisma {
     state?: SortOrder
     userType?: SortOrder
     role?: SortOrder
-    profileImageUrl?: SortOrder
+    profileImageKey?: SortOrder
     resetToken?: SortOrder
     resetTokenExpiry?: SortOrder
     createdAt?: SortOrder
@@ -24462,7 +24462,7 @@ export namespace Prisma {
     state?: SortOrder
     userType?: SortOrder
     role?: SortOrder
-    profileImageUrl?: SortOrder
+    profileImageKey?: SortOrder
     resetToken?: SortOrder
     resetTokenExpiry?: SortOrder
     createdAt?: SortOrder
@@ -24480,7 +24480,7 @@ export namespace Prisma {
     state?: SortOrder
     userType?: SortOrder
     role?: SortOrder
-    profileImageUrl?: SortOrder
+    profileImageKey?: SortOrder
     resetToken?: SortOrder
     resetTokenExpiry?: SortOrder
     createdAt?: SortOrder
@@ -27645,7 +27645,7 @@ export namespace Prisma {
     state?: string | null
     userType: $Enums.UserType
     role?: $Enums.UserRole
-    profileImageUrl?: string | null
+    profileImageKey?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
@@ -27671,7 +27671,7 @@ export namespace Prisma {
     state?: string | null
     userType: $Enums.UserType
     role?: $Enums.UserRole
-    profileImageUrl?: string | null
+    profileImageKey?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
@@ -27887,7 +27887,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageKey?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27913,7 +27913,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageKey?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28636,7 +28636,7 @@ export namespace Prisma {
     state?: string | null
     userType: $Enums.UserType
     role?: $Enums.UserRole
-    profileImageUrl?: string | null
+    profileImageKey?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
@@ -28662,7 +28662,7 @@ export namespace Prisma {
     state?: string | null
     userType: $Enums.UserType
     role?: $Enums.UserRole
-    profileImageUrl?: string | null
+    profileImageKey?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
@@ -28765,7 +28765,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageKey?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28791,7 +28791,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageKey?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28872,7 +28872,7 @@ export namespace Prisma {
     state?: string | null
     userType: $Enums.UserType
     role?: $Enums.UserRole
-    profileImageUrl?: string | null
+    profileImageKey?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
@@ -28898,7 +28898,7 @@ export namespace Prisma {
     state?: string | null
     userType: $Enums.UserType
     role?: $Enums.UserRole
-    profileImageUrl?: string | null
+    profileImageKey?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
@@ -29001,7 +29001,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageKey?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29027,7 +29027,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageKey?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29236,7 +29236,7 @@ export namespace Prisma {
     state?: string | null
     userType: $Enums.UserType
     role?: $Enums.UserRole
-    profileImageUrl?: string | null
+    profileImageKey?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
@@ -29262,7 +29262,7 @@ export namespace Prisma {
     state?: string | null
     userType: $Enums.UserType
     role?: $Enums.UserRole
-    profileImageUrl?: string | null
+    profileImageKey?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
@@ -29359,7 +29359,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageKey?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29385,7 +29385,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageKey?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29472,7 +29472,7 @@ export namespace Prisma {
     state?: string | null
     userType: $Enums.UserType
     role?: $Enums.UserRole
-    profileImageUrl?: string | null
+    profileImageKey?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
@@ -29498,7 +29498,7 @@ export namespace Prisma {
     state?: string | null
     userType: $Enums.UserType
     role?: $Enums.UserRole
-    profileImageUrl?: string | null
+    profileImageKey?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
@@ -29620,7 +29620,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageKey?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29646,7 +29646,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageKey?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29769,7 +29769,7 @@ export namespace Prisma {
     state?: string | null
     userType: $Enums.UserType
     role?: $Enums.UserRole
-    profileImageUrl?: string | null
+    profileImageKey?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
@@ -29795,7 +29795,7 @@ export namespace Prisma {
     state?: string | null
     userType: $Enums.UserType
     role?: $Enums.UserRole
-    profileImageUrl?: string | null
+    profileImageKey?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
@@ -29862,7 +29862,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageKey?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29888,7 +29888,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageKey?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29913,7 +29913,7 @@ export namespace Prisma {
     state?: string | null
     userType: $Enums.UserType
     role?: $Enums.UserRole
-    profileImageUrl?: string | null
+    profileImageKey?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
@@ -29939,7 +29939,7 @@ export namespace Prisma {
     state?: string | null
     userType: $Enums.UserType
     role?: $Enums.UserRole
-    profileImageUrl?: string | null
+    profileImageKey?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
@@ -29980,7 +29980,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageKey?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -30006,7 +30006,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageKey?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -30031,7 +30031,7 @@ export namespace Prisma {
     state?: string | null
     userType: $Enums.UserType
     role?: $Enums.UserRole
-    profileImageUrl?: string | null
+    profileImageKey?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
@@ -30057,7 +30057,7 @@ export namespace Prisma {
     state?: string | null
     userType: $Enums.UserType
     role?: $Enums.UserRole
-    profileImageUrl?: string | null
+    profileImageKey?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
@@ -30128,7 +30128,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageKey?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -30154,7 +30154,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageKey?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -30215,7 +30215,7 @@ export namespace Prisma {
     state?: string | null
     userType: $Enums.UserType
     role?: $Enums.UserRole
-    profileImageUrl?: string | null
+    profileImageKey?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
@@ -30241,7 +30241,7 @@ export namespace Prisma {
     state?: string | null
     userType: $Enums.UserType
     role?: $Enums.UserRole
-    profileImageUrl?: string | null
+    profileImageKey?: string | null
     resetToken?: string | null
     resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
@@ -30282,7 +30282,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageKey?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -30308,7 +30308,7 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageKey?: NullableStringFieldUpdateOperationsInput | string | null
     resetToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

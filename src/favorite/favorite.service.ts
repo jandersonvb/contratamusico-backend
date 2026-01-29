@@ -1,9 +1,13 @@
 import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { UploadService } from '../upload/upload.service';
 
 @Injectable()
 export class FavoriteService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly uploadService: UploadService,
+  ) {}
 
   /**
    * Adicionar músico aos favoritos
@@ -47,7 +51,7 @@ export class FavoriteService {
                 lastName: true,
                 city: true,
                 state: true,
-                profileImageUrl: true,
+                profileImageKey: true,
               },
             },
             musicianGenres: {
@@ -62,7 +66,7 @@ export class FavoriteService {
 
     return {
       message: 'Músico adicionado aos favoritos!',
-      favorite: this.formatFavorite(favorite),
+      favorite: await this.formatFavorite(favorite),
     };
   }
 
@@ -109,7 +113,7 @@ export class FavoriteService {
                 lastName: true,
                 city: true,
                 state: true,
-                profileImageUrl: true,
+                profileImageKey: true,
               },
             },
             musicianGenres: {
@@ -130,7 +134,7 @@ export class FavoriteService {
       },
     });
 
-    return favorites.map(this.formatFavorite);
+    return Promise.all(favorites.map((fav) => this.formatFavorite(fav)));
   }
 
   /**
@@ -165,7 +169,17 @@ export class FavoriteService {
   /**
    * Formatar favorito para resposta
    */
-  private formatFavorite(favorite: any) {
+  private async formatFavorite(favorite: any) {
+    // Gerar URL assinada se houver profileImageKey
+    let profileImageUrl: string | undefined;
+    if (favorite.musicianProfile.user.profileImageKey) {
+      try {
+        profileImageUrl = await this.uploadService.getSignedUrl(favorite.musicianProfile.user.profileImageKey);
+      } catch (error) {
+        profileImageUrl = undefined;
+      }
+    }
+
     return {
       id: favorite.id,
       musicianProfileId: favorite.musicianProfileId,
@@ -177,7 +191,7 @@ export class FavoriteService {
         priceFrom: favorite.musicianProfile.priceFrom,
         rating: favorite.musicianProfile.rating,
         ratingCount: favorite.musicianProfile.ratingCount,
-        profileImageUrl: favorite.musicianProfile.user.profileImageUrl,
+        profileImageUrl,
         genres: favorite.musicianProfile.musicianGenres.map((mg: any) => ({
           id: mg.genre.id,
           name: mg.genre.name,

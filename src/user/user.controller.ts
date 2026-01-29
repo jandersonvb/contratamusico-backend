@@ -128,23 +128,20 @@ export class UserController {
     )
     file: Express.Multer.File,
   ) {
-    // Obter URL da imagem atual para deletar depois
-    const currentImageUrl = await this.userService.getProfileImageUrl(req.user.id);
+    // Obter key da imagem atual para deletar depois
+    const currentImageKey = await this.userService.getProfileImageKey(req.user.id);
     
     // Fazer upload da nova imagem
-    const { url } = await this.uploadService.uploadProfileImage(file, req.user.id);
+    const { key } = await this.uploadService.uploadProfileImage(file, req.user.id);
     
-    // Atualizar URL no banco de dados
-    const updatedUser = await this.userService.updateProfileImage(req.user.id, url);
+    // Atualizar key no banco de dados (a URL assinada será gerada automaticamente)
+    const updatedUser = await this.userService.updateProfileImage(req.user.id, key);
     
     // Deletar imagem antiga do S3 (se existir)
-    if (currentImageUrl) {
-      const oldKey = this.uploadService.extractKeyFromUrl(currentImageUrl);
-      if (oldKey) {
-        await this.uploadService.deleteFile(oldKey).catch(() => {
-          // Ignora erro ao deletar imagem antiga (não é crítico)
-        });
-      }
+    if (currentImageKey) {
+      await this.uploadService.deleteFile(currentImageKey).catch(() => {
+        // Ignora erro ao deletar imagem antiga (não é crítico)
+      });
     }
     
     return updatedUser;
