@@ -39,6 +39,10 @@ COPY prisma.config.ts ./
 # Instalar apenas dependências de produção
 RUN npm ci --only=production
 
+# Copiar Prisma Client gerado do stage de build
+COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
+COPY --from=builder /app/node_modules/@prisma/client ./node_modules/@prisma/client
+
 # Copiar o código compilado do stage anterior
 COPY --from=builder /app/dist ./dist
 
