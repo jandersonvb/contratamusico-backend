@@ -50,4 +50,4 @@ COPY --from=builder /app/dist ./dist
 EXPOSE 3000
 
 # Comando de start: executar migrations e iniciar aplicação
-CMD ["sh", "-c", "npx prisma migrate deploy && node dist/main"]
+CMD ["sh", "-c", "npx prisma migrate deploy && node dist/src/main"]
