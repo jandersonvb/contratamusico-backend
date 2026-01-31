@@ -24,9 +24,9 @@ export class UploadService {
   private readonly maxAudioSize = 10 * 1024 * 1024; // 10MB
 
   constructor() {
-    this.region = process.env.AWS_REGION || 'auto';
-    this.bucketName = process.env.AWS_S3_BUCKET || '';
-    const endpoint = process.env.AWS_ENDPOINT;
+    this.region = process.env.AWS_DEFAULT_REGION || 'auto';
+    this.bucketName = process.env.AWS_S3_BUCKET_NAME || '';
+    const endpoint = process.env.AWS_ENDPOINT_URL;
 
     const clientConfig: any = {
       region: this.region,
