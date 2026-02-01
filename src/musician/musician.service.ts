@@ -7,6 +7,7 @@ import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { SearchMusiciansDto } from './dto/search-musicians.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
+import { UploadService } from 'src/upload/upload.service';
 
 // Include completo para retornar dados do músico
 const musicianInclude = {
@@ -19,6 +20,7 @@ const musicianInclude = {
       phone: true,
       city: true,
       state: true,
+      profileImageKey: true,
       createdAt: true,
     },
   },
@@ -63,6 +65,7 @@ const musicianListInclude = {
       lastName: true,
       city: true,
       state: true,
+      profileImageKey: true,
     },
   },
   musicianGenres: {
@@ -79,7 +82,10 @@ const musicianListInclude = {
 
 @Injectable()
 export class MusicianService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly uploadService: UploadService,
+  ) { }
 
   /**
    * Busca músicos com filtros e paginação
@@ -209,7 +215,7 @@ export class MusicianService {
 
     // Formatar resposta
     return {
-      data: musicians.map(this.formatMusicianForList),
+      data: await Promise.all(musicians.map(this.formatMusicianForList)),
       pagination: {
         page,
         limit,
@@ -235,7 +241,7 @@ export class MusicianService {
       take: limit,
     });
 
-    return musicians.map(this.formatMusicianForList);
+    return await Promise.all(musicians.map(m => this.formatMusicianForList(m)));
   }
 
   /**
@@ -401,11 +407,24 @@ export class MusicianService {
   /**
    * Formatar músico para listagem (dados resumidos)
    */
-  private formatMusicianForList(musician: any) {
+  private async formatMusicianForList(musician: any) {
+    let profileImageUrl: string | undefined;
+    if (musician.user.profileImageKey) {
+      try {
+        profileImageUrl = await this.uploadService.getSignedUrl(
+          musician.user.profileImageKey
+        );
+      } catch (error) {
+        profileImageUrl = undefined;
+      }
+    }
+
+
     return {
       id: musician.id,
       name: `${musician.user.firstName} ${musician.user.lastName}`,
-      category: musician.category,
+      profileImageUrl,
+      category: musician.category,  
       location: musician.location || `${musician.user.city}, ${musician.user.state}`,
       priceFrom: musician.priceFrom,
       rating: musician.rating,
@@ -428,11 +447,23 @@ export class MusicianService {
   /**
    * Formatar perfil completo do músico
    */
-  private formatMusicianProfile(musician: any) {
+  private async formatMusicianProfile(musician: any) {
+    let profileImageUrl: string | undefined;
+    if (musician.user.profileImageKey) {
+      try {
+        profileImageUrl = await this.uploadService.getSignedUrl(
+          musician.user.profileImageKey
+        );
+      } catch (error) {
+        profileImageUrl = undefined;
+      }
+    }
+
     return {
       id: musician.id,
       userId: musician.userId,
       name: `${musician.user.firstName} ${musician.user.lastName}`,
+      profileImageUrl,
       email: musician.user.email,
       phone: musician.user.phone,
       category: musician.category,
