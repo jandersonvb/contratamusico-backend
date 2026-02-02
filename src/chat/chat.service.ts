@@ -278,6 +278,8 @@ export class ChatService {
 
     return {
       id: conversation.id,
+      clientId: conversation.clientId,
+      musicianProfileId: conversation.musicianProfileId,
       otherParty,
       lastMessage: lastMessage ? {
         content: lastMessage.content,
@@ -352,6 +354,8 @@ export class ChatService {
 
     return {
       id: conversation.id,
+      clientId: conversation.clientId,
+      musicianProfileId: conversation.musicianProfileId,
       otherParty,
       messages,
       createdAt: conversation.createdAt,
