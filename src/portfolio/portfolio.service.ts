@@ -166,6 +166,21 @@ export class PortfolioService {
       },
     });
 
+    // Se for uma imagem e o usuário não tiver foto de perfil, usar esta imagem automaticamente
+    if (type === 'IMAGE') {
+      const user = await this.prisma.user.findUnique({
+        where: { id: userId },
+        select: { profileImageKey: true },
+      });
+
+      if (!user?.profileImageKey) {
+        await this.prisma.user.update({
+          where: { id: userId },
+          data: { profileImageKey: key },
+        });
+      }
+    }
+
     // Gerar URL assinada para retorno
     const url = await this.uploadService.getSignedUrl(item.fileKey);
 

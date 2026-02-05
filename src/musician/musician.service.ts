@@ -215,7 +215,7 @@ export class MusicianService {
 
     // Formatar resposta
     return {
-      data: await Promise.all(musicians.map(this.formatMusicianForList)),
+      data: await Promise.all(musicians.map(m => this.formatMusicianForList(m))),
       pagination: {
         page,
         limit,
@@ -306,6 +306,31 @@ export class MusicianService {
       },
       include: musicianInclude,
     });
+
+    // Verificar se usuário tem foto de perfil, se não, usar primeira imagem do portfólio
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { profileImageKey: true },
+    });
+
+    if (!user?.profileImageKey) {
+      const firstImage = await this.prisma.portfolioItem.findFirst({
+        where: {
+          musicianProfileId: updated.id,
+          type: 'IMAGE',
+        },
+        orderBy: { createdAt: 'asc' },
+      });
+
+      if (firstImage) {
+        await this.prisma.user.update({
+          where: { id: userId },
+          data: { profileImageKey: firstImage.fileKey },
+        });
+        // Atualizar o objeto para refletir a mudança na resposta
+        updated.user.profileImageKey = firstImage.fileKey;
+      }
+    }
 
     return this.formatMusicianProfile(updated);
   }
