@@ -5,6 +5,7 @@ import {
   Patch,
   Body,
   Param,
+  Query,
   Req,
   UseGuards,
   ParseIntPipe,
@@ -13,7 +14,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { ChatService } from './chat.service';
 import { SendMessageDto } from './dto/send-message.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -90,6 +91,43 @@ export class ChatController {
     @Body() data: SendMessageDto,
   ) {
     return this.chatService.sendMessage(req.user.id, musicianId, data);
+  }
+
+  @ApiOperation({ 
+    summary: 'Mensagens paginadas',
+    description: 'Retorna mensagens de uma conversa com paginação por cursor (infinite scroll). Envie o cursor para carregar mensagens mais antigas.' 
+  })
+  @ApiBearerAuth()
+  @ApiParam({ name: 'id', type: Number, description: 'ID da conversa' })
+  @ApiQuery({ name: 'cursor', required: false, type: Number, description: 'ID da mensagem mais antiga carregada (para paginação)' })
+  @ApiQuery({ name: 'take', required: false, type: Number, description: 'Quantidade de mensagens (padrão: 50)' })
+  @ApiResponse({ 
+    status: 200, 
+    description: 'Mensagens paginadas',
+    schema: {
+      example: {
+        messages: [{ id: 1, content: 'Olá!', senderId: 1, isRead: true, createdAt: '2024-01-15T10:30:00Z' }],
+        hasMore: true,
+        nextCursor: 1,
+      }
+    }
+  })
+  @ApiResponse({ status: 404, description: 'Conversa não encontrada' })
+  @ApiResponse({ status: 403, description: 'Sem permissão' })
+  @Get(':id/messages')
+  async findMessages(
+    @Req() req: any,
+    @Param('id', ParseIntPipe) id: number,
+    @Query('cursor') cursor?: number,
+    @Query('take') take?: number,
+  ) {
+    return this.chatService.findMessages(
+      id,
+      req.user.id,
+      req.user.userType,
+      cursor ? Number(cursor) : undefined,
+      take ? Number(take) : 50,
+    );
   }
 
   @ApiOperation({ 

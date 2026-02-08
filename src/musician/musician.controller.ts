@@ -23,6 +23,7 @@ import {
   UpdateInstrumentsDto,
 } from './dto/update-profile.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { OptionalJwtAuthGuard } from '../auth/guards/optional-jwt-auth.guard';
 import { UserType } from '@prisma/client';
 
 @ApiTags('Músicos')
@@ -63,8 +64,10 @@ export class MusicianController {
     }
   })
   @Get()
-  async search(@Query() query: SearchMusiciansDto) {
-    return this.musicianService.search(query);
+  @UseGuards(OptionalJwtAuthGuard)
+  async search(@Query() query: SearchMusiciansDto, @Req() req: any) {
+    const currentUserId = req.user?.id ?? null;
+    return this.musicianService.search(query, currentUserId);
   }
 
   @ApiOperation({ 

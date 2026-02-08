@@ -113,6 +113,93 @@ export class ChatService {
   }
 
   /**
+   * Obter mensagens paginadas de uma conversa (infinite scroll)
+   * Retorna mensagens ordenadas da mais recente para a mais antiga.
+   * Use o cursor (ID da mensagem mais antiga carregada) para carregar mensagens anteriores.
+   */
+  async findMessages(
+    conversationId: number,
+    userId: number,
+    userType: UserType,
+    cursor?: number,
+    take = 50,
+  ) {
+    // Verificar se a conversa existe e se o usuário tem acesso
+    const conversation = await this.prisma.conversation.findUnique({
+      where: { id: conversationId },
+      include: { musicianProfile: { select: { userId: true } } },
+    });
+
+    if (!conversation) {
+      throw new NotFoundException('Conversa não encontrada.');
+    }
+
+    const hasAccess = userType === UserType.CLIENT
+      ? conversation.clientId === userId
+      : conversation.musicianProfile.userId === userId;
+
+    if (!hasAccess) {
+      throw new ForbiddenException('Você não tem acesso a esta conversa.');
+    }
+
+    const messages = await this.prisma.message.findMany({
+      where: { conversationId },
+      ...(cursor
+        ? { cursor: { id: cursor }, skip: 1 }
+        : {}),
+      take,
+      orderBy: { createdAt: 'desc' },
+      include: {
+        sender: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            profileImageKey: true,
+          },
+        },
+      },
+    });
+
+    // Gerar URLs assinadas para os senders
+    const formattedMessages = await Promise.all(
+      messages.map(async (msg) => {
+        let senderImageUrl: string | undefined;
+        if (msg.sender.profileImageKey) {
+          try {
+            senderImageUrl = await this.uploadService.getSignedUrl(msg.sender.profileImageKey);
+          } catch {
+            senderImageUrl = undefined;
+          }
+        }
+
+        return {
+          id: msg.id,
+          content: msg.content,
+          senderId: msg.senderId,
+          sender: {
+            id: msg.sender.id,
+            name: `${msg.sender.firstName} ${msg.sender.lastName}`,
+            profileImageUrl: senderImageUrl,
+          },
+          isRead: msg.isRead,
+          isMine: msg.senderId === userId,
+          createdAt: msg.createdAt,
+        };
+      }),
+    );
+
+    // Retornar na ordem cronológica (mais antiga primeiro)
+    formattedMessages.reverse();
+
+    return {
+      messages: formattedMessages,
+      hasMore: messages.length === take,
+      nextCursor: messages.length === take ? messages[messages.length - 1].id : null,
+    };
+  }
+
+  /**
    * Enviar mensagem para um músico
    */
   async sendMessage(
