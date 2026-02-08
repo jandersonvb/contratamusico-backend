@@ -14,12 +14,14 @@ export class PortfolioService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly uploadService: UploadService,
-  ) {}
+  ) { }
 
   /**
    * Criar item de portfólio para o músico logado
    */
   async create(userId: number, data: CreatePortfolioItemDto) {
+    await this.checkPlanLimits(userId, data.type); // Verificar limites de plano para adicionar itens no portfólio
+
     const profile = await this.getMusicianProfile(userId);
 
     const item = await this.prisma.portfolioItem.create({
@@ -140,6 +142,10 @@ export class PortfolioService {
       genre?: string;
     },
   ) {
+    const fileType = file.mimetype.startsWith('video') ? 'VIDEO' : 'IMAGE';
+
+    await this.checkPlanLimits(userId, fileType); // Verificar limites de plano para adicionar itens no portfólio
+
     if (!file) {
       throw new BadRequestException('Nenhum arquivo enviado.');
     }
@@ -233,6 +239,53 @@ export class PortfolioService {
     }
 
     return profile;
+  }
+
+  // Verificar limites de plano para adicionar itens no portfólio
+  private async checkPlanLimits(userId: number, type: 'IMAGE' | 'VIDEO' | 'AUDIO') {
+    // 1. Buscar a assinatura ativa do usuário e o plano associado
+    const subscription = await this.prisma.subscription.findUnique({
+      where: { userId },
+      include: { plan: true },
+    });
+
+    // Se não tiver assinatura, assumimos que é o plano Básico (ou lançamos erro, depende da sua regra)
+    // Aqui vou assumir que se não tem sub, buscamos o plano com title 'Básico' ou usamos defaults
+    let plan = subscription?.plan;
+
+    if (!plan) {
+      // Fallback: Busca o plano Básico no banco
+      plan = await this.prisma.plan.findUnique({ where: { title: 'Básico' } });
+      if (!plan) throw new BadRequestException('Plano básico não configurado no sistema.');
+    }
+
+    // 2. Contar quantos itens desse tipo o usuário já tem
+    // Precisamos do ID do perfil do músico
+    const profile = await this.prisma.musicianProfile.findUnique({ where: { userId } });
+    if (!profile) throw new NotFoundException('Perfil não encontrado');
+
+    const currentCount = await this.prisma.portfolioItem.count({
+      where: {
+        musicianProfileId: profile.id,
+        type: type // IMAGE, VIDEO ou AUDIO
+      }
+    });
+
+    // 3. Verificar limites
+    if (type === 'IMAGE') {
+      // Se maxPhotos for null, é ilimitado. Se não, checa a quantidade.
+      if (plan.maxPhotos !== null && currentCount >= plan.maxPhotos) {
+        throw new ForbiddenException(
+          `Seu plano atual permite apenas ${plan.maxPhotos} fotos. Faça upgrade para adicionar mais.`
+        );
+      }
+    } else if (type === 'VIDEO') {
+      if (plan.maxVideos !== null && currentCount >= plan.maxVideos) {
+        throw new ForbiddenException(
+          `Seu plano atual permite apenas ${plan.maxVideos} vídeos. Faça upgrade para adicionar mais.`
+        );
+      }
+    }
   }
 }
 

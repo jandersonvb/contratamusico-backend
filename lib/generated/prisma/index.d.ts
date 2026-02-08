@@ -11646,12 +11646,16 @@ export namespace Prisma {
     id: number | null
     monthlyPrice: number | null
     yearlyPrice: number | null
+    maxPhotos: number | null
+    maxVideos: number | null
   }
 
   export type PlanSumAggregateOutputType = {
     id: number | null
     monthlyPrice: number | null
     yearlyPrice: number | null
+    maxPhotos: number | null
+    maxVideos: number | null
   }
 
   export type PlanMinAggregateOutputType = {
@@ -11663,6 +11667,11 @@ export namespace Prisma {
     badge: string | null
     isMusicianPlan: boolean | null
     isClientPlan: boolean | null
+    maxPhotos: number | null
+    maxVideos: number | null
+    hasSpotlight: boolean | null
+    hasStatistics: boolean | null
+    hasWhatsapp: boolean | null
     createdAt: Date | null
   }
 
@@ -11675,6 +11684,11 @@ export namespace Prisma {
     badge: string | null
     isMusicianPlan: boolean | null
     isClientPlan: boolean | null
+    maxPhotos: number | null
+    maxVideos: number | null
+    hasSpotlight: boolean | null
+    hasStatistics: boolean | null
+    hasWhatsapp: boolean | null
     createdAt: Date | null
   }
 
@@ -11687,6 +11701,11 @@ export namespace Prisma {
     badge: number
     isMusicianPlan: number
     isClientPlan: number
+    maxPhotos: number
+    maxVideos: number
+    hasSpotlight: number
+    hasStatistics: number
+    hasWhatsapp: number
     createdAt: number
     _all: number
   }
@@ -11696,12 +11715,16 @@ export namespace Prisma {
     id?: true
     monthlyPrice?: true
     yearlyPrice?: true
+    maxPhotos?: true
+    maxVideos?: true
   }
 
   export type PlanSumAggregateInputType = {
     id?: true
     monthlyPrice?: true
     yearlyPrice?: true
+    maxPhotos?: true
+    maxVideos?: true
   }
 
   export type PlanMinAggregateInputType = {
@@ -11713,6 +11736,11 @@ export namespace Prisma {
     badge?: true
     isMusicianPlan?: true
     isClientPlan?: true
+    maxPhotos?: true
+    maxVideos?: true
+    hasSpotlight?: true
+    hasStatistics?: true
+    hasWhatsapp?: true
     createdAt?: true
   }
 
@@ -11725,6 +11753,11 @@ export namespace Prisma {
     badge?: true
     isMusicianPlan?: true
     isClientPlan?: true
+    maxPhotos?: true
+    maxVideos?: true
+    hasSpotlight?: true
+    hasStatistics?: true
+    hasWhatsapp?: true
     createdAt?: true
   }
 
@@ -11737,6 +11770,11 @@ export namespace Prisma {
     badge?: true
     isMusicianPlan?: true
     isClientPlan?: true
+    maxPhotos?: true
+    maxVideos?: true
+    hasSpotlight?: true
+    hasStatistics?: true
+    hasWhatsapp?: true
     createdAt?: true
     _all?: true
   }
@@ -11836,6 +11874,11 @@ export namespace Prisma {
     badge: string | null
     isMusicianPlan: boolean
     isClientPlan: boolean
+    maxPhotos: number | null
+    maxVideos: number | null
+    hasSpotlight: boolean
+    hasStatistics: boolean
+    hasWhatsapp: boolean
     createdAt: Date
     _count: PlanCountAggregateOutputType | null
     _avg: PlanAvgAggregateOutputType | null
@@ -11867,6 +11910,11 @@ export namespace Prisma {
     badge?: boolean
     isMusicianPlan?: boolean
     isClientPlan?: boolean
+    maxPhotos?: boolean
+    maxVideos?: boolean
+    hasSpotlight?: boolean
+    hasStatistics?: boolean
+    hasWhatsapp?: boolean
     createdAt?: boolean
     features?: boolean | Plan$featuresArgs<ExtArgs>
     subscriptions?: boolean | Plan$subscriptionsArgs<ExtArgs>
@@ -11883,6 +11931,11 @@ export namespace Prisma {
     badge?: boolean
     isMusicianPlan?: boolean
     isClientPlan?: boolean
+    maxPhotos?: boolean
+    maxVideos?: boolean
+    hasSpotlight?: boolean
+    hasStatistics?: boolean
+    hasWhatsapp?: boolean
     createdAt?: boolean
   }
 
@@ -11907,6 +11960,11 @@ export namespace Prisma {
       badge: string | null
       isMusicianPlan: boolean
       isClientPlan: boolean
+      maxPhotos: number | null
+      maxVideos: number | null
+      hasSpotlight: boolean
+      hasStatistics: boolean
+      hasWhatsapp: boolean
       createdAt: Date
     }, ExtArgs["result"]["plan"]>
     composites: {}
@@ -12287,6 +12345,11 @@ export namespace Prisma {
     readonly badge: FieldRef<"Plan", 'String'>
     readonly isMusicianPlan: FieldRef<"Plan", 'Boolean'>
     readonly isClientPlan: FieldRef<"Plan", 'Boolean'>
+    readonly maxPhotos: FieldRef<"Plan", 'Int'>
+    readonly maxVideos: FieldRef<"Plan", 'Int'>
+    readonly hasSpotlight: FieldRef<"Plan", 'Boolean'>
+    readonly hasStatistics: FieldRef<"Plan", 'Boolean'>
+    readonly hasWhatsapp: FieldRef<"Plan", 'Boolean'>
     readonly createdAt: FieldRef<"Plan", 'DateTime'>
   }
     
@@ -21165,6 +21228,11 @@ export namespace Prisma {
     badge: 'badge',
     isMusicianPlan: 'isMusicianPlan',
     isClientPlan: 'isClientPlan',
+    maxPhotos: 'maxPhotos',
+    maxVideos: 'maxVideos',
+    hasSpotlight: 'hasSpotlight',
+    hasStatistics: 'hasStatistics',
+    hasWhatsapp: 'hasWhatsapp',
     createdAt: 'createdAt'
   };
 
@@ -22213,6 +22281,11 @@ export namespace Prisma {
     badge?: StringNullableFilter<"Plan"> | string | null
     isMusicianPlan?: BoolFilter<"Plan"> | boolean
     isClientPlan?: BoolFilter<"Plan"> | boolean
+    maxPhotos?: IntNullableFilter<"Plan"> | number | null
+    maxVideos?: IntNullableFilter<"Plan"> | number | null
+    hasSpotlight?: BoolFilter<"Plan"> | boolean
+    hasStatistics?: BoolFilter<"Plan"> | boolean
+    hasWhatsapp?: BoolFilter<"Plan"> | boolean
     createdAt?: DateTimeFilter<"Plan"> | Date | string
     features?: PlanFeatureListRelationFilter
     subscriptions?: SubscriptionListRelationFilter
@@ -22227,6 +22300,11 @@ export namespace Prisma {
     badge?: SortOrderInput | SortOrder
     isMusicianPlan?: SortOrder
     isClientPlan?: SortOrder
+    maxPhotos?: SortOrderInput | SortOrder
+    maxVideos?: SortOrderInput | SortOrder
+    hasSpotlight?: SortOrder
+    hasStatistics?: SortOrder
+    hasWhatsapp?: SortOrder
     createdAt?: SortOrder
     features?: PlanFeatureOrderByRelationAggregateInput
     subscriptions?: SubscriptionOrderByRelationAggregateInput
@@ -22245,6 +22323,11 @@ export namespace Prisma {
     badge?: StringNullableFilter<"Plan"> | string | null
     isMusicianPlan?: BoolFilter<"Plan"> | boolean
     isClientPlan?: BoolFilter<"Plan"> | boolean
+    maxPhotos?: IntNullableFilter<"Plan"> | number | null
+    maxVideos?: IntNullableFilter<"Plan"> | number | null
+    hasSpotlight?: BoolFilter<"Plan"> | boolean
+    hasStatistics?: BoolFilter<"Plan"> | boolean
+    hasWhatsapp?: BoolFilter<"Plan"> | boolean
     createdAt?: DateTimeFilter<"Plan"> | Date | string
     features?: PlanFeatureListRelationFilter
     subscriptions?: SubscriptionListRelationFilter
@@ -22259,6 +22342,11 @@ export namespace Prisma {
     badge?: SortOrderInput | SortOrder
     isMusicianPlan?: SortOrder
     isClientPlan?: SortOrder
+    maxPhotos?: SortOrderInput | SortOrder
+    maxVideos?: SortOrderInput | SortOrder
+    hasSpotlight?: SortOrder
+    hasStatistics?: SortOrder
+    hasWhatsapp?: SortOrder
     createdAt?: SortOrder
     _count?: PlanCountOrderByAggregateInput
     _avg?: PlanAvgOrderByAggregateInput
@@ -22279,6 +22367,11 @@ export namespace Prisma {
     badge?: StringNullableWithAggregatesFilter<"Plan"> | string | null
     isMusicianPlan?: BoolWithAggregatesFilter<"Plan"> | boolean
     isClientPlan?: BoolWithAggregatesFilter<"Plan"> | boolean
+    maxPhotos?: IntNullableWithAggregatesFilter<"Plan"> | number | null
+    maxVideos?: IntNullableWithAggregatesFilter<"Plan"> | number | null
+    hasSpotlight?: BoolWithAggregatesFilter<"Plan"> | boolean
+    hasStatistics?: BoolWithAggregatesFilter<"Plan"> | boolean
+    hasWhatsapp?: BoolWithAggregatesFilter<"Plan"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Plan"> | Date | string
   }
 
@@ -23610,6 +23703,11 @@ export namespace Prisma {
     badge?: string | null
     isMusicianPlan: boolean
     isClientPlan: boolean
+    maxPhotos?: number | null
+    maxVideos?: number | null
+    hasSpotlight?: boolean
+    hasStatistics?: boolean
+    hasWhatsapp?: boolean
     createdAt?: Date | string
     features?: PlanFeatureCreateNestedManyWithoutPlanInput
     subscriptions?: SubscriptionCreateNestedManyWithoutPlanInput
@@ -23624,6 +23722,11 @@ export namespace Prisma {
     badge?: string | null
     isMusicianPlan: boolean
     isClientPlan: boolean
+    maxPhotos?: number | null
+    maxVideos?: number | null
+    hasSpotlight?: boolean
+    hasStatistics?: boolean
+    hasWhatsapp?: boolean
     createdAt?: Date | string
     features?: PlanFeatureUncheckedCreateNestedManyWithoutPlanInput
     subscriptions?: SubscriptionUncheckedCreateNestedManyWithoutPlanInput
@@ -23637,6 +23740,11 @@ export namespace Prisma {
     badge?: NullableStringFieldUpdateOperationsInput | string | null
     isMusicianPlan?: BoolFieldUpdateOperationsInput | boolean
     isClientPlan?: BoolFieldUpdateOperationsInput | boolean
+    maxPhotos?: NullableIntFieldUpdateOperationsInput | number | null
+    maxVideos?: NullableIntFieldUpdateOperationsInput | number | null
+    hasSpotlight?: BoolFieldUpdateOperationsInput | boolean
+    hasStatistics?: BoolFieldUpdateOperationsInput | boolean
+    hasWhatsapp?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     features?: PlanFeatureUpdateManyWithoutPlanNestedInput
     subscriptions?: SubscriptionUpdateManyWithoutPlanNestedInput
@@ -23651,6 +23759,11 @@ export namespace Prisma {
     badge?: NullableStringFieldUpdateOperationsInput | string | null
     isMusicianPlan?: BoolFieldUpdateOperationsInput | boolean
     isClientPlan?: BoolFieldUpdateOperationsInput | boolean
+    maxPhotos?: NullableIntFieldUpdateOperationsInput | number | null
+    maxVideos?: NullableIntFieldUpdateOperationsInput | number | null
+    hasSpotlight?: BoolFieldUpdateOperationsInput | boolean
+    hasStatistics?: BoolFieldUpdateOperationsInput | boolean
+    hasWhatsapp?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     features?: PlanFeatureUncheckedUpdateManyWithoutPlanNestedInput
     subscriptions?: SubscriptionUncheckedUpdateManyWithoutPlanNestedInput
@@ -23665,6 +23778,11 @@ export namespace Prisma {
     badge?: string | null
     isMusicianPlan: boolean
     isClientPlan: boolean
+    maxPhotos?: number | null
+    maxVideos?: number | null
+    hasSpotlight?: boolean
+    hasStatistics?: boolean
+    hasWhatsapp?: boolean
     createdAt?: Date | string
   }
 
@@ -23676,6 +23794,11 @@ export namespace Prisma {
     badge?: NullableStringFieldUpdateOperationsInput | string | null
     isMusicianPlan?: BoolFieldUpdateOperationsInput | boolean
     isClientPlan?: BoolFieldUpdateOperationsInput | boolean
+    maxPhotos?: NullableIntFieldUpdateOperationsInput | number | null
+    maxVideos?: NullableIntFieldUpdateOperationsInput | number | null
+    hasSpotlight?: BoolFieldUpdateOperationsInput | boolean
+    hasStatistics?: BoolFieldUpdateOperationsInput | boolean
+    hasWhatsapp?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -23688,6 +23811,11 @@ export namespace Prisma {
     badge?: NullableStringFieldUpdateOperationsInput | string | null
     isMusicianPlan?: BoolFieldUpdateOperationsInput | boolean
     isClientPlan?: BoolFieldUpdateOperationsInput | boolean
+    maxPhotos?: NullableIntFieldUpdateOperationsInput | number | null
+    maxVideos?: NullableIntFieldUpdateOperationsInput | number | null
+    hasSpotlight?: BoolFieldUpdateOperationsInput | boolean
+    hasStatistics?: BoolFieldUpdateOperationsInput | boolean
+    hasWhatsapp?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -25137,6 +25265,11 @@ export namespace Prisma {
     badge?: SortOrder
     isMusicianPlan?: SortOrder
     isClientPlan?: SortOrder
+    maxPhotos?: SortOrder
+    maxVideos?: SortOrder
+    hasSpotlight?: SortOrder
+    hasStatistics?: SortOrder
+    hasWhatsapp?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -25144,6 +25277,8 @@ export namespace Prisma {
     id?: SortOrder
     monthlyPrice?: SortOrder
     yearlyPrice?: SortOrder
+    maxPhotos?: SortOrder
+    maxVideos?: SortOrder
   }
 
   export type PlanMaxOrderByAggregateInput = {
@@ -25155,6 +25290,11 @@ export namespace Prisma {
     badge?: SortOrder
     isMusicianPlan?: SortOrder
     isClientPlan?: SortOrder
+    maxPhotos?: SortOrder
+    maxVideos?: SortOrder
+    hasSpotlight?: SortOrder
+    hasStatistics?: SortOrder
+    hasWhatsapp?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -25167,6 +25307,11 @@ export namespace Prisma {
     badge?: SortOrder
     isMusicianPlan?: SortOrder
     isClientPlan?: SortOrder
+    maxPhotos?: SortOrder
+    maxVideos?: SortOrder
+    hasSpotlight?: SortOrder
+    hasStatistics?: SortOrder
+    hasWhatsapp?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -25174,6 +25319,8 @@ export namespace Prisma {
     id?: SortOrder
     monthlyPrice?: SortOrder
     yearlyPrice?: SortOrder
+    maxPhotos?: SortOrder
+    maxVideos?: SortOrder
   }
 
   export type PlanScalarRelationFilter = {
@@ -29168,6 +29315,11 @@ export namespace Prisma {
     badge?: string | null
     isMusicianPlan: boolean
     isClientPlan: boolean
+    maxPhotos?: number | null
+    maxVideos?: number | null
+    hasSpotlight?: boolean
+    hasStatistics?: boolean
+    hasWhatsapp?: boolean
     createdAt?: Date | string
     subscriptions?: SubscriptionCreateNestedManyWithoutPlanInput
   }
@@ -29181,6 +29333,11 @@ export namespace Prisma {
     badge?: string | null
     isMusicianPlan: boolean
     isClientPlan: boolean
+    maxPhotos?: number | null
+    maxVideos?: number | null
+    hasSpotlight?: boolean
+    hasStatistics?: boolean
+    hasWhatsapp?: boolean
     createdAt?: Date | string
     subscriptions?: SubscriptionUncheckedCreateNestedManyWithoutPlanInput
   }
@@ -29209,6 +29366,11 @@ export namespace Prisma {
     badge?: NullableStringFieldUpdateOperationsInput | string | null
     isMusicianPlan?: BoolFieldUpdateOperationsInput | boolean
     isClientPlan?: BoolFieldUpdateOperationsInput | boolean
+    maxPhotos?: NullableIntFieldUpdateOperationsInput | number | null
+    maxVideos?: NullableIntFieldUpdateOperationsInput | number | null
+    hasSpotlight?: BoolFieldUpdateOperationsInput | boolean
+    hasStatistics?: BoolFieldUpdateOperationsInput | boolean
+    hasWhatsapp?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subscriptions?: SubscriptionUpdateManyWithoutPlanNestedInput
   }
@@ -29222,6 +29384,11 @@ export namespace Prisma {
     badge?: NullableStringFieldUpdateOperationsInput | string | null
     isMusicianPlan?: BoolFieldUpdateOperationsInput | boolean
     isClientPlan?: BoolFieldUpdateOperationsInput | boolean
+    maxPhotos?: NullableIntFieldUpdateOperationsInput | number | null
+    maxVideos?: NullableIntFieldUpdateOperationsInput | number | null
+    hasSpotlight?: BoolFieldUpdateOperationsInput | boolean
+    hasStatistics?: BoolFieldUpdateOperationsInput | boolean
+    hasWhatsapp?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subscriptions?: SubscriptionUncheckedUpdateManyWithoutPlanNestedInput
   }
@@ -30085,6 +30252,11 @@ export namespace Prisma {
     badge?: string | null
     isMusicianPlan: boolean
     isClientPlan: boolean
+    maxPhotos?: number | null
+    maxVideos?: number | null
+    hasSpotlight?: boolean
+    hasStatistics?: boolean
+    hasWhatsapp?: boolean
     createdAt?: Date | string
     features?: PlanFeatureCreateNestedManyWithoutPlanInput
   }
@@ -30098,6 +30270,11 @@ export namespace Prisma {
     badge?: string | null
     isMusicianPlan: boolean
     isClientPlan: boolean
+    maxPhotos?: number | null
+    maxVideos?: number | null
+    hasSpotlight?: boolean
+    hasStatistics?: boolean
+    hasWhatsapp?: boolean
     createdAt?: Date | string
     features?: PlanFeatureUncheckedCreateNestedManyWithoutPlanInput
   }
@@ -30188,6 +30365,11 @@ export namespace Prisma {
     badge?: NullableStringFieldUpdateOperationsInput | string | null
     isMusicianPlan?: BoolFieldUpdateOperationsInput | boolean
     isClientPlan?: BoolFieldUpdateOperationsInput | boolean
+    maxPhotos?: NullableIntFieldUpdateOperationsInput | number | null
+    maxVideos?: NullableIntFieldUpdateOperationsInput | number | null
+    hasSpotlight?: BoolFieldUpdateOperationsInput | boolean
+    hasStatistics?: BoolFieldUpdateOperationsInput | boolean
+    hasWhatsapp?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     features?: PlanFeatureUpdateManyWithoutPlanNestedInput
   }
@@ -30201,6 +30383,11 @@ export namespace Prisma {
     badge?: NullableStringFieldUpdateOperationsInput | string | null
     isMusicianPlan?: BoolFieldUpdateOperationsInput | boolean
     isClientPlan?: BoolFieldUpdateOperationsInput | boolean
+    maxPhotos?: NullableIntFieldUpdateOperationsInput | number | null
+    maxVideos?: NullableIntFieldUpdateOperationsInput | number | null
+    hasSpotlight?: BoolFieldUpdateOperationsInput | boolean
+    hasStatistics?: BoolFieldUpdateOperationsInput | boolean
+    hasWhatsapp?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     features?: PlanFeatureUncheckedUpdateManyWithoutPlanNestedInput
   }

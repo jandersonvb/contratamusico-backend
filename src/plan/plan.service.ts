@@ -13,7 +13,7 @@ const planInclude = {
 
 @Injectable()
 export class PlanService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   /**
    * Listar todos os planos disponíveis
@@ -65,6 +65,13 @@ export class PlanService {
       badge: plan.badge,
       isMusicianPlan: plan.isMusicianPlan,
       isClientPlan: plan.isClientPlan,
+
+      maxPhotos: plan.maxPhotos,       // Limite numérico de fotos
+      maxVideos: plan.maxVideos,       // Limite numérico de vídeos
+      hasSpotlight: plan.hasSpotlight, // Se dá destaque
+      hasWhatsapp: plan.hasWhatsapp,   // Se libera WhatsApp
+      hasStatistics: plan.hasStatistics,
+      
       features: plan.features.map((f: any) => ({
         id: f.id,
         text: f.text,

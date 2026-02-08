@@ -18,7 +18,7 @@ export class PaymentService {
     private readonly prisma: PrismaService,
     private readonly stripeService: StripeService,
     private readonly emailService: EmailService,
-  ) {}
+  ) { }
 
   /**
    * Obter assinatura do usuário
@@ -132,7 +132,7 @@ export class PaymentService {
     if (!stripeCustomerId) {
       // Verificar se já existe customer com este email
       const existingCustomer = await this.stripeService.getCustomerByEmail(user.email);
-      
+
       if (existingCustomer) {
         stripeCustomerId = existingCustomer.id;
       } else {
@@ -371,9 +371,9 @@ export class PaymentService {
 
     // Extrair subscription ID do parent (estrutura do Stripe SDK v20)
     const invoiceAny = invoice as any;
-    const subscriptionId = invoiceAny.parent?.subscription_details?.subscription 
+    const subscriptionId = invoiceAny.parent?.subscription_details?.subscription
       || (typeof invoiceAny.subscription === 'string' ? invoiceAny.subscription : invoiceAny.subscription?.id);
-    
+
     if (!subscriptionId) {
       this.logger.warn('Invoice sem subscription associada');
       return;
@@ -389,7 +389,7 @@ export class PaymentService {
     }
 
     // Extrair payment_intent ID se disponível
-    const paymentIntentId = invoiceAny.payment_intent 
+    const paymentIntentId = invoiceAny.payment_intent
       ? (typeof invoiceAny.payment_intent === 'string' ? invoiceAny.payment_intent : invoiceAny.payment_intent?.id)
       : null;
 
@@ -415,9 +415,9 @@ export class PaymentService {
 
     // Extrair subscription ID do parent (estrutura do Stripe SDK v20)
     const invoiceAny = invoice as any;
-    const subscriptionId = invoiceAny.parent?.subscription_details?.subscription 
+    const subscriptionId = invoiceAny.parent?.subscription_details?.subscription
       || (typeof invoiceAny.subscription === 'string' ? invoiceAny.subscription : invoiceAny.subscription?.id);
-    
+
     if (!subscriptionId) {
       this.logger.warn('Invoice sem subscription associada');
       return;
@@ -433,7 +433,7 @@ export class PaymentService {
     }
 
     // Extrair payment_intent ID se disponível
-    const paymentIntentId = invoiceAny.payment_intent 
+    const paymentIntentId = invoiceAny.payment_intent
       ? (typeof invoiceAny.payment_intent === 'string' ? invoiceAny.payment_intent : invoiceAny.payment_intent?.id)
       : null;
 
@@ -611,5 +611,34 @@ export class PaymentService {
     }
 
     this.logger.log(`${expiredSubscriptions.length} assinaturas atualizadas`);
+  }
+
+
+  async syncMusicianPrivileges(userId: number) {
+    // 1. Buscar assinatura ativa com detalhes do plano
+    const subscription = await this.prisma.subscription.findUnique({
+      where: { userId },
+      include: { plan: true }
+    });
+
+    const musicianProfile = await this.prisma.musicianProfile.findUnique({
+      where: { userId }
+    });
+
+    if (!musicianProfile) return; // Se não for músico, ignora
+
+    // 2. Definir regras
+    // O usuário tem destaque se: Tiver assinatura Ativa E o plano tiver hasSpotlight
+    const isActive = subscription && (subscription.status === 'active' || subscription.status === 'trialing');
+    const shouldHaveSpotlight = isActive ? subscription.plan.hasSpotlight : false;
+
+    // 3. Atualizar apenas se mudou
+    if (musicianProfile.isFeatured !== shouldHaveSpotlight) {
+      await this.prisma.musicianProfile.update({
+        where: { id: musicianProfile.id },
+        data: { isFeatured: shouldHaveSpotlight }
+      });
+      this.logger.log(`Privilégios sincronizados para User ${userId}: Destaque=${shouldHaveSpotlight}`);
+    }
   }
 }

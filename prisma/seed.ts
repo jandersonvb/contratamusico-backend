@@ -49,6 +49,11 @@ async function main() {
       badge: null,
       isMusicianPlan: true,
       isClientPlan: false,
+      maxPhotos: 3,
+      maxVideos: 0,
+      hasSpotlight: false,
+      hasStatistics: false,
+      hasWhatsapp: false,
       features: [
         { text: "Perfil básico", available: true, highlight: false },
         { text: "Até 3 fotos no portfólio", available: true, highlight: false },
@@ -65,6 +70,11 @@ async function main() {
       badge: "Mais Popular",
       isMusicianPlan: true,
       isClientPlan: false,
+      maxPhotos: 20,
+      maxVideos: 5,
+      hasSpotlight: true,
+      hasStatistics: true,
+      hasWhatsapp: true,
       features: [
         { text: "Perfil completo", available: true, highlight: false },
         { text: "Até 20 fotos e 5 vídeos", available: true, highlight: true },
@@ -82,6 +92,11 @@ async function main() {
       badge: null,
       isMusicianPlan: true,
       isClientPlan: false,
+      maxPhotos: null,     // null = Ilimitado
+      maxVideos: null,     // null = Ilimitado
+      hasSpotlight: true,
+      hasStatistics: true,
+      hasWhatsapp: true,
       features: [
         { text: "Perfil completo", available: true, highlight: false },
         { text: "Portfólio ilimitado", available: true, highlight: true },
@@ -184,30 +199,46 @@ async function main() {
 
   console.log('\n💳 Inserindo planos...');
   for (const plan of plans) {
-    const existingPlan = await prisma.plan.findUnique({
+    // Upsert: Se não existir, cria. Se existir, ATUALIZA.
+    await prisma.plan.upsert({
       where: { title: plan.title },
-    });
-
-    if (!existingPlan) {
-      await prisma.plan.create({
-        data: {
-          title: plan.title,
-          description: plan.description,
-          monthlyPrice: plan.monthlyPrice,
-          yearlyPrice: plan.yearlyPrice,
-          badge: plan.badge,
-          isMusicianPlan: plan.isMusicianPlan,
-          isClientPlan: plan.isClientPlan,
-          features: {
-            create: plan.features,
-          },
+      // O que atualizar se já existir (AQUI ESTÁ O SEGREDO):
+      update: {
+        description: plan.description,
+        monthlyPrice: plan.monthlyPrice,
+        yearlyPrice: plan.yearlyPrice,
+        badge: plan.badge,
+        maxPhotos: plan.maxPhotos,       // <--- Força atualização
+        maxVideos: plan.maxVideos,       // <--- Força atualização
+        hasSpotlight: plan.hasSpotlight, // <--- Força atualização
+        hasStatistics: plan.hasStatistics,
+        hasWhatsapp: plan.hasWhatsapp,
+        // Para garantir que as features estejam sincronizadas, podemos recriá-las:
+        features: {
+          deleteMany: {}, // Apaga as antigas
+          create: plan.features, // Cria as novas
         },
-      });
-      plansCreated++;
-      console.log(`  ✓ Criado: ${plan.title}`);
-    } else {
-      console.log(`  ↻ Já existe: ${plan.title}`);
-    }
+      },
+      // O que criar se não existir:
+      create: {
+        title: plan.title,
+        description: plan.description,
+        monthlyPrice: plan.monthlyPrice,
+        yearlyPrice: plan.yearlyPrice,
+        badge: plan.badge,
+        isMusicianPlan: plan.isMusicianPlan,
+        isClientPlan: plan.isClientPlan,
+        maxPhotos: plan.maxPhotos,
+        maxVideos: plan.maxVideos,
+        hasSpotlight: plan.hasSpotlight,
+        hasStatistics: plan.hasStatistics,
+        hasWhatsapp: plan.hasWhatsapp,
+        features: {
+          create: plan.features,
+        },
+      },
+    });
+    console.log(`  ✓ Processado: ${plan.title}`);
   }
 
   let faqsCreated = 0;

@@ -229,6 +229,12 @@ model Plan {
   isMusicianPlan Boolean
   isClientPlan   Boolean
 
+  maxPhotos     Int? // Null pode significar ilimitado
+  maxVideos     Int? // Null pode significar ilimitado
+  hasSpotlight  Boolean @default(false) //Destaque na busca
+  hasStatistics Boolean @default(false) //Estatísticas avançadas
+  hasWhatsapp   Boolean @default(false) //Contato por WhatsApp
+
   features      PlanFeature[]
   subscriptions Subscription[]
 
