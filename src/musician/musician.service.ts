@@ -90,7 +90,7 @@ export class MusicianService {
   /**
    * Busca músicos com filtros e paginação
    */
-  async search(query: SearchMusiciansDto) {
+  async search(query: SearchMusiciansDto, excludeUserId?: number | null) {
     const {
       genres,
       instruments,
@@ -108,6 +108,11 @@ export class MusicianService {
 
     // Construir condições WHERE
     const where: Prisma.MusicianProfileWhereInput = {};
+
+    // Excluir o músico logado dos resultados
+    if (excludeUserId) {
+      where.userId = { not: excludeUserId };
+    }
 
     // Filtro por gêneros (múltiplos - OR)
     if (genres?.length) {

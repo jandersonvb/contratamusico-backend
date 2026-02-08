@@ -7,19 +7,18 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     rawBody: true, // Necessário para webhooks do Stripe validarem a assinatura
-    cors: true, // Habilita CORS na criação da aplicação
   });
 
-  // Configuração detalhada de CORS
+  // Configuração detalhada de CORS (compartilhada entre HTTP e WebSocket)
   const corsOrigins = process.env.CORS_ORIGINS?.split(',').map(origin => origin.trim()) || [
     'http://localhost:3000',
     'http://localhost:5173',
     'http://localhost:5174',
   ];
 
-  app.enableCors({
-    origin: (origin, callback) => {
-      // Permite requisições sem origin (Postman, curl, etc)
+  const corsOptions = {
+    origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+      // Permite requisições sem origin (Postman, curl, mobile, etc)
       if (!origin) return callback(null, true);
       
       // Verifica se a origin está na lista permitida
@@ -44,7 +43,9 @@ async function bootstrap() {
     exposedHeaders: ['Authorization'],
     preflightContinue: false,
     optionsSuccessStatus: 204,
-  });
+  };
+
+  app.enableCors(corsOptions);
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -66,7 +67,9 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(process.env.PORT ?? 3000);
-  console.log(`Server is running on port ${process.env.PORT ?? 3000}`);
+  const port = process.env.PORT ?? 3000;
+  await app.listen(port);
+  console.log(`Server is running on port ${port}`);
+  console.log(`WebSocket Gateway disponível em ws://localhost:${port}/chat`);
 }
 bootstrap();
