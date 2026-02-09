@@ -9,25 +9,40 @@ async function bootstrap() {
     rawBody: true, // Necessário para webhooks do Stripe validarem a assinatura
   });
 
-  // Configuração detalhada de CORS (compartilhada entre HTTP e WebSocket)
-  const corsOrigins = process.env.CORS_ORIGINS?.split(',').map(origin => origin.trim()) || [
+// --- INÍCIO DA CONFIGURAÇÃO DE CORS BLINDADA ---
+
+  // 1. Tenta pegar do .env (se existir)
+  const envOrigins = process.env.CORS_ORIGINS
+    ? process.env.CORS_ORIGINS.split(',').map((origin) => origin.trim())
+    : [];
+
+  // 2. Lista fixa de domínios confiáveis (Produção e Local)
+  const trustedOrigins = [
     'http://localhost:3000',
     'http://localhost:5173',
     'http://localhost:5174',
     'https://contratamusico.com.br',
     'https://www.contratamusico.com.br',
+    // Adicione aqui o domínio do backend se necessário para testes diretos via browser
+    'https://contratamusico-backend-production.up.railway.app', 
   ];
+
+  // 3. Junta tudo em uma lista única, removendo duplicados
+  const corsOrigins = [...new Set([...envOrigins, ...trustedOrigins])];
+
+  // LOG IMPORTANTE: Mostra no terminal quais origens estão ativas
+  console.log('✅ CORS ORIGINS ATIVOS:', corsOrigins);
 
   const corsOptions = {
     origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
-      // Permite requisições sem origin (Postman, curl, mobile, etc)
+      // Permite requisições sem origin (Postman, curl, mobile, webhooks, etc)
       if (!origin) return callback(null, true);
-      
+
       // Verifica se a origin está na lista permitida
       if (corsOrigins.includes(origin)) {
         callback(null, true);
       } else {
-        console.log('Origin bloqueada:', origin);
+        console.error(`❌ ORIGEM BLOQUEADA PELO CORS: ${origin}`); // Log para debug no Railway
         callback(new Error('Not allowed by CORS'));
       }
     },
@@ -48,6 +63,8 @@ async function bootstrap() {
   };
 
   app.enableCors(corsOptions);
+
+  // --- FIM DA CONFIGURAÇÃO DE CORS ---
 
   app.useGlobalPipes(
     new ValidationPipe({
