@@ -14,6 +14,8 @@ async function bootstrap() {
     'http://localhost:3000',
     'http://localhost:5173',
     'http://localhost:5174',
+    'https://contratamusico.com.br',
+    'https://www.contratamusico.com.br',
   ];
 
   const corsOptions = {
