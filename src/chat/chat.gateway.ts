@@ -388,13 +388,48 @@ export class ChatGateway
   }
 
   // ─── Utilitário: emitir para um usuário específico ────────────
-  private emitToUser(userId: number, event: string, payload: any) {
+  emitToUser(userId: number, event: string, payload: any) {
     const sockets = this.onlineUsers.get(userId);
     if (sockets) {
       for (const socketId of sockets) {
         this.server.to(socketId).emit(event, payload);
       }
     }
+  }
+
+  addUserToConversationRoom(userId: number, conversationId: number) {
+    const sockets = this.onlineUsers.get(userId);
+    if (!sockets) return;
+
+    for (const socketId of sockets) {
+      this.server.in(socketId).socketsJoin(`conversation:${conversationId}`);
+    }
+  }
+
+  emitNewMessage(messagePayload: {
+    id: number;
+    conversationId: number;
+    content: string;
+    senderId: number;
+    sender: {
+      id: number;
+      firstName: string;
+      lastName: string;
+      profileImageKey: string | null;
+    };
+    isRead: boolean;
+    createdAt: Date;
+  }) {
+    this.server
+      .to(`conversation:${messagePayload.conversationId}`)
+      .emit('message:new', messagePayload);
+
+    this.server
+      .to(`conversation:${messagePayload.conversationId}`)
+      .emit('conversation:updated', {
+        conversationId: messagePayload.conversationId,
+        lastMessageAt: messagePayload.createdAt,
+      });
   }
 
   private async emitTypingIfAllowed(
