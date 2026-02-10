@@ -67,7 +67,8 @@ model User {
   reviewsGiven            Review[]                @relation("ClientReviews")
   bookings                Booking[]
   favorites               Favorite[]
-  conversationsAsClient   Conversation[]          @relation("ClientConversations")
+  conversationsAsUserA    Conversation[]          @relation("ConversationUserA")
+  conversationsAsUserB    Conversation[]          @relation("ConversationUserB")
   messagesSent            Message[]
   notificationPreferences NotificationPreference?
   subscription            Subscription?
@@ -111,7 +112,6 @@ model MusicianProfile {
   musicianInstruments MusicianInstrument[]
   bookings            Booking[]
   favoritedBy         Favorite[]
-  conversations       Conversation[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -280,20 +280,20 @@ model Favorite {
   @@index([musicianProfileId])
 }
 
-// Conversas entre clientes e músicos
+// Conversas entre quaisquer usuários
 model Conversation {
-  id                Int             @id @default(autoincrement())
-  clientId          Int
-  musicianProfileId Int
-  client            User            @relation("ClientConversations", fields: [clientId], references: [id], onDelete: Cascade)
-  musicianProfile   MusicianProfile @relation(fields: [musicianProfileId], references: [id], onDelete: Cascade)
-  messages          Message[]
-  lastMessageAt     DateTime        @default(now())
-  createdAt         DateTime        @default(now())
+  id            Int       @id @default(autoincrement())
+  userAId       Int
+  userBId       Int
+  userA         User      @relation("ConversationUserA", fields: [userAId], references: [id], onDelete: Cascade)
+  userB         User      @relation("ConversationUserB", fields: [userBId], references: [id], onDelete: Cascade)
+  messages      Message[]
+  lastMessageAt DateTime  @default(now())
+  createdAt     DateTime  @default(now())
 
-  @@unique([clientId, musicianProfileId])
-  @@index([clientId])
-  @@index([musicianProfileId])
+  @@unique([userAId, userBId])
+  @@index([userAId])
+  @@index([userBId])
   @@index([lastMessageAt])
 }
 

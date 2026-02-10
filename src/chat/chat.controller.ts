@@ -76,21 +76,21 @@ export class ChatController {
 
   @ApiOperation({ 
     summary: 'Enviar mensagem',
-    description: 'Envia uma mensagem para um músico. Cria uma nova conversa se necessário' 
+    description: 'Envia uma mensagem para qualquer usuário (CLIENT ou MUSICIAN). Cria uma nova conversa se necessário' 
   })
   @ApiBearerAuth()
-  @ApiParam({ name: 'musicianId', type: Number, description: 'ID do perfil do músico' })
+  @ApiParam({ name: 'recipientUserId', type: Number, description: 'ID do usuário destinatário' })
   @ApiResponse({ status: 201, description: 'Mensagem enviada com sucesso' })
-  @ApiResponse({ status: 404, description: 'Músico não encontrado' })
+  @ApiResponse({ status: 404, description: 'Destinatário não encontrado' })
   @ApiResponse({ status: 400, description: 'Não pode enviar mensagem para si mesmo' })
-  @Post(':musicianId/messages')
+  @Post(':recipientUserId/messages')
   @HttpCode(HttpStatus.CREATED)
   async sendMessage(
     @Req() req: any,
-    @Param('musicianId', ParseIntPipe) musicianId: number,
+    @Param('recipientUserId', ParseIntPipe) recipientUserId: number,
     @Body() data: SendMessageDto,
   ) {
-    return this.chatService.sendMessage(req.user.id, musicianId, data);
+    return this.chatService.sendMessage(req.user.id, recipientUserId, data);
   }
 
   @ApiOperation({ 
