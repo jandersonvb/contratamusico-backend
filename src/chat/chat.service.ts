@@ -3,12 +3,14 @@ import { PrismaService } from '../prisma/prisma.service';
 import { UserType } from '@prisma/client';
 import { SendMessageDto } from './dto/send-message.dto';
 import { UploadService } from '../upload/upload.service';
+import { ChatGateway } from './chat.gateway';
 
 @Injectable()
 export class ChatService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly uploadService: UploadService,
+    private readonly chatGateway: ChatGateway,
   ) {}
 
   /**
@@ -232,6 +234,8 @@ export class ChatService {
       },
     });
 
+    const isNewConversation = !conversation;
+
     if (!conversation) {
       conversation = await this.prisma.conversation.create({
         data: {
@@ -265,6 +269,32 @@ export class ChatService {
       where: { id: conversation.id },
       data: { lastMessageAt: new Date() },
     });
+
+    const messagePayload = {
+      id: message.id,
+      conversationId: conversation.id,
+      content: message.content,
+      senderId: message.senderId,
+      sender: {
+        id: message.sender.id,
+        firstName: message.sender.firstName,
+        lastName: message.sender.lastName,
+        profileImageKey: message.sender.profileImageKey,
+      },
+      isRead: false,
+      createdAt: message.createdAt,
+    };
+
+    this.chatGateway.addUserToConversationRoom(senderId, conversation.id);
+    this.chatGateway.addUserToConversationRoom(musician.userId, conversation.id);
+
+    if (isNewConversation) {
+      this.chatGateway.emitToUser(musician.userId, 'conversation:new', {
+        conversationId: conversation.id,
+      });
+    }
+
+    this.chatGateway.emitNewMessage(messagePayload);
 
     return {
       message: 'Mensagem enviada com sucesso!',
@@ -449,4 +479,3 @@ export class ChatService {
     };
   }
 }
-
