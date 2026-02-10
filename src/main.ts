@@ -4,16 +4,18 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
+const normalizeOrigin = (origin: string): string => origin.trim().replace(/\/+$/, '');
+
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     rawBody: true, // Necessário para webhooks do Stripe validarem a assinatura
   });
 
-// --- INÍCIO DA CONFIGURAÇÃO DE CORS BLINDADA ---
-
   // 1. Tenta pegar do .env (se existir)
   const envOrigins = process.env.CORS_ORIGINS
-    ? process.env.CORS_ORIGINS.split(',').map((origin) => origin.trim())
+    ? process.env.CORS_ORIGINS.split(',')
+        .map((origin) => normalizeOrigin(origin))
+        .filter(Boolean)
     : [];
 
   // 2. Lista fixa de domínios confiáveis (Produção e Local)
@@ -25,25 +27,41 @@ async function bootstrap() {
     'https://contratamusico.com.br',
     'https://www.contratamusico.com.br',
     // Adicione aqui o domínio do backend se necessário para testes diretos via browser
-    'https://contratamusico-backend-production.up.railway.app', 
-  ];
+    'https://contratamusico-backend-production.up.railway.app',
+  ].map((origin) => normalizeOrigin(origin));
 
   // 3. Junta tudo em uma lista única, removendo duplicados
   const corsOrigins = [...new Set([...envOrigins, ...trustedOrigins])];
+
+  // 4. Regras para subdomínios confiáveis (ex.: www, app, preview)
+  const trustedOriginPatterns = [
+    /^https:\/\/([a-z0-9-]+\.)?contratamusico\.com\.br$/i,
+  ];
 
   // LOG IMPORTANTE: Mostra no terminal quais origens estão ativas
   console.log('✅ CORS ORIGINS ATIVOS:', corsOrigins);
 
   const corsOptions = {
-    origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+    origin: (
+      origin: string | undefined,
+      callback: (err: Error | null, allow?: boolean) => void,
+    ) => {
       // Permite requisições sem origin (Postman, curl, mobile, webhooks, etc)
       if (!origin) return callback(null, true);
 
+      const normalizedOrigin = normalizeOrigin(origin);
+      const isWhitelisted = corsOrigins.includes(normalizedOrigin);
+      const matchesTrustedPattern = trustedOriginPatterns.some((pattern) =>
+        pattern.test(normalizedOrigin),
+      );
+
       // Verifica se a origin está na lista permitida
-      if (corsOrigins.includes(origin)) {
+      if (isWhitelisted || matchesTrustedPattern) {
         callback(null, true);
       } else {
-        console.error(`❌ ORIGEM BLOQUEADA PELO CORS: ${origin}`); // Log para debug no Railway
+        console.error(
+          `❌ ORIGEM BLOQUEADA PELO CORS: ${origin} (normalizada: ${normalizedOrigin})`,
+        ); // Log para debug no Railway
         callback(new Error('Not allowed by CORS'));
       }
     },
@@ -64,8 +82,6 @@ async function bootstrap() {
   };
 
   app.enableCors(corsOptions);
-
-  // --- FIM DA CONFIGURAÇÃO DE CORS ---
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -90,6 +106,8 @@ async function bootstrap() {
   const port = process.env.PORT ?? 3000;
   await app.listen(port);
   console.log(`Server is running on port ${port}`);
-  console.log(`Socket.IO Chat namespace disponível em http://localhost:${port}/chat (transporte: websocket)`);
+  console.log(
+    `Socket.IO Chat namespace disponível em http://localhost:${port}/chat (transporte: websocket)`,
+  );
 }
 bootstrap();
