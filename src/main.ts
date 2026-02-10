@@ -90,6 +90,6 @@ async function bootstrap() {
   const port = process.env.PORT ?? 3000;
   await app.listen(port);
   console.log(`Server is running on port ${port}`);
-  console.log(`WebSocket Gateway disponível em ws://localhost:${port}/chat`);
+  console.log(`Socket.IO Chat namespace disponível em http://localhost:${port}/chat (transporte: websocket)`);
 }
 bootstrap();
