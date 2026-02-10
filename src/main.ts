@@ -19,6 +19,7 @@ async function bootstrap() {
   // 2. Lista fixa de domínios confiáveis (Produção e Local)
   const trustedOrigins = [
     'http://localhost:3000',
+    'http://localhost:3001',
     'http://localhost:5173',
     'http://localhost:5174',
     'https://contratamusico.com.br',
