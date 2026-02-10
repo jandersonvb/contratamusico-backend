@@ -1,5 +1,4 @@
--- AlterTable
-ALTER TABLE `plan` ADD COLUMN `hasSpotlight` BOOLEAN NOT NULL DEFAULT false,
+ALTER TABLE `Plan` ADD COLUMN `hasSpotlight` BOOLEAN NOT NULL DEFAULT false,
     ADD COLUMN `hasStatistics` BOOLEAN NOT NULL DEFAULT false,
     ADD COLUMN `hasWhatsapp` BOOLEAN NOT NULL DEFAULT false,
     ADD COLUMN `maxPhotos` INTEGER NULL,
