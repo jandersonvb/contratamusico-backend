@@ -27,8 +27,7 @@ import { ConfigService } from '@nestjs/config';
   transports: ['websocket', 'polling'],
 })
 export class ChatGateway
-  implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
-{
+  implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
   server: Server;
 
@@ -41,7 +40,7 @@ export class ChatGateway
     private readonly jwtService: JwtService,
     private readonly prisma: PrismaService,
     private readonly configService: ConfigService,
-  ) {}
+  ) { }
 
   afterInit() {
     this.logger.log('Chat WebSocket Gateway inicializado');
@@ -141,13 +140,11 @@ export class ChatGateway
     },
   ) {
     const senderId = client.data.userId as number;
+    const senderType = client.data.userType as string;
 
-    if (!data.content?.trim()) {
-      return { success: false, error: 'Mensagem não pode estar vazia' };
-    }
 
-    if (data.content.length > 2000) {
-      return { success: false, error: 'Mensagem não pode ter mais de 2000 caracteres' };
+    if (!data.content?.trim() || data.content.length > 2000) {
+      return { success: false, error: 'Mensagem inválida' };
     }
 
     try {
@@ -155,39 +152,33 @@ export class ChatGateway
 
       // Se não tem conversationId, buscar/criar via musicianProfileId
       if (!conversationId && data.musicianProfileId) {
-        const musician = await this.prisma.musicianProfile.findUnique({
-          where: { id: data.musicianProfileId },
-          select: { id: true, userId: true },
-        });
-
-        if (!musician) {
-          return { success: false, error: 'Músico não encontrado' };
+        if (senderType !== 'CLIENT') {
+          return { success: false, error: 'Apenas clientes podem iniciar conversa' };
         }
 
-        if (musician.userId === senderId) {
-          return { success: false, error: 'Você não pode enviar mensagens para si mesmo' };
+        const musician = await this.prisma.musicianProfile.findUnique({
+          where: { id: data.musicianProfileId },
+          select: { userId: true },
+        });
+
+        if (!musician || musician.userId === senderId) {
+          return { success: false, error: 'Destinatário inválido' };
         }
 
         // Buscar ou criar conversa
-        let conversation = await this.prisma.conversation.findUnique({
+        const conversation = await this.prisma.conversation.upsert({
           where: {
             clientId_musicianProfileId: {
               clientId: senderId,
               musicianProfileId: data.musicianProfileId,
             },
           },
+          update: {},
+          create: {
+            clientId: senderId,
+            musicianProfileId: data.musicianProfileId,
+          },
         });
-
-        const isNewConversation = !conversation;
-
-        if (!conversation) {
-          conversation = await this.prisma.conversation.create({
-            data: {
-              clientId: senderId,
-              musicianProfileId: data.musicianProfileId,
-            },
-          });
-        }
 
         conversationId = conversation.id;
 
@@ -197,13 +188,9 @@ export class ChatGateway
         // O outro participante também precisa entrar na room
         const otherUserSockets = this.onlineUsers.get(musician.userId);
         if (otherUserSockets) {
-          for (const socketId of otherUserSockets) {
+          otherUserSockets.forEach(socketId => {
             this.server.in(socketId).socketsJoin(`conversation:${conversationId}`);
-          }
-        }
-
-        // Se é conversa nova, notificar o outro usuário
-        if (isNewConversation) {
+          });
           this.emitToUser(musician.userId, 'conversation:new', {
             conversationId,
           });
@@ -211,7 +198,7 @@ export class ChatGateway
       }
 
       if (!conversationId) {
-        return { success: false, error: 'conversationId ou musicianProfileId é obrigatório' };
+        return { success: false, error: 'conversationId é obrigatório' };
       }
 
       // Verificar se o usuário pertence à conversa
@@ -229,33 +216,35 @@ export class ChatGateway
         conversation.musicianProfile.userId === senderId;
 
       if (!hasAccess) {
-        return { success: false, error: 'Sem permissão para esta conversa' };
+        return { success: false, error: 'Sem acesso à conversa' };
       }
 
-      // Criar mensagem no banco
-      const message = await this.prisma.message.create({
-        data: {
-          conversationId,
-          senderId,
-          content: data.content.trim(),
-        },
-        include: {
-          sender: {
-            select: {
-              id: true,
-              firstName: true,
-              lastName: true,
-              profileImageKey: true,
+      const [message] = await Promise.all([
+        this.prisma.message.create({
+          data: {
+            conversationId,
+            senderId,
+            content: data.content.trim(),
+          },
+          include: {
+            sender: {
+              select: {
+                id: true,
+                firstName: true,
+                lastName: true,
+                profileImageKey: true,
+              },
             },
           },
-        },
-      });
-
-      // Atualizar lastMessageAt da conversa
-      await this.prisma.conversation.update({
-        where: { id: conversationId },
-        data: { lastMessageAt: new Date() },
-      });
+        }),
+        this.prisma.conversation.update({
+          where: { id: conversationId },
+          data: { lastMessageAt: new Date() },
+        }).catch(err => {
+          this.logger.error(`Erro ao atualizar lastMessageAt da conversa: ${err.message}`);
+          return null;
+        })
+      ]);
 
       const messagePayload = {
         id: message.id,
@@ -272,10 +261,13 @@ export class ChatGateway
         createdAt: message.createdAt,
       };
 
-      // Emitir para todos na room da conversa
-      this.server
-        .to(`conversation:${conversationId}`)
-        .emit('message:new', messagePayload);
+      // Emite a nova mensagem para todos na room (inclui o outro participante)
+      this.server.to(`conversation:${conversationId}`).emit('message:new', messagePayload);
+
+      this.server.to(`conversation:${conversationId}`).emit('conversation:updated', {
+        conversationId,
+        lastMessageAt: message.createdAt,
+      });
 
       return { success: true, data: messagePayload };
     } catch (error) {
@@ -292,10 +284,7 @@ export class ChatGateway
   ) {
     if (!data.conversationId) return;
 
-    client.to(`conversation:${data.conversationId}`).emit('typing:start', {
-      userId: client.data.userId,
-      conversationId: data.conversationId,
-    });
+    void this.emitTypingIfAllowed(client, data.conversationId, 'typing:start');
   }
 
   @SubscribeMessage('typing:stop')
@@ -305,10 +294,7 @@ export class ChatGateway
   ) {
     if (!data.conversationId) return;
 
-    client.to(`conversation:${data.conversationId}`).emit('typing:stop', {
-      userId: client.data.userId,
-      conversationId: data.conversationId,
-    });
+    void this.emitTypingIfAllowed(client, data.conversationId, 'typing:stop');
   }
 
   // ─── Marcar Mensagens como Lidas ──────────────────────────────
@@ -322,6 +308,20 @@ export class ChatGateway
     if (!data.conversationId) return;
 
     try {
+      // Verificar se o usuário pertence à conversa
+      const conversation = await this.prisma.conversation.findUnique({
+        where: { id: data.conversationId },
+        include: { musicianProfile: { select: { userId: true } } },
+      });
+
+      if (!conversation) return;
+
+      const hasAccess =
+        conversation.clientId === userId ||
+        conversation.musicianProfile.userId === userId;
+
+      if (!hasAccess) return;
+
       // Marcar mensagens não lidas (enviadas pelo outro usuário) como lidas
       const result = await this.prisma.message.updateMany({
         where: {
@@ -395,5 +395,31 @@ export class ChatGateway
         this.server.to(socketId).emit(event, payload);
       }
     }
+  }
+
+  private async emitTypingIfAllowed(
+    client: Socket,
+    conversationId: number,
+    event: 'typing:start' | 'typing:stop',
+  ) {
+    const userId = client.data.userId as number;
+
+    const conversation = await this.prisma.conversation.findUnique({
+      where: { id: conversationId },
+      include: { musicianProfile: { select: { userId: true } } },
+    });
+
+    if (!conversation) return;
+
+    const hasAccess =
+      conversation.clientId === userId ||
+      conversation.musicianProfile.userId === userId;
+
+    if (!hasAccess) return;
+
+    client.to(`conversation:${conversationId}`).emit(event, {
+      userId,
+      conversationId,
+    });
   }
 }
