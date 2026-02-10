@@ -2359,7 +2359,8 @@ export namespace Prisma {
     reviewsGiven: number
     bookings: number
     favorites: number
-    conversationsAsClient: number
+    conversationsAsUserA: number
+    conversationsAsUserB: number
     messagesSent: number
     paymentHistory: number
   }
@@ -2368,7 +2369,8 @@ export namespace Prisma {
     reviewsGiven?: boolean | UserCountOutputTypeCountReviewsGivenArgs
     bookings?: boolean | UserCountOutputTypeCountBookingsArgs
     favorites?: boolean | UserCountOutputTypeCountFavoritesArgs
-    conversationsAsClient?: boolean | UserCountOutputTypeCountConversationsAsClientArgs
+    conversationsAsUserA?: boolean | UserCountOutputTypeCountConversationsAsUserAArgs
+    conversationsAsUserB?: boolean | UserCountOutputTypeCountConversationsAsUserBArgs
     messagesSent?: boolean | UserCountOutputTypeCountMessagesSentArgs
     paymentHistory?: boolean | UserCountOutputTypeCountPaymentHistoryArgs
   }
@@ -2408,7 +2410,14 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountConversationsAsClientArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCountOutputTypeCountConversationsAsUserAArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ConversationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountConversationsAsUserBArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ConversationWhereInput
   }
 
@@ -2438,7 +2447,6 @@ export namespace Prisma {
     musicianInstruments: number
     bookings: number
     favoritedBy: number
-    conversations: number
   }
 
   export type MusicianProfileCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2448,7 +2456,6 @@ export namespace Prisma {
     musicianInstruments?: boolean | MusicianProfileCountOutputTypeCountMusicianInstrumentsArgs
     bookings?: boolean | MusicianProfileCountOutputTypeCountBookingsArgs
     favoritedBy?: boolean | MusicianProfileCountOutputTypeCountFavoritedByArgs
-    conversations?: boolean | MusicianProfileCountOutputTypeCountConversationsArgs
   }
 
   // Custom InputTypes
@@ -2502,13 +2509,6 @@ export namespace Prisma {
    */
   export type MusicianProfileCountOutputTypeCountFavoritedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: FavoriteWhereInput
-  }
-
-  /**
-   * MusicianProfileCountOutputType without action
-   */
-  export type MusicianProfileCountOutputTypeCountConversationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ConversationWhereInput
   }
 
 
@@ -2931,7 +2931,8 @@ export namespace Prisma {
     reviewsGiven?: boolean | User$reviewsGivenArgs<ExtArgs>
     bookings?: boolean | User$bookingsArgs<ExtArgs>
     favorites?: boolean | User$favoritesArgs<ExtArgs>
-    conversationsAsClient?: boolean | User$conversationsAsClientArgs<ExtArgs>
+    conversationsAsUserA?: boolean | User$conversationsAsUserAArgs<ExtArgs>
+    conversationsAsUserB?: boolean | User$conversationsAsUserBArgs<ExtArgs>
     messagesSent?: boolean | User$messagesSentArgs<ExtArgs>
     notificationPreferences?: boolean | User$notificationPreferencesArgs<ExtArgs>
     subscription?: boolean | User$subscriptionArgs<ExtArgs>
@@ -2963,7 +2964,8 @@ export namespace Prisma {
     reviewsGiven?: boolean | User$reviewsGivenArgs<ExtArgs>
     bookings?: boolean | User$bookingsArgs<ExtArgs>
     favorites?: boolean | User$favoritesArgs<ExtArgs>
-    conversationsAsClient?: boolean | User$conversationsAsClientArgs<ExtArgs>
+    conversationsAsUserA?: boolean | User$conversationsAsUserAArgs<ExtArgs>
+    conversationsAsUserB?: boolean | User$conversationsAsUserBArgs<ExtArgs>
     messagesSent?: boolean | User$messagesSentArgs<ExtArgs>
     notificationPreferences?: boolean | User$notificationPreferencesArgs<ExtArgs>
     subscription?: boolean | User$subscriptionArgs<ExtArgs>
@@ -2978,7 +2980,8 @@ export namespace Prisma {
       reviewsGiven: Prisma.$ReviewPayload<ExtArgs>[]
       bookings: Prisma.$BookingPayload<ExtArgs>[]
       favorites: Prisma.$FavoritePayload<ExtArgs>[]
-      conversationsAsClient: Prisma.$ConversationPayload<ExtArgs>[]
+      conversationsAsUserA: Prisma.$ConversationPayload<ExtArgs>[]
+      conversationsAsUserB: Prisma.$ConversationPayload<ExtArgs>[]
       messagesSent: Prisma.$MessagePayload<ExtArgs>[]
       notificationPreferences: Prisma.$NotificationPreferencePayload<ExtArgs> | null
       subscription: Prisma.$SubscriptionPayload<ExtArgs> | null
@@ -3344,7 +3347,8 @@ export namespace Prisma {
     reviewsGiven<T extends User$reviewsGivenArgs<ExtArgs> = {}>(args?: Subset<T, User$reviewsGivenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany"> | Null>
     bookings<T extends User$bookingsArgs<ExtArgs> = {}>(args?: Subset<T, User$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany"> | Null>
     favorites<T extends User$favoritesArgs<ExtArgs> = {}>(args?: Subset<T, User$favoritesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FavoritePayload<ExtArgs>, T, "findMany"> | Null>
-    conversationsAsClient<T extends User$conversationsAsClientArgs<ExtArgs> = {}>(args?: Subset<T, User$conversationsAsClientArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany"> | Null>
+    conversationsAsUserA<T extends User$conversationsAsUserAArgs<ExtArgs> = {}>(args?: Subset<T, User$conversationsAsUserAArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany"> | Null>
+    conversationsAsUserB<T extends User$conversationsAsUserBArgs<ExtArgs> = {}>(args?: Subset<T, User$conversationsAsUserBArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany"> | Null>
     messagesSent<T extends User$messagesSentArgs<ExtArgs> = {}>(args?: Subset<T, User$messagesSentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany"> | Null>
     notificationPreferences<T extends User$notificationPreferencesArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationPreferencesArgs<ExtArgs>>): Prisma__NotificationPreferenceClient<$Result.GetResult<Prisma.$NotificationPreferencePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     subscription<T extends User$subscriptionArgs<ExtArgs> = {}>(args?: Subset<T, User$subscriptionArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
@@ -3767,9 +3771,29 @@ export namespace Prisma {
   }
 
   /**
-   * User.conversationsAsClient
+   * User.conversationsAsUserA
    */
-  export type User$conversationsAsClientArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$conversationsAsUserAArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conversation
+     */
+    select?: ConversationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConversationInclude<ExtArgs> | null
+    where?: ConversationWhereInput
+    orderBy?: ConversationOrderByWithRelationInput | ConversationOrderByWithRelationInput[]
+    cursor?: ConversationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ConversationScalarFieldEnum | ConversationScalarFieldEnum[]
+  }
+
+  /**
+   * User.conversationsAsUserB
+   */
+  export type User$conversationsAsUserBArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Conversation
      */
@@ -4196,7 +4220,6 @@ export namespace Prisma {
     musicianInstruments?: boolean | MusicianProfile$musicianInstrumentsArgs<ExtArgs>
     bookings?: boolean | MusicianProfile$bookingsArgs<ExtArgs>
     favoritedBy?: boolean | MusicianProfile$favoritedByArgs<ExtArgs>
-    conversations?: boolean | MusicianProfile$conversationsArgs<ExtArgs>
     _count?: boolean | MusicianProfileCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["musicianProfile"]>
 
@@ -4229,7 +4252,6 @@ export namespace Prisma {
     musicianInstruments?: boolean | MusicianProfile$musicianInstrumentsArgs<ExtArgs>
     bookings?: boolean | MusicianProfile$bookingsArgs<ExtArgs>
     favoritedBy?: boolean | MusicianProfile$favoritedByArgs<ExtArgs>
-    conversations?: boolean | MusicianProfile$conversationsArgs<ExtArgs>
     _count?: boolean | MusicianProfileCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -4243,7 +4265,6 @@ export namespace Prisma {
       musicianInstruments: Prisma.$MusicianInstrumentPayload<ExtArgs>[]
       bookings: Prisma.$BookingPayload<ExtArgs>[]
       favoritedBy: Prisma.$FavoritePayload<ExtArgs>[]
-      conversations: Prisma.$ConversationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -4610,7 +4631,6 @@ export namespace Prisma {
     musicianInstruments<T extends MusicianProfile$musicianInstrumentsArgs<ExtArgs> = {}>(args?: Subset<T, MusicianProfile$musicianInstrumentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MusicianInstrumentPayload<ExtArgs>, T, "findMany"> | Null>
     bookings<T extends MusicianProfile$bookingsArgs<ExtArgs> = {}>(args?: Subset<T, MusicianProfile$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany"> | Null>
     favoritedBy<T extends MusicianProfile$favoritedByArgs<ExtArgs> = {}>(args?: Subset<T, MusicianProfile$favoritedByArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FavoritePayload<ExtArgs>, T, "findMany"> | Null>
-    conversations<T extends MusicianProfile$conversationsArgs<ExtArgs> = {}>(args?: Subset<T, MusicianProfile$conversationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5073,26 +5093,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: FavoriteScalarFieldEnum | FavoriteScalarFieldEnum[]
-  }
-
-  /**
-   * MusicianProfile.conversations
-   */
-  export type MusicianProfile$conversationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Conversation
-     */
-    select?: ConversationSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ConversationInclude<ExtArgs> | null
-    where?: ConversationWhereInput
-    orderBy?: ConversationOrderByWithRelationInput | ConversationOrderByWithRelationInput[]
-    cursor?: ConversationWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ConversationScalarFieldEnum | ConversationScalarFieldEnum[]
   }
 
   /**
@@ -15415,36 +15415,36 @@ export namespace Prisma {
 
   export type ConversationAvgAggregateOutputType = {
     id: number | null
-    clientId: number | null
-    musicianProfileId: number | null
+    userAId: number | null
+    userBId: number | null
   }
 
   export type ConversationSumAggregateOutputType = {
     id: number | null
-    clientId: number | null
-    musicianProfileId: number | null
+    userAId: number | null
+    userBId: number | null
   }
 
   export type ConversationMinAggregateOutputType = {
     id: number | null
-    clientId: number | null
-    musicianProfileId: number | null
+    userAId: number | null
+    userBId: number | null
     lastMessageAt: Date | null
     createdAt: Date | null
   }
 
   export type ConversationMaxAggregateOutputType = {
     id: number | null
-    clientId: number | null
-    musicianProfileId: number | null
+    userAId: number | null
+    userBId: number | null
     lastMessageAt: Date | null
     createdAt: Date | null
   }
 
   export type ConversationCountAggregateOutputType = {
     id: number
-    clientId: number
-    musicianProfileId: number
+    userAId: number
+    userBId: number
     lastMessageAt: number
     createdAt: number
     _all: number
@@ -15453,36 +15453,36 @@ export namespace Prisma {
 
   export type ConversationAvgAggregateInputType = {
     id?: true
-    clientId?: true
-    musicianProfileId?: true
+    userAId?: true
+    userBId?: true
   }
 
   export type ConversationSumAggregateInputType = {
     id?: true
-    clientId?: true
-    musicianProfileId?: true
+    userAId?: true
+    userBId?: true
   }
 
   export type ConversationMinAggregateInputType = {
     id?: true
-    clientId?: true
-    musicianProfileId?: true
+    userAId?: true
+    userBId?: true
     lastMessageAt?: true
     createdAt?: true
   }
 
   export type ConversationMaxAggregateInputType = {
     id?: true
-    clientId?: true
-    musicianProfileId?: true
+    userAId?: true
+    userBId?: true
     lastMessageAt?: true
     createdAt?: true
   }
 
   export type ConversationCountAggregateInputType = {
     id?: true
-    clientId?: true
-    musicianProfileId?: true
+    userAId?: true
+    userBId?: true
     lastMessageAt?: true
     createdAt?: true
     _all?: true
@@ -15576,8 +15576,8 @@ export namespace Prisma {
 
   export type ConversationGroupByOutputType = {
     id: number
-    clientId: number
-    musicianProfileId: number
+    userAId: number
+    userBId: number
     lastMessageAt: Date
     createdAt: Date
     _count: ConversationCountAggregateOutputType | null
@@ -15603,12 +15603,12 @@ export namespace Prisma {
 
   export type ConversationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    clientId?: boolean
-    musicianProfileId?: boolean
+    userAId?: boolean
+    userBId?: boolean
     lastMessageAt?: boolean
     createdAt?: boolean
-    client?: boolean | UserDefaultArgs<ExtArgs>
-    musicianProfile?: boolean | MusicianProfileDefaultArgs<ExtArgs>
+    userA?: boolean | UserDefaultArgs<ExtArgs>
+    userB?: boolean | UserDefaultArgs<ExtArgs>
     messages?: boolean | Conversation$messagesArgs<ExtArgs>
     _count?: boolean | ConversationCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["conversation"]>
@@ -15616,15 +15616,15 @@ export namespace Prisma {
 
   export type ConversationSelectScalar = {
     id?: boolean
-    clientId?: boolean
-    musicianProfileId?: boolean
+    userAId?: boolean
+    userBId?: boolean
     lastMessageAt?: boolean
     createdAt?: boolean
   }
 
   export type ConversationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    client?: boolean | UserDefaultArgs<ExtArgs>
-    musicianProfile?: boolean | MusicianProfileDefaultArgs<ExtArgs>
+    userA?: boolean | UserDefaultArgs<ExtArgs>
+    userB?: boolean | UserDefaultArgs<ExtArgs>
     messages?: boolean | Conversation$messagesArgs<ExtArgs>
     _count?: boolean | ConversationCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -15632,14 +15632,14 @@ export namespace Prisma {
   export type $ConversationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Conversation"
     objects: {
-      client: Prisma.$UserPayload<ExtArgs>
-      musicianProfile: Prisma.$MusicianProfilePayload<ExtArgs>
+      userA: Prisma.$UserPayload<ExtArgs>
+      userB: Prisma.$UserPayload<ExtArgs>
       messages: Prisma.$MessagePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      clientId: number
-      musicianProfileId: number
+      userAId: number
+      userBId: number
       lastMessageAt: Date
       createdAt: Date
     }, ExtArgs["result"]["conversation"]>
@@ -15982,8 +15982,8 @@ export namespace Prisma {
    */
   export interface Prisma__ConversationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    client<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
-    musicianProfile<T extends MusicianProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MusicianProfileDefaultArgs<ExtArgs>>): Prisma__MusicianProfileClient<$Result.GetResult<Prisma.$MusicianProfilePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    userA<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    userB<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     messages<T extends Conversation$messagesArgs<ExtArgs> = {}>(args?: Subset<T, Conversation$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -16015,8 +16015,8 @@ export namespace Prisma {
    */ 
   interface ConversationFieldRefs {
     readonly id: FieldRef<"Conversation", 'Int'>
-    readonly clientId: FieldRef<"Conversation", 'Int'>
-    readonly musicianProfileId: FieldRef<"Conversation", 'Int'>
+    readonly userAId: FieldRef<"Conversation", 'Int'>
+    readonly userBId: FieldRef<"Conversation", 'Int'>
     readonly lastMessageAt: FieldRef<"Conversation", 'DateTime'>
     readonly createdAt: FieldRef<"Conversation", 'DateTime'>
   }
@@ -21273,8 +21273,8 @@ export namespace Prisma {
 
   export const ConversationScalarFieldEnum: {
     id: 'id',
-    clientId: 'clientId',
-    musicianProfileId: 'musicianProfileId',
+    userAId: 'userAId',
+    userBId: 'userBId',
     lastMessageAt: 'lastMessageAt',
     createdAt: 'createdAt'
   };
@@ -21593,7 +21593,8 @@ export namespace Prisma {
     reviewsGiven?: ReviewListRelationFilter
     bookings?: BookingListRelationFilter
     favorites?: FavoriteListRelationFilter
-    conversationsAsClient?: ConversationListRelationFilter
+    conversationsAsUserA?: ConversationListRelationFilter
+    conversationsAsUserB?: ConversationListRelationFilter
     messagesSent?: MessageListRelationFilter
     notificationPreferences?: XOR<NotificationPreferenceNullableScalarRelationFilter, NotificationPreferenceWhereInput> | null
     subscription?: XOR<SubscriptionNullableScalarRelationFilter, SubscriptionWhereInput> | null
@@ -21620,7 +21621,8 @@ export namespace Prisma {
     reviewsGiven?: ReviewOrderByRelationAggregateInput
     bookings?: BookingOrderByRelationAggregateInput
     favorites?: FavoriteOrderByRelationAggregateInput
-    conversationsAsClient?: ConversationOrderByRelationAggregateInput
+    conversationsAsUserA?: ConversationOrderByRelationAggregateInput
+    conversationsAsUserB?: ConversationOrderByRelationAggregateInput
     messagesSent?: MessageOrderByRelationAggregateInput
     notificationPreferences?: NotificationPreferenceOrderByWithRelationInput
     subscription?: SubscriptionOrderByWithRelationInput
@@ -21651,7 +21653,8 @@ export namespace Prisma {
     reviewsGiven?: ReviewListRelationFilter
     bookings?: BookingListRelationFilter
     favorites?: FavoriteListRelationFilter
-    conversationsAsClient?: ConversationListRelationFilter
+    conversationsAsUserA?: ConversationListRelationFilter
+    conversationsAsUserB?: ConversationListRelationFilter
     messagesSent?: MessageListRelationFilter
     notificationPreferences?: XOR<NotificationPreferenceNullableScalarRelationFilter, NotificationPreferenceWhereInput> | null
     subscription?: XOR<SubscriptionNullableScalarRelationFilter, SubscriptionWhereInput> | null
@@ -21730,7 +21733,6 @@ export namespace Prisma {
     musicianInstruments?: MusicianInstrumentListRelationFilter
     bookings?: BookingListRelationFilter
     favoritedBy?: FavoriteListRelationFilter
-    conversations?: ConversationListRelationFilter
   }
 
   export type MusicianProfileOrderByWithRelationInput = {
@@ -21758,7 +21760,6 @@ export namespace Prisma {
     musicianInstruments?: MusicianInstrumentOrderByRelationAggregateInput
     bookings?: BookingOrderByRelationAggregateInput
     favoritedBy?: FavoriteOrderByRelationAggregateInput
-    conversations?: ConversationOrderByRelationAggregateInput
     _relevance?: MusicianProfileOrderByRelevanceInput
   }
 
@@ -21790,7 +21791,6 @@ export namespace Prisma {
     musicianInstruments?: MusicianInstrumentListRelationFilter
     bookings?: BookingListRelationFilter
     favoritedBy?: FavoriteListRelationFilter
-    conversations?: ConversationListRelationFilter
   }, "id" | "userId">
 
   export type MusicianProfileOrderByWithAggregationInput = {
@@ -22549,45 +22549,45 @@ export namespace Prisma {
     OR?: ConversationWhereInput[]
     NOT?: ConversationWhereInput | ConversationWhereInput[]
     id?: IntFilter<"Conversation"> | number
-    clientId?: IntFilter<"Conversation"> | number
-    musicianProfileId?: IntFilter<"Conversation"> | number
+    userAId?: IntFilter<"Conversation"> | number
+    userBId?: IntFilter<"Conversation"> | number
     lastMessageAt?: DateTimeFilter<"Conversation"> | Date | string
     createdAt?: DateTimeFilter<"Conversation"> | Date | string
-    client?: XOR<UserScalarRelationFilter, UserWhereInput>
-    musicianProfile?: XOR<MusicianProfileScalarRelationFilter, MusicianProfileWhereInput>
+    userA?: XOR<UserScalarRelationFilter, UserWhereInput>
+    userB?: XOR<UserScalarRelationFilter, UserWhereInput>
     messages?: MessageListRelationFilter
   }
 
   export type ConversationOrderByWithRelationInput = {
     id?: SortOrder
-    clientId?: SortOrder
-    musicianProfileId?: SortOrder
+    userAId?: SortOrder
+    userBId?: SortOrder
     lastMessageAt?: SortOrder
     createdAt?: SortOrder
-    client?: UserOrderByWithRelationInput
-    musicianProfile?: MusicianProfileOrderByWithRelationInput
+    userA?: UserOrderByWithRelationInput
+    userB?: UserOrderByWithRelationInput
     messages?: MessageOrderByRelationAggregateInput
   }
 
   export type ConversationWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    clientId_musicianProfileId?: ConversationClientIdMusicianProfileIdCompoundUniqueInput
+    userAId_userBId?: ConversationUserAIdUserBIdCompoundUniqueInput
     AND?: ConversationWhereInput | ConversationWhereInput[]
     OR?: ConversationWhereInput[]
     NOT?: ConversationWhereInput | ConversationWhereInput[]
-    clientId?: IntFilter<"Conversation"> | number
-    musicianProfileId?: IntFilter<"Conversation"> | number
+    userAId?: IntFilter<"Conversation"> | number
+    userBId?: IntFilter<"Conversation"> | number
     lastMessageAt?: DateTimeFilter<"Conversation"> | Date | string
     createdAt?: DateTimeFilter<"Conversation"> | Date | string
-    client?: XOR<UserScalarRelationFilter, UserWhereInput>
-    musicianProfile?: XOR<MusicianProfileScalarRelationFilter, MusicianProfileWhereInput>
+    userA?: XOR<UserScalarRelationFilter, UserWhereInput>
+    userB?: XOR<UserScalarRelationFilter, UserWhereInput>
     messages?: MessageListRelationFilter
-  }, "id" | "clientId_musicianProfileId">
+  }, "id" | "userAId_userBId">
 
   export type ConversationOrderByWithAggregationInput = {
     id?: SortOrder
-    clientId?: SortOrder
-    musicianProfileId?: SortOrder
+    userAId?: SortOrder
+    userBId?: SortOrder
     lastMessageAt?: SortOrder
     createdAt?: SortOrder
     _count?: ConversationCountOrderByAggregateInput
@@ -22602,8 +22602,8 @@ export namespace Prisma {
     OR?: ConversationScalarWhereWithAggregatesInput[]
     NOT?: ConversationScalarWhereWithAggregatesInput | ConversationScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Conversation"> | number
-    clientId?: IntWithAggregatesFilter<"Conversation"> | number
-    musicianProfileId?: IntWithAggregatesFilter<"Conversation"> | number
+    userAId?: IntWithAggregatesFilter<"Conversation"> | number
+    userBId?: IntWithAggregatesFilter<"Conversation"> | number
     lastMessageAt?: DateTimeWithAggregatesFilter<"Conversation"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"Conversation"> | Date | string
   }
@@ -22999,7 +22999,8 @@ export namespace Prisma {
     reviewsGiven?: ReviewCreateNestedManyWithoutClientInput
     bookings?: BookingCreateNestedManyWithoutClientInput
     favorites?: FavoriteCreateNestedManyWithoutUserInput
-    conversationsAsClient?: ConversationCreateNestedManyWithoutClientInput
+    conversationsAsUserA?: ConversationCreateNestedManyWithoutUserAInput
+    conversationsAsUserB?: ConversationCreateNestedManyWithoutUserBInput
     messagesSent?: MessageCreateNestedManyWithoutSenderInput
     notificationPreferences?: NotificationPreferenceCreateNestedOneWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
@@ -23026,7 +23027,8 @@ export namespace Prisma {
     reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutClientInput
     bookings?: BookingUncheckedCreateNestedManyWithoutClientInput
     favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
-    conversationsAsClient?: ConversationUncheckedCreateNestedManyWithoutClientInput
+    conversationsAsUserA?: ConversationUncheckedCreateNestedManyWithoutUserAInput
+    conversationsAsUserB?: ConversationUncheckedCreateNestedManyWithoutUserBInput
     messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
     notificationPreferences?: NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
@@ -23052,7 +23054,8 @@ export namespace Prisma {
     reviewsGiven?: ReviewUpdateManyWithoutClientNestedInput
     bookings?: BookingUpdateManyWithoutClientNestedInput
     favorites?: FavoriteUpdateManyWithoutUserNestedInput
-    conversationsAsClient?: ConversationUpdateManyWithoutClientNestedInput
+    conversationsAsUserA?: ConversationUpdateManyWithoutUserANestedInput
+    conversationsAsUserB?: ConversationUpdateManyWithoutUserBNestedInput
     messagesSent?: MessageUpdateManyWithoutSenderNestedInput
     notificationPreferences?: NotificationPreferenceUpdateOneWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
@@ -23079,7 +23082,8 @@ export namespace Prisma {
     reviewsGiven?: ReviewUncheckedUpdateManyWithoutClientNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutClientNestedInput
     favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
-    conversationsAsClient?: ConversationUncheckedUpdateManyWithoutClientNestedInput
+    conversationsAsUserA?: ConversationUncheckedUpdateManyWithoutUserANestedInput
+    conversationsAsUserB?: ConversationUncheckedUpdateManyWithoutUserBNestedInput
     messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     notificationPreferences?: NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
@@ -23162,7 +23166,6 @@ export namespace Prisma {
     musicianInstruments?: MusicianInstrumentCreateNestedManyWithoutMusicianProfileInput
     bookings?: BookingCreateNestedManyWithoutMusicianProfileInput
     favoritedBy?: FavoriteCreateNestedManyWithoutMusicianProfileInput
-    conversations?: ConversationCreateNestedManyWithoutMusicianProfileInput
   }
 
   export type MusicianProfileUncheckedCreateInput = {
@@ -23189,7 +23192,6 @@ export namespace Prisma {
     musicianInstruments?: MusicianInstrumentUncheckedCreateNestedManyWithoutMusicianProfileInput
     bookings?: BookingUncheckedCreateNestedManyWithoutMusicianProfileInput
     favoritedBy?: FavoriteUncheckedCreateNestedManyWithoutMusicianProfileInput
-    conversations?: ConversationUncheckedCreateNestedManyWithoutMusicianProfileInput
   }
 
   export type MusicianProfileUpdateInput = {
@@ -23215,7 +23217,6 @@ export namespace Prisma {
     musicianInstruments?: MusicianInstrumentUpdateManyWithoutMusicianProfileNestedInput
     bookings?: BookingUpdateManyWithoutMusicianProfileNestedInput
     favoritedBy?: FavoriteUpdateManyWithoutMusicianProfileNestedInput
-    conversations?: ConversationUpdateManyWithoutMusicianProfileNestedInput
   }
 
   export type MusicianProfileUncheckedUpdateInput = {
@@ -23242,7 +23243,6 @@ export namespace Prisma {
     musicianInstruments?: MusicianInstrumentUncheckedUpdateManyWithoutMusicianProfileNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutMusicianProfileNestedInput
     favoritedBy?: FavoriteUncheckedUpdateManyWithoutMusicianProfileNestedInput
-    conversations?: ConversationUncheckedUpdateManyWithoutMusicianProfileNestedInput
   }
 
   export type MusicianProfileCreateManyInput = {
@@ -23971,15 +23971,15 @@ export namespace Prisma {
   export type ConversationCreateInput = {
     lastMessageAt?: Date | string
     createdAt?: Date | string
-    client: UserCreateNestedOneWithoutConversationsAsClientInput
-    musicianProfile: MusicianProfileCreateNestedOneWithoutConversationsInput
+    userA: UserCreateNestedOneWithoutConversationsAsUserAInput
+    userB: UserCreateNestedOneWithoutConversationsAsUserBInput
     messages?: MessageCreateNestedManyWithoutConversationInput
   }
 
   export type ConversationUncheckedCreateInput = {
     id?: number
-    clientId: number
-    musicianProfileId: number
+    userAId: number
+    userBId: number
     lastMessageAt?: Date | string
     createdAt?: Date | string
     messages?: MessageUncheckedCreateNestedManyWithoutConversationInput
@@ -23988,15 +23988,15 @@ export namespace Prisma {
   export type ConversationUpdateInput = {
     lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    client?: UserUpdateOneRequiredWithoutConversationsAsClientNestedInput
-    musicianProfile?: MusicianProfileUpdateOneRequiredWithoutConversationsNestedInput
+    userA?: UserUpdateOneRequiredWithoutConversationsAsUserANestedInput
+    userB?: UserUpdateOneRequiredWithoutConversationsAsUserBNestedInput
     messages?: MessageUpdateManyWithoutConversationNestedInput
   }
 
   export type ConversationUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    clientId?: IntFieldUpdateOperationsInput | number
-    musicianProfileId?: IntFieldUpdateOperationsInput | number
+    userAId?: IntFieldUpdateOperationsInput | number
+    userBId?: IntFieldUpdateOperationsInput | number
     lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     messages?: MessageUncheckedUpdateManyWithoutConversationNestedInput
@@ -24004,8 +24004,8 @@ export namespace Prisma {
 
   export type ConversationCreateManyInput = {
     id?: number
-    clientId: number
-    musicianProfileId: number
+    userAId: number
+    userBId: number
     lastMessageAt?: Date | string
     createdAt?: Date | string
   }
@@ -24017,8 +24017,8 @@ export namespace Prisma {
 
   export type ConversationUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    clientId?: IntFieldUpdateOperationsInput | number
-    musicianProfileId?: IntFieldUpdateOperationsInput | number
+    userAId?: IntFieldUpdateOperationsInput | number
+    userBId?: IntFieldUpdateOperationsInput | number
     lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -25444,45 +25444,45 @@ export namespace Prisma {
     musicianProfileId?: SortOrder
   }
 
-  export type ConversationClientIdMusicianProfileIdCompoundUniqueInput = {
-    clientId: number
-    musicianProfileId: number
+  export type ConversationUserAIdUserBIdCompoundUniqueInput = {
+    userAId: number
+    userBId: number
   }
 
   export type ConversationCountOrderByAggregateInput = {
     id?: SortOrder
-    clientId?: SortOrder
-    musicianProfileId?: SortOrder
+    userAId?: SortOrder
+    userBId?: SortOrder
     lastMessageAt?: SortOrder
     createdAt?: SortOrder
   }
 
   export type ConversationAvgOrderByAggregateInput = {
     id?: SortOrder
-    clientId?: SortOrder
-    musicianProfileId?: SortOrder
+    userAId?: SortOrder
+    userBId?: SortOrder
   }
 
   export type ConversationMaxOrderByAggregateInput = {
     id?: SortOrder
-    clientId?: SortOrder
-    musicianProfileId?: SortOrder
+    userAId?: SortOrder
+    userBId?: SortOrder
     lastMessageAt?: SortOrder
     createdAt?: SortOrder
   }
 
   export type ConversationMinOrderByAggregateInput = {
     id?: SortOrder
-    clientId?: SortOrder
-    musicianProfileId?: SortOrder
+    userAId?: SortOrder
+    userBId?: SortOrder
     lastMessageAt?: SortOrder
     createdAt?: SortOrder
   }
 
   export type ConversationSumOrderByAggregateInput = {
     id?: SortOrder
-    clientId?: SortOrder
-    musicianProfileId?: SortOrder
+    userAId?: SortOrder
+    userBId?: SortOrder
   }
 
   export type ConversationScalarRelationFilter = {
@@ -25763,10 +25763,17 @@ export namespace Prisma {
     connect?: FavoriteWhereUniqueInput | FavoriteWhereUniqueInput[]
   }
 
-  export type ConversationCreateNestedManyWithoutClientInput = {
-    create?: XOR<ConversationCreateWithoutClientInput, ConversationUncheckedCreateWithoutClientInput> | ConversationCreateWithoutClientInput[] | ConversationUncheckedCreateWithoutClientInput[]
-    connectOrCreate?: ConversationCreateOrConnectWithoutClientInput | ConversationCreateOrConnectWithoutClientInput[]
-    createMany?: ConversationCreateManyClientInputEnvelope
+  export type ConversationCreateNestedManyWithoutUserAInput = {
+    create?: XOR<ConversationCreateWithoutUserAInput, ConversationUncheckedCreateWithoutUserAInput> | ConversationCreateWithoutUserAInput[] | ConversationUncheckedCreateWithoutUserAInput[]
+    connectOrCreate?: ConversationCreateOrConnectWithoutUserAInput | ConversationCreateOrConnectWithoutUserAInput[]
+    createMany?: ConversationCreateManyUserAInputEnvelope
+    connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+  }
+
+  export type ConversationCreateNestedManyWithoutUserBInput = {
+    create?: XOR<ConversationCreateWithoutUserBInput, ConversationUncheckedCreateWithoutUserBInput> | ConversationCreateWithoutUserBInput[] | ConversationUncheckedCreateWithoutUserBInput[]
+    connectOrCreate?: ConversationCreateOrConnectWithoutUserBInput | ConversationCreateOrConnectWithoutUserBInput[]
+    createMany?: ConversationCreateManyUserBInputEnvelope
     connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
   }
 
@@ -25823,10 +25830,17 @@ export namespace Prisma {
     connect?: FavoriteWhereUniqueInput | FavoriteWhereUniqueInput[]
   }
 
-  export type ConversationUncheckedCreateNestedManyWithoutClientInput = {
-    create?: XOR<ConversationCreateWithoutClientInput, ConversationUncheckedCreateWithoutClientInput> | ConversationCreateWithoutClientInput[] | ConversationUncheckedCreateWithoutClientInput[]
-    connectOrCreate?: ConversationCreateOrConnectWithoutClientInput | ConversationCreateOrConnectWithoutClientInput[]
-    createMany?: ConversationCreateManyClientInputEnvelope
+  export type ConversationUncheckedCreateNestedManyWithoutUserAInput = {
+    create?: XOR<ConversationCreateWithoutUserAInput, ConversationUncheckedCreateWithoutUserAInput> | ConversationCreateWithoutUserAInput[] | ConversationUncheckedCreateWithoutUserAInput[]
+    connectOrCreate?: ConversationCreateOrConnectWithoutUserAInput | ConversationCreateOrConnectWithoutUserAInput[]
+    createMany?: ConversationCreateManyUserAInputEnvelope
+    connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+  }
+
+  export type ConversationUncheckedCreateNestedManyWithoutUserBInput = {
+    create?: XOR<ConversationCreateWithoutUserBInput, ConversationUncheckedCreateWithoutUserBInput> | ConversationCreateWithoutUserBInput[] | ConversationUncheckedCreateWithoutUserBInput[]
+    connectOrCreate?: ConversationCreateOrConnectWithoutUserBInput | ConversationCreateOrConnectWithoutUserBInput[]
+    createMany?: ConversationCreateManyUserBInputEnvelope
     connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
   }
 
@@ -25932,17 +25946,31 @@ export namespace Prisma {
     deleteMany?: FavoriteScalarWhereInput | FavoriteScalarWhereInput[]
   }
 
-  export type ConversationUpdateManyWithoutClientNestedInput = {
-    create?: XOR<ConversationCreateWithoutClientInput, ConversationUncheckedCreateWithoutClientInput> | ConversationCreateWithoutClientInput[] | ConversationUncheckedCreateWithoutClientInput[]
-    connectOrCreate?: ConversationCreateOrConnectWithoutClientInput | ConversationCreateOrConnectWithoutClientInput[]
-    upsert?: ConversationUpsertWithWhereUniqueWithoutClientInput | ConversationUpsertWithWhereUniqueWithoutClientInput[]
-    createMany?: ConversationCreateManyClientInputEnvelope
+  export type ConversationUpdateManyWithoutUserANestedInput = {
+    create?: XOR<ConversationCreateWithoutUserAInput, ConversationUncheckedCreateWithoutUserAInput> | ConversationCreateWithoutUserAInput[] | ConversationUncheckedCreateWithoutUserAInput[]
+    connectOrCreate?: ConversationCreateOrConnectWithoutUserAInput | ConversationCreateOrConnectWithoutUserAInput[]
+    upsert?: ConversationUpsertWithWhereUniqueWithoutUserAInput | ConversationUpsertWithWhereUniqueWithoutUserAInput[]
+    createMany?: ConversationCreateManyUserAInputEnvelope
     set?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
     disconnect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
     delete?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
     connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
-    update?: ConversationUpdateWithWhereUniqueWithoutClientInput | ConversationUpdateWithWhereUniqueWithoutClientInput[]
-    updateMany?: ConversationUpdateManyWithWhereWithoutClientInput | ConversationUpdateManyWithWhereWithoutClientInput[]
+    update?: ConversationUpdateWithWhereUniqueWithoutUserAInput | ConversationUpdateWithWhereUniqueWithoutUserAInput[]
+    updateMany?: ConversationUpdateManyWithWhereWithoutUserAInput | ConversationUpdateManyWithWhereWithoutUserAInput[]
+    deleteMany?: ConversationScalarWhereInput | ConversationScalarWhereInput[]
+  }
+
+  export type ConversationUpdateManyWithoutUserBNestedInput = {
+    create?: XOR<ConversationCreateWithoutUserBInput, ConversationUncheckedCreateWithoutUserBInput> | ConversationCreateWithoutUserBInput[] | ConversationUncheckedCreateWithoutUserBInput[]
+    connectOrCreate?: ConversationCreateOrConnectWithoutUserBInput | ConversationCreateOrConnectWithoutUserBInput[]
+    upsert?: ConversationUpsertWithWhereUniqueWithoutUserBInput | ConversationUpsertWithWhereUniqueWithoutUserBInput[]
+    createMany?: ConversationCreateManyUserBInputEnvelope
+    set?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    disconnect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    delete?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    update?: ConversationUpdateWithWhereUniqueWithoutUserBInput | ConversationUpdateWithWhereUniqueWithoutUserBInput[]
+    updateMany?: ConversationUpdateManyWithWhereWithoutUserBInput | ConversationUpdateManyWithWhereWithoutUserBInput[]
     deleteMany?: ConversationScalarWhereInput | ConversationScalarWhereInput[]
   }
 
@@ -26054,17 +26082,31 @@ export namespace Prisma {
     deleteMany?: FavoriteScalarWhereInput | FavoriteScalarWhereInput[]
   }
 
-  export type ConversationUncheckedUpdateManyWithoutClientNestedInput = {
-    create?: XOR<ConversationCreateWithoutClientInput, ConversationUncheckedCreateWithoutClientInput> | ConversationCreateWithoutClientInput[] | ConversationUncheckedCreateWithoutClientInput[]
-    connectOrCreate?: ConversationCreateOrConnectWithoutClientInput | ConversationCreateOrConnectWithoutClientInput[]
-    upsert?: ConversationUpsertWithWhereUniqueWithoutClientInput | ConversationUpsertWithWhereUniqueWithoutClientInput[]
-    createMany?: ConversationCreateManyClientInputEnvelope
+  export type ConversationUncheckedUpdateManyWithoutUserANestedInput = {
+    create?: XOR<ConversationCreateWithoutUserAInput, ConversationUncheckedCreateWithoutUserAInput> | ConversationCreateWithoutUserAInput[] | ConversationUncheckedCreateWithoutUserAInput[]
+    connectOrCreate?: ConversationCreateOrConnectWithoutUserAInput | ConversationCreateOrConnectWithoutUserAInput[]
+    upsert?: ConversationUpsertWithWhereUniqueWithoutUserAInput | ConversationUpsertWithWhereUniqueWithoutUserAInput[]
+    createMany?: ConversationCreateManyUserAInputEnvelope
     set?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
     disconnect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
     delete?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
     connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
-    update?: ConversationUpdateWithWhereUniqueWithoutClientInput | ConversationUpdateWithWhereUniqueWithoutClientInput[]
-    updateMany?: ConversationUpdateManyWithWhereWithoutClientInput | ConversationUpdateManyWithWhereWithoutClientInput[]
+    update?: ConversationUpdateWithWhereUniqueWithoutUserAInput | ConversationUpdateWithWhereUniqueWithoutUserAInput[]
+    updateMany?: ConversationUpdateManyWithWhereWithoutUserAInput | ConversationUpdateManyWithWhereWithoutUserAInput[]
+    deleteMany?: ConversationScalarWhereInput | ConversationScalarWhereInput[]
+  }
+
+  export type ConversationUncheckedUpdateManyWithoutUserBNestedInput = {
+    create?: XOR<ConversationCreateWithoutUserBInput, ConversationUncheckedCreateWithoutUserBInput> | ConversationCreateWithoutUserBInput[] | ConversationUncheckedCreateWithoutUserBInput[]
+    connectOrCreate?: ConversationCreateOrConnectWithoutUserBInput | ConversationCreateOrConnectWithoutUserBInput[]
+    upsert?: ConversationUpsertWithWhereUniqueWithoutUserBInput | ConversationUpsertWithWhereUniqueWithoutUserBInput[]
+    createMany?: ConversationCreateManyUserBInputEnvelope
+    set?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    disconnect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    delete?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+    update?: ConversationUpdateWithWhereUniqueWithoutUserBInput | ConversationUpdateWithWhereUniqueWithoutUserBInput[]
+    updateMany?: ConversationUpdateManyWithWhereWithoutUserBInput | ConversationUpdateManyWithWhereWithoutUserBInput[]
     deleteMany?: ConversationScalarWhereInput | ConversationScalarWhereInput[]
   }
 
@@ -26164,13 +26206,6 @@ export namespace Prisma {
     connect?: FavoriteWhereUniqueInput | FavoriteWhereUniqueInput[]
   }
 
-  export type ConversationCreateNestedManyWithoutMusicianProfileInput = {
-    create?: XOR<ConversationCreateWithoutMusicianProfileInput, ConversationUncheckedCreateWithoutMusicianProfileInput> | ConversationCreateWithoutMusicianProfileInput[] | ConversationUncheckedCreateWithoutMusicianProfileInput[]
-    connectOrCreate?: ConversationCreateOrConnectWithoutMusicianProfileInput | ConversationCreateOrConnectWithoutMusicianProfileInput[]
-    createMany?: ConversationCreateManyMusicianProfileInputEnvelope
-    connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
-  }
-
   export type PortfolioItemUncheckedCreateNestedManyWithoutMusicianProfileInput = {
     create?: XOR<PortfolioItemCreateWithoutMusicianProfileInput, PortfolioItemUncheckedCreateWithoutMusicianProfileInput> | PortfolioItemCreateWithoutMusicianProfileInput[] | PortfolioItemUncheckedCreateWithoutMusicianProfileInput[]
     connectOrCreate?: PortfolioItemCreateOrConnectWithoutMusicianProfileInput | PortfolioItemCreateOrConnectWithoutMusicianProfileInput[]
@@ -26211,13 +26246,6 @@ export namespace Prisma {
     connectOrCreate?: FavoriteCreateOrConnectWithoutMusicianProfileInput | FavoriteCreateOrConnectWithoutMusicianProfileInput[]
     createMany?: FavoriteCreateManyMusicianProfileInputEnvelope
     connect?: FavoriteWhereUniqueInput | FavoriteWhereUniqueInput[]
-  }
-
-  export type ConversationUncheckedCreateNestedManyWithoutMusicianProfileInput = {
-    create?: XOR<ConversationCreateWithoutMusicianProfileInput, ConversationUncheckedCreateWithoutMusicianProfileInput> | ConversationCreateWithoutMusicianProfileInput[] | ConversationUncheckedCreateWithoutMusicianProfileInput[]
-    connectOrCreate?: ConversationCreateOrConnectWithoutMusicianProfileInput | ConversationCreateOrConnectWithoutMusicianProfileInput[]
-    createMany?: ConversationCreateManyMusicianProfileInputEnvelope
-    connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -26332,20 +26360,6 @@ export namespace Prisma {
     deleteMany?: FavoriteScalarWhereInput | FavoriteScalarWhereInput[]
   }
 
-  export type ConversationUpdateManyWithoutMusicianProfileNestedInput = {
-    create?: XOR<ConversationCreateWithoutMusicianProfileInput, ConversationUncheckedCreateWithoutMusicianProfileInput> | ConversationCreateWithoutMusicianProfileInput[] | ConversationUncheckedCreateWithoutMusicianProfileInput[]
-    connectOrCreate?: ConversationCreateOrConnectWithoutMusicianProfileInput | ConversationCreateOrConnectWithoutMusicianProfileInput[]
-    upsert?: ConversationUpsertWithWhereUniqueWithoutMusicianProfileInput | ConversationUpsertWithWhereUniqueWithoutMusicianProfileInput[]
-    createMany?: ConversationCreateManyMusicianProfileInputEnvelope
-    set?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
-    disconnect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
-    delete?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
-    connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
-    update?: ConversationUpdateWithWhereUniqueWithoutMusicianProfileInput | ConversationUpdateWithWhereUniqueWithoutMusicianProfileInput[]
-    updateMany?: ConversationUpdateManyWithWhereWithoutMusicianProfileInput | ConversationUpdateManyWithWhereWithoutMusicianProfileInput[]
-    deleteMany?: ConversationScalarWhereInput | ConversationScalarWhereInput[]
-  }
-
   export type PortfolioItemUncheckedUpdateManyWithoutMusicianProfileNestedInput = {
     create?: XOR<PortfolioItemCreateWithoutMusicianProfileInput, PortfolioItemUncheckedCreateWithoutMusicianProfileInput> | PortfolioItemCreateWithoutMusicianProfileInput[] | PortfolioItemUncheckedCreateWithoutMusicianProfileInput[]
     connectOrCreate?: PortfolioItemCreateOrConnectWithoutMusicianProfileInput | PortfolioItemCreateOrConnectWithoutMusicianProfileInput[]
@@ -26428,20 +26442,6 @@ export namespace Prisma {
     update?: FavoriteUpdateWithWhereUniqueWithoutMusicianProfileInput | FavoriteUpdateWithWhereUniqueWithoutMusicianProfileInput[]
     updateMany?: FavoriteUpdateManyWithWhereWithoutMusicianProfileInput | FavoriteUpdateManyWithWhereWithoutMusicianProfileInput[]
     deleteMany?: FavoriteScalarWhereInput | FavoriteScalarWhereInput[]
-  }
-
-  export type ConversationUncheckedUpdateManyWithoutMusicianProfileNestedInput = {
-    create?: XOR<ConversationCreateWithoutMusicianProfileInput, ConversationUncheckedCreateWithoutMusicianProfileInput> | ConversationCreateWithoutMusicianProfileInput[] | ConversationUncheckedCreateWithoutMusicianProfileInput[]
-    connectOrCreate?: ConversationCreateOrConnectWithoutMusicianProfileInput | ConversationCreateOrConnectWithoutMusicianProfileInput[]
-    upsert?: ConversationUpsertWithWhereUniqueWithoutMusicianProfileInput | ConversationUpsertWithWhereUniqueWithoutMusicianProfileInput[]
-    createMany?: ConversationCreateManyMusicianProfileInputEnvelope
-    set?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
-    disconnect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
-    delete?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
-    connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
-    update?: ConversationUpdateWithWhereUniqueWithoutMusicianProfileInput | ConversationUpdateWithWhereUniqueWithoutMusicianProfileInput[]
-    updateMany?: ConversationUpdateManyWithWhereWithoutMusicianProfileInput | ConversationUpdateManyWithWhereWithoutMusicianProfileInput[]
-    deleteMany?: ConversationScalarWhereInput | ConversationScalarWhereInput[]
   }
 
   export type MusicianProfileCreateNestedOneWithoutPortfolioInput = {
@@ -26786,16 +26786,16 @@ export namespace Prisma {
     update?: XOR<XOR<MusicianProfileUpdateToOneWithWhereWithoutFavoritedByInput, MusicianProfileUpdateWithoutFavoritedByInput>, MusicianProfileUncheckedUpdateWithoutFavoritedByInput>
   }
 
-  export type UserCreateNestedOneWithoutConversationsAsClientInput = {
-    create?: XOR<UserCreateWithoutConversationsAsClientInput, UserUncheckedCreateWithoutConversationsAsClientInput>
-    connectOrCreate?: UserCreateOrConnectWithoutConversationsAsClientInput
+  export type UserCreateNestedOneWithoutConversationsAsUserAInput = {
+    create?: XOR<UserCreateWithoutConversationsAsUserAInput, UserUncheckedCreateWithoutConversationsAsUserAInput>
+    connectOrCreate?: UserCreateOrConnectWithoutConversationsAsUserAInput
     connect?: UserWhereUniqueInput
   }
 
-  export type MusicianProfileCreateNestedOneWithoutConversationsInput = {
-    create?: XOR<MusicianProfileCreateWithoutConversationsInput, MusicianProfileUncheckedCreateWithoutConversationsInput>
-    connectOrCreate?: MusicianProfileCreateOrConnectWithoutConversationsInput
-    connect?: MusicianProfileWhereUniqueInput
+  export type UserCreateNestedOneWithoutConversationsAsUserBInput = {
+    create?: XOR<UserCreateWithoutConversationsAsUserBInput, UserUncheckedCreateWithoutConversationsAsUserBInput>
+    connectOrCreate?: UserCreateOrConnectWithoutConversationsAsUserBInput
+    connect?: UserWhereUniqueInput
   }
 
   export type MessageCreateNestedManyWithoutConversationInput = {
@@ -26812,20 +26812,20 @@ export namespace Prisma {
     connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
   }
 
-  export type UserUpdateOneRequiredWithoutConversationsAsClientNestedInput = {
-    create?: XOR<UserCreateWithoutConversationsAsClientInput, UserUncheckedCreateWithoutConversationsAsClientInput>
-    connectOrCreate?: UserCreateOrConnectWithoutConversationsAsClientInput
-    upsert?: UserUpsertWithoutConversationsAsClientInput
+  export type UserUpdateOneRequiredWithoutConversationsAsUserANestedInput = {
+    create?: XOR<UserCreateWithoutConversationsAsUserAInput, UserUncheckedCreateWithoutConversationsAsUserAInput>
+    connectOrCreate?: UserCreateOrConnectWithoutConversationsAsUserAInput
+    upsert?: UserUpsertWithoutConversationsAsUserAInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutConversationsAsClientInput, UserUpdateWithoutConversationsAsClientInput>, UserUncheckedUpdateWithoutConversationsAsClientInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutConversationsAsUserAInput, UserUpdateWithoutConversationsAsUserAInput>, UserUncheckedUpdateWithoutConversationsAsUserAInput>
   }
 
-  export type MusicianProfileUpdateOneRequiredWithoutConversationsNestedInput = {
-    create?: XOR<MusicianProfileCreateWithoutConversationsInput, MusicianProfileUncheckedCreateWithoutConversationsInput>
-    connectOrCreate?: MusicianProfileCreateOrConnectWithoutConversationsInput
-    upsert?: MusicianProfileUpsertWithoutConversationsInput
-    connect?: MusicianProfileWhereUniqueInput
-    update?: XOR<XOR<MusicianProfileUpdateToOneWithWhereWithoutConversationsInput, MusicianProfileUpdateWithoutConversationsInput>, MusicianProfileUncheckedUpdateWithoutConversationsInput>
+  export type UserUpdateOneRequiredWithoutConversationsAsUserBNestedInput = {
+    create?: XOR<UserCreateWithoutConversationsAsUserBInput, UserUncheckedCreateWithoutConversationsAsUserBInput>
+    connectOrCreate?: UserCreateOrConnectWithoutConversationsAsUserBInput
+    upsert?: UserUpsertWithoutConversationsAsUserBInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutConversationsAsUserBInput, UserUpdateWithoutConversationsAsUserBInput>, UserUncheckedUpdateWithoutConversationsAsUserBInput>
   }
 
   export type MessageUpdateManyWithoutConversationNestedInput = {
@@ -27234,7 +27234,6 @@ export namespace Prisma {
     musicianInstruments?: MusicianInstrumentCreateNestedManyWithoutMusicianProfileInput
     bookings?: BookingCreateNestedManyWithoutMusicianProfileInput
     favoritedBy?: FavoriteCreateNestedManyWithoutMusicianProfileInput
-    conversations?: ConversationCreateNestedManyWithoutMusicianProfileInput
   }
 
   export type MusicianProfileUncheckedCreateWithoutUserInput = {
@@ -27260,7 +27259,6 @@ export namespace Prisma {
     musicianInstruments?: MusicianInstrumentUncheckedCreateNestedManyWithoutMusicianProfileInput
     bookings?: BookingUncheckedCreateNestedManyWithoutMusicianProfileInput
     favoritedBy?: FavoriteUncheckedCreateNestedManyWithoutMusicianProfileInput
-    conversations?: ConversationUncheckedCreateNestedManyWithoutMusicianProfileInput
   }
 
   export type MusicianProfileCreateOrConnectWithoutUserInput = {
@@ -27349,28 +27347,53 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type ConversationCreateWithoutClientInput = {
+  export type ConversationCreateWithoutUserAInput = {
     lastMessageAt?: Date | string
     createdAt?: Date | string
-    musicianProfile: MusicianProfileCreateNestedOneWithoutConversationsInput
+    userB: UserCreateNestedOneWithoutConversationsAsUserBInput
     messages?: MessageCreateNestedManyWithoutConversationInput
   }
 
-  export type ConversationUncheckedCreateWithoutClientInput = {
+  export type ConversationUncheckedCreateWithoutUserAInput = {
     id?: number
-    musicianProfileId: number
+    userBId: number
     lastMessageAt?: Date | string
     createdAt?: Date | string
     messages?: MessageUncheckedCreateNestedManyWithoutConversationInput
   }
 
-  export type ConversationCreateOrConnectWithoutClientInput = {
+  export type ConversationCreateOrConnectWithoutUserAInput = {
     where: ConversationWhereUniqueInput
-    create: XOR<ConversationCreateWithoutClientInput, ConversationUncheckedCreateWithoutClientInput>
+    create: XOR<ConversationCreateWithoutUserAInput, ConversationUncheckedCreateWithoutUserAInput>
   }
 
-  export type ConversationCreateManyClientInputEnvelope = {
-    data: ConversationCreateManyClientInput | ConversationCreateManyClientInput[]
+  export type ConversationCreateManyUserAInputEnvelope = {
+    data: ConversationCreateManyUserAInput | ConversationCreateManyUserAInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ConversationCreateWithoutUserBInput = {
+    lastMessageAt?: Date | string
+    createdAt?: Date | string
+    userA: UserCreateNestedOneWithoutConversationsAsUserAInput
+    messages?: MessageCreateNestedManyWithoutConversationInput
+  }
+
+  export type ConversationUncheckedCreateWithoutUserBInput = {
+    id?: number
+    userAId: number
+    lastMessageAt?: Date | string
+    createdAt?: Date | string
+    messages?: MessageUncheckedCreateNestedManyWithoutConversationInput
+  }
+
+  export type ConversationCreateOrConnectWithoutUserBInput = {
+    where: ConversationWhereUniqueInput
+    create: XOR<ConversationCreateWithoutUserBInput, ConversationUncheckedCreateWithoutUserBInput>
+  }
+
+  export type ConversationCreateManyUserBInputEnvelope = {
+    data: ConversationCreateManyUserBInput | ConversationCreateManyUserBInput[]
     skipDuplicates?: boolean
   }
 
@@ -27515,7 +27538,6 @@ export namespace Prisma {
     musicianInstruments?: MusicianInstrumentUpdateManyWithoutMusicianProfileNestedInput
     bookings?: BookingUpdateManyWithoutMusicianProfileNestedInput
     favoritedBy?: FavoriteUpdateManyWithoutMusicianProfileNestedInput
-    conversations?: ConversationUpdateManyWithoutMusicianProfileNestedInput
   }
 
   export type MusicianProfileUncheckedUpdateWithoutUserInput = {
@@ -27541,7 +27563,6 @@ export namespace Prisma {
     musicianInstruments?: MusicianInstrumentUncheckedUpdateManyWithoutMusicianProfileNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutMusicianProfileNestedInput
     favoritedBy?: FavoriteUncheckedUpdateManyWithoutMusicianProfileNestedInput
-    conversations?: ConversationUncheckedUpdateManyWithoutMusicianProfileNestedInput
   }
 
   export type ReviewUpsertWithWhereUniqueWithoutClientInput = {
@@ -27631,20 +27652,20 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Favorite"> | Date | string
   }
 
-  export type ConversationUpsertWithWhereUniqueWithoutClientInput = {
+  export type ConversationUpsertWithWhereUniqueWithoutUserAInput = {
     where: ConversationWhereUniqueInput
-    update: XOR<ConversationUpdateWithoutClientInput, ConversationUncheckedUpdateWithoutClientInput>
-    create: XOR<ConversationCreateWithoutClientInput, ConversationUncheckedCreateWithoutClientInput>
+    update: XOR<ConversationUpdateWithoutUserAInput, ConversationUncheckedUpdateWithoutUserAInput>
+    create: XOR<ConversationCreateWithoutUserAInput, ConversationUncheckedCreateWithoutUserAInput>
   }
 
-  export type ConversationUpdateWithWhereUniqueWithoutClientInput = {
+  export type ConversationUpdateWithWhereUniqueWithoutUserAInput = {
     where: ConversationWhereUniqueInput
-    data: XOR<ConversationUpdateWithoutClientInput, ConversationUncheckedUpdateWithoutClientInput>
+    data: XOR<ConversationUpdateWithoutUserAInput, ConversationUncheckedUpdateWithoutUserAInput>
   }
 
-  export type ConversationUpdateManyWithWhereWithoutClientInput = {
+  export type ConversationUpdateManyWithWhereWithoutUserAInput = {
     where: ConversationScalarWhereInput
-    data: XOR<ConversationUpdateManyMutationInput, ConversationUncheckedUpdateManyWithoutClientInput>
+    data: XOR<ConversationUpdateManyMutationInput, ConversationUncheckedUpdateManyWithoutUserAInput>
   }
 
   export type ConversationScalarWhereInput = {
@@ -27652,10 +27673,26 @@ export namespace Prisma {
     OR?: ConversationScalarWhereInput[]
     NOT?: ConversationScalarWhereInput | ConversationScalarWhereInput[]
     id?: IntFilter<"Conversation"> | number
-    clientId?: IntFilter<"Conversation"> | number
-    musicianProfileId?: IntFilter<"Conversation"> | number
+    userAId?: IntFilter<"Conversation"> | number
+    userBId?: IntFilter<"Conversation"> | number
     lastMessageAt?: DateTimeFilter<"Conversation"> | Date | string
     createdAt?: DateTimeFilter<"Conversation"> | Date | string
+  }
+
+  export type ConversationUpsertWithWhereUniqueWithoutUserBInput = {
+    where: ConversationWhereUniqueInput
+    update: XOR<ConversationUpdateWithoutUserBInput, ConversationUncheckedUpdateWithoutUserBInput>
+    create: XOR<ConversationCreateWithoutUserBInput, ConversationUncheckedCreateWithoutUserBInput>
+  }
+
+  export type ConversationUpdateWithWhereUniqueWithoutUserBInput = {
+    where: ConversationWhereUniqueInput
+    data: XOR<ConversationUpdateWithoutUserBInput, ConversationUncheckedUpdateWithoutUserBInput>
+  }
+
+  export type ConversationUpdateManyWithWhereWithoutUserBInput = {
+    where: ConversationScalarWhereInput
+    data: XOR<ConversationUpdateManyMutationInput, ConversationUncheckedUpdateManyWithoutUserBInput>
   }
 
   export type MessageUpsertWithWhereUniqueWithoutSenderInput = {
@@ -27800,7 +27837,8 @@ export namespace Prisma {
     reviewsGiven?: ReviewCreateNestedManyWithoutClientInput
     bookings?: BookingCreateNestedManyWithoutClientInput
     favorites?: FavoriteCreateNestedManyWithoutUserInput
-    conversationsAsClient?: ConversationCreateNestedManyWithoutClientInput
+    conversationsAsUserA?: ConversationCreateNestedManyWithoutUserAInput
+    conversationsAsUserB?: ConversationCreateNestedManyWithoutUserBInput
     messagesSent?: MessageCreateNestedManyWithoutSenderInput
     notificationPreferences?: NotificationPreferenceCreateNestedOneWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
@@ -27826,7 +27864,8 @@ export namespace Prisma {
     reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutClientInput
     bookings?: BookingUncheckedCreateNestedManyWithoutClientInput
     favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
-    conversationsAsClient?: ConversationUncheckedCreateNestedManyWithoutClientInput
+    conversationsAsUserA?: ConversationUncheckedCreateNestedManyWithoutUserAInput
+    conversationsAsUserB?: ConversationUncheckedCreateNestedManyWithoutUserBInput
     messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
     notificationPreferences?: NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
@@ -27988,31 +28027,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type ConversationCreateWithoutMusicianProfileInput = {
-    lastMessageAt?: Date | string
-    createdAt?: Date | string
-    client: UserCreateNestedOneWithoutConversationsAsClientInput
-    messages?: MessageCreateNestedManyWithoutConversationInput
-  }
-
-  export type ConversationUncheckedCreateWithoutMusicianProfileInput = {
-    id?: number
-    clientId: number
-    lastMessageAt?: Date | string
-    createdAt?: Date | string
-    messages?: MessageUncheckedCreateNestedManyWithoutConversationInput
-  }
-
-  export type ConversationCreateOrConnectWithoutMusicianProfileInput = {
-    where: ConversationWhereUniqueInput
-    create: XOR<ConversationCreateWithoutMusicianProfileInput, ConversationUncheckedCreateWithoutMusicianProfileInput>
-  }
-
-  export type ConversationCreateManyMusicianProfileInputEnvelope = {
-    data: ConversationCreateManyMusicianProfileInput | ConversationCreateManyMusicianProfileInput[]
-    skipDuplicates?: boolean
-  }
-
   export type UserUpsertWithoutMusicianProfileInput = {
     update: XOR<UserUpdateWithoutMusicianProfileInput, UserUncheckedUpdateWithoutMusicianProfileInput>
     create: XOR<UserCreateWithoutMusicianProfileInput, UserUncheckedCreateWithoutMusicianProfileInput>
@@ -28042,7 +28056,8 @@ export namespace Prisma {
     reviewsGiven?: ReviewUpdateManyWithoutClientNestedInput
     bookings?: BookingUpdateManyWithoutClientNestedInput
     favorites?: FavoriteUpdateManyWithoutUserNestedInput
-    conversationsAsClient?: ConversationUpdateManyWithoutClientNestedInput
+    conversationsAsUserA?: ConversationUpdateManyWithoutUserANestedInput
+    conversationsAsUserB?: ConversationUpdateManyWithoutUserBNestedInput
     messagesSent?: MessageUpdateManyWithoutSenderNestedInput
     notificationPreferences?: NotificationPreferenceUpdateOneWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
@@ -28068,7 +28083,8 @@ export namespace Prisma {
     reviewsGiven?: ReviewUncheckedUpdateManyWithoutClientNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutClientNestedInput
     favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
-    conversationsAsClient?: ConversationUncheckedUpdateManyWithoutClientNestedInput
+    conversationsAsUserA?: ConversationUncheckedUpdateManyWithoutUserANestedInput
+    conversationsAsUserB?: ConversationUncheckedUpdateManyWithoutUserBNestedInput
     messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     notificationPreferences?: NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
@@ -28203,22 +28219,6 @@ export namespace Prisma {
     data: XOR<FavoriteUpdateManyMutationInput, FavoriteUncheckedUpdateManyWithoutMusicianProfileInput>
   }
 
-  export type ConversationUpsertWithWhereUniqueWithoutMusicianProfileInput = {
-    where: ConversationWhereUniqueInput
-    update: XOR<ConversationUpdateWithoutMusicianProfileInput, ConversationUncheckedUpdateWithoutMusicianProfileInput>
-    create: XOR<ConversationCreateWithoutMusicianProfileInput, ConversationUncheckedCreateWithoutMusicianProfileInput>
-  }
-
-  export type ConversationUpdateWithWhereUniqueWithoutMusicianProfileInput = {
-    where: ConversationWhereUniqueInput
-    data: XOR<ConversationUpdateWithoutMusicianProfileInput, ConversationUncheckedUpdateWithoutMusicianProfileInput>
-  }
-
-  export type ConversationUpdateManyWithWhereWithoutMusicianProfileInput = {
-    where: ConversationScalarWhereInput
-    data: XOR<ConversationUpdateManyMutationInput, ConversationUncheckedUpdateManyWithoutMusicianProfileInput>
-  }
-
   export type MusicianProfileCreateWithoutPortfolioInput = {
     category?: string | null
     bio?: string | null
@@ -28241,7 +28241,6 @@ export namespace Prisma {
     musicianInstruments?: MusicianInstrumentCreateNestedManyWithoutMusicianProfileInput
     bookings?: BookingCreateNestedManyWithoutMusicianProfileInput
     favoritedBy?: FavoriteCreateNestedManyWithoutMusicianProfileInput
-    conversations?: ConversationCreateNestedManyWithoutMusicianProfileInput
   }
 
   export type MusicianProfileUncheckedCreateWithoutPortfolioInput = {
@@ -28267,7 +28266,6 @@ export namespace Prisma {
     musicianInstruments?: MusicianInstrumentUncheckedCreateNestedManyWithoutMusicianProfileInput
     bookings?: BookingUncheckedCreateNestedManyWithoutMusicianProfileInput
     favoritedBy?: FavoriteUncheckedCreateNestedManyWithoutMusicianProfileInput
-    conversations?: ConversationUncheckedCreateNestedManyWithoutMusicianProfileInput
   }
 
   export type MusicianProfileCreateOrConnectWithoutPortfolioInput = {
@@ -28308,7 +28306,6 @@ export namespace Prisma {
     musicianInstruments?: MusicianInstrumentUpdateManyWithoutMusicianProfileNestedInput
     bookings?: BookingUpdateManyWithoutMusicianProfileNestedInput
     favoritedBy?: FavoriteUpdateManyWithoutMusicianProfileNestedInput
-    conversations?: ConversationUpdateManyWithoutMusicianProfileNestedInput
   }
 
   export type MusicianProfileUncheckedUpdateWithoutPortfolioInput = {
@@ -28334,7 +28331,6 @@ export namespace Prisma {
     musicianInstruments?: MusicianInstrumentUncheckedUpdateManyWithoutMusicianProfileNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutMusicianProfileNestedInput
     favoritedBy?: FavoriteUncheckedUpdateManyWithoutMusicianProfileNestedInput
-    conversations?: ConversationUncheckedUpdateManyWithoutMusicianProfileNestedInput
   }
 
   export type MusicianGenreCreateWithoutGenreInput = {
@@ -28427,7 +28423,6 @@ export namespace Prisma {
     musicianInstruments?: MusicianInstrumentCreateNestedManyWithoutMusicianProfileInput
     bookings?: BookingCreateNestedManyWithoutMusicianProfileInput
     favoritedBy?: FavoriteCreateNestedManyWithoutMusicianProfileInput
-    conversations?: ConversationCreateNestedManyWithoutMusicianProfileInput
   }
 
   export type MusicianProfileUncheckedCreateWithoutMusicianGenresInput = {
@@ -28453,7 +28448,6 @@ export namespace Prisma {
     musicianInstruments?: MusicianInstrumentUncheckedCreateNestedManyWithoutMusicianProfileInput
     bookings?: BookingUncheckedCreateNestedManyWithoutMusicianProfileInput
     favoritedBy?: FavoriteUncheckedCreateNestedManyWithoutMusicianProfileInput
-    conversations?: ConversationUncheckedCreateNestedManyWithoutMusicianProfileInput
   }
 
   export type MusicianProfileCreateOrConnectWithoutMusicianGenresInput = {
@@ -28510,7 +28504,6 @@ export namespace Prisma {
     musicianInstruments?: MusicianInstrumentUpdateManyWithoutMusicianProfileNestedInput
     bookings?: BookingUpdateManyWithoutMusicianProfileNestedInput
     favoritedBy?: FavoriteUpdateManyWithoutMusicianProfileNestedInput
-    conversations?: ConversationUpdateManyWithoutMusicianProfileNestedInput
   }
 
   export type MusicianProfileUncheckedUpdateWithoutMusicianGenresInput = {
@@ -28536,7 +28529,6 @@ export namespace Prisma {
     musicianInstruments?: MusicianInstrumentUncheckedUpdateManyWithoutMusicianProfileNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutMusicianProfileNestedInput
     favoritedBy?: FavoriteUncheckedUpdateManyWithoutMusicianProfileNestedInput
-    conversations?: ConversationUncheckedUpdateManyWithoutMusicianProfileNestedInput
   }
 
   export type GenreUpsertWithoutMusicianGenresInput = {
@@ -28583,7 +28575,6 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreCreateNestedManyWithoutMusicianProfileInput
     bookings?: BookingCreateNestedManyWithoutMusicianProfileInput
     favoritedBy?: FavoriteCreateNestedManyWithoutMusicianProfileInput
-    conversations?: ConversationCreateNestedManyWithoutMusicianProfileInput
   }
 
   export type MusicianProfileUncheckedCreateWithoutMusicianInstrumentsInput = {
@@ -28609,7 +28600,6 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreUncheckedCreateNestedManyWithoutMusicianProfileInput
     bookings?: BookingUncheckedCreateNestedManyWithoutMusicianProfileInput
     favoritedBy?: FavoriteUncheckedCreateNestedManyWithoutMusicianProfileInput
-    conversations?: ConversationUncheckedCreateNestedManyWithoutMusicianProfileInput
   }
 
   export type MusicianProfileCreateOrConnectWithoutMusicianInstrumentsInput = {
@@ -28666,7 +28656,6 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreUpdateManyWithoutMusicianProfileNestedInput
     bookings?: BookingUpdateManyWithoutMusicianProfileNestedInput
     favoritedBy?: FavoriteUpdateManyWithoutMusicianProfileNestedInput
-    conversations?: ConversationUpdateManyWithoutMusicianProfileNestedInput
   }
 
   export type MusicianProfileUncheckedUpdateWithoutMusicianInstrumentsInput = {
@@ -28692,7 +28681,6 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreUncheckedUpdateManyWithoutMusicianProfileNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutMusicianProfileNestedInput
     favoritedBy?: FavoriteUncheckedUpdateManyWithoutMusicianProfileNestedInput
-    conversations?: ConversationUncheckedUpdateManyWithoutMusicianProfileNestedInput
   }
 
   export type InstrumentUpsertWithoutMusicianInstrumentsInput = {
@@ -28739,7 +28727,6 @@ export namespace Prisma {
     musicianInstruments?: MusicianInstrumentCreateNestedManyWithoutMusicianProfileInput
     bookings?: BookingCreateNestedManyWithoutMusicianProfileInput
     favoritedBy?: FavoriteCreateNestedManyWithoutMusicianProfileInput
-    conversations?: ConversationCreateNestedManyWithoutMusicianProfileInput
   }
 
   export type MusicianProfileUncheckedCreateWithoutReviewsReceivedInput = {
@@ -28765,7 +28752,6 @@ export namespace Prisma {
     musicianInstruments?: MusicianInstrumentUncheckedCreateNestedManyWithoutMusicianProfileInput
     bookings?: BookingUncheckedCreateNestedManyWithoutMusicianProfileInput
     favoritedBy?: FavoriteUncheckedCreateNestedManyWithoutMusicianProfileInput
-    conversations?: ConversationUncheckedCreateNestedManyWithoutMusicianProfileInput
   }
 
   export type MusicianProfileCreateOrConnectWithoutReviewsReceivedInput = {
@@ -28791,7 +28777,8 @@ export namespace Prisma {
     musicianProfile?: MusicianProfileCreateNestedOneWithoutUserInput
     bookings?: BookingCreateNestedManyWithoutClientInput
     favorites?: FavoriteCreateNestedManyWithoutUserInput
-    conversationsAsClient?: ConversationCreateNestedManyWithoutClientInput
+    conversationsAsUserA?: ConversationCreateNestedManyWithoutUserAInput
+    conversationsAsUserB?: ConversationCreateNestedManyWithoutUserBInput
     messagesSent?: MessageCreateNestedManyWithoutSenderInput
     notificationPreferences?: NotificationPreferenceCreateNestedOneWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
@@ -28817,7 +28804,8 @@ export namespace Prisma {
     musicianProfile?: MusicianProfileUncheckedCreateNestedOneWithoutUserInput
     bookings?: BookingUncheckedCreateNestedManyWithoutClientInput
     favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
-    conversationsAsClient?: ConversationUncheckedCreateNestedManyWithoutClientInput
+    conversationsAsUserA?: ConversationUncheckedCreateNestedManyWithoutUserAInput
+    conversationsAsUserB?: ConversationUncheckedCreateNestedManyWithoutUserBInput
     messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
     notificationPreferences?: NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
@@ -28862,7 +28850,6 @@ export namespace Prisma {
     musicianInstruments?: MusicianInstrumentUpdateManyWithoutMusicianProfileNestedInput
     bookings?: BookingUpdateManyWithoutMusicianProfileNestedInput
     favoritedBy?: FavoriteUpdateManyWithoutMusicianProfileNestedInput
-    conversations?: ConversationUpdateManyWithoutMusicianProfileNestedInput
   }
 
   export type MusicianProfileUncheckedUpdateWithoutReviewsReceivedInput = {
@@ -28888,7 +28875,6 @@ export namespace Prisma {
     musicianInstruments?: MusicianInstrumentUncheckedUpdateManyWithoutMusicianProfileNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutMusicianProfileNestedInput
     favoritedBy?: FavoriteUncheckedUpdateManyWithoutMusicianProfileNestedInput
-    conversations?: ConversationUncheckedUpdateManyWithoutMusicianProfileNestedInput
   }
 
   export type UserUpsertWithoutReviewsGivenInput = {
@@ -28920,7 +28906,8 @@ export namespace Prisma {
     musicianProfile?: MusicianProfileUpdateOneWithoutUserNestedInput
     bookings?: BookingUpdateManyWithoutClientNestedInput
     favorites?: FavoriteUpdateManyWithoutUserNestedInput
-    conversationsAsClient?: ConversationUpdateManyWithoutClientNestedInput
+    conversationsAsUserA?: ConversationUpdateManyWithoutUserANestedInput
+    conversationsAsUserB?: ConversationUpdateManyWithoutUserBNestedInput
     messagesSent?: MessageUpdateManyWithoutSenderNestedInput
     notificationPreferences?: NotificationPreferenceUpdateOneWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
@@ -28946,7 +28933,8 @@ export namespace Prisma {
     musicianProfile?: MusicianProfileUncheckedUpdateOneWithoutUserNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutClientNestedInput
     favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
-    conversationsAsClient?: ConversationUncheckedUpdateManyWithoutClientNestedInput
+    conversationsAsUserA?: ConversationUncheckedUpdateManyWithoutUserANestedInput
+    conversationsAsUserB?: ConversationUncheckedUpdateManyWithoutUserBNestedInput
     messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     notificationPreferences?: NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
@@ -28975,7 +28963,6 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreCreateNestedManyWithoutMusicianProfileInput
     musicianInstruments?: MusicianInstrumentCreateNestedManyWithoutMusicianProfileInput
     favoritedBy?: FavoriteCreateNestedManyWithoutMusicianProfileInput
-    conversations?: ConversationCreateNestedManyWithoutMusicianProfileInput
   }
 
   export type MusicianProfileUncheckedCreateWithoutBookingsInput = {
@@ -29001,7 +28988,6 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreUncheckedCreateNestedManyWithoutMusicianProfileInput
     musicianInstruments?: MusicianInstrumentUncheckedCreateNestedManyWithoutMusicianProfileInput
     favoritedBy?: FavoriteUncheckedCreateNestedManyWithoutMusicianProfileInput
-    conversations?: ConversationUncheckedCreateNestedManyWithoutMusicianProfileInput
   }
 
   export type MusicianProfileCreateOrConnectWithoutBookingsInput = {
@@ -29027,7 +29013,8 @@ export namespace Prisma {
     musicianProfile?: MusicianProfileCreateNestedOneWithoutUserInput
     reviewsGiven?: ReviewCreateNestedManyWithoutClientInput
     favorites?: FavoriteCreateNestedManyWithoutUserInput
-    conversationsAsClient?: ConversationCreateNestedManyWithoutClientInput
+    conversationsAsUserA?: ConversationCreateNestedManyWithoutUserAInput
+    conversationsAsUserB?: ConversationCreateNestedManyWithoutUserBInput
     messagesSent?: MessageCreateNestedManyWithoutSenderInput
     notificationPreferences?: NotificationPreferenceCreateNestedOneWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
@@ -29053,7 +29040,8 @@ export namespace Prisma {
     musicianProfile?: MusicianProfileUncheckedCreateNestedOneWithoutUserInput
     reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutClientInput
     favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
-    conversationsAsClient?: ConversationUncheckedCreateNestedManyWithoutClientInput
+    conversationsAsUserA?: ConversationUncheckedCreateNestedManyWithoutUserAInput
+    conversationsAsUserB?: ConversationUncheckedCreateNestedManyWithoutUserBInput
     messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
     notificationPreferences?: NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
@@ -29098,7 +29086,6 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreUpdateManyWithoutMusicianProfileNestedInput
     musicianInstruments?: MusicianInstrumentUpdateManyWithoutMusicianProfileNestedInput
     favoritedBy?: FavoriteUpdateManyWithoutMusicianProfileNestedInput
-    conversations?: ConversationUpdateManyWithoutMusicianProfileNestedInput
   }
 
   export type MusicianProfileUncheckedUpdateWithoutBookingsInput = {
@@ -29124,7 +29111,6 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreUncheckedUpdateManyWithoutMusicianProfileNestedInput
     musicianInstruments?: MusicianInstrumentUncheckedUpdateManyWithoutMusicianProfileNestedInput
     favoritedBy?: FavoriteUncheckedUpdateManyWithoutMusicianProfileNestedInput
-    conversations?: ConversationUncheckedUpdateManyWithoutMusicianProfileNestedInput
   }
 
   export type UserUpsertWithoutBookingsInput = {
@@ -29156,7 +29142,8 @@ export namespace Prisma {
     musicianProfile?: MusicianProfileUpdateOneWithoutUserNestedInput
     reviewsGiven?: ReviewUpdateManyWithoutClientNestedInput
     favorites?: FavoriteUpdateManyWithoutUserNestedInput
-    conversationsAsClient?: ConversationUpdateManyWithoutClientNestedInput
+    conversationsAsUserA?: ConversationUpdateManyWithoutUserANestedInput
+    conversationsAsUserB?: ConversationUpdateManyWithoutUserBNestedInput
     messagesSent?: MessageUpdateManyWithoutSenderNestedInput
     notificationPreferences?: NotificationPreferenceUpdateOneWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
@@ -29182,7 +29169,8 @@ export namespace Prisma {
     musicianProfile?: MusicianProfileUncheckedUpdateOneWithoutUserNestedInput
     reviewsGiven?: ReviewUncheckedUpdateManyWithoutClientNestedInput
     favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
-    conversationsAsClient?: ConversationUncheckedUpdateManyWithoutClientNestedInput
+    conversationsAsUserA?: ConversationUncheckedUpdateManyWithoutUserANestedInput
+    conversationsAsUserB?: ConversationUncheckedUpdateManyWithoutUserBNestedInput
     messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     notificationPreferences?: NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
@@ -29411,7 +29399,8 @@ export namespace Prisma {
     musicianProfile?: MusicianProfileCreateNestedOneWithoutUserInput
     reviewsGiven?: ReviewCreateNestedManyWithoutClientInput
     bookings?: BookingCreateNestedManyWithoutClientInput
-    conversationsAsClient?: ConversationCreateNestedManyWithoutClientInput
+    conversationsAsUserA?: ConversationCreateNestedManyWithoutUserAInput
+    conversationsAsUserB?: ConversationCreateNestedManyWithoutUserBInput
     messagesSent?: MessageCreateNestedManyWithoutSenderInput
     notificationPreferences?: NotificationPreferenceCreateNestedOneWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
@@ -29437,7 +29426,8 @@ export namespace Prisma {
     musicianProfile?: MusicianProfileUncheckedCreateNestedOneWithoutUserInput
     reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutClientInput
     bookings?: BookingUncheckedCreateNestedManyWithoutClientInput
-    conversationsAsClient?: ConversationUncheckedCreateNestedManyWithoutClientInput
+    conversationsAsUserA?: ConversationUncheckedCreateNestedManyWithoutUserAInput
+    conversationsAsUserB?: ConversationUncheckedCreateNestedManyWithoutUserBInput
     messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
     notificationPreferences?: NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
@@ -29471,7 +29461,6 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreCreateNestedManyWithoutMusicianProfileInput
     musicianInstruments?: MusicianInstrumentCreateNestedManyWithoutMusicianProfileInput
     bookings?: BookingCreateNestedManyWithoutMusicianProfileInput
-    conversations?: ConversationCreateNestedManyWithoutMusicianProfileInput
   }
 
   export type MusicianProfileUncheckedCreateWithoutFavoritedByInput = {
@@ -29497,7 +29486,6 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreUncheckedCreateNestedManyWithoutMusicianProfileInput
     musicianInstruments?: MusicianInstrumentUncheckedCreateNestedManyWithoutMusicianProfileInput
     bookings?: BookingUncheckedCreateNestedManyWithoutMusicianProfileInput
-    conversations?: ConversationUncheckedCreateNestedManyWithoutMusicianProfileInput
   }
 
   export type MusicianProfileCreateOrConnectWithoutFavoritedByInput = {
@@ -29534,7 +29522,8 @@ export namespace Prisma {
     musicianProfile?: MusicianProfileUpdateOneWithoutUserNestedInput
     reviewsGiven?: ReviewUpdateManyWithoutClientNestedInput
     bookings?: BookingUpdateManyWithoutClientNestedInput
-    conversationsAsClient?: ConversationUpdateManyWithoutClientNestedInput
+    conversationsAsUserA?: ConversationUpdateManyWithoutUserANestedInput
+    conversationsAsUserB?: ConversationUpdateManyWithoutUserBNestedInput
     messagesSent?: MessageUpdateManyWithoutSenderNestedInput
     notificationPreferences?: NotificationPreferenceUpdateOneWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
@@ -29560,7 +29549,8 @@ export namespace Prisma {
     musicianProfile?: MusicianProfileUncheckedUpdateOneWithoutUserNestedInput
     reviewsGiven?: ReviewUncheckedUpdateManyWithoutClientNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutClientNestedInput
-    conversationsAsClient?: ConversationUncheckedUpdateManyWithoutClientNestedInput
+    conversationsAsUserA?: ConversationUncheckedUpdateManyWithoutUserANestedInput
+    conversationsAsUserB?: ConversationUncheckedUpdateManyWithoutUserBNestedInput
     messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     notificationPreferences?: NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
@@ -29600,7 +29590,6 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreUpdateManyWithoutMusicianProfileNestedInput
     musicianInstruments?: MusicianInstrumentUpdateManyWithoutMusicianProfileNestedInput
     bookings?: BookingUpdateManyWithoutMusicianProfileNestedInput
-    conversations?: ConversationUpdateManyWithoutMusicianProfileNestedInput
   }
 
   export type MusicianProfileUncheckedUpdateWithoutFavoritedByInput = {
@@ -29626,10 +29615,9 @@ export namespace Prisma {
     musicianGenres?: MusicianGenreUncheckedUpdateManyWithoutMusicianProfileNestedInput
     musicianInstruments?: MusicianInstrumentUncheckedUpdateManyWithoutMusicianProfileNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutMusicianProfileNestedInput
-    conversations?: ConversationUncheckedUpdateManyWithoutMusicianProfileNestedInput
   }
 
-  export type UserCreateWithoutConversationsAsClientInput = {
+  export type UserCreateWithoutConversationsAsUserAInput = {
     email: string
     passwordHash: string
     firstName: string
@@ -29648,13 +29636,14 @@ export namespace Prisma {
     reviewsGiven?: ReviewCreateNestedManyWithoutClientInput
     bookings?: BookingCreateNestedManyWithoutClientInput
     favorites?: FavoriteCreateNestedManyWithoutUserInput
+    conversationsAsUserB?: ConversationCreateNestedManyWithoutUserBInput
     messagesSent?: MessageCreateNestedManyWithoutSenderInput
     notificationPreferences?: NotificationPreferenceCreateNestedOneWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     paymentHistory?: PaymentHistoryCreateNestedManyWithoutUserInput
   }
 
-  export type UserUncheckedCreateWithoutConversationsAsClientInput = {
+  export type UserUncheckedCreateWithoutConversationsAsUserAInput = {
     id?: number
     email: string
     passwordHash: string
@@ -29674,71 +29663,74 @@ export namespace Prisma {
     reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutClientInput
     bookings?: BookingUncheckedCreateNestedManyWithoutClientInput
     favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
+    conversationsAsUserB?: ConversationUncheckedCreateNestedManyWithoutUserBInput
     messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
     notificationPreferences?: NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     paymentHistory?: PaymentHistoryUncheckedCreateNestedManyWithoutUserInput
   }
 
-  export type UserCreateOrConnectWithoutConversationsAsClientInput = {
+  export type UserCreateOrConnectWithoutConversationsAsUserAInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutConversationsAsClientInput, UserUncheckedCreateWithoutConversationsAsClientInput>
+    create: XOR<UserCreateWithoutConversationsAsUserAInput, UserUncheckedCreateWithoutConversationsAsUserAInput>
   }
 
-  export type MusicianProfileCreateWithoutConversationsInput = {
-    category?: string | null
-    bio?: string | null
-    location?: string | null
-    priceFrom?: number | null
-    experience?: string | null
-    equipment?: string | null
-    availability?: string | null
-    rating?: number
-    ratingCount?: number
-    eventsCount?: number
-    satisfactionRate?: number | null
-    responseTime?: string | null
-    isFeatured?: boolean
+  export type UserCreateWithoutConversationsAsUserBInput = {
+    email: string
+    passwordHash: string
+    firstName: string
+    lastName: string
+    phone?: string | null
+    city?: string | null
+    state?: string | null
+    userType: $Enums.UserType
+    role?: $Enums.UserRole
+    profileImageKey?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutMusicianProfileInput
-    portfolio?: PortfolioItemCreateNestedManyWithoutMusicianProfileInput
-    reviewsReceived?: ReviewCreateNestedManyWithoutMusicianProfileInput
-    musicianGenres?: MusicianGenreCreateNestedManyWithoutMusicianProfileInput
-    musicianInstruments?: MusicianInstrumentCreateNestedManyWithoutMusicianProfileInput
-    bookings?: BookingCreateNestedManyWithoutMusicianProfileInput
-    favoritedBy?: FavoriteCreateNestedManyWithoutMusicianProfileInput
+    musicianProfile?: MusicianProfileCreateNestedOneWithoutUserInput
+    reviewsGiven?: ReviewCreateNestedManyWithoutClientInput
+    bookings?: BookingCreateNestedManyWithoutClientInput
+    favorites?: FavoriteCreateNestedManyWithoutUserInput
+    conversationsAsUserA?: ConversationCreateNestedManyWithoutUserAInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    notificationPreferences?: NotificationPreferenceCreateNestedOneWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    paymentHistory?: PaymentHistoryCreateNestedManyWithoutUserInput
   }
 
-  export type MusicianProfileUncheckedCreateWithoutConversationsInput = {
+  export type UserUncheckedCreateWithoutConversationsAsUserBInput = {
     id?: number
-    userId: number
-    category?: string | null
-    bio?: string | null
-    location?: string | null
-    priceFrom?: number | null
-    experience?: string | null
-    equipment?: string | null
-    availability?: string | null
-    rating?: number
-    ratingCount?: number
-    eventsCount?: number
-    satisfactionRate?: number | null
-    responseTime?: string | null
-    isFeatured?: boolean
+    email: string
+    passwordHash: string
+    firstName: string
+    lastName: string
+    phone?: string | null
+    city?: string | null
+    state?: string | null
+    userType: $Enums.UserType
+    role?: $Enums.UserRole
+    profileImageKey?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    portfolio?: PortfolioItemUncheckedCreateNestedManyWithoutMusicianProfileInput
-    reviewsReceived?: ReviewUncheckedCreateNestedManyWithoutMusicianProfileInput
-    musicianGenres?: MusicianGenreUncheckedCreateNestedManyWithoutMusicianProfileInput
-    musicianInstruments?: MusicianInstrumentUncheckedCreateNestedManyWithoutMusicianProfileInput
-    bookings?: BookingUncheckedCreateNestedManyWithoutMusicianProfileInput
-    favoritedBy?: FavoriteUncheckedCreateNestedManyWithoutMusicianProfileInput
+    musicianProfile?: MusicianProfileUncheckedCreateNestedOneWithoutUserInput
+    reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutClientInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutClientInput
+    favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
+    conversationsAsUserA?: ConversationUncheckedCreateNestedManyWithoutUserAInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    notificationPreferences?: NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    paymentHistory?: PaymentHistoryUncheckedCreateNestedManyWithoutUserInput
   }
 
-  export type MusicianProfileCreateOrConnectWithoutConversationsInput = {
-    where: MusicianProfileWhereUniqueInput
-    create: XOR<MusicianProfileCreateWithoutConversationsInput, MusicianProfileUncheckedCreateWithoutConversationsInput>
+  export type UserCreateOrConnectWithoutConversationsAsUserBInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutConversationsAsUserBInput, UserUncheckedCreateWithoutConversationsAsUserBInput>
   }
 
   export type MessageCreateWithoutConversationInput = {
@@ -29766,18 +29758,18 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UserUpsertWithoutConversationsAsClientInput = {
-    update: XOR<UserUpdateWithoutConversationsAsClientInput, UserUncheckedUpdateWithoutConversationsAsClientInput>
-    create: XOR<UserCreateWithoutConversationsAsClientInput, UserUncheckedCreateWithoutConversationsAsClientInput>
+  export type UserUpsertWithoutConversationsAsUserAInput = {
+    update: XOR<UserUpdateWithoutConversationsAsUserAInput, UserUncheckedUpdateWithoutConversationsAsUserAInput>
+    create: XOR<UserCreateWithoutConversationsAsUserAInput, UserUncheckedCreateWithoutConversationsAsUserAInput>
     where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutConversationsAsClientInput = {
+  export type UserUpdateToOneWithWhereWithoutConversationsAsUserAInput = {
     where?: UserWhereInput
-    data: XOR<UserUpdateWithoutConversationsAsClientInput, UserUncheckedUpdateWithoutConversationsAsClientInput>
+    data: XOR<UserUpdateWithoutConversationsAsUserAInput, UserUncheckedUpdateWithoutConversationsAsUserAInput>
   }
 
-  export type UserUpdateWithoutConversationsAsClientInput = {
+  export type UserUpdateWithoutConversationsAsUserAInput = {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
@@ -29796,13 +29788,14 @@ export namespace Prisma {
     reviewsGiven?: ReviewUpdateManyWithoutClientNestedInput
     bookings?: BookingUpdateManyWithoutClientNestedInput
     favorites?: FavoriteUpdateManyWithoutUserNestedInput
+    conversationsAsUserB?: ConversationUpdateManyWithoutUserBNestedInput
     messagesSent?: MessageUpdateManyWithoutSenderNestedInput
     notificationPreferences?: NotificationPreferenceUpdateOneWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     paymentHistory?: PaymentHistoryUpdateManyWithoutUserNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutConversationsAsClientInput = {
+  export type UserUncheckedUpdateWithoutConversationsAsUserAInput = {
     id?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
@@ -29822,72 +29815,75 @@ export namespace Prisma {
     reviewsGiven?: ReviewUncheckedUpdateManyWithoutClientNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutClientNestedInput
     favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
+    conversationsAsUserB?: ConversationUncheckedUpdateManyWithoutUserBNestedInput
     messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     notificationPreferences?: NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     paymentHistory?: PaymentHistoryUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type MusicianProfileUpsertWithoutConversationsInput = {
-    update: XOR<MusicianProfileUpdateWithoutConversationsInput, MusicianProfileUncheckedUpdateWithoutConversationsInput>
-    create: XOR<MusicianProfileCreateWithoutConversationsInput, MusicianProfileUncheckedCreateWithoutConversationsInput>
-    where?: MusicianProfileWhereInput
+  export type UserUpsertWithoutConversationsAsUserBInput = {
+    update: XOR<UserUpdateWithoutConversationsAsUserBInput, UserUncheckedUpdateWithoutConversationsAsUserBInput>
+    create: XOR<UserCreateWithoutConversationsAsUserBInput, UserUncheckedCreateWithoutConversationsAsUserBInput>
+    where?: UserWhereInput
   }
 
-  export type MusicianProfileUpdateToOneWithWhereWithoutConversationsInput = {
-    where?: MusicianProfileWhereInput
-    data: XOR<MusicianProfileUpdateWithoutConversationsInput, MusicianProfileUncheckedUpdateWithoutConversationsInput>
+  export type UserUpdateToOneWithWhereWithoutConversationsAsUserBInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutConversationsAsUserBInput, UserUncheckedUpdateWithoutConversationsAsUserBInput>
   }
 
-  export type MusicianProfileUpdateWithoutConversationsInput = {
-    category?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    priceFrom?: NullableIntFieldUpdateOperationsInput | number | null
-    experience?: NullableStringFieldUpdateOperationsInput | string | null
-    equipment?: NullableStringFieldUpdateOperationsInput | string | null
-    availability?: NullableStringFieldUpdateOperationsInput | string | null
-    rating?: FloatFieldUpdateOperationsInput | number
-    ratingCount?: IntFieldUpdateOperationsInput | number
-    eventsCount?: IntFieldUpdateOperationsInput | number
-    satisfactionRate?: NullableIntFieldUpdateOperationsInput | number | null
-    responseTime?: NullableStringFieldUpdateOperationsInput | string | null
-    isFeatured?: BoolFieldUpdateOperationsInput | boolean
+  export type UserUpdateWithoutConversationsAsUserBInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    profileImageKey?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutMusicianProfileNestedInput
-    portfolio?: PortfolioItemUpdateManyWithoutMusicianProfileNestedInput
-    reviewsReceived?: ReviewUpdateManyWithoutMusicianProfileNestedInput
-    musicianGenres?: MusicianGenreUpdateManyWithoutMusicianProfileNestedInput
-    musicianInstruments?: MusicianInstrumentUpdateManyWithoutMusicianProfileNestedInput
-    bookings?: BookingUpdateManyWithoutMusicianProfileNestedInput
-    favoritedBy?: FavoriteUpdateManyWithoutMusicianProfileNestedInput
+    musicianProfile?: MusicianProfileUpdateOneWithoutUserNestedInput
+    reviewsGiven?: ReviewUpdateManyWithoutClientNestedInput
+    bookings?: BookingUpdateManyWithoutClientNestedInput
+    favorites?: FavoriteUpdateManyWithoutUserNestedInput
+    conversationsAsUserA?: ConversationUpdateManyWithoutUserANestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    notificationPreferences?: NotificationPreferenceUpdateOneWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    paymentHistory?: PaymentHistoryUpdateManyWithoutUserNestedInput
   }
 
-  export type MusicianProfileUncheckedUpdateWithoutConversationsInput = {
+  export type UserUncheckedUpdateWithoutConversationsAsUserBInput = {
     id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
-    category?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    priceFrom?: NullableIntFieldUpdateOperationsInput | number | null
-    experience?: NullableStringFieldUpdateOperationsInput | string | null
-    equipment?: NullableStringFieldUpdateOperationsInput | string | null
-    availability?: NullableStringFieldUpdateOperationsInput | string | null
-    rating?: FloatFieldUpdateOperationsInput | number
-    ratingCount?: IntFieldUpdateOperationsInput | number
-    eventsCount?: IntFieldUpdateOperationsInput | number
-    satisfactionRate?: NullableIntFieldUpdateOperationsInput | number | null
-    responseTime?: NullableStringFieldUpdateOperationsInput | string | null
-    isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    userType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    profileImageKey?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    portfolio?: PortfolioItemUncheckedUpdateManyWithoutMusicianProfileNestedInput
-    reviewsReceived?: ReviewUncheckedUpdateManyWithoutMusicianProfileNestedInput
-    musicianGenres?: MusicianGenreUncheckedUpdateManyWithoutMusicianProfileNestedInput
-    musicianInstruments?: MusicianInstrumentUncheckedUpdateManyWithoutMusicianProfileNestedInput
-    bookings?: BookingUncheckedUpdateManyWithoutMusicianProfileNestedInput
-    favoritedBy?: FavoriteUncheckedUpdateManyWithoutMusicianProfileNestedInput
+    musicianProfile?: MusicianProfileUncheckedUpdateOneWithoutUserNestedInput
+    reviewsGiven?: ReviewUncheckedUpdateManyWithoutClientNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutClientNestedInput
+    favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
+    conversationsAsUserA?: ConversationUncheckedUpdateManyWithoutUserANestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    notificationPreferences?: NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    paymentHistory?: PaymentHistoryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type MessageUpsertWithWhereUniqueWithoutConversationInput = {
@@ -29909,14 +29905,14 @@ export namespace Prisma {
   export type ConversationCreateWithoutMessagesInput = {
     lastMessageAt?: Date | string
     createdAt?: Date | string
-    client: UserCreateNestedOneWithoutConversationsAsClientInput
-    musicianProfile: MusicianProfileCreateNestedOneWithoutConversationsInput
+    userA: UserCreateNestedOneWithoutConversationsAsUserAInput
+    userB: UserCreateNestedOneWithoutConversationsAsUserBInput
   }
 
   export type ConversationUncheckedCreateWithoutMessagesInput = {
     id?: number
-    clientId: number
-    musicianProfileId: number
+    userAId: number
+    userBId: number
     lastMessageAt?: Date | string
     createdAt?: Date | string
   }
@@ -29945,7 +29941,8 @@ export namespace Prisma {
     reviewsGiven?: ReviewCreateNestedManyWithoutClientInput
     bookings?: BookingCreateNestedManyWithoutClientInput
     favorites?: FavoriteCreateNestedManyWithoutUserInput
-    conversationsAsClient?: ConversationCreateNestedManyWithoutClientInput
+    conversationsAsUserA?: ConversationCreateNestedManyWithoutUserAInput
+    conversationsAsUserB?: ConversationCreateNestedManyWithoutUserBInput
     notificationPreferences?: NotificationPreferenceCreateNestedOneWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     paymentHistory?: PaymentHistoryCreateNestedManyWithoutUserInput
@@ -29971,7 +29968,8 @@ export namespace Prisma {
     reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutClientInput
     bookings?: BookingUncheckedCreateNestedManyWithoutClientInput
     favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
-    conversationsAsClient?: ConversationUncheckedCreateNestedManyWithoutClientInput
+    conversationsAsUserA?: ConversationUncheckedCreateNestedManyWithoutUserAInput
+    conversationsAsUserB?: ConversationUncheckedCreateNestedManyWithoutUserBInput
     notificationPreferences?: NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     paymentHistory?: PaymentHistoryUncheckedCreateNestedManyWithoutUserInput
@@ -29996,14 +29994,14 @@ export namespace Prisma {
   export type ConversationUpdateWithoutMessagesInput = {
     lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    client?: UserUpdateOneRequiredWithoutConversationsAsClientNestedInput
-    musicianProfile?: MusicianProfileUpdateOneRequiredWithoutConversationsNestedInput
+    userA?: UserUpdateOneRequiredWithoutConversationsAsUserANestedInput
+    userB?: UserUpdateOneRequiredWithoutConversationsAsUserBNestedInput
   }
 
   export type ConversationUncheckedUpdateWithoutMessagesInput = {
     id?: IntFieldUpdateOperationsInput | number
-    clientId?: IntFieldUpdateOperationsInput | number
-    musicianProfileId?: IntFieldUpdateOperationsInput | number
+    userAId?: IntFieldUpdateOperationsInput | number
+    userBId?: IntFieldUpdateOperationsInput | number
     lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -30038,7 +30036,8 @@ export namespace Prisma {
     reviewsGiven?: ReviewUpdateManyWithoutClientNestedInput
     bookings?: BookingUpdateManyWithoutClientNestedInput
     favorites?: FavoriteUpdateManyWithoutUserNestedInput
-    conversationsAsClient?: ConversationUpdateManyWithoutClientNestedInput
+    conversationsAsUserA?: ConversationUpdateManyWithoutUserANestedInput
+    conversationsAsUserB?: ConversationUpdateManyWithoutUserBNestedInput
     notificationPreferences?: NotificationPreferenceUpdateOneWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     paymentHistory?: PaymentHistoryUpdateManyWithoutUserNestedInput
@@ -30064,7 +30063,8 @@ export namespace Prisma {
     reviewsGiven?: ReviewUncheckedUpdateManyWithoutClientNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutClientNestedInput
     favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
-    conversationsAsClient?: ConversationUncheckedUpdateManyWithoutClientNestedInput
+    conversationsAsUserA?: ConversationUncheckedUpdateManyWithoutUserANestedInput
+    conversationsAsUserB?: ConversationUncheckedUpdateManyWithoutUserBNestedInput
     notificationPreferences?: NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     paymentHistory?: PaymentHistoryUncheckedUpdateManyWithoutUserNestedInput
@@ -30089,7 +30089,8 @@ export namespace Prisma {
     reviewsGiven?: ReviewCreateNestedManyWithoutClientInput
     bookings?: BookingCreateNestedManyWithoutClientInput
     favorites?: FavoriteCreateNestedManyWithoutUserInput
-    conversationsAsClient?: ConversationCreateNestedManyWithoutClientInput
+    conversationsAsUserA?: ConversationCreateNestedManyWithoutUserAInput
+    conversationsAsUserB?: ConversationCreateNestedManyWithoutUserBInput
     messagesSent?: MessageCreateNestedManyWithoutSenderInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     paymentHistory?: PaymentHistoryCreateNestedManyWithoutUserInput
@@ -30115,7 +30116,8 @@ export namespace Prisma {
     reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutClientInput
     bookings?: BookingUncheckedCreateNestedManyWithoutClientInput
     favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
-    conversationsAsClient?: ConversationUncheckedCreateNestedManyWithoutClientInput
+    conversationsAsUserA?: ConversationUncheckedCreateNestedManyWithoutUserAInput
+    conversationsAsUserB?: ConversationUncheckedCreateNestedManyWithoutUserBInput
     messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     paymentHistory?: PaymentHistoryUncheckedCreateNestedManyWithoutUserInput
@@ -30156,7 +30158,8 @@ export namespace Prisma {
     reviewsGiven?: ReviewUpdateManyWithoutClientNestedInput
     bookings?: BookingUpdateManyWithoutClientNestedInput
     favorites?: FavoriteUpdateManyWithoutUserNestedInput
-    conversationsAsClient?: ConversationUpdateManyWithoutClientNestedInput
+    conversationsAsUserA?: ConversationUpdateManyWithoutUserANestedInput
+    conversationsAsUserB?: ConversationUpdateManyWithoutUserBNestedInput
     messagesSent?: MessageUpdateManyWithoutSenderNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     paymentHistory?: PaymentHistoryUpdateManyWithoutUserNestedInput
@@ -30182,7 +30185,8 @@ export namespace Prisma {
     reviewsGiven?: ReviewUncheckedUpdateManyWithoutClientNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutClientNestedInput
     favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
-    conversationsAsClient?: ConversationUncheckedUpdateManyWithoutClientNestedInput
+    conversationsAsUserA?: ConversationUncheckedUpdateManyWithoutUserANestedInput
+    conversationsAsUserB?: ConversationUncheckedUpdateManyWithoutUserBNestedInput
     messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     paymentHistory?: PaymentHistoryUncheckedUpdateManyWithoutUserNestedInput
@@ -30207,7 +30211,8 @@ export namespace Prisma {
     reviewsGiven?: ReviewCreateNestedManyWithoutClientInput
     bookings?: BookingCreateNestedManyWithoutClientInput
     favorites?: FavoriteCreateNestedManyWithoutUserInput
-    conversationsAsClient?: ConversationCreateNestedManyWithoutClientInput
+    conversationsAsUserA?: ConversationCreateNestedManyWithoutUserAInput
+    conversationsAsUserB?: ConversationCreateNestedManyWithoutUserBInput
     messagesSent?: MessageCreateNestedManyWithoutSenderInput
     notificationPreferences?: NotificationPreferenceCreateNestedOneWithoutUserInput
     paymentHistory?: PaymentHistoryCreateNestedManyWithoutUserInput
@@ -30233,7 +30238,8 @@ export namespace Prisma {
     reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutClientInput
     bookings?: BookingUncheckedCreateNestedManyWithoutClientInput
     favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
-    conversationsAsClient?: ConversationUncheckedCreateNestedManyWithoutClientInput
+    conversationsAsUserA?: ConversationUncheckedCreateNestedManyWithoutUserAInput
+    conversationsAsUserB?: ConversationUncheckedCreateNestedManyWithoutUserBInput
     messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
     notificationPreferences?: NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
     paymentHistory?: PaymentHistoryUncheckedCreateNestedManyWithoutUserInput
@@ -30314,7 +30320,8 @@ export namespace Prisma {
     reviewsGiven?: ReviewUpdateManyWithoutClientNestedInput
     bookings?: BookingUpdateManyWithoutClientNestedInput
     favorites?: FavoriteUpdateManyWithoutUserNestedInput
-    conversationsAsClient?: ConversationUpdateManyWithoutClientNestedInput
+    conversationsAsUserA?: ConversationUpdateManyWithoutUserANestedInput
+    conversationsAsUserB?: ConversationUpdateManyWithoutUserBNestedInput
     messagesSent?: MessageUpdateManyWithoutSenderNestedInput
     notificationPreferences?: NotificationPreferenceUpdateOneWithoutUserNestedInput
     paymentHistory?: PaymentHistoryUpdateManyWithoutUserNestedInput
@@ -30340,7 +30347,8 @@ export namespace Prisma {
     reviewsGiven?: ReviewUncheckedUpdateManyWithoutClientNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutClientNestedInput
     favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
-    conversationsAsClient?: ConversationUncheckedUpdateManyWithoutClientNestedInput
+    conversationsAsUserA?: ConversationUncheckedUpdateManyWithoutUserANestedInput
+    conversationsAsUserB?: ConversationUncheckedUpdateManyWithoutUserBNestedInput
     messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     notificationPreferences?: NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
     paymentHistory?: PaymentHistoryUncheckedUpdateManyWithoutUserNestedInput
@@ -30411,7 +30419,8 @@ export namespace Prisma {
     reviewsGiven?: ReviewCreateNestedManyWithoutClientInput
     bookings?: BookingCreateNestedManyWithoutClientInput
     favorites?: FavoriteCreateNestedManyWithoutUserInput
-    conversationsAsClient?: ConversationCreateNestedManyWithoutClientInput
+    conversationsAsUserA?: ConversationCreateNestedManyWithoutUserAInput
+    conversationsAsUserB?: ConversationCreateNestedManyWithoutUserBInput
     messagesSent?: MessageCreateNestedManyWithoutSenderInput
     notificationPreferences?: NotificationPreferenceCreateNestedOneWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
@@ -30437,7 +30446,8 @@ export namespace Prisma {
     reviewsGiven?: ReviewUncheckedCreateNestedManyWithoutClientInput
     bookings?: BookingUncheckedCreateNestedManyWithoutClientInput
     favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
-    conversationsAsClient?: ConversationUncheckedCreateNestedManyWithoutClientInput
+    conversationsAsUserA?: ConversationUncheckedCreateNestedManyWithoutUserAInput
+    conversationsAsUserB?: ConversationUncheckedCreateNestedManyWithoutUserBInput
     messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
     notificationPreferences?: NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
@@ -30478,7 +30488,8 @@ export namespace Prisma {
     reviewsGiven?: ReviewUpdateManyWithoutClientNestedInput
     bookings?: BookingUpdateManyWithoutClientNestedInput
     favorites?: FavoriteUpdateManyWithoutUserNestedInput
-    conversationsAsClient?: ConversationUpdateManyWithoutClientNestedInput
+    conversationsAsUserA?: ConversationUpdateManyWithoutUserANestedInput
+    conversationsAsUserB?: ConversationUpdateManyWithoutUserBNestedInput
     messagesSent?: MessageUpdateManyWithoutSenderNestedInput
     notificationPreferences?: NotificationPreferenceUpdateOneWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
@@ -30504,7 +30515,8 @@ export namespace Prisma {
     reviewsGiven?: ReviewUncheckedUpdateManyWithoutClientNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutClientNestedInput
     favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
-    conversationsAsClient?: ConversationUncheckedUpdateManyWithoutClientNestedInput
+    conversationsAsUserA?: ConversationUncheckedUpdateManyWithoutUserANestedInput
+    conversationsAsUserB?: ConversationUncheckedUpdateManyWithoutUserBNestedInput
     messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     notificationPreferences?: NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
@@ -30537,9 +30549,16 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type ConversationCreateManyClientInput = {
+  export type ConversationCreateManyUserAInput = {
     id?: number
-    musicianProfileId: number
+    userBId: number
+    lastMessageAt?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type ConversationCreateManyUserBInput = {
+    id?: number
+    userAId: number
     lastMessageAt?: Date | string
     createdAt?: Date | string
   }
@@ -30640,24 +30659,46 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ConversationUpdateWithoutClientInput = {
+  export type ConversationUpdateWithoutUserAInput = {
     lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    musicianProfile?: MusicianProfileUpdateOneRequiredWithoutConversationsNestedInput
+    userB?: UserUpdateOneRequiredWithoutConversationsAsUserBNestedInput
     messages?: MessageUpdateManyWithoutConversationNestedInput
   }
 
-  export type ConversationUncheckedUpdateWithoutClientInput = {
+  export type ConversationUncheckedUpdateWithoutUserAInput = {
     id?: IntFieldUpdateOperationsInput | number
-    musicianProfileId?: IntFieldUpdateOperationsInput | number
+    userBId?: IntFieldUpdateOperationsInput | number
     lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     messages?: MessageUncheckedUpdateManyWithoutConversationNestedInput
   }
 
-  export type ConversationUncheckedUpdateManyWithoutClientInput = {
+  export type ConversationUncheckedUpdateManyWithoutUserAInput = {
     id?: IntFieldUpdateOperationsInput | number
-    musicianProfileId?: IntFieldUpdateOperationsInput | number
+    userBId?: IntFieldUpdateOperationsInput | number
+    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConversationUpdateWithoutUserBInput = {
+    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userA?: UserUpdateOneRequiredWithoutConversationsAsUserANestedInput
+    messages?: MessageUpdateManyWithoutConversationNestedInput
+  }
+
+  export type ConversationUncheckedUpdateWithoutUserBInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userAId?: IntFieldUpdateOperationsInput | number
+    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: MessageUncheckedUpdateManyWithoutConversationNestedInput
+  }
+
+  export type ConversationUncheckedUpdateManyWithoutUserBInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userAId?: IntFieldUpdateOperationsInput | number
     lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -30758,13 +30799,6 @@ export namespace Prisma {
   export type FavoriteCreateManyMusicianProfileInput = {
     id?: number
     userId: number
-    createdAt?: Date | string
-  }
-
-  export type ConversationCreateManyMusicianProfileInput = {
-    id?: number
-    clientId: number
-    lastMessageAt?: Date | string
     createdAt?: Date | string
   }
 
@@ -30902,28 +30936,6 @@ export namespace Prisma {
   export type FavoriteUncheckedUpdateManyWithoutMusicianProfileInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ConversationUpdateWithoutMusicianProfileInput = {
-    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    client?: UserUpdateOneRequiredWithoutConversationsAsClientNestedInput
-    messages?: MessageUpdateManyWithoutConversationNestedInput
-  }
-
-  export type ConversationUncheckedUpdateWithoutMusicianProfileInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    clientId?: IntFieldUpdateOperationsInput | number
-    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    messages?: MessageUncheckedUpdateManyWithoutConversationNestedInput
-  }
-
-  export type ConversationUncheckedUpdateManyWithoutMusicianProfileInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    clientId?: IntFieldUpdateOperationsInput | number
-    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

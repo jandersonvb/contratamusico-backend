@@ -16,32 +16,28 @@ export class ChatService {
   /**
    * Listar conversas do usuário logado
    */
-  async findConversations(userId: number, userType: UserType) {
-    const where = userType === UserType.CLIENT
-      ? { clientId: userId }
-      : { musicianProfile: { userId } };
-
+  async findConversations(userId: number, _userType: UserType) {
     const conversations = await this.prisma.conversation.findMany({
-      where,
+      where: {
+        OR: [{ userAId: userId }, { userBId: userId }],
+      },
       include: {
-        client: {
+        userA: {
           select: {
             id: true,
             firstName: true,
             lastName: true,
             profileImageKey: true,
+            userType: true,
           },
         },
-        musicianProfile: {
-          include: {
-            user: {
-              select: {
-                id: true,
-                firstName: true,
-                lastName: true,
-                profileImageKey: true,
-              },
-            },
+        userB: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            profileImageKey: true,
+            userType: true,
           },
         },
         messages: {
@@ -58,28 +54,26 @@ export class ChatService {
   /**
    * Obter detalhes de uma conversa com mensagens
    */
-  async findConversationById(conversationId: number, userId: number, userType: UserType) {
+  async findConversationById(conversationId: number, userId: number, _userType: UserType) {
     const conversation = await this.prisma.conversation.findUnique({
       where: { id: conversationId },
       include: {
-        client: {
+        userA: {
           select: {
             id: true,
             firstName: true,
             lastName: true,
             profileImageKey: true,
+            userType: true,
           },
         },
-        musicianProfile: {
-          include: {
-            user: {
-              select: {
-                id: true,
-                firstName: true,
-                lastName: true,
-                profileImageKey: true,
-              },
-            },
+        userB: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            profileImageKey: true,
+            userType: true,
           },
         },
         messages: {
@@ -102,12 +96,7 @@ export class ChatService {
       throw new NotFoundException('Conversa não encontrada.');
     }
 
-    // Verificar permissão
-    const hasAccess = userType === UserType.CLIENT
-      ? conversation.clientId === userId
-      : conversation.musicianProfile.userId === userId;
-
-    if (!hasAccess) {
+    if (!this.hasConversationAccess(conversation, userId)) {
       throw new ForbiddenException('Você não tem acesso a esta conversa.');
     }
 
@@ -116,31 +105,23 @@ export class ChatService {
 
   /**
    * Obter mensagens paginadas de uma conversa (infinite scroll)
-   * Retorna mensagens ordenadas da mais recente para a mais antiga.
-   * Use o cursor (ID da mensagem mais antiga carregada) para carregar mensagens anteriores.
    */
   async findMessages(
     conversationId: number,
     userId: number,
-    userType: UserType,
+    _userType: UserType,
     cursor?: number,
     take = 50,
   ) {
-    // Verificar se a conversa existe e se o usuário tem acesso
     const conversation = await this.prisma.conversation.findUnique({
       where: { id: conversationId },
-      include: { musicianProfile: { select: { userId: true } } },
     });
 
     if (!conversation) {
       throw new NotFoundException('Conversa não encontrada.');
     }
 
-    const hasAccess = userType === UserType.CLIENT
-      ? conversation.clientId === userId
-      : conversation.musicianProfile.userId === userId;
-
-    if (!hasAccess) {
+    if (!this.hasConversationAccess(conversation, userId)) {
       throw new ForbiddenException('Você não tem acesso a esta conversa.');
     }
 
@@ -163,7 +144,6 @@ export class ChatService {
       },
     });
 
-    // Gerar URLs assinadas para os senders
     const formattedMessages = await Promise.all(
       messages.map(async (msg) => {
         let senderImageUrl: string | undefined;
@@ -191,7 +171,6 @@ export class ChatService {
       }),
     );
 
-    // Retornar na ordem cronológica (mais antiga primeiro)
     formattedMessages.reverse();
 
     return {
@@ -202,50 +181,38 @@ export class ChatService {
   }
 
   /**
-   * Enviar mensagem para um músico
+   * Enviar mensagem para outro usuário
    */
-  async sendMessage(
-    senderId: number,
-    musicianProfileId: number,
-    data: SendMessageDto,
-  ) {
-    // Verificar se o músico existe
-    const musician = await this.prisma.musicianProfile.findUnique({
-      where: { id: musicianProfileId },
-      include: { user: true },
-    });
-
-    if (!musician) {
-      throw new NotFoundException('Músico não encontrado.');
-    }
-
-    // Não pode enviar mensagem para si mesmo
-    if (musician.userId === senderId) {
+  async sendMessage(senderId: number, recipientUserId: number, data: SendMessageDto) {
+    if (recipientUserId === senderId) {
       throw new BadRequestException('Você não pode enviar mensagens para si mesmo.');
     }
 
-    // Buscar ou criar conversa
-    let conversation = await this.prisma.conversation.findUnique({
+    const recipient = await this.prisma.user.findUnique({
+      where: { id: recipientUserId },
+      select: { id: true },
+    });
+
+    if (!recipient) {
+      throw new NotFoundException('Destinatário não encontrado.');
+    }
+
+    const { userAId, userBId } = this.getOrderedParticipants(senderId, recipientUserId);
+
+    const conversation = await this.prisma.conversation.upsert({
       where: {
-        clientId_musicianProfileId: {
-          clientId: senderId,
-          musicianProfileId,
+        userAId_userBId: {
+          userAId,
+          userBId,
         },
+      },
+      update: {},
+      create: {
+        userAId,
+        userBId,
       },
     });
 
-    const isNewConversation = !conversation;
-
-    if (!conversation) {
-      conversation = await this.prisma.conversation.create({
-        data: {
-          clientId: senderId,
-          musicianProfileId,
-        },
-      });
-    }
-
-    // Criar mensagem
     const message = await this.prisma.message.create({
       data: {
         conversationId: conversation.id,
@@ -264,7 +231,6 @@ export class ChatService {
       },
     });
 
-    // Atualizar lastMessageAt da conversa
     await this.prisma.conversation.update({
       where: { id: conversation.id },
       data: { lastMessageAt: new Date() },
@@ -286,14 +252,10 @@ export class ChatService {
     };
 
     this.chatGateway.addUserToConversationRoom(senderId, conversation.id);
-    this.chatGateway.addUserToConversationRoom(musician.userId, conversation.id);
-
-    if (isNewConversation) {
-      this.chatGateway.emitToUser(musician.userId, 'conversation:new', {
-        conversationId: conversation.id,
-      });
-    }
-
+    this.chatGateway.addUserToConversationRoom(recipientUserId, conversation.id);
+    this.chatGateway.emitToUser(recipientUserId, 'conversation:new', {
+      conversationId: conversation.id,
+    });
     this.chatGateway.emitNewMessage(messagePayload);
 
     return {
@@ -305,26 +267,19 @@ export class ChatService {
   /**
    * Marcar mensagens como lidas
    */
-  async markAsRead(conversationId: number, userId: number, userType: UserType) {
+  async markAsRead(conversationId: number, userId: number, _userType: UserType) {
     const conversation = await this.prisma.conversation.findUnique({
       where: { id: conversationId },
-      include: { musicianProfile: true },
     });
 
     if (!conversation) {
       throw new NotFoundException('Conversa não encontrada.');
     }
 
-    // Verificar permissão
-    const hasAccess = userType === UserType.CLIENT
-      ? conversation.clientId === userId
-      : conversation.musicianProfile.userId === userId;
-
-    if (!hasAccess) {
+    if (!this.hasConversationAccess(conversation, userId)) {
       throw new ForbiddenException('Você não tem acesso a esta conversa.');
     }
 
-    // Marcar mensagens não lidas (que não foram enviadas pelo usuário) como lidas
     await this.prisma.message.updateMany({
       where: {
         conversationId,
@@ -342,14 +297,13 @@ export class ChatService {
   /**
    * Contar mensagens não lidas
    */
-  async getUnreadCount(userId: number, userType: UserType) {
-    const where = userType === UserType.CLIENT
-      ? { conversation: { clientId: userId } }
-      : { conversation: { musicianProfile: { userId } } };
-
+  async getUnreadCount(userId: number, _userType: UserType) {
     const count = await this.prisma.message.count({
       where: {
-        ...where,
+        OR: [
+          { conversation: { userAId: userId } },
+          { conversation: { userBId: userId } },
+        ],
         senderId: { not: userId },
         isRead: false,
       },
@@ -363,41 +317,27 @@ export class ChatService {
    */
   private async formatConversation(conversation: any, currentUserId: number) {
     const lastMessage = conversation.messages[0];
-    
-    // Determinar a outra parte da conversa e gerar URL assinada
-    const isClient = conversation.clientId === currentUserId;
-    const otherUserKey = isClient 
-      ? conversation.musicianProfile.user.profileImageKey
-      : conversation.client.profileImageKey;
-    
+    const otherUser = conversation.userAId === currentUserId ? conversation.userB : conversation.userA;
+
     let profileImageUrl: string | undefined;
-    if (otherUserKey) {
+    if (otherUser.profileImageKey) {
       try {
-        profileImageUrl = await this.uploadService.getSignedUrl(otherUserKey);
-      } catch (error) {
+        profileImageUrl = await this.uploadService.getSignedUrl(otherUser.profileImageKey);
+      } catch {
         profileImageUrl = undefined;
       }
     }
-    
-    const otherParty = isClient
-      ? {
-          id: conversation.musicianProfile.user.id,
-          name: `${conversation.musicianProfile.user.firstName} ${conversation.musicianProfile.user.lastName}`,
-          profileImageUrl,
-          type: 'musician',
-        }
-      : {
-          id: conversation.client.id,
-          name: `${conversation.client.firstName} ${conversation.client.lastName}`,
-          profileImageUrl,
-          type: 'client',
-        };
 
     return {
       id: conversation.id,
-      clientId: conversation.clientId,
-      musicianProfileId: conversation.musicianProfileId,
-      otherParty,
+      userAId: conversation.userAId,
+      userBId: conversation.userBId,
+      otherParty: {
+        id: otherUser.id,
+        name: `${otherUser.firstName} ${otherUser.lastName}`,
+        profileImageUrl,
+        type: otherUser.userType.toLowerCase(),
+      },
       lastMessage: lastMessage ? {
         content: lastMessage.content,
         createdAt: lastMessage.createdAt,
@@ -412,47 +352,28 @@ export class ChatService {
    * Formatar conversa com mensagens para resposta
    */
   private async formatConversationWithMessages(conversation: any, currentUserId: number) {
-    // Gerar URL assinada para a outra parte
-    const isClient = conversation.clientId === currentUserId;
-    const otherUserKey = isClient 
-      ? conversation.musicianProfile.user.profileImageKey
-      : conversation.client.profileImageKey;
-    
+    const otherUser = conversation.userAId === currentUserId ? conversation.userB : conversation.userA;
+
     let profileImageUrl: string | undefined;
-    if (otherUserKey) {
+    if (otherUser.profileImageKey) {
       try {
-        profileImageUrl = await this.uploadService.getSignedUrl(otherUserKey);
-      } catch (error) {
+        profileImageUrl = await this.uploadService.getSignedUrl(otherUser.profileImageKey);
+      } catch {
         profileImageUrl = undefined;
       }
     }
-    
-    const otherParty = isClient
-      ? {
-          id: conversation.musicianProfile.user.id,
-          name: `${conversation.musicianProfile.user.firstName} ${conversation.musicianProfile.user.lastName}`,
-          profileImageUrl,
-          type: 'musician',
-        }
-      : {
-          id: conversation.client.id,
-          name: `${conversation.client.firstName} ${conversation.client.lastName}`,
-          profileImageUrl,
-          type: 'client',
-        };
 
-    // Gerar URLs assinadas para todos os senders das mensagens
     const messages = await Promise.all(
       conversation.messages.map(async (msg: any) => {
         let senderImageUrl: string | undefined;
         if (msg.sender.profileImageKey) {
           try {
             senderImageUrl = await this.uploadService.getSignedUrl(msg.sender.profileImageKey);
-          } catch (error) {
+          } catch {
             senderImageUrl = undefined;
           }
         }
-        
+
         return {
           id: msg.id,
           content: msg.content,
@@ -466,16 +387,32 @@ export class ChatService {
           isMine: msg.senderId === currentUserId,
           createdAt: msg.createdAt,
         };
-      })
+      }),
     );
 
     return {
       id: conversation.id,
-      clientId: conversation.clientId,
-      musicianProfileId: conversation.musicianProfileId,
-      otherParty,
+      userAId: conversation.userAId,
+      userBId: conversation.userBId,
+      otherParty: {
+        id: otherUser.id,
+        name: `${otherUser.firstName} ${otherUser.lastName}`,
+        profileImageUrl,
+        type: otherUser.userType.toLowerCase(),
+      },
       messages,
       createdAt: conversation.createdAt,
+    };
+  }
+
+  private hasConversationAccess(conversation: { userAId: number; userBId: number }, userId: number) {
+    return conversation.userAId === userId || conversation.userBId === userId;
+  }
+
+  private getOrderedParticipants(userOneId: number, userTwoId: number) {
+    return {
+      userAId: Math.min(userOneId, userTwoId),
+      userBId: Math.max(userOneId, userTwoId),
     };
   }
 }
