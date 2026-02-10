@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ChatController } from './chat.controller';
+import { ChatLegacyController } from './chat-legacy.controller';
 import { ChatService } from './chat.service';
 import { ChatGateway } from './chat.gateway';
 import { PrismaModule } from '../prisma/prisma.module';
@@ -21,7 +22,7 @@ import { UploadModule } from '../upload/upload.module';
       }),
     }),
   ],
-  controllers: [ChatController],
+  controllers: [ChatController, ChatLegacyController],
   providers: [ChatService, ChatGateway],
   exports: [ChatService],
 })

@@ -180,6 +180,47 @@ export class ChatService {
     };
   }
 
+
+  async sendMessageWithConversationSupport(senderId: number, data: SendMessageDto) {
+    if (data.conversationId) {
+      const conversation = await this.prisma.conversation.findUnique({
+        where: { id: data.conversationId },
+      });
+
+      if (!conversation) {
+        throw new NotFoundException('Conversa não encontrada.');
+      }
+
+      if (!this.hasConversationAccess(conversation, senderId)) {
+        throw new ForbiddenException('Você não tem acesso a esta conversa.');
+      }
+
+      const recipientUserId = conversation.userAId === senderId ? conversation.userBId : conversation.userAId;
+      return this.sendMessage(senderId, recipientUserId, data);
+    }
+
+    let recipientUserId = data.recipientUserId;
+
+    if (!recipientUserId && data.musicianProfileId) {
+      const musician = await this.prisma.musicianProfile.findUnique({
+        where: { id: data.musicianProfileId },
+        select: { userId: true },
+      });
+
+      if (!musician) {
+        throw new NotFoundException('Perfil de músico não encontrado.');
+      }
+
+      recipientUserId = musician.userId;
+    }
+
+    if (!recipientUserId) {
+      throw new BadRequestException('recipientUserId ou musicianProfileId é obrigatório.');
+    }
+
+    return this.sendMessage(senderId, recipientUserId, data);
+  }
+
   /**
    * Enviar mensagem para outro usuário
    */
@@ -336,7 +377,7 @@ export class ChatService {
         id: otherUser.id,
         name: `${otherUser.firstName} ${otherUser.lastName}`,
         profileImageUrl,
-        type: otherUser.userType.toLowerCase(),
+        type: String(otherUser.userType || '').toLowerCase() || 'user',
       },
       lastMessage: lastMessage ? {
         content: lastMessage.content,
@@ -398,7 +439,7 @@ export class ChatService {
         id: otherUser.id,
         name: `${otherUser.firstName} ${otherUser.lastName}`,
         profileImageUrl,
-        type: otherUser.userType.toLowerCase(),
+        type: String(otherUser.userType || '').toLowerCase() || 'user',
       },
       messages,
       createdAt: conversation.createdAt,

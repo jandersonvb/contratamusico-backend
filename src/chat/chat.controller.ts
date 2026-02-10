@@ -164,4 +164,3 @@ export class ChatController {
     return this.chatService.getUnreadCount(req.user.id, req.user.userType);
   }
 }
-
