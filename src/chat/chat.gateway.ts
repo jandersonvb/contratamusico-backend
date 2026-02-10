@@ -24,7 +24,7 @@ import { ConfigService } from '@nestjs/config';
     credentials: true,
   },
   namespace: '/chat',
-  transports: ['websocket', 'polling'],
+  transports: ['websocket'],
 })
 export class ChatGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
@@ -49,9 +49,11 @@ export class ChatGateway
   // ─── Conexão: autenticar via JWT ───────────────────────────────
   async handleConnection(client: Socket) {
     try {
-      const token =
+      const token = this.normalizeToken(
         client.handshake.auth?.token ||
-        client.handshake.headers?.authorization?.replace('Bearer ', '');
+        client.handshake.headers?.authorization ||
+        client.handshake.query?.token,
+      );
 
       if (!token) {
         this.logger.warn(`Conexão rejeitada: sem token (socket: ${client.id})`);
@@ -141,23 +143,38 @@ export class ChatGateway
   ) {
     const senderId = client.data.userId as number;
     const senderType = client.data.userType as string;
+    const conversationIdFromPayload =
+      data.conversationId !== undefined
+        ? Number(data.conversationId)
+        : undefined;
+    const musicianProfileIdFromPayload =
+      data.musicianProfileId !== undefined
+        ? Number(data.musicianProfileId)
+        : undefined;
 
 
     if (!data.content?.trim() || data.content.length > 2000) {
       return { success: false, error: 'Mensagem inválida' };
     }
 
+    if (
+      (conversationIdFromPayload !== undefined && Number.isNaN(conversationIdFromPayload)) ||
+      (musicianProfileIdFromPayload !== undefined && Number.isNaN(musicianProfileIdFromPayload))
+    ) {
+      return { success: false, error: 'IDs inválidos no payload' };
+    }
+
     try {
-      let conversationId = data.conversationId;
+      let conversationId = conversationIdFromPayload;
 
       // Se não tem conversationId, buscar/criar via musicianProfileId
-      if (!conversationId && data.musicianProfileId) {
+      if (!conversationId && musicianProfileIdFromPayload) {
         if (senderType !== 'CLIENT') {
           return { success: false, error: 'Apenas clientes podem iniciar conversa' };
         }
 
         const musician = await this.prisma.musicianProfile.findUnique({
-          where: { id: data.musicianProfileId },
+          where: { id: musicianProfileIdFromPayload },
           select: { userId: true },
         });
 
@@ -170,13 +187,13 @@ export class ChatGateway
           where: {
             clientId_musicianProfileId: {
               clientId: senderId,
-              musicianProfileId: data.musicianProfileId,
+              musicianProfileId: musicianProfileIdFromPayload,
             },
           },
           update: {},
           create: {
             clientId: senderId,
-            musicianProfileId: data.musicianProfileId,
+            musicianProfileId: musicianProfileIdFromPayload,
           },
         });
 
@@ -274,6 +291,15 @@ export class ChatGateway
       this.logger.error(`Erro ao enviar mensagem: ${error.message}`);
       return { success: false, error: 'Erro interno ao enviar mensagem' };
     }
+  }
+
+  private normalizeToken(rawToken: unknown): string | undefined {
+    if (typeof rawToken !== 'string') return undefined;
+
+    const token = rawToken.trim();
+    if (!token) return undefined;
+
+    return token.startsWith('Bearer ') ? token.slice(7).trim() : token;
   }
 
   // ─── Indicador de Digitação ───────────────────────────────────
