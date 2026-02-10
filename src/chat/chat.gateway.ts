@@ -45,11 +45,7 @@ export class ChatGateway
 
   async handleConnection(client: Socket) {
     try {
-      const token = this.normalizeToken(
-        client.handshake.auth?.token ||
-          client.handshake.headers?.authorization ||
-          client.handshake.query?.token,
-      );
+      const token = this.extractHandshakeToken(client);
 
       if (!token) {
         this.logger.warn(`Conexão rejeitada: sem token (socket: ${client.id})`);
@@ -101,6 +97,22 @@ export class ChatGateway
       this.logger.error(`Erro na autenticação WebSocket: ${error.message}`);
       client.disconnect();
     }
+  }
+
+  private extractHandshakeToken(client: Socket): string | undefined {
+    const handshake = client.handshake;
+
+    return this.normalizeToken(
+      handshake.auth?.token ||
+        handshake.auth?.accessToken ||
+        handshake.auth?.access_token ||
+        handshake.headers?.authorization ||
+        handshake.headers?.Authorization ||
+        handshake.headers?.['x-access-token'] ||
+        handshake.query?.token ||
+        handshake.query?.accessToken ||
+        handshake.query?.access_token,
+    );
   }
 
   handleDisconnect(client: Socket) {
@@ -283,9 +295,11 @@ export class ChatGateway
   }
 
   private normalizeToken(rawToken: unknown): string | undefined {
-    if (typeof rawToken !== 'string') return undefined;
+    const value = Array.isArray(rawToken) ? rawToken[0] : rawToken;
 
-    const token = rawToken.trim();
+    if (typeof value !== 'string') return undefined;
+
+    const token = value.trim();
     if (!token) return undefined;
 
     return token.startsWith('Bearer ') ? token.slice(7).trim() : token;
