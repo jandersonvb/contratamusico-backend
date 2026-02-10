@@ -39,18 +39,14 @@ export class ChatLegacyController {
   }
 
   @ApiOperation({
-    summary: 'Detalhes da conversa (legado)',
-    description: 'Compatibilidade para clientes que ainda usam GET /chat/conversations/:id',
+    summary: 'Contador de não lidas por conversa (legado)',
+    description: 'Compatibilidade para clientes que usam GET /chat/conversations/unread/count',
   })
   @ApiBearerAuth()
-  @ApiParam({ name: 'id', type: Number, description: 'ID da conversa' })
-  @ApiResponse({ status: 200, description: 'Detalhes da conversa' })
-  @Get('conversations/:id')
-  async findConversationById(
-    @Req() req: any,
-    @Param('id', ParseIntPipe) id: number,
-  ) {
-    return this.chatService.findConversationById(id, req.user.id, req.user.userType);
+  @ApiResponse({ status: 200, description: 'Total de mensagens não lidas' })
+  @Get('conversations/unread/count')
+  async unreadCountByConversations(@Req() req: any) {
+    return this.chatService.getUnreadCount(req.user.id, req.user.userType);
   }
 
   @ApiOperation({
@@ -79,6 +75,21 @@ export class ChatLegacyController {
   }
 
   @ApiOperation({
+    summary: 'Detalhes da conversa (legado)',
+    description: 'Compatibilidade para clientes que ainda usam GET /chat/conversations/:id',
+  })
+  @ApiBearerAuth()
+  @ApiParam({ name: 'id', type: Number, description: 'ID da conversa' })
+  @ApiResponse({ status: 200, description: 'Detalhes da conversa' })
+  @Get('conversations/:id')
+  async findConversationById(
+    @Req() req: any,
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    return this.chatService.findConversationById(id, req.user.id, req.user.userType);
+  }
+
+  @ApiOperation({
     summary: 'Marcar mensagens como lidas (legado)',
     description: 'Compatibilidade para clientes que ainda usam PATCH /chat/conversations/:id/read',
   })
@@ -92,17 +103,6 @@ export class ChatLegacyController {
     @Param('id', ParseIntPipe) id: number,
   ) {
     return this.chatService.markAsRead(id, req.user.id, req.user.userType);
-  }
-
-  @ApiOperation({
-    summary: 'Contador de não lidas por conversa (legado)',
-    description: 'Compatibilidade para clientes que usam GET /chat/conversations/unread/count',
-  })
-  @ApiBearerAuth()
-  @ApiResponse({ status: 200, description: 'Total de mensagens não lidas' })
-  @Get('conversations/unread/count')
-  async unreadCountByConversations(@Req() req: any) {
-    return this.chatService.getUnreadCount(req.user.id, req.user.userType);
   }
 
   @ApiOperation({
@@ -142,6 +142,17 @@ export class ChatLegacyController {
   @ApiResponse({ status: 200, description: 'Total de mensagens não lidas' })
   @Get('messages/unread-count')
   async unreadCount(@Req() req: any) {
+    return this.chatService.getUnreadCount(req.user.id, req.user.userType);
+  }
+
+  @ApiOperation({
+    summary: 'Contador de não lidas (legado curto)',
+    description: 'Compatibilidade para clientes que usam GET /chat/count',
+  })
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Total de mensagens não lidas' })
+  @Get('count')
+  async unreadCountShort(@Req() req: any) {
     return this.chatService.getUnreadCount(req.user.id, req.user.userType);
   }
 

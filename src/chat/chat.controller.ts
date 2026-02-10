@@ -26,13 +26,13 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 export class ChatController {
   constructor(private readonly chatService: ChatService) {}
 
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Listar minhas conversas',
-    description: 'Retorna lista de conversas do usuário logado (cliente ou músico)' 
+    description: 'Retorna lista de conversas do usuário logado (cliente ou músico)',
   })
   @ApiBearerAuth()
-  @ApiResponse({ 
-    status: 200, 
+  @ApiResponse({
+    status: 200,
     description: 'Lista de conversas',
     schema: {
       example: [{
@@ -41,42 +41,42 @@ export class ChatController {
           id: 5,
           name: 'João Silva',
           profileImageUrl: 'https://...',
-          type: 'musician'
+          type: 'musician',
         },
         lastMessage: {
           content: 'Olá!',
           createdAt: '2024-01-15T10:30:00Z',
-          isRead: false
+          isRead: false,
         },
-        lastMessageAt: '2024-01-15T10:30:00Z'
-      }]
-    }
+        lastMessageAt: '2024-01-15T10:30:00Z',
+      }],
+    },
   })
   @Get()
   async findAll(@Req() req: any) {
     return this.chatService.findConversations(req.user.id, req.user.userType);
   }
 
-  @ApiOperation({ 
-    summary: 'Detalhes da conversa',
-    description: 'Retorna uma conversa específica com todas as mensagens' 
+  @ApiOperation({
+    summary: 'Contar mensagens não lidas',
+    description: 'Retorna o número total de mensagens não lidas do usuário',
   })
   @ApiBearerAuth()
-  @ApiParam({ name: 'id', type: Number, description: 'ID da conversa' })
-  @ApiResponse({ status: 200, description: 'Detalhes da conversa' })
-  @ApiResponse({ status: 404, description: 'Conversa não encontrada' })
-  @ApiResponse({ status: 403, description: 'Sem permissão para acessar esta conversa' })
-  @Get(':id')
-  async findById(
-    @Req() req: any,
-    @Param('id', ParseIntPipe) id: number,
-  ) {
-    return this.chatService.findConversationById(id, req.user.id, req.user.userType);
+  @ApiResponse({
+    status: 200,
+    description: 'Contador de não lidas',
+    schema: {
+      example: { count: 3 },
+    },
+  })
+  @Get('unread/count')
+  async getUnreadCount(@Req() req: any) {
+    return this.chatService.getUnreadCount(req.user.id, req.user.userType);
   }
 
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Enviar mensagem',
-    description: 'Envia uma mensagem para qualquer usuário (CLIENT ou MUSICIAN). Cria uma nova conversa se necessário' 
+    description: 'Envia uma mensagem para qualquer usuário (CLIENT ou MUSICIAN). Cria uma nova conversa se necessário',
   })
   @ApiBearerAuth()
   @ApiParam({ name: 'recipientUserId', type: Number, description: 'ID do usuário destinatário' })
@@ -93,24 +93,25 @@ export class ChatController {
     return this.chatService.sendMessage(req.user.id, recipientUserId, data);
   }
 
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Mensagens paginadas',
-    description: 'Retorna mensagens de uma conversa com paginação por cursor (infinite scroll). Envie o cursor para carregar mensagens mais antigas.' 
+    description:
+      'Retorna mensagens de uma conversa com paginação por cursor (infinite scroll). Envie o cursor para carregar mensagens mais antigas.',
   })
   @ApiBearerAuth()
   @ApiParam({ name: 'id', type: Number, description: 'ID da conversa' })
   @ApiQuery({ name: 'cursor', required: false, type: Number, description: 'ID da mensagem mais antiga carregada (para paginação)' })
   @ApiQuery({ name: 'take', required: false, type: Number, description: 'Quantidade de mensagens (padrão: 50)' })
-  @ApiResponse({ 
-    status: 200, 
+  @ApiResponse({
+    status: 200,
     description: 'Mensagens paginadas',
     schema: {
       example: {
         messages: [{ id: 1, content: 'Olá!', senderId: 1, isRead: true, createdAt: '2024-01-15T10:30:00Z' }],
         hasMore: true,
         nextCursor: 1,
-      }
-    }
+      },
+    },
   })
   @ApiResponse({ status: 404, description: 'Conversa não encontrada' })
   @ApiResponse({ status: 403, description: 'Sem permissão' })
@@ -130,9 +131,26 @@ export class ChatController {
     );
   }
 
-  @ApiOperation({ 
+  @ApiOperation({
+    summary: 'Detalhes da conversa',
+    description: 'Retorna uma conversa específica com todas as mensagens',
+  })
+  @ApiBearerAuth()
+  @ApiParam({ name: 'id', type: Number, description: 'ID da conversa' })
+  @ApiResponse({ status: 200, description: 'Detalhes da conversa' })
+  @ApiResponse({ status: 404, description: 'Conversa não encontrada' })
+  @ApiResponse({ status: 403, description: 'Sem permissão para acessar esta conversa' })
+  @Get(':id')
+  async findById(
+    @Req() req: any,
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    return this.chatService.findConversationById(id, req.user.id, req.user.userType);
+  }
+
+  @ApiOperation({
     summary: 'Marcar mensagens como lidas',
-    description: 'Marca todas as mensagens não lidas de uma conversa como lidas' 
+    description: 'Marca todas as mensagens não lidas de uma conversa como lidas',
   })
   @ApiBearerAuth()
   @ApiParam({ name: 'id', type: Number, description: 'ID da conversa' })
@@ -145,22 +163,5 @@ export class ChatController {
     @Param('id', ParseIntPipe) id: number,
   ) {
     return this.chatService.markAsRead(id, req.user.id, req.user.userType);
-  }
-
-  @ApiOperation({ 
-    summary: 'Contar mensagens não lidas',
-    description: 'Retorna o número total de mensagens não lidas do usuário' 
-  })
-  @ApiBearerAuth()
-  @ApiResponse({ 
-    status: 200, 
-    description: 'Contador de não lidas',
-    schema: {
-      example: { count: 3 }
-    }
-  })
-  @Get('unread/count')
-  async getUnreadCount(@Req() req: any) {
-    return this.chatService.getUnreadCount(req.user.id, req.user.userType);
   }
 }
