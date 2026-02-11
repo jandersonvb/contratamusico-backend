@@ -52,6 +52,20 @@ export class BookingController {
     return this.bookingService.findByUserId(req.user.id, req.user.userType);
   }
 
+  @ApiOperation({
+    summary: 'Listar meus agendamentos (alias)',
+    description:
+      'Alias para /bookings. Retorna lista de agendamentos do usuário logado',
+  })
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Lista de agendamentos' })
+  @ApiResponse({ status: 401, description: 'Não autenticado' })
+  @Get('my-bookings')
+  @UseGuards(JwtAuthGuard)
+  async findMyBookings(@Req() req: any) {
+    return this.bookingService.findByUserId(req.user.id, req.user.userType);
+  }
+
   @ApiOperation({ 
     summary: 'Obter detalhes de um agendamento',
     description: 'Retorna detalhes completos de um agendamento específico' 
