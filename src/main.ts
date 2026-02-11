@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { PrismaExceptionFilter } from './common/filters/prisma-exception.filter';
 
 const normalizeOrigin = (origin: string): string => origin.trim().replace(/\/+$/, '');
 
@@ -82,6 +83,8 @@ async function bootstrap() {
   };
 
   app.enableCors(corsOptions);
+
+  app.useGlobalFilters(new PrismaExceptionFilter());
 
   app.useGlobalPipes(
     new ValidationPipe({

@@ -43,6 +43,18 @@ npm run start:dev
 
 O servidor inicializa em `http://localhost:3000` com CORS liberado para integração com o front.
 
+
+## Railway (MySQL) – configuração recomendada
+
+Para evitar o erro `Can't reach database server at ballast.proxy.rlwy.net`, configure as variáveis no serviço **backend** assim:
+
+- `MYSQL_PRIVATE_URL` (ou `MYSQL_URL`) vindo da referência do serviço MySQL do Railway.
+- `DATABASE_URL=${{MYSQL_PRIVATE_URL}}` (ou `${{MYSQL_URL}}` se não houver private).
+
+Dica importante:
+- Evite usar URL pública/proxy (`*.proxy.rlwy.net`) para conexão entre serviços dentro do mesmo projeto Railway.
+- Após atualizar variáveis, faça **Redeploy** do backend.
+
 ## Scripts úteis
 
 - `npm run start:dev` – Hot reload
