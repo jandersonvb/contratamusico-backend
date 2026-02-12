@@ -11,6 +11,23 @@ const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const RAILWAY_PROXY_HOST_FRAGMENT = '.proxy.rlwy.net';
 
+const stripSurroundingQuotes = (value: string): string =>
+  value.replace(/^['\"]+|['\"]+$/g, '');
+
+const normalizeMySqlConnectionUrl = (value: string): string => {
+  const normalizedValue = stripSurroundingQuotes(value.trim());
+
+  if (!normalizedValue) {
+    return normalizedValue;
+  }
+
+  if (/^[a-z][a-z0-9+.-]*:\/\//i.test(normalizedValue)) {
+    return normalizedValue;
+  }
+
+  return `mysql://${normalizedValue}`;
+};
+
 const resolveDatabaseUrl = (): string | undefined => {
   const databaseUrl = process.env.DATABASE_URL?.trim();
   const mysqlUrl = process.env.MYSQL_URL?.trim();
@@ -28,10 +45,10 @@ const resolveDatabaseUrl = (): string | undefined => {
     preferredUrl &&
     !preferredUrl.includes(RAILWAY_PROXY_HOST_FRAGMENT)
   ) {
-    return preferredUrl;
+    return normalizeMySqlConnectionUrl(preferredUrl);
   }
 
-  return preferredUrl;
+  return preferredUrl ? normalizeMySqlConnectionUrl(preferredUrl) : undefined;
 };
 
 @Injectable()
