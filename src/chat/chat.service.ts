@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException, ForbiddenException, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { UserType } from '@prisma/client';
+import { ChatMessageType, UserType } from '@prisma/client';
 import { SendMessageDto } from './dto/send-message.dto';
+import { SendMediaMessageDto } from './dto/send-media-message.dto';
 import { UploadService } from '../upload/upload.service';
 import { ChatGateway } from './chat.gateway';
 
@@ -49,7 +50,7 @@ export class ChatService {
       orderBy: { lastMessageAt: 'desc' },
     });
 
-    return Promise.all(conversations.map(conv => this.formatConversation(conv, userId)));
+    return Promise.all(conversations.map((conv) => this.formatConversation(conv, userId)));
   }
 
   /**
@@ -102,7 +103,7 @@ export class ChatService {
       throw new ForbiddenException('Você não tem acesso a esta conversa.');
     }
 
-    return await this.formatConversationWithMessages(conversation, userId);
+    return this.formatConversationWithMessages(conversation, userId);
   }
 
   /**
@@ -129,9 +130,7 @@ export class ChatService {
 
     const messages = await this.prisma.message.findMany({
       where: { conversationId },
-      ...(cursor
-        ? { cursor: { id: cursor }, skip: 1 }
-        : {}),
+      ...(cursor ? { cursor: { id: cursor }, skip: 1 } : {}),
       take,
       orderBy: { createdAt: 'desc' },
       include: {
@@ -160,6 +159,8 @@ export class ChatService {
         return {
           id: msg.id,
           content: msg.content,
+          type: msg.type,
+          media: await this.resolveMedia(msg),
           senderId: msg.senderId,
           sender: {
             id: msg.sender.id,
@@ -181,7 +182,6 @@ export class ChatService {
       nextCursor: messages.length === take ? messages[messages.length - 1].id : null,
     };
   }
-
 
   async sendMessageWithConversationSupport(senderId: number, data: SendMessageDto) {
     if (data.conversationId) {
@@ -223,6 +223,50 @@ export class ChatService {
     return this.sendMessage(senderId, recipientUserId, data);
   }
 
+  async sendMediaMessageWithConversationSupport(
+    senderId: number,
+    data: SendMediaMessageDto,
+    file: Express.Multer.File,
+  ) {
+    if (data.conversationId) {
+      const conversation = await this.prisma.conversation.findUnique({
+        where: { id: data.conversationId },
+      });
+
+      if (!conversation) {
+        throw new NotFoundException('Conversa não encontrada.');
+      }
+
+      if (!this.hasConversationAccess(conversation, senderId)) {
+        throw new ForbiddenException('Você não tem acesso a esta conversa.');
+      }
+
+      const recipientUserId = conversation.userAId === senderId ? conversation.userBId : conversation.userAId;
+      return this.sendMediaMessage(senderId, recipientUserId, data, file);
+    }
+
+    let recipientUserId = data.recipientUserId;
+
+    if (!recipientUserId && data.musicianProfileId) {
+      const musician = await this.prisma.musicianProfile.findUnique({
+        where: { id: data.musicianProfileId },
+        select: { userId: true },
+      });
+
+      if (!musician) {
+        throw new NotFoundException('Perfil de músico não encontrado.');
+      }
+
+      recipientUserId = musician.userId;
+    }
+
+    if (!recipientUserId) {
+      throw new BadRequestException('recipientUserId ou musicianProfileId é obrigatório.');
+    }
+
+    return this.sendMediaMessage(senderId, recipientUserId, data, file);
+  }
+
   /**
    * Enviar mensagem para outro usuário
    */
@@ -261,6 +305,7 @@ export class ChatService {
         conversationId: conversation.id,
         senderId,
         content: data.content,
+        type: ChatMessageType.TEXT,
       },
       include: {
         sender: {
@@ -283,6 +328,8 @@ export class ChatService {
       id: message.id,
       conversationId: conversation.id,
       content: message.content,
+      type: message.type,
+      media: null,
       senderId: message.senderId,
       sender: {
         id: message.sender.id,
@@ -304,6 +351,113 @@ export class ChatService {
     return {
       message: 'Mensagem enviada com sucesso!',
       data: message,
+    };
+  }
+
+  async sendMediaMessage(
+    senderId: number,
+    recipientUserId: number,
+    data: SendMediaMessageDto,
+    file: Express.Multer.File,
+  ) {
+    if (!file) {
+      throw new BadRequestException('Arquivo de mídia é obrigatório.');
+    }
+
+    if (recipientUserId === senderId) {
+      throw new BadRequestException('Você não pode enviar mensagens para si mesmo.');
+    }
+
+    const recipient = await this.prisma.user.findUnique({
+      where: { id: recipientUserId },
+      select: { id: true },
+    });
+
+    if (!recipient) {
+      throw new NotFoundException('Destinatário não encontrado.');
+    }
+
+    const upload = await this.uploadService.uploadChatMedia(file, senderId);
+    const { userAId, userBId } = this.getOrderedParticipants(senderId, recipientUserId);
+
+    const conversation = await this.prisma.conversation.upsert({
+      where: {
+        userAId_userBId: {
+          userAId,
+          userBId,
+        },
+      },
+      update: {},
+      create: {
+        userAId,
+        userBId,
+      },
+    });
+
+    const message = await this.prisma.message.create({
+      data: {
+        conversationId: conversation.id,
+        senderId,
+        content: data.content?.trim() || '',
+        type: upload.type as ChatMessageType,
+        mediaKey: upload.key,
+        mediaMimeType: file.mimetype,
+        mediaSize: file.size,
+        mediaFileName: file.originalname,
+      },
+      include: {
+        sender: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            profileImageKey: true,
+          },
+        },
+      },
+    });
+
+    await this.prisma.conversation.update({
+      where: { id: conversation.id },
+      data: { lastMessageAt: new Date() },
+    });
+
+    const messagePayload = {
+      id: message.id,
+      conversationId: conversation.id,
+      content: message.content,
+      type: message.type,
+      media: {
+        key: upload.key,
+        url: upload.url,
+        mimeType: message.mediaMimeType,
+        size: message.mediaSize,
+        fileName: message.mediaFileName,
+      },
+      senderId: message.senderId,
+      sender: {
+        id: message.sender.id,
+        firstName: message.sender.firstName,
+        lastName: message.sender.lastName,
+        profileImageKey: message.sender.profileImageKey,
+      },
+      isRead: false,
+      createdAt: message.createdAt,
+    };
+
+    this.chatGateway.addUserToConversationRoom(senderId, conversation.id);
+    this.chatGateway.addUserToConversationRoom(recipientUserId, conversation.id);
+    this.chatGateway.emitToUser(recipientUserId, 'conversation:new', {
+      conversationId: conversation.id,
+    });
+    this.chatGateway.emitNewMessage(messagePayload);
+
+    return {
+      message: 'Mídia enviada com sucesso!',
+      data: {
+        ...message,
+        mediaUrl: upload.url,
+      },
     };
   }
 
@@ -345,10 +499,7 @@ export class ChatService {
     void _userType;
     const count = await this.prisma.message.count({
       where: {
-        OR: [
-          { conversation: { userAId: userId } },
-          { conversation: { userBId: userId } },
-        ],
+        OR: [{ conversation: { userAId: userId } }, { conversation: { userBId: userId } }],
         senderId: { not: userId },
         isRead: false,
       },
@@ -383,11 +534,15 @@ export class ChatService {
         profileImageUrl,
         type: String(otherUser.userType || '').toLowerCase() || 'user',
       },
-      lastMessage: lastMessage ? {
-        content: lastMessage.content,
-        createdAt: lastMessage.createdAt,
-        isRead: lastMessage.isRead,
-      } : null,
+      lastMessage: lastMessage
+        ? {
+            content: lastMessage.content,
+            type: lastMessage.type,
+            media: await this.resolveMedia(lastMessage),
+            createdAt: lastMessage.createdAt,
+            isRead: lastMessage.isRead,
+          }
+        : null,
       lastMessageAt: conversation.lastMessageAt,
       createdAt: conversation.createdAt,
     };
@@ -422,6 +577,8 @@ export class ChatService {
         return {
           id: msg.id,
           content: msg.content,
+          type: msg.type,
+          media: await this.resolveMedia(msg),
           senderId: msg.senderId,
           sender: {
             id: msg.sender.id,
@@ -458,6 +615,32 @@ export class ChatService {
     return {
       userAId: Math.min(userOneId, userTwoId),
       userBId: Math.max(userOneId, userTwoId),
+    };
+  }
+
+  private async resolveMedia(msg: {
+    mediaKey?: string | null;
+    mediaMimeType?: string | null;
+    mediaSize?: number | null;
+    mediaFileName?: string | null;
+  }) {
+    if (!msg.mediaKey) {
+      return null;
+    }
+
+    let url: string | null = null;
+    try {
+      url = await this.uploadService.getSignedUrl(msg.mediaKey);
+    } catch {
+      url = null;
+    }
+
+    return {
+      key: msg.mediaKey,
+      url,
+      mimeType: msg.mediaMimeType || null,
+      size: msg.mediaSize || null,
+      fileName: msg.mediaFileName || null,
     };
   }
 }

@@ -12,13 +12,17 @@ import {
   Query,
   Req,
   UseGuards,
+  UseInterceptors,
   UsePipes,
   ValidationPipe,
+  UploadedFile,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiConsumes, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { ChatService } from './chat.service';
 import { SendMessageDto } from './dto/send-message.dto';
+import { SendMediaMessageDto } from './dto/send-media-message.dto';
 
 @ApiTags('Chat/Mensagens (legado)')
 @Controller('chat')
@@ -123,6 +127,40 @@ export class ChatLegacyController {
   }
 
   @ApiOperation({
+    summary: 'Enviar mídia para usuário (legado)',
+    description: 'Compatibilidade para clientes que usam POST /chat/conversations/:recipientUserId/media',
+  })
+  @ApiBearerAuth()
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      required: ['file'],
+      properties: {
+        file: { type: 'string', format: 'binary' },
+        content: { type: 'string', description: 'Legenda opcional' },
+      },
+    },
+  })
+  @ApiParam({ name: 'recipientUserId', type: Number, description: 'ID do usuário destinatário' })
+  @ApiResponse({ status: 201, description: 'Mídia enviada com sucesso' })
+  @Post('conversations/:recipientUserId/media')
+  @UseInterceptors(FileInterceptor('file'))
+  @HttpCode(HttpStatus.CREATED)
+  async sendMediaToRecipient(
+    @Req() req: any,
+    @Param('recipientUserId', ParseIntPipe) recipientUserId: number,
+    @Body() data: SendMediaMessageDto,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    if (!file) {
+      throw new BadRequestException('Arquivo de mídia é obrigatório.');
+    }
+
+    return this.chatService.sendMediaMessage(req.user.id, recipientUserId, data, file);
+  }
+
+  @ApiOperation({
     summary: 'Enviar mensagem (legado)',
     description: 'Compatibilidade para clientes que ainda usam POST /chat/messages',
   })
@@ -132,6 +170,41 @@ export class ChatLegacyController {
   @HttpCode(HttpStatus.CREATED)
   async sendMessage(@Req() req: any, @Body() data: SendMessageDto) {
     return this.chatService.sendMessageWithConversationSupport(req.user.id, data);
+  }
+
+  @ApiOperation({
+    summary: 'Enviar mídia (legado)',
+    description: 'Compatibilidade para clientes que usam POST /chat/messages/media',
+  })
+  @ApiBearerAuth()
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      required: ['file'],
+      properties: {
+        file: { type: 'string', format: 'binary' },
+        content: { type: 'string', description: 'Legenda opcional' },
+        recipientUserId: { type: 'number' },
+        musicianProfileId: { type: 'number' },
+        conversationId: { type: 'number' },
+      },
+    },
+  })
+  @ApiResponse({ status: 201, description: 'Mídia enviada com sucesso' })
+  @Post('messages/media')
+  @UseInterceptors(FileInterceptor('file'))
+  @HttpCode(HttpStatus.CREATED)
+  async sendMediaMessage(
+    @Req() req: any,
+    @Body() data: SendMediaMessageDto,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    if (!file) {
+      throw new BadRequestException('Arquivo de mídia é obrigatório.');
+    }
+
+    return this.chatService.sendMediaMessageWithConversationSupport(req.user.id, data, file);
   }
 
   @ApiOperation({

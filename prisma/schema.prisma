@@ -38,6 +38,13 @@ enum PortfolioItemType {
   AUDIO
 }
 
+enum ChatMessageType {
+  TEXT
+  IMAGE
+  VIDEO
+  AUDIO
+}
+
 // -----------------------------------------------------------
 // CORE MODELS
 // -----------------------------------------------------------
@@ -303,6 +310,11 @@ model Message {
   conversationId Int
   senderId       Int
   content        String       @db.Text
+  type           ChatMessageType @default(TEXT)
+  mediaKey       String?
+  mediaMimeType  String?
+  mediaSize      Int?
+  mediaFileName  String?
   isRead         Boolean      @default(false)
   conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
   sender         User         @relation(fields: [senderId], references: [id])

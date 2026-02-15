@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Controller,
   Get,
   Post,
@@ -13,10 +14,14 @@ import {
   HttpStatus,
   UsePipes,
   ValidationPipe,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam, ApiQuery } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam, ApiQuery, ApiConsumes, ApiBody } from '@nestjs/swagger';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { ChatService } from './chat.service';
 import { SendMessageDto } from './dto/send-message.dto';
+import { SendMediaMessageDto } from './dto/send-media-message.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @ApiTags('Chat/Mensagens')
@@ -91,6 +96,47 @@ export class ChatController {
     @Body() data: SendMessageDto,
   ) {
     return this.chatService.sendMessage(req.user.id, recipientUserId, data);
+  }
+
+  @ApiOperation({
+    summary: 'Enviar mídia',
+    description: 'Envia imagem, vídeo ou áudio para um usuário. Aceita legenda opcional no campo content.',
+  })
+  @ApiBearerAuth()
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      required: ['file'],
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+          description: 'Arquivo de mídia (imagem, vídeo ou áudio)',
+        },
+        content: {
+          type: 'string',
+          description: 'Legenda opcional',
+        },
+      },
+    },
+  })
+  @ApiParam({ name: 'recipientUserId', type: Number, description: 'ID do usuário destinatário' })
+  @ApiResponse({ status: 201, description: 'Mídia enviada com sucesso' })
+  @Post(':recipientUserId/media')
+  @UseInterceptors(FileInterceptor('file'))
+  @HttpCode(HttpStatus.CREATED)
+  async sendMediaMessage(
+    @Req() req: any,
+    @Param('recipientUserId', ParseIntPipe) recipientUserId: number,
+    @Body() data: SendMediaMessageDto,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    if (!file) {
+      throw new BadRequestException('Arquivo de mídia é obrigatório.');
+    }
+
+    return this.chatService.sendMediaMessage(req.user.id, recipientUserId, data, file);
   }
 
   @ApiOperation({
