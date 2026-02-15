@@ -270,6 +270,15 @@ export class ChatGateway
         id: message.id,
         conversationId,
         content: message.content,
+        type: message.type,
+        media: message.mediaKey
+          ? {
+              key: message.mediaKey,
+              mimeType: message.mediaMimeType,
+              size: message.mediaSize,
+              fileName: message.mediaFileName,
+            }
+          : null,
         senderId: message.senderId,
         sender: {
           id: message.sender.id,
@@ -424,6 +433,14 @@ export class ChatGateway
     id: number;
     conversationId: number;
     content: string;
+    type?: string;
+    media?: {
+      key: string;
+      url?: string | null;
+      mimeType?: string | null;
+      size?: number | null;
+      fileName?: string | null;
+    } | null;
     senderId: number;
     sender: {
       id: number;

@@ -162,6 +162,41 @@ export class UploadService {
   }
 
   /**
+   * Faz upload de mídia para mensagens de chat (imagem, vídeo ou áudio)
+   */
+  async uploadChatMedia(
+    file: Express.Multer.File,
+    userId: number,
+  ): Promise<UploadedFileResult & { type: 'IMAGE' | 'VIDEO' | 'AUDIO' }> {
+    const fileType = this.detectFileType(file.mimetype);
+
+    if (fileType === 'IMAGE') {
+      this.validateFile(file, 'image');
+    } else if (fileType === 'VIDEO') {
+      this.validateFile(file, 'video');
+    } else {
+      this.validateFile(file, 'audio');
+    }
+
+    const fileExtension = file.originalname.split('.').pop() || 'bin';
+    const folderName = fileType.toLowerCase();
+    const key = `chat/${userId}/${folderName}/${randomUUID()}.${fileExtension}`;
+
+    const command = new PutObjectCommand({
+      Bucket: this.bucketName,
+      Key: key,
+      Body: file.buffer,
+      ContentType: file.mimetype,
+    });
+
+    await this.s3Client.send(command);
+
+    const url = await this.getSignedUrl(key);
+
+    return { url, key, type: fileType };
+  }
+
+  /**
    * Remove uma imagem do S3
    */
   async deleteFile(key: string): Promise<void> {
@@ -241,6 +276,5 @@ export class UploadService {
     return Promise.all(urlPromises);
   }
 }
-
 
 
