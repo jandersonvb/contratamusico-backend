@@ -133,15 +133,49 @@ export class ReviewService {
    * Obter estatísticas de avaliação de um músico
    */
   async getStats(musicianProfileId: number) {
+    const musician = await this.prisma.musicianProfile.findUnique({
+      where: { id: musicianProfileId },
+      select: { userId: true },
+    });
+
+    if (!musician) {
+      throw new NotFoundException('Músico não encontrado.');
+    }
+
+    const subscription = await this.prisma.subscription.findUnique({
+      where: { userId: musician.userId },
+      include: { plan: true },
+    });
+
+    const hasStatisticsAccess = !!subscription
+      && (subscription.status === 'active' || subscription.status === 'trialing')
+      && subscription.plan.hasStatistics;
+
+    if (!hasStatisticsAccess) {
+      throw new ForbiddenException(
+        'O plano atual do músico não inclui estatísticas.'
+      );
+    }
+
+    const isPremiumPlan = subscription.plan.title.trim().toLowerCase() === 'premium';
+
     const reviews = await this.prisma.review.findMany({
       where: { musicianProfileId },
       select: { rating: true },
     });
 
     if (reviews.length === 0) {
-      return {
+      const basicStats = {
         averageRating: 0,
         totalReviews: 0,
+      };
+
+      if (!isPremiumPlan) {
+        return basicStats;
+      }
+
+      return {
+        ...basicStats,
         ratingDistribution: {
           1: 0,
           2: 0,
@@ -168,9 +202,17 @@ export class ReviewService {
       ratingDistribution[r.rating as 1 | 2 | 3 | 4 | 5]++;
     });
 
-    return {
+    const basicStats = {
       averageRating,
       totalReviews,
+    };
+
+    if (!isPremiumPlan) {
+      return basicStats;
+    }
+
+    return {
+      ...basicStats,
       ratingDistribution,
     };
   }

@@ -17,6 +17,7 @@ export class ChatService {
    * Listar conversas do usuário logado
    */
   async findConversations(userId: number, _userType: UserType) {
+    void _userType;
     const conversations = await this.prisma.conversation.findMany({
       where: {
         OR: [{ userAId: userId }, { userBId: userId }],
@@ -55,6 +56,7 @@ export class ChatService {
    * Obter detalhes de uma conversa com mensagens
    */
   async findConversationById(conversationId: number, userId: number, _userType: UserType) {
+    void _userType;
     const conversation = await this.prisma.conversation.findUnique({
       where: { id: conversationId },
       include: {
@@ -309,6 +311,7 @@ export class ChatService {
    * Marcar mensagens como lidas
    */
   async markAsRead(conversationId: number, userId: number, _userType: UserType) {
+    void _userType;
     const conversation = await this.prisma.conversation.findUnique({
       where: { id: conversationId },
     });
@@ -339,6 +342,7 @@ export class ChatService {
    * Contar mensagens não lidas
    */
   async getUnreadCount(userId: number, _userType: UserType) {
+    void _userType;
     const count = await this.prisma.message.count({
       where: {
         OR: [

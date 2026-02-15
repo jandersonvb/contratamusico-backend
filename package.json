@@ -8,7 +8,8 @@
   "scripts": {
     "build": "npm run prisma:generate && nest build",
     "start:prod": "node dist/src/main",
-    "start:prod:migrate": "npx prisma migrate deploy && node dist/src/main",
+    "start:prod:migrate": "node dist/src/main",
+    "migrate:deploy": "npx prisma migrate deploy",
     "start:prod:seed": "npx prisma seed && node dist/src/main",
     "seed": "ts-node prisma/seed.ts",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
