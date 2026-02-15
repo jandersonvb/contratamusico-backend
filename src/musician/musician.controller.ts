@@ -51,6 +51,7 @@ export class MusicianController {
           priceFrom: 500,
           rating: 4.5,
           ratingCount: 10,
+          isVerified: false,
           genres: [{ id: 1, name: 'MPB', slug: 'mpb' }]
         }],
         pagination: {
@@ -165,6 +166,7 @@ export class MusicianController {
         bio: 'Músico profissional com 10 anos de experiência...',
         priceFrom: 500,
         rating: 4.8,
+        isVerified: true,
         portfolio: [],
         reviews: []
       }

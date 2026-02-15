@@ -243,15 +243,18 @@ export class PortfolioService {
 
   // Verificar limites de plano para adicionar itens no portfólio
   private async checkPlanLimits(userId: number, type: 'IMAGE' | 'VIDEO' | 'AUDIO') {
-    // 1. Buscar a assinatura ativa do usuário e o plano associado
+    // 1. Buscar assinatura do usuário e o plano associado
     const subscription = await this.prisma.subscription.findUnique({
       where: { userId },
       include: { plan: true },
     });
 
-    // Se não tiver assinatura, assumimos que é o plano Básico (ou lançamos erro, depende da sua regra)
-    // Aqui vou assumir que se não tem sub, buscamos o plano com title 'Básico' ou usamos defaults
-    let plan = subscription?.plan;
+    // Apenas assinaturas ativas/trialing recebem benefícios do plano pago.
+    // Assinaturas canceladas/past_due/incomplete caem para regras do Básico.
+    const hasPaidBenefits = !!subscription
+      && (subscription.status === 'active' || subscription.status === 'trialing');
+
+    let plan = hasPaidBenefits ? subscription?.plan : null;
 
     if (!plan) {
       // Fallback: Busca o plano Básico no banco

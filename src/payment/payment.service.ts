@@ -248,6 +248,8 @@ export class PaymentService {
       },
     });
 
+    await this.syncMusicianPrivileges(userId);
+
     // Registrar pagamento no histórico
     const planConfig = getPlanConfig(planId);
     const amount = session.amount_total || 0;
@@ -319,6 +321,8 @@ export class PaymentService {
       },
     });
 
+    await this.syncMusicianPrivileges(subscription.userId);
+
     this.logger.log(`Subscription ${subscription.id} atualizada para status: ${stripeSubscription.status}`);
   }
 
@@ -345,6 +349,8 @@ export class PaymentService {
         cancelAtPeriodEnd: true,
       },
     });
+
+    await this.syncMusicianPrivileges(subscription.userId);
 
     // Enviar email de confirmação de cancelamento
     if (subscription.user) {
@@ -498,6 +504,8 @@ export class PaymentService {
       include: { plan: true },
     });
 
+    await this.syncMusicianPrivileges(userId);
+
     this.logger.log(`Assinatura do usuário ${userId} marcada para cancelamento`);
 
     return {
@@ -549,6 +557,8 @@ export class PaymentService {
       data: { cancelAtPeriodEnd: false },
       include: { plan: true },
     });
+
+    await this.syncMusicianPrivileges(userId);
 
     this.logger.log(`Assinatura do usuário ${userId} reativada`);
 
@@ -607,6 +617,7 @@ export class PaymentService {
         where: { id: sub.id },
         data: { status: 'canceled' },
       });
+      await this.syncMusicianPrivileges(sub.userId);
       this.logger.log(`Subscription ${sub.id} marcada como expirada`);
     }
 

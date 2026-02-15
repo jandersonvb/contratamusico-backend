@@ -35,8 +35,8 @@ fi
 # Confirmar deploy
 echo "⚠️  Este script irá:"
 echo "   1. Fazer push do código para Railway"
-echo "   2. Executar migrations do Prisma"
-echo "   3. Popular banco com seed"
+echo "   2. NÃO executar migrations automaticamente"
+echo "   3. Opcionalmente popular banco com seed"
 echo ""
 read -p "Deseja continuar? (s/N): " confirm
 if [[ ! $confirm =~ ^[Ss]$ ]]; then
@@ -63,15 +63,10 @@ echo ""
 echo "⏳ Aguardando deploy..."
 sleep 10
 
-# Executar migrations
+# Migrations não são executadas automaticamente neste fluxo
 echo ""
-echo "🗄️  Executando migrations do Prisma..."
-railway run npx prisma migrate deploy
-
-if [ $? -ne 0 ]; then
-    echo "⚠️  Migrations falharam, mas o deploy foi feito"
-    echo "   Execute manualmente: railway run npx prisma migrate deploy"
-fi
+echo "ℹ️  Migrations automáticas desativadas neste script."
+echo "   Se precisar, execute manualmente: railway run npm run migrate:deploy"
 
 # Executar seed (apenas primeira vez)
 echo ""

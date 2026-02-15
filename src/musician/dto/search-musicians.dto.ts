@@ -67,7 +67,7 @@ export class SearchMusiciansDto {
 
   @IsOptional()
   @IsString()
-  sortBy?: 'rating' | 'priceFrom' | 'eventsCount' | 'createdAt' = 'rating';
+  sortBy?: 'rating' | 'priceFrom' | 'eventsCount' | 'createdAt' | 'verified' = 'rating';
 
   @IsOptional()
   @IsString()

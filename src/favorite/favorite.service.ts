@@ -175,7 +175,7 @@ export class FavoriteService {
     if (favorite.musicianProfile.user.profileImageKey) {
       try {
         profileImageUrl = await this.uploadService.getSignedUrl(favorite.musicianProfile.user.profileImageKey);
-      } catch (error) {
+      } catch {
         profileImageUrl = undefined;
       }
     }
