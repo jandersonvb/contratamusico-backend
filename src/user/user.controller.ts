@@ -5,6 +5,7 @@ import {
   Patch,
   Body,
   Req,
+  Param,
   UseGuards,
   UseInterceptors,
   UploadedFile,
@@ -12,11 +13,12 @@ import {
   HttpStatus,
   UsePipes,
   ValidationPipe,
+  ParseIntPipe,
   ParseFilePipe,
   MaxFileSizeValidator,
   FileTypeValidator,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiConsumes, ApiBody } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiConsumes, ApiBody, ApiParam } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { UserService } from './user.service';
@@ -31,6 +33,36 @@ export class UserController {
     private readonly userService: UserService,
     private readonly uploadService: UploadService,
   ) {}
+
+  @ApiOperation({
+    summary: 'Obter perfil público de contratante',
+    description: 'Retorna dados públicos de um usuário contratante (CLIENT) por ID',
+  })
+  @ApiParam({ name: 'id', type: Number, description: 'ID do contratante' })
+  @ApiResponse({
+    status: 200,
+    description: 'Perfil público do contratante',
+    schema: {
+      example: {
+        id: 2,
+        userType: 'CLIENT',
+        badgeLabel: 'Contratante',
+        name: 'João Silva',
+        profileImageUrl: 'https://bucket.s3.amazonaws.com/avatars/2/image.jpg',
+        city: 'São Paulo',
+        state: 'SP',
+        location: 'São Paulo, SP',
+        bookingsCount: 3,
+        reviewsGivenCount: 5,
+        createdAt: '2026-02-08T20:44:21.084Z',
+      },
+    },
+  })
+  @ApiResponse({ status: 404, description: 'Contratante não encontrado' })
+  @Get('clients/:id')
+  async getPublicClientProfile(@Param('id', ParseIntPipe) id: number) {
+    return this.userService.findPublicClientById(id);
+  }
 
   @ApiOperation({ 
     summary: 'Obter dados do usuário logado',

@@ -38,6 +38,12 @@ export class MusicianController {
     summary: 'Buscar músicos',
     description: 'Lista músicos com filtros de gênero, instrumento, localização, preço e rating' 
   })
+  @ApiQuery({
+    name: 'userType',
+    required: false,
+    enum: ['musician', 'client', 'all'],
+    description: 'Tipo de usuário na busca. musician (padrão), client ou all',
+  })
   @ApiResponse({ 
     status: 200, 
     description: 'Lista de músicos encontrados',

@@ -3,7 +3,7 @@ import {
   Injectable,
   NotFoundException
 } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
+import { Prisma, UserType } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { SearchMusiciansDto } from './dto/search-musicians.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
@@ -102,6 +102,26 @@ const musicianListInclude = {
   },
 } satisfies Prisma.MusicianProfileInclude;
 
+type PublicSearchItem = {
+  id: number;
+  userId: number;
+  userType: UserType;
+  badgeLabel: 'Músico' | 'Contratante';
+  name: string;
+  profileImageUrl?: string;
+  category: string | null;
+  location: string | null;
+  priceFrom: number | null;
+  rating: number | null;
+  ratingCount: number;
+  eventsCount: number;
+  isFeatured: boolean;
+  isVerified: boolean;
+  genres: Array<{ id: number; name: string; slug: string }>;
+  instruments: Array<{ id: number; name: string; slug: string }>;
+  createdAt: Date;
+};
+
 @Injectable()
 export class MusicianService {
   constructor(
@@ -114,6 +134,7 @@ export class MusicianService {
    */
   async search(query: SearchMusiciansDto, excludeUserId?: number | null) {
     const {
+      userType = 'musician',
       genres,
       instruments,
       city,
@@ -128,7 +149,15 @@ export class MusicianService {
       sortOrder = 'desc',
     } = query;
 
+    const normalizedUserType = this.normalizeSearchUserType(userType);
     const where: Prisma.MusicianProfileWhereInput = {};
+    const hasMusicianOnlyFilters = Boolean(
+      (genres && genres.length > 0) ||
+      (instruments && instruments.length > 0) ||
+      priceMin !== undefined ||
+      priceMax !== undefined ||
+      rating !== undefined,
+    );
 
     if (excludeUserId) {
       where.userId = { not: excludeUserId };
@@ -193,7 +222,7 @@ export class MusicianService {
         where.AND = [{ OR: where.OR }, { OR: searchConditions }];
         delete where.OR;
       } else {
-        where.OR = searchConditions;
+      where.OR = searchConditions;
       }
     }
 
@@ -204,6 +233,38 @@ export class MusicianService {
     else if (sortBy === 'createdAt') orderBy.createdAt = sortOrder;
 
     const skip = (page - 1) * limit;
+
+    if (normalizedUserType === UserType.CLIENT) {
+      return this.searchClients({
+        city,
+        state,
+        search,
+        page,
+        limit,
+        sortBy,
+        sortOrder,
+        excludeUserId,
+      });
+    }
+
+    if (normalizedUserType === 'ALL') {
+      return this.searchAllUsers(
+        {
+          city,
+          state,
+          search,
+          page,
+          limit,
+          sortBy,
+          sortOrder,
+          excludeUserId,
+          includeClients: !hasMusicianOnlyFilters,
+        },
+        {
+          where,
+        },
+      );
+    }
 
     if (sortBy === 'verified') {
       const musicians = await this.prisma.musicianProfile.findMany({
@@ -454,10 +515,304 @@ export class MusicianService {
 
   // ==================== HELPERS ====================
 
+  private normalizeSearchUserType(
+    userType: SearchMusiciansDto['userType'],
+  ): UserType | 'ALL' {
+    if (!userType || userType === 'musician') {
+      return UserType.MUSICIAN;
+    }
+
+    if (userType === 'client') {
+      return UserType.CLIENT;
+    }
+
+    return 'ALL';
+  }
+
+  private buildClientWhere(params: {
+    city?: string;
+    state?: string;
+    search?: string;
+    excludeUserId?: number | null;
+  }): Prisma.UserWhereInput {
+    const conditions: Prisma.UserWhereInput[] = [{ userType: UserType.CLIENT }];
+
+    if (params.excludeUserId) {
+      conditions.push({ id: { not: params.excludeUserId } });
+    }
+
+    if (params.city) {
+      conditions.push({ city: { contains: params.city } });
+    }
+
+    if (params.state) {
+      conditions.push({ state: params.state });
+    }
+
+    if (params.search) {
+      conditions.push({
+        OR: [
+          { firstName: { contains: params.search } },
+          { lastName: { contains: params.search } },
+          { city: { contains: params.search } },
+          { state: { contains: params.search } },
+        ],
+      });
+    }
+
+    return { AND: conditions };
+  }
+
+  private async searchClients(params: {
+    city?: string;
+    state?: string;
+    search?: string;
+    page: number;
+    limit: number;
+    sortBy: string;
+    sortOrder: 'asc' | 'desc';
+    excludeUserId?: number | null;
+  }) {
+    const { page, limit, sortBy, sortOrder, city, state, search, excludeUserId } = params;
+    const skip = (page - 1) * limit;
+    const where = this.buildClientWhere({ city, state, search, excludeUserId });
+    const orderBy: Prisma.UserOrderByWithRelationInput =
+      sortBy === 'createdAt' ? { createdAt: sortOrder } : { createdAt: 'desc' };
+
+    const [clients, total] = await Promise.all([
+      this.prisma.user.findMany({
+        where,
+        orderBy,
+        skip,
+        take: limit,
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          city: true,
+          state: true,
+          profileImageKey: true,
+          createdAt: true,
+        },
+      }),
+      this.prisma.user.count({ where }),
+    ]);
+
+    return {
+      data: await Promise.all(clients.map((client) => this.formatClientForList(client))),
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+        hasMore: skip + clients.length < total,
+      },
+    };
+  }
+
+  private async searchAllUsers(
+    sharedParams: {
+      city?: string;
+      state?: string;
+      search?: string;
+      page: number;
+      limit: number;
+      sortBy: string;
+      sortOrder: 'asc' | 'desc';
+      excludeUserId?: number | null;
+      includeClients: boolean;
+    },
+    musicianParams: {
+      where: Prisma.MusicianProfileWhereInput;
+    },
+  ) {
+    const { city, state, search, page, limit, sortBy, sortOrder, excludeUserId, includeClients } = sharedParams;
+    const { where } = musicianParams;
+    const skip = (page - 1) * limit;
+
+    const musicianOrderBy: Prisma.MusicianProfileOrderByWithRelationInput = {};
+    if (sortBy === 'rating') musicianOrderBy.rating = sortOrder;
+    else if (sortBy === 'priceFrom') musicianOrderBy.priceFrom = sortOrder;
+    else if (sortBy === 'eventsCount') musicianOrderBy.eventsCount = sortOrder;
+    else if (sortBy === 'createdAt') musicianOrderBy.createdAt = sortOrder;
+    const shouldApplyMusicianOrderBy =
+      sortBy !== 'verified' && Object.keys(musicianOrderBy).length > 0;
+
+    const [musiciansRaw, clientsRaw] = await Promise.all([
+      this.prisma.musicianProfile.findMany({
+        where,
+        include: musicianListInclude,
+        ...(shouldApplyMusicianOrderBy ? { orderBy: musicianOrderBy } : {}),
+      }),
+      includeClients
+        ? this.prisma.user.findMany({
+            where: this.buildClientWhere({ city, state, search, excludeUserId }),
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              city: true,
+              state: true,
+              profileImageKey: true,
+              createdAt: true,
+            },
+          })
+        : Promise.resolve([]),
+    ]);
+
+    const musiciansSorted =
+      sortBy === 'verified'
+        ? [...musiciansRaw].sort((a: any, b: any) => {
+            const aVerified = this.isPremiumVerified(a.user.subscription);
+            const bVerified = this.isPremiumVerified(b.user.subscription);
+
+            if (aVerified !== bVerified) {
+              return aVerified ? -1 : 1;
+            }
+
+            const aRating = a.rating ?? 0;
+            const bRating = b.rating ?? 0;
+            return sortOrder === 'asc' ? aRating - bRating : bRating - aRating;
+          })
+        : musiciansRaw;
+
+    const [musicianItems, clientItems] = await Promise.all([
+      Promise.all(musiciansSorted.map((m) => this.formatMusicianForList(m))),
+      Promise.all(clientsRaw.map((c) => this.formatClientForList(c))),
+    ]);
+
+    const allItems = this.sortCombinedSearchItems(
+      [...musicianItems, ...clientItems],
+      sortBy,
+      sortOrder,
+    );
+
+    const paginated = allItems.slice(skip, skip + limit);
+    const total = allItems.length;
+
+    return {
+      data: paginated,
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+        hasMore: skip + paginated.length < total,
+      },
+    };
+  }
+
+  private sortCombinedSearchItems(
+    items: PublicSearchItem[],
+    sortBy: string,
+    sortOrder: 'asc' | 'desc',
+  ): PublicSearchItem[] {
+    const sorted = [...items];
+    const direction = sortOrder === 'asc' ? 1 : -1;
+
+    sorted.sort((a, b) => {
+      if (sortBy === 'createdAt') {
+        return (a.createdAt.getTime() - b.createdAt.getTime()) * direction;
+      }
+
+      // Para métricas específicas de músicos, músicos vêm primeiro.
+      if (a.userType !== b.userType) {
+        return a.userType === UserType.MUSICIAN ? -1 : 1;
+      }
+
+      if (sortBy === 'verified') {
+        if (a.isVerified !== b.isVerified) {
+          return a.isVerified ? -1 : 1;
+        }
+        return ((a.rating ?? 0) - (b.rating ?? 0)) * direction;
+      }
+
+      if (sortBy === 'rating') {
+        return ((a.rating ?? 0) - (b.rating ?? 0)) * direction;
+      }
+
+      if (sortBy === 'priceFrom') {
+        return this.compareNullableNumber(a.priceFrom, b.priceFrom, sortOrder);
+      }
+
+      if (sortBy === 'eventsCount') {
+        return (a.eventsCount - b.eventsCount) * direction;
+      }
+
+      return (a.createdAt.getTime() - b.createdAt.getTime()) * direction;
+    });
+
+    return sorted;
+  }
+
+  private compareNullableNumber(
+    a: number | null,
+    b: number | null,
+    sortOrder: 'asc' | 'desc',
+  ): number {
+    if (a === null && b === null) {
+      return 0;
+    }
+
+    if (a === null) {
+      return 1;
+    }
+
+    if (b === null) {
+      return -1;
+    }
+
+    return sortOrder === 'asc' ? a - b : b - a;
+  }
+
+  private async formatClientForList(client: {
+    id: number;
+    firstName: string;
+    lastName: string;
+    city: string | null;
+    state: string | null;
+    profileImageKey: string | null;
+    createdAt: Date;
+  }): Promise<PublicSearchItem> {
+    let profileImageUrl: string | undefined;
+    if (client.profileImageKey) {
+      try {
+        profileImageUrl = await this.uploadService.getSignedUrl(client.profileImageKey);
+      } catch {
+        profileImageUrl = undefined;
+      }
+    }
+
+    const location =
+      client.city || client.state
+        ? `${client.city || ''}${client.city && client.state ? ', ' : ''}${client.state || ''}`
+        : null;
+
+    return {
+      id: client.id,
+      userId: client.id,
+      userType: UserType.CLIENT,
+      badgeLabel: 'Contratante',
+      name: `${client.firstName} ${client.lastName}`,
+      profileImageUrl,
+      category: 'Contratante',
+      location,
+      priceFrom: null,
+      rating: null,
+      ratingCount: 0,
+      eventsCount: 0,
+      isFeatured: false,
+      isVerified: false,
+      genres: [],
+      instruments: [],
+      createdAt: client.createdAt,
+    };
+  }
+
   /**
    * Formatar músico para listagem
    */
-  private async formatMusicianForList(musician: any) {
+  private async formatMusicianForList(musician: any): Promise<PublicSearchItem> {
     let profileImageUrl: string | undefined;
     if (musician.user.profileImageKey) {
       try {
@@ -473,12 +828,19 @@ export class MusicianService {
 
     return {
       id: musician.id,
+      userId: musician.user.id,
+      userType: UserType.MUSICIAN,
+      badgeLabel: 'Músico',
       name: `${musician.user.firstName} ${musician.user.lastName}`,
       profileImageUrl,
-      category: musician.category,
-      location: musician.location || `${musician.user.city}, ${musician.user.state}`,
-      priceFrom: musician.priceFrom,
-      rating: musician.rating,
+      category: musician.category || null,
+      location:
+        musician.location ||
+        (musician.user.city || musician.user.state
+          ? `${musician.user.city || ''}${musician.user.city && musician.user.state ? ', ' : ''}${musician.user.state || ''}`
+          : null),
+      priceFrom: musician.priceFrom ?? null,
+      rating: musician.rating ?? 0,
       ratingCount: musician.ratingCount,
       eventsCount: musician.eventsCount,
       isFeatured: musician.isFeatured,
@@ -493,6 +855,7 @@ export class MusicianService {
         name: mi.instrument.name,
         slug: mi.instrument.slug,
       })),
+      createdAt: musician.createdAt,
     };
   }
 
