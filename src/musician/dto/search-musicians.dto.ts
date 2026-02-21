@@ -1,4 +1,4 @@
-import { IsOptional, IsString, IsNumber, Min, Max, IsArray } from 'class-validator';
+import { IsOptional, IsString, IsNumber, Min, Max, IsArray, IsIn } from 'class-validator';
 import { Transform, Type } from 'class-transformer';
 
 // Helper para transformar string ou array em array
@@ -9,6 +9,12 @@ const toArray = (value: any): string[] | undefined => {
 };
 
 export class SearchMusiciansDto {
+  @IsOptional()
+  @IsString()
+  @Transform(({ value }) => value?.toLowerCase())
+  @IsIn(['musician', 'client', 'all'], { message: 'userType must be musician, client or all.' })
+  userType?: 'musician' | 'client' | 'all' = 'musician';
+
   @IsOptional()
   @Transform(({ value }) => toArray(value))
   @IsArray()

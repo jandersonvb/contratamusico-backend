@@ -169,6 +169,75 @@ export class UserService {
   }
 
   /**
+   * Buscar perfil público de contratante por ID
+   */
+  async findPublicClientById(id: number): Promise<{
+    id: number;
+    userType: UserType;
+    badgeLabel: 'Contratante';
+    name: string;
+    profileImageUrl?: string;
+    city: string | null;
+    state: string | null;
+    location: string | null;
+    bookingsCount: number;
+    reviewsGivenCount: number;
+    createdAt: Date;
+  }> {
+    const user = await this.prismaService.user.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        userType: true,
+        city: true,
+        state: true,
+        profileImageKey: true,
+        createdAt: true,
+        _count: {
+          select: {
+            bookings: true,
+            reviewsGiven: true,
+          },
+        },
+      },
+    });
+
+    if (!user || user.userType !== UserType.CLIENT) {
+      throw new NotFoundException('Contratante não encontrado.');
+    }
+
+    let profileImageUrl: string | undefined;
+    if (user.profileImageKey) {
+      try {
+        profileImageUrl = await this.uploadService.getSignedUrl(user.profileImageKey);
+      } catch {
+        profileImageUrl = undefined;
+      }
+    }
+
+    const location =
+      user.city || user.state
+        ? `${user.city || ''}${user.city && user.state ? ', ' : ''}${user.state || ''}`
+        : null;
+
+    return {
+      id: user.id,
+      userType: user.userType,
+      badgeLabel: 'Contratante',
+      name: `${user.firstName} ${user.lastName}`,
+      profileImageUrl,
+      city: user.city,
+      state: user.state,
+      location,
+      bookingsCount: user._count.bookings,
+      reviewsGivenCount: user._count.reviewsGiven,
+      createdAt: user.createdAt,
+    };
+  }
+
+  /**
    * Atualizar dados pessoais do usuário
    */
   async update(id: number, data: UpdateUserDto): Promise<Omit<User, 'passwordHash'> & { musicianProfile?: any; profileImageUrl?: string }> {
