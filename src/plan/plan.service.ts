@@ -24,7 +24,8 @@ export class PlanService {
     if (type === 'musician') {
       where = { isMusicianPlan: true };
     } else if (type === 'client') {
-      where = { isClientPlan: true };
+      // Regra atual de negócio: contratantes não possuem planos.
+      return [];
     }
 
     const plans = await this.prisma.plan.findMany({

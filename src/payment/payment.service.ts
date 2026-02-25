@@ -4,6 +4,7 @@ import {
   BadRequestException,
   NotFoundException,
 } from '@nestjs/common';
+import { UserType } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { StripeService } from './stripe.service';
 import { EmailService } from '../email/email.service';
@@ -109,6 +110,10 @@ export class PaymentService {
       throw new NotFoundException('Usuário não encontrado');
     }
 
+    if (user.userType === UserType.CLIENT) {
+      throw new BadRequestException('Contratantes não possuem planos no momento.');
+    }
+
     // Verificar se já tem assinatura ativa
     if (user.subscription?.status === 'active' && !user.subscription.cancelAtPeriodEnd) {
       throw new BadRequestException('Você já possui uma assinatura ativa. Acesse o portal para gerenciá-la.');
@@ -118,6 +123,10 @@ export class PaymentService {
     const plan = await this.prisma.plan.findUnique({ where: { id: planId } });
     if (!plan) {
       throw new NotFoundException('Plano não encontrado');
+    }
+
+    if (!plan.isMusicianPlan) {
+      throw new BadRequestException('Este plano não está disponível para músicos.');
     }
 
     // Obter Price ID do Stripe
