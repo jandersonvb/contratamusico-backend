@@ -23,6 +23,7 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { ChatService } from './chat.service';
 import { SendMessageDto } from './dto/send-message.dto';
 import { SendMediaMessageDto } from './dto/send-media-message.dto';
+import { StartConversationDto } from './dto/start-conversation.dto';
 
 @ApiTags('Chat/Mensagens (legado)')
 @Controller('chat')
@@ -107,6 +108,18 @@ export class ChatLegacyController {
     @Param('id', ParseIntPipe) id: number,
   ) {
     return this.chatService.markAsRead(id, req.user.id, req.user.userType);
+  }
+
+  @ApiOperation({
+    summary: 'Iniciar conversa sem mensagem (legado)',
+    description: 'Compatibilidade para clientes que desejam abrir o chat sem enviar mensagem automática.',
+  })
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Conversa iniciada com sucesso' })
+  @Post('conversations/start')
+  @HttpCode(HttpStatus.CREATED)
+  async startConversation(@Req() req: any, @Body() data: StartConversationDto) {
+    return this.chatService.startConversation(req.user.id, data);
   }
 
   @ApiOperation({

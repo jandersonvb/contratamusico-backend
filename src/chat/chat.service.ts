@@ -3,6 +3,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { ChatMessageType, UserType } from '@prisma/client';
 import { SendMessageDto } from './dto/send-message.dto';
 import { SendMediaMessageDto } from './dto/send-media-message.dto';
+import { StartConversationDto } from './dto/start-conversation.dto';
 import { UploadService } from '../upload/upload.service';
 import { ChatGateway } from './chat.gateway';
 
@@ -201,20 +202,10 @@ export class ChatService {
       return this.sendMessage(senderId, recipientUserId, data);
     }
 
-    let recipientUserId = data.recipientUserId;
-
-    if (!recipientUserId && data.musicianProfileId) {
-      const musician = await this.prisma.musicianProfile.findUnique({
-        where: { id: data.musicianProfileId },
-        select: { userId: true },
-      });
-
-      if (!musician) {
-        throw new NotFoundException('Perfil de músico não encontrado.');
-      }
-
-      recipientUserId = musician.userId;
-    }
+    const recipientUserId = await this.resolveRecipientUserId({
+      recipientUserId: data.recipientUserId,
+      musicianProfileId: data.musicianProfileId,
+    });
 
     if (!recipientUserId) {
       throw new BadRequestException('recipientUserId ou musicianProfileId é obrigatório.');
@@ -245,26 +236,79 @@ export class ChatService {
       return this.sendMediaMessage(senderId, recipientUserId, data, file);
     }
 
-    let recipientUserId = data.recipientUserId;
-
-    if (!recipientUserId && data.musicianProfileId) {
-      const musician = await this.prisma.musicianProfile.findUnique({
-        where: { id: data.musicianProfileId },
-        select: { userId: true },
-      });
-
-      if (!musician) {
-        throw new NotFoundException('Perfil de músico não encontrado.');
-      }
-
-      recipientUserId = musician.userId;
-    }
+    const recipientUserId = await this.resolveRecipientUserId({
+      recipientUserId: data.recipientUserId,
+      musicianProfileId: data.musicianProfileId,
+    });
 
     if (!recipientUserId) {
       throw new BadRequestException('recipientUserId ou musicianProfileId é obrigatório.');
     }
 
     return this.sendMediaMessage(senderId, recipientUserId, data, file);
+  }
+
+  async startConversation(senderId: number, data: StartConversationDto) {
+    const recipientUserId = await this.resolveRecipientUserId(data);
+
+    if (!recipientUserId) {
+      throw new BadRequestException('recipientUserId ou musicianProfileId é obrigatório.');
+    }
+
+    if (recipientUserId === senderId) {
+      throw new BadRequestException('Você não pode iniciar conversa com si mesmo.');
+    }
+
+    const recipient = await this.prisma.user.findUnique({
+      where: { id: recipientUserId },
+      select: { id: true },
+    });
+
+    if (!recipient) {
+      throw new NotFoundException('Destinatário não encontrado.');
+    }
+
+    const { userAId, userBId } = this.getOrderedParticipants(senderId, recipientUserId);
+
+    const existingConversation = await this.prisma.conversation.findUnique({
+      where: {
+        userAId_userBId: {
+          userAId,
+          userBId,
+        },
+      },
+      select: { id: true },
+    });
+
+    const conversation = await this.prisma.conversation.upsert({
+      where: {
+        userAId_userBId: {
+          userAId,
+          userBId,
+        },
+      },
+      update: {},
+      create: {
+        userAId,
+        userBId,
+      },
+      select: {
+        id: true,
+        createdAt: true,
+      },
+    });
+
+    this.chatGateway.addUserToConversationRoom(senderId, conversation.id);
+    this.chatGateway.addUserToConversationRoom(recipientUserId, conversation.id);
+
+    return {
+      message: existingConversation ? 'Conversa já existente.' : 'Conversa iniciada com sucesso.',
+      data: {
+        conversationId: conversation.id,
+        alreadyExists: Boolean(existingConversation),
+        createdAt: conversation.createdAt,
+      },
+    };
   }
 
   /**
@@ -642,5 +686,26 @@ export class ChatService {
       size: msg.mediaSize || null,
       fileName: msg.mediaFileName || null,
     };
+  }
+
+  private async resolveRecipientUserId(data: { recipientUserId?: number; musicianProfileId?: number }) {
+    if (data.recipientUserId) {
+      return data.recipientUserId;
+    }
+
+    if (!data.musicianProfileId) {
+      return undefined;
+    }
+
+    const musician = await this.prisma.musicianProfile.findUnique({
+      where: { id: data.musicianProfileId },
+      select: { userId: true },
+    });
+
+    if (!musician) {
+      throw new NotFoundException('Perfil de músico não encontrado.');
+    }
+
+    return musician.userId;
   }
 }
