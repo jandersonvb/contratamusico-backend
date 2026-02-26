@@ -22,6 +22,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ChatService } from './chat.service';
 import { SendMessageDto } from './dto/send-message.dto';
 import { SendMediaMessageDto } from './dto/send-media-message.dto';
+import { StartConversationDto } from './dto/start-conversation.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @ApiTags('Chat/Mensagens')
@@ -77,6 +78,18 @@ export class ChatController {
   @Get('unread/count')
   async getUnreadCount(@Req() req: any) {
     return this.chatService.getUnreadCount(req.user.id, req.user.userType);
+  }
+
+  @ApiOperation({
+    summary: 'Iniciar conversa sem mensagem',
+    description: 'Cria (ou recupera) a conversa entre usuário logado e destinatário sem enviar mensagem automática.',
+  })
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Conversa iniciada com sucesso' })
+  @Post('start')
+  @HttpCode(HttpStatus.CREATED)
+  async startConversation(@Req() req: any, @Body() data: StartConversationDto) {
+    return this.chatService.startConversation(req.user.id, data);
   }
 
   @ApiOperation({
