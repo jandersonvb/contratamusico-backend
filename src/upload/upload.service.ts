@@ -13,9 +13,10 @@ export class UploadService {
   private readonly s3Client: S3Client;
   private readonly bucketName: string;
   private readonly region: string;
+  private readonly endpointUrl?: string;
 
   // Tipos de arquivo permitidos
-  private readonly allowedImageTypes = ['image/jpeg', 'image/png', 'image/webp'];
+  private readonly allowedImageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
   private readonly allowedVideoTypes = ['video/mp4', 'video/webm', 'video/quicktime'];
   private readonly allowedAudioTypes = ['audio/mpeg', 'audio/wav', 'audio/ogg'];
   
@@ -26,7 +27,8 @@ export class UploadService {
   constructor() {
     this.region = process.env.AWS_DEFAULT_REGION || 'us-east-1';
     this.bucketName = process.env.AWS_S3_BUCKET_NAME || '';
-    const endpoint = process.env.AWS_ENDPOINT_URL;
+    this.endpointUrl = process.env.AWS_ENDPOINT_URL?.trim() || undefined;
+    const endpoint = this.endpointUrl;
 
     const clientConfig: any = {
       region: this.region,
@@ -43,6 +45,51 @@ export class UploadService {
     }
 
     this.s3Client = new S3Client(clientConfig);
+  }
+
+  private isHttpUrl(value: string): boolean {
+    return /^https?:\/\//i.test(value);
+  }
+
+  /**
+   * Aceita tanto key pura (ex: avatars/1/file.jpg) quanto URL completa.
+   */
+  private resolveKey(keyOrUrl: string): string {
+    if (!keyOrUrl) {
+      throw new BadRequestException('Chave do arquivo não fornecida.');
+    }
+
+    if (!this.isHttpUrl(keyOrUrl)) {
+      return keyOrUrl;
+    }
+
+    const extractedKey = this.extractKeyFromUrl(keyOrUrl);
+    if (!extractedKey) {
+      throw new BadRequestException(
+        'Não foi possível extrair a chave do arquivo a partir da URL informada.',
+      );
+    }
+
+    return extractedKey;
+  }
+
+  /**
+   * Constrói URL "canônica" do arquivo (não assinada) para armazenamento.
+   * A API continua gerando URL assinada na resposta.
+   */
+  buildFileUrl(key: string): string {
+    if (!key) {
+      throw new BadRequestException('Chave do arquivo não fornecida.');
+    }
+
+    const normalizedKey = key.replace(/^\/+/, '');
+
+    if (this.endpointUrl) {
+      const normalizedEndpoint = this.endpointUrl.replace(/\/+$/, '');
+      return `${normalizedEndpoint}/${this.bucketName}/${normalizedKey}`;
+    }
+
+    return `https://${this.bucketName}.s3.${this.region}.amazonaws.com/${normalizedKey}`;
   }
 
   /**
@@ -71,9 +118,11 @@ export class UploadService {
         break;
     }
 
-    if (!allowedTypes.includes(file.mimetype)) {
+    const normalizedMimeType = (file.mimetype || '').toLowerCase();
+
+    if (!allowedTypes.includes(normalizedMimeType)) {
       throw new BadRequestException(
-        `Tipo de arquivo não permitido. Use: ${allowedTypes.join(', ')}`,
+        `Tipo de arquivo não permitido (${file.mimetype || 'desconhecido'}). Use: ${allowedTypes.join(', ')}`,
       );
     }
 
@@ -88,9 +137,10 @@ export class UploadService {
    * Detecta o tipo de arquivo baseado no mimetype
    */
   detectFileType(mimetype: string): 'IMAGE' | 'VIDEO' | 'AUDIO' {
-    if (this.allowedImageTypes.includes(mimetype)) return 'IMAGE';
-    if (this.allowedVideoTypes.includes(mimetype)) return 'VIDEO';
-    if (this.allowedAudioTypes.includes(mimetype)) return 'AUDIO';
+    const normalizedMimeType = (mimetype || '').toLowerCase();
+    if (this.allowedImageTypes.includes(normalizedMimeType)) return 'IMAGE';
+    if (this.allowedVideoTypes.includes(normalizedMimeType)) return 'VIDEO';
+    if (this.allowedAudioTypes.includes(normalizedMimeType)) return 'AUDIO';
     throw new BadRequestException('Tipo de arquivo não suportado');
   }
 
@@ -199,8 +249,10 @@ export class UploadService {
   /**
    * Remove uma imagem do S3
    */
-  async deleteFile(key: string): Promise<void> {
-    if (!key) return;
+  async deleteFile(keyOrUrl: string): Promise<void> {
+    if (!keyOrUrl) return;
+
+    const key = this.resolveKey(keyOrUrl);
 
     const command = new DeleteObjectCommand({
       Bucket: this.bucketName,
@@ -240,10 +292,12 @@ export class UploadService {
    * @param expiresIn - Tempo de expiração em segundos (padrão: 7 dias)
    * @returns URL assinada válida temporariamente
    */
-  async getSignedUrl(key: string, expiresIn: number = 604800): Promise<string> {
-    if (!key) {
+  async getSignedUrl(keyOrUrl: string, expiresIn: number = 604800): Promise<string> {
+    if (!keyOrUrl) {
       throw new BadRequestException('Chave do arquivo não fornecida.');
     }
+
+    const key = this.resolveKey(keyOrUrl);
 
     const command = new GetObjectCommand({
       Bucket: this.bucketName,

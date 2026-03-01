@@ -266,7 +266,7 @@ export class UserService {
   }
 
   /**
-   * Atualizar key da imagem de perfil do usuário
+   * Atualizar referência da imagem de perfil do usuário (key ou URL)
    */
   async updateProfileImage(id: number, profileImageKey: string): Promise<Omit<User, 'passwordHash'> & { musicianProfile?: any; profileImageUrl?: string }> {
     const existing = await this.prismaService.user.findUnique({

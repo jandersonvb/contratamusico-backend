@@ -422,11 +422,12 @@ export class MusicianService {
       });
 
       if (firstImage) {
+        const imageUrl = this.uploadService.buildFileUrl(firstImage.fileKey);
         await this.prisma.user.update({
           where: { id: userId },
-          data: { profileImageKey: firstImage.fileKey },
+          data: { profileImageKey: imageUrl },
         });
-        updated.user.profileImageKey = firstImage.fileKey;
+        updated.user.profileImageKey = imageUrl;
       }
     }
 
