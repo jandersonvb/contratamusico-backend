@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Controller,
   Get,
   Post,
@@ -8,18 +9,16 @@ import {
   Param,
   UseGuards,
   UseInterceptors,
-  UploadedFile,
+  UploadedFiles,
   HttpCode,
   HttpStatus,
   UsePipes,
   ValidationPipe,
   ParseIntPipe,
-  ParseFilePipe,
-  MaxFileSizeValidator,
-  FileTypeValidator,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiConsumes, ApiBody, ApiParam } from '@nestjs/swagger';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { SkipThrottle } from '@nestjs/throttler';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -94,6 +93,7 @@ export class UserController {
   })
   @ApiResponse({ status: 401, description: 'Não autenticado' })
   @Get('me')
+  @SkipThrottle()
   @UseGuards(JwtAuthGuard)
   async getMe(@Req() req: any) {
     return this.userService.findById(req.user.id);
@@ -127,9 +127,19 @@ export class UserController {
         file: {
           type: 'string',
           format: 'binary',
-          description: 'Arquivo de imagem (JPEG, PNG ou WebP)'
-        }
-      }
+          description: 'Arquivo de imagem (JPEG, PNG ou WebP). Campo recomendado.'
+        },
+        avatar: {
+          type: 'string',
+          format: 'binary',
+          description: 'Campo alternativo aceito para compatibilidade'
+        },
+        image: {
+          type: 'string',
+          format: 'binary',
+          description: 'Campo alternativo aceito para compatibilidade'
+        },
+      },
     }
   })
   @ApiResponse({ 
@@ -146,28 +156,43 @@ export class UserController {
   @ApiResponse({ status: 401, description: 'Não autenticado' })
   @Post('me/avatar')
   @UseGuards(JwtAuthGuard)
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(
+    FileFieldsInterceptor([
+      { name: 'file', maxCount: 1 },
+      { name: 'avatar', maxCount: 1 },
+      { name: 'image', maxCount: 1 },
+    ]),
+  )
   @HttpCode(HttpStatus.OK)
   async uploadAvatar(
     @Req() req: any,
-    @UploadedFile(
-      new ParseFilePipe({
-        validators: [
-          new MaxFileSizeValidator({ maxSize: 5 * 1024 * 1024 }), // 5MB
-          new FileTypeValidator({ fileType: /^image\/(jpeg|png|webp)$/ }),
-        ],
-      }),
-    )
-    file: Express.Multer.File,
+    @UploadedFiles()
+    files: {
+      file?: Express.Multer.File[];
+      avatar?: Express.Multer.File[];
+      image?: Express.Multer.File[];
+    },
   ) {
+    const file = files?.file?.[0] ?? files?.avatar?.[0] ?? files?.image?.[0];
+
+    if (!file) {
+      throw new BadRequestException(
+        'Nenhum arquivo enviado. Use o campo "file" (ou "avatar"/"image").',
+      );
+    }
+
+    // Mantém as mesmas regras: JPEG/PNG/WebP e 5MB
+    this.uploadService.validateFile(file, 'image');
+
     // Obter key da imagem atual para deletar depois
     const currentImageKey = await this.userService.getProfileImageKey(req.user.id);
     
     // Fazer upload da nova imagem
     const { key } = await this.uploadService.uploadProfileImage(file, req.user.id);
-    
-    // Atualizar key no banco de dados (a URL assinada será gerada automaticamente)
-    const updatedUser = await this.userService.updateProfileImage(req.user.id, key);
+
+    // Salvar URL canônica no banco; a URL assinada continua sendo gerada na resposta.
+    const imageUrl = this.uploadService.buildFileUrl(key);
+    const updatedUser = await this.userService.updateProfileImage(req.user.id, imageUrl);
     
     // Deletar imagem antiga do S3 (se existir)
     if (currentImageKey) {

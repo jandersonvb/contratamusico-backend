@@ -180,9 +180,10 @@ export class PortfolioService {
       });
 
       if (!user?.profileImageKey) {
+        const imageUrl = this.uploadService.buildFileUrl(key);
         await this.prisma.user.update({
           where: { id: userId },
-          data: { profileImageKey: key },
+          data: { profileImageKey: imageUrl },
         });
       }
     }
